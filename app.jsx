@@ -21,6 +21,7 @@ const FadeInUp = ({ children, delay = 0 }) => {
 const App = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         // Auto light/dark mode based on geographic local time
@@ -77,11 +78,11 @@ const App = () => {
                     </a>
                     
                     <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-zinc-400">
-                        <a href="#about" className="hover:text-blue-600 dark:hover:text-blue-400 transition">About</a>
-                        <a href="#projects" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Case Studies</a>
-                        <a href="#skills" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Skills</a>
-                        <a href="#experience" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Experience</a>
-                        <a href="#contact" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Contact</a>
+                        <a href="#about" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">About</a>
+                        <a href="#projects" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Case Studies</a>
+                        <a href="#skills" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Skills</a>
+                        <a href="#experience" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Experience</a>
+                        <a href="#contact" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Contact</a>
                     </nav>
 
                     <div className="flex items-center gap-4">
@@ -96,8 +97,32 @@ const App = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                             )}
                         </button>
+                        
+                        {/* Mobile Menu Toggle */}
+                        <button 
+                            className="md:hidden p-2 text-slate-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-800 rounded-full transition"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            aria-label="Toggle menu"
+                        >
+                            {isMenuOpen ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                            )}
+                        </button>
                     </div>
                 </div>
+
+                {/* Mobile Navigation Menu */}
+                {isMenuOpen && (
+                    <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-zinc-950 border-b border-slate-200 dark:border-zinc-800 shadow-lg shadow-black/5 py-4 px-6 flex flex-col gap-4 max-h-[calc(100vh-5rem)] overflow-y-auto">
+                        <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition border-b border-slate-100 dark:border-zinc-800/50">About</a>
+                        <a href="#projects" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition border-b border-slate-100 dark:border-zinc-800/50">Case Studies</a>
+                        <a href="#skills" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition border-b border-slate-100 dark:border-zinc-800/50">Skills</a>
+                        <a href="#experience" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition border-b border-slate-100 dark:border-zinc-800/50">Experience</a>
+                        <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Contact</a>
+                    </div>
+                )}
             </header>
 
             <main>
@@ -162,14 +187,14 @@ const HeroSection = () => {
 
                 <motion.h1 
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                    className="text-5xl md:text-7xl font-bold leading-tight mb-8 tracking-tighter text-slate-900 dark:text-white"
+                    className="text-5xl md:text-7xl font-bold leading-tight mb-8 tracking-tighter text-slate-900 dark:text-white text-glow-hover"
                 >
-                    Ayush <span className="text-blue-600 dark:text-blue-500">Chatterjee</span>
+                    Ayush <span className="text-blue-600 dark:text-blue-500 text-glow-hover">Chatterjee</span>
                 </motion.h1>
 
                 <motion.p 
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-                    className="text-lg md:text-xl text-slate-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed"
+                    className="text-lg md:text-xl text-slate-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed text-glow-hover"
                 >
                     Product-focused professional at the intersection of technology, strategy, and data-driven decision-making. 
                     Product Testing @ OnePlus &middot; Growth Research @ Innovist &middot; Founder, Karma Kama Lab-Grown Diamonds.
