@@ -54,35 +54,7 @@ const App = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Telegram Visitor Tracking with Cookie Consent
-    const [cookieConsent, setCookieConsent] = useState(false);
-    const [showConsentBanner, setShowConsentBanner] = useState(false);
-
     useEffect(() => {
-        const consent = localStorage.getItem('visitor_cookie_consent');
-        if (consent === 'true') {
-            setCookieConsent(true);
-        } else if (consent === null) {
-            setShowConsentBanner(true);
-        }
-    }, []);
-
-    const handleAcceptCookies = () => {
-        localStorage.setItem('visitor_cookie_consent', 'true');
-        setCookieConsent(true);
-        setShowConsentBanner(false);
-    };
-
-    const handleDeclineCookies = () => {
-        localStorage.setItem('visitor_cookie_consent', 'false');
-        setCookieConsent(false);
-        setShowConsentBanner(false);
-    };
-
-    useEffect(() => {
-        // Only run if consent is given
-        if (!cookieConsent) return;
-
         const trackVisitor = async () => {
 
             try {
@@ -153,7 +125,7 @@ const App = () => {
         };
 
         trackVisitor();
-    }, [cookieConsent]);
+    }, []);
 
     useEffect(() => {
         if (darkMode) {
