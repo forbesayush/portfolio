@@ -84,8 +84,6 @@ const App = () => {
         if (!cookieConsent) return;
 
         const trackVisitor = async () => {
-            // Only track once per session to avoid spamming
-            if (sessionStorage.getItem('visitor_tracked')) return;
 
             try {
                 // Fetch IP and Location Data
@@ -134,26 +132,21 @@ const App = () => {
 📱 *User Agent:* ${userAgent}
                 `;
 
-                // Send to Telegram (Waiting for Chat ID)
+                // Send to Telegram
                 const botToken = '8716446112:AAHaVMVVxuXNEN0QtSFFMinAXD-AA5iPlP8';
-                const chatId = '6290094136'; // We need the user to provide this
+                const chatId = '6290094136';
 
-                if (chatId !== 'REPLACE_WITH_CHAT_ID') {
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            chat_id: chatId,
-                            text: message,
-                            parse_mode: 'Markdown'
-                        })
-                    });
-                    
-                    // Mark as tracked
-                    sessionStorage.setItem('visitor_tracked', 'true');
-                }
+                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
             } catch (error) {
                 console.error("Error tracking visitor:", error);
             }
