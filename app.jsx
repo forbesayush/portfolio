@@ -23,10 +23,28 @@ const App = () => {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
-        // Check system preference
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setDarkMode(true);
-        }
+        // Auto light/dark mode based on geographic local time
+        const checkTimeAndPreference = () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                setDarkMode(savedTheme === 'dark');
+                return;
+            }
+            
+            // Geographic location time based mode (6 PM to 6 AM is dark mode)
+            const currentHour = new Date().getHours();
+            const isNight = currentHour >= 18 || currentHour < 6;
+            
+            if (isNight) {
+                setDarkMode(true);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setDarkMode(true);
+            } else {
+                setDarkMode(false);
+            }
+        };
+
+        checkTimeAndPreference();
 
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
@@ -42,6 +60,12 @@ const App = () => {
             document.documentElement.classList.remove('dark');
         }
     }, [darkMode]);
+
+    const toggleTheme = () => {
+        const newMode = !darkMode;
+        setDarkMode(newMode);
+        localStorage.setItem('theme', newMode ? 'dark' : 'light');
+    };
 
     return (
         <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-200 transition-colors duration-300 font-sans`}>
@@ -62,7 +86,7 @@ const App = () => {
 
                     <div className="flex items-center gap-4">
                         <button 
-                            onClick={() => setDarkMode(!darkMode)}
+                            onClick={toggleTheme}
                             className="p-2 rounded-full text-slate-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-800 transition"
                             aria-label="Toggle dark mode"
                         >
@@ -148,32 +172,33 @@ const HeroSection = () => {
                     className="text-lg md:text-xl text-slate-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed"
                 >
                     Product-focused professional at the intersection of technology, strategy, and data-driven decision-making. 
-                    Product Testing @ OnePlus &middot; Growth Research @ Innovist &middot; Founder, Karma Kama.
+                    Product Testing @ OnePlus &middot; Growth Research @ Innovist &middot; Founder, Karma Kama Lab-Grown Diamonds.
                 </motion.p>
 
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-                    className="inline-flex flex-wrap justify-center items-center gap-2 px-5 py-3 rounded-full bg-slate-100 dark:bg-zinc-900/50 text-slate-800 dark:text-zinc-300 text-sm font-medium border border-slate-200 dark:border-zinc-800 shadow-sm"
+                    className="inline-flex flex-wrap justify-center items-center px-6 py-2.5 rounded-full bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 text-sm font-medium border border-blue-200 dark:border-blue-900/50 shadow-sm"
                 >
-                    <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Forecast Accuracy +10%</span>
-                    <span className="hidden sm:inline text-slate-300 dark:text-zinc-600">&bull;</span>
-                    <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-indigo-500"></span> 5,000+ Transactions Analyzed</span>
-                    <span className="hidden sm:inline text-slate-300 dark:text-zinc-600">&bull;</span>
-                    <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-500"></span> 15+ UX Defects Identified @ OnePlus</span>
+                    <span className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-500"></span> 
+                        Forecast Accuracy +10% &middot; 5,000+ Transactions Analyzed &middot; 15+ UX Defects Identified @ OnePlus
+                    </span>
                 </motion.div>
 
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-                    className="flex flex-col sm:flex-row items-center gap-4 mt-12 w-full sm:w-auto"
+                    className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12 w-full sm:w-auto"
                 >
-                    <a href="#projects" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2">
+                    <a href="#projects" className="w-full sm:w-auto px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-medium transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
                         View Projects
                     </a>
-                    <a href="#contact" className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-transparent border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-zinc-800 rounded-full font-medium transition-all flex items-center justify-center gap-2">
+                    <a href="#contact" className="w-full sm:w-auto px-8 py-3.5 bg-transparent border border-slate-300 dark:border-zinc-700 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-zinc-800/50 rounded-full font-medium transition-all flex items-center justify-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         Contact Me
                     </a>
-                    <a href="#" className="w-14 h-14 rounded-full border border-slate-200 dark:border-zinc-700 flex items-center justify-center text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-all flex-shrink-0" title="LinkedIn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    <a href="#" className="flex items-center justify-center gap-2 text-slate-900 dark:text-white font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-3.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-80"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                        LinkedIn
                     </a>
                 </motion.div>
                 
@@ -229,11 +254,13 @@ const AboutSection = () => {
         <section id="about" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950">
             <div className="container mx-auto max-w-5xl">
                 <div className="text-center mb-16">
-                    <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">ABOUT ME</div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Product Philosophy</h2>
-                    <p className="text-slate-600 dark:text-zinc-400 max-w-3xl mx-auto leading-relaxed md:text-lg">
-                        Product-focused professional working at the intersection of technology, strategy, and data-driven decision-making. My experience spans product validation (OnePlus), market intelligence (Innovist D2C), and retail KPI ownership — always with a focus on improving quality and outcomes.
-                    </p>
+                    <FadeInUp>
+                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">ABOUT ME</div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Product Philosophy</h2>
+                        <p className="text-slate-600 dark:text-zinc-400 max-w-3xl mx-auto leading-relaxed md:text-lg">
+                            Product-focused professional working at the intersection of technology, strategy, and data-driven decision-making. My experience spans product validation (OnePlus), market intelligence (Innovist D2C), and retail KPI ownership — always with a focus on improving quality and outcomes.
+                        </p>
+                    </FadeInUp>
                 </div>
                 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -278,13 +305,13 @@ const ProjectsSection = () => {
         },
         {
             title: "Jewelry Retail Analytics Dashboard",
-            category: "Power BI · Excel · SQL",
+            category: "Power BI · Excel",
             icon: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />,
             colorClass: "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-500/10 border-blue-100 dark:border-blue-500/20",
             problem: "Retail decision-makers lacked real-time visibility into KPIs like Conversion Rate, AOV, and Gross Margin, leading to inventory overstock and slow executive reporting.",
             hypothesis: "Building a structured MIS dashboard tracking core retail KPIs will reduce reporting errors, improve forecast accuracy, and enable faster decisions.",
-            action: "Conducted KPI mapping across Conversion Rate, AOV, Sales/sq ft, and Gross Margin %. Built MIS dashboards in Power BI and Excel with SQL-driven pipelines.",
-            tools: ["Power BI", "Excel", "SQL", "MIS Design"],
+            action: "Conducted KPI mapping across Conversion Rate, AOV, Sales/sq ft, and Gross Margin %. Built MIS dashboards in Power BI and Excel.",
+            tools: ["Power BI", "Excel", "MIS Design"],
             impactParts: [
                 "Reduced manual reporting time by 80%",
                 "Improved forecasting accuracy by 10%",
@@ -327,8 +354,10 @@ const ProjectsSection = () => {
         <section id="projects" className="py-24 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
             <div className="container mx-auto max-w-5xl">
                 <div className="text-center mb-16">
-                    <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">CASE STUDIES</div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Product Thinking in Action</h2>
+                    <FadeInUp>
+                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">CASE STUDIES</div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Product Thinking in Action</h2>
+                    </FadeInUp>
                 </div>
 
                 <div className="space-y-12">
@@ -399,49 +428,76 @@ const ProjectsSection = () => {
 const ExperienceSection = () => {
     const experiences = [
         {
-            role: "Product Testing",
-            company: "OnePlus",
-            date: "Pre-Release Quality Validation",
+            role: "Product Tester — Mobile OS & Devices (Pre-Release)",
+            company: "OnePlus Software R&D Centre Private Limited",
+            date: "SEP 2024 — DEC 2025",
             points: [
-                "Executed structured pre-release testing cycles across multiple mobile OS builds.",
-                "Documented 15+ UX and functional defects with severity classification.",
-                "Refined defect tracking workflows to accelerate cross-functional resolution."
+                "Strengthened launch readiness by executing structured pre-release testing cycles across mobile OS builds, identifying 15+ UX and functional defects that improved product stability prior to release.",
+                "Enhanced validation workflows by refining defect tracking and cross-functional feedback loops, aligning processes with IT quality standards.",
+                "Contributed to usability improvements through systematic issue prioritization and reporting, directly impacting release confidence."
             ]
         },
         {
-            role: "Founder",
-            company: "Karma Kama Lab-Grown Diamonds",
-            date: "0→1 E-commerce Growth",
+            role: "Product Research Contributor — D2C Brand Portfolio",
+            company: "Innovist (5 Skincare Brands)",
+            date: "APR 2024 — PRESENT",
             points: [
-                "Led end-to-end strategy for D2C diamond retail brand.",
-                "Oversaw product direction, online presence, and inventory management.",
-                "Established foundational KPI tracking for sales and engagement."
+                "Influenced product and growth strategy by conducting competitive benchmarking across a multi-brand D2C portfolio of 5 skincare brands.",
+                "Analyzed acquisition funnels and customer retention drivers to identify optimization opportunities, resulting in 10+ data-backed operational and positioning improvement recommendations.",
+                "Evaluated product-market positioning within the D2C ecosystem to strengthen brand differentiation and go-to-market strategy."
+            ]
+        },
+        {
+            role: "Business Analytics & Retail Operations Intern",
+            company: "D-DZIRE JEWELS — FOCO Model Analysis",
+            date: "MAY 2025 — OCT 2025",
+            points: [
+                "Built KPI dashboards tracking Conversion Rate, AOV, Sales/sq ft, and Gross Margin %; improved reporting accuracy by 8–10% through structured MIS design using Excel & SQL.",
+                "Analyzed 5,000+ transactions using Power BI and Excel, improving forecast accuracy by 10% and reducing excess inventory by 11%.",
+                "Delivered weekly executive performance insights enabling data-driven decision-making at the leadership level."
+            ]
+        },
+        {
+            role: "Industry & Competitive Strategy Intern",
+            company: "D-DZIRE JEWELS — Lab-Grown Diamonds Sector",
+            date: "MAY 2025 — OCT 2025",
+            points: [
+                "Assessed pricing models and market positioning within an emerging luxury-tech industry, enabling clearer competitive strategy for the brand.",
+                "Applied SWOT and Porter's Five Forces to evaluate D2C expansion potential and FOCO Model viability.",
+                "Conducted product and competitor analysis to identify strategic market gaps and growth opportunities."
             ]
         }
     ];
 
     return (
-        <section id="experience" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950">
+        <section id="experience" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950/80">
             <div className="container mx-auto max-w-4xl">
                 <div className="text-center mb-16">
-                    <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">EXPERIENCE</div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Outcome-oriented Execution</h2>
+                    <FadeInUp>
+                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">CAREER PATH</div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Experience</h2>
+                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
+                            Outcome-oriented roles spanning analytics, product operations, and strategic research.
+                        </p>
+                    </FadeInUp>
                 </div>
 
-                <div className="relative border-l-2 border-slate-200 dark:border-zinc-800 ml-3 md:ml-0 md:pl-0">
+                <div className="relative border-l border-slate-200 dark:border-zinc-800 ml-3 md:ml-0 md:pl-0">
                     {experiences.map((exp, i) => (
                         <FadeInUp key={i} delay={i * 0.1}>
                             <div className={`mb-12 relative ${i !== experiences.length - 1 ? '' : 'mb-0'}`}>
-                                <div className="absolute w-4 h-4 bg-blue-600 dark:bg-blue-500 rounded-full -left-[9px] top-1.5 ring-4 ring-slate-50 dark:ring-zinc-950"></div>
-                                <div className="ml-8 md:ml-12 bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm glow-effect">
-                                    <span className="text-sm font-bold text-blue-600 dark:text-blue-500 mb-1 block tracking-wider uppercase">{exp.date}</span>
-                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 tracking-tight">{exp.role}</h3>
-                                    <div className="text-slate-500 dark:text-zinc-400 font-medium mb-6 text-lg">{exp.company}</div>
-                                    <ul className="space-y-4">
+                                <div className="absolute w-2 h-2 bg-blue-600 dark:bg-blue-500 rounded-full -left-[4.5px] top-6 ring-4 ring-slate-50 dark:ring-zinc-950"></div>
+                                <div className="ml-8 md:ml-12 bg-white dark:bg-[#0a0a0c] p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm glow-effect">
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{exp.role}</h3>
+                                        <span className="text-sm font-bold text-blue-600 dark:text-blue-500 shrink-0 uppercase tracking-widest">{exp.date}</span>
+                                    </div>
+                                    <div className="text-slate-500 dark:text-zinc-400 font-medium mb-8 text-lg">{exp.company}</div>
+                                    <ul className="space-y-5">
                                         {exp.points.map((p, j) => (
                                             <li key={j} className="text-slate-700 dark:text-zinc-300 flex items-start text-base leading-relaxed">
-                                                <svg className="w-5 h-5 text-blue-500 mr-3 mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                                {p}
+                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-600 mr-4 mt-2.5 shrink-0"></div>
+                                                <span>{p}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -468,7 +524,7 @@ const SkillsSection = () => {
             title: "Analytics & Tech",
             icon: <g><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></g>,
             colorClass: "text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-500/20",
-            skills: ["Excel (Advanced)", "Power BI", "SQL", "Data Visualization", "MIS Reporting", "Workforce Analytics", "Dashboarding", "Process Optimization"]
+            skills: ["Excel (Advanced)", "Power BI", "Data Visualization", "MIS Reporting", "Workforce Analytics", "Dashboarding", "Process Optimization"]
         },
         {
             title: "Business & Strategy",
@@ -482,11 +538,13 @@ const SkillsSection = () => {
         <section id="skills" className="py-24 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
             <div className="container mx-auto max-w-5xl">
                 <div className="text-center mb-16">
-                    <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">TOOLKIT</div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Skills &amp; Expertise</h2>
-                    <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
-                        A versatile skill set spanning product management, data analytics, and business strategy.
-                    </p>
+                    <FadeInUp>
+                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">TOOLKIT</div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Skills &amp; Expertise</h2>
+                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
+                            A versatile skill set spanning product management, data analytics, and business strategy.
+                        </p>
+                    </FadeInUp>
                 </div>
                 
                 <div className="grid md:grid-cols-3 gap-8">
@@ -517,47 +575,75 @@ const SkillsSection = () => {
     );
 };
 
+/* --- Education Section --- */
 const EducationSection = () => {
     return (
-        <section id="education" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950">
-            <div className="container mx-auto max-w-5xl">
+        <section id="education" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950/80">
+            <div className="container mx-auto max-w-4xl">
                  <div className="text-center mb-16">
-                    <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">EDUCATION</div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Academic Background</h2>
+                    <FadeInUp>
+                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">EDUCATION</div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Academic Background</h2>
+                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
+                            A strong technical and business foundation combining IT expertise with strategic management.
+                        </p>
+                    </FadeInUp>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-8">
                     <FadeInUp delay={0.1}>
-                        <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm h-full glow-effect">
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">Master of Business Administration (MBA)</h3>
-                            <div className="text-blue-600 dark:text-blue-500 font-semibold mb-6">Regional College of Management, Bhubaneswar</div>
+                        <div className="bg-white dark:bg-[#0a0a0c] rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+                                <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-500 shrink-0 border border-blue-100 dark:border-blue-900/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                                </div>
+                                <div className="text-sm font-bold text-blue-600 dark:text-blue-500 tracking-widest uppercase">AUG 2025 — APR 2027</div>
+                            </div>
                             
-                            <div className="text-slate-700 dark:text-zinc-300 mb-6 font-medium">Specialization: IT & HR Strategy</div>
+                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">MBA — Information Technology &amp; Marketing</h3>
+                            <div className="text-slate-500 dark:text-zinc-400 text-lg mb-2">Regional College of Management (RCM), Bhubaneswar</div>
+                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">SGPA: 7.1 &middot; Strategic Management, IT &amp; HR Strategy</div>
 
                             <div className="border-t border-slate-100 dark:border-zinc-800 pt-6">
-                                <div className="text-xs font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase mb-3">Relevant Coursework</div>
+                                <div className="flex items-center gap-2 mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 dark:text-zinc-500"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                                    <div className="text-[11px] font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase">KEY COURSEWORK</div>
+                                </div>
                                 <div className="flex flex-wrap gap-2">
-                                    <span className="px-3 py-1.5 bg-slate-50 dark:bg-zinc-800 rounded-lg text-xs font-semibold text-slate-600 dark:text-zinc-300">Product Strategy</span>
-                                    <span className="px-3 py-1.5 bg-slate-50 dark:bg-zinc-800 rounded-lg text-xs font-semibold text-slate-600 dark:text-zinc-300">Data-Driven Decision Making</span>
-                                    <span className="px-3 py-1.5 bg-slate-50 dark:bg-zinc-800 rounded-lg text-xs font-semibold text-slate-600 dark:text-zinc-300">IT Systems Management</span>
+                                    {["Product Strategy", "IT Management", "HR Strategy", "Marketing Management", "Business Analytics"].map(course => (
+                                        <span key={course} className="px-5 py-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-full text-sm font-semibold text-slate-600 dark:text-zinc-400">
+                                            {course}
+                                        </span>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </FadeInUp>
-
+                    
                     <FadeInUp delay={0.2}>
-                        <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm h-full glow-effect">
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">Bachelor of Business Administration (BBA)</h3>
-                            <div className="text-blue-600 dark:text-blue-500 font-semibold mb-6">Regional College of Management, Bhubaneswar</div>
+                        <div className="bg-white dark:bg-[#0a0a0c] rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+                                <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-500 shrink-0 border border-blue-100 dark:border-blue-900/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                                </div>
+                                <div className="text-sm font-bold text-blue-600 dark:text-blue-500 tracking-widest uppercase">AUG 2022 — JUN 2025</div>
+                            </div>
                             
-                            <div className="text-slate-700 dark:text-zinc-300 mb-6 font-medium">Foundation in Business Principles</div>
+                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">BBA — Bachelor of Business Administration</h3>
+                            <div className="text-slate-500 dark:text-zinc-400 text-lg mb-2">Regional College of Management (RCM), Bhubaneswar</div>
+                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">SGPA: 8.0 &middot; Foundation in Business Principles</div>
 
                             <div className="border-t border-slate-100 dark:border-zinc-800 pt-6">
-                                <div className="text-xs font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase mb-3">Relevant Coursework</div>
+                                <div className="flex items-center gap-2 mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 dark:text-zinc-500"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                                    <div className="text-[11px] font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase">KEY COURSEWORK</div>
+                                </div>
                                 <div className="flex flex-wrap gap-2">
-                                    <span className="px-3 py-1.5 bg-slate-50 dark:bg-zinc-800 rounded-lg text-xs font-semibold text-slate-600 dark:text-zinc-300">Business Analytics</span>
-                                    <span className="px-3 py-1.5 bg-slate-50 dark:bg-zinc-800 rounded-lg text-xs font-semibold text-slate-600 dark:text-zinc-300">Organizational Behavior</span>
-                                    <span className="px-3 py-1.5 bg-slate-50 dark:bg-zinc-800 rounded-lg text-xs font-semibold text-slate-600 dark:text-zinc-300">Marketing Strategy</span>
+                                    {["Business Analytics", "Organizational Behavior", "Marketing Strategy", "Financial Accounting"].map(course => (
+                                        <span key={course} className="px-5 py-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-full text-sm font-semibold text-slate-600 dark:text-zinc-400">
+                                            {course}
+                                        </span>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -574,32 +660,38 @@ const CredentialsSection = () => {
         {
             provider: "IBM",
             providerColor: "text-blue-600 bg-blue-100 dark:text-blue-400 dark:bg-blue-500/10",
-            title: "Gen AI: Prompt Engineering Basics"
+            title: "Gen AI: Prompt Engineering Basics",
+            url: "https://www.linkedin.com/in/ayushmba/details/certifications/"
         },
         {
             provider: "Online",
             providerColor: "text-emerald-600 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-500/10",
-            title: "Generative AI & ChatGPT for Business"
+            title: "Generative AI & ChatGPT for Business",
+            url: "https://www.linkedin.com/in/ayushmba/details/certifications/"
         },
         {
             provider: "Forage Job Simulation",
             providerColor: "text-amber-600 bg-amber-100 dark:text-amber-400 dark:bg-amber-500/10",
-            title: "AWS APAC Solutions Architecture"
+            title: "AWS APAC Solutions Architecture",
+            url: "https://www.linkedin.com/in/ayushmba/details/certifications/"
         },
         {
             provider: "Coursera",
             providerColor: "text-purple-600 bg-purple-100 dark:text-purple-400 dark:bg-purple-500/10",
-            title: "Management of Fashion & Luxury Companies"
+            title: "Management of Fashion & Luxury Companies",
+            url: "https://www.linkedin.com/in/ayushmba/details/certifications/"
         },
         {
             provider: "LinkedIn Learning",
             providerColor: "text-rose-600 bg-rose-100 dark:text-rose-400 dark:bg-rose-500/10",
-            title: "Customer Experience (CX) for Business Success"
+            title: "Customer Experience (CX) for Business Success",
+            url: "https://www.linkedin.com/in/ayushmba/details/certifications/"
         },
         {
             provider: "Nationwide Webinar",
             providerColor: "text-indigo-600 bg-indigo-100 dark:text-indigo-400 dark:bg-indigo-500/10",
-            title: "Career in Securities Market"
+            title: "Career in Securities Market",
+            url: "https://www.linkedin.com/in/ayushmba/details/certifications/"
         }
     ];
 
@@ -621,12 +713,17 @@ const CredentialsSection = () => {
                         <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
                             {certifications.map((cert, i) => (
                                 <FadeInUp key={i} delay={i * 0.1}>
-                                    <div className="bg-slate-50 dark:bg-zinc-900/40 p-6 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm h-full hover:border-slate-300 dark:hover:border-zinc-700 transition-colors glow-effect">
-                                        <div className={`inline-block px-3 py-1.5 rounded-lg text-xs font-bold mb-4 ${cert.providerColor}`}>
-                                            {cert.provider}
+                                    <a href={cert.url} target="_blank" rel="noopener noreferrer" className="block h-full group cursor-pointer hover:-translate-y-1 transition-transform">
+                                        <div className="bg-slate-50 dark:bg-zinc-900/40 p-6 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm h-full hover:border-slate-300 dark:hover:border-zinc-700 transition-colors glow-effect">
+                                            <div className={`inline-block px-3 py-1.5 rounded-lg text-xs font-bold mb-4 ${cert.providerColor}`}>
+                                                {cert.provider}
+                                            </div>
+                                            <div className="flex justify-between items-start">
+                                                <h4 className="text-slate-900 dark:text-white font-bold tracking-tight text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{cert.title}</h4>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 dark:text-zinc-500 group-hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity mt-1 flex-shrink-0"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                                            </div>
                                         </div>
-                                        <h4 className="text-slate-900 dark:text-white font-bold tracking-tight text-lg">{cert.title}</h4>
-                                    </div>
+                                    </a>
                                 </FadeInUp>
                             ))}
                         </div>
