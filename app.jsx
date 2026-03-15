@@ -675,7 +675,7 @@ const SkillsSection = () => {
                 
                 <div className="grid md:grid-cols-3 gap-8">
                     {categories.map((c, i) => (
-                        <FadeInUp key={i} delay={i * 0.1}>
+                        <ScaleIn key={i} delay={i * 0.1}>
                             <div className="bg-slate-50 dark:bg-zinc-900/50 rounded-3xl p-8 h-full border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                                 <div className="flex flex-col mb-8">
                                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm border mb-6 ${c.colorClass}`}>
