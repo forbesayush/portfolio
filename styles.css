@@ -98,3 +98,67 @@ h1, h2, h3, h4, h5, h6 {
 .dark .text-glow-hover:active {
   text-shadow: 0 0 20px rgba(96, 165, 250, 0.6);
 }
+
+/* ================================================ */
+/* MOBILE-ONLY COMPACTION (phones up to 767px wide) */
+/* Keeps desktop layout identical                   */
+/* ================================================ */
+@media (max-width: 767px) {
+
+  /* Prevent horizontal overflow */
+  html, body {
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Reduce all section vertical padding by ~50% */
+  section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  /* Shrink heading sizes on phone */
+  h1 {
+    font-size: 2.25rem !important;
+    line-height: 1.15 !important;
+  }
+  h2 {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+  }
+  h3 {
+    font-size: 1.1rem !important;
+  }
+
+  /* Compact card padding */
+  .rounded-2xl, .rounded-3xl {
+    padding: 1.25rem !important;
+  }
+
+  /* Ensure grids are always single column on phone */
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reduce gap in grids */
+  .gap-8 { gap: 1.25rem !important; }
+  .gap-6 { gap: 1rem !important; }
+
+  /* Hero: reduce minimum height so it doesn't take 90vh on phone */
+  section.min-h-\[90vh\] {
+    min-height: 100svh !important;
+    padding-top: 5rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Make experience timeline card margins smaller */
+  .ml-8 { margin-left: 1.5rem !important; }
+  .ml-12 { margin-left: 2rem !important; }
+
+  /* Reduce mb-16 and mb-12 header gaps */
+  .mb-16 { margin-bottom: 2rem !important; }
+  .mb-12 { margin-bottom: 1.5rem !important; }
+  .mb-10 { margin-bottom: 1.25rem !important; }
+}
