@@ -56,7 +56,6 @@ const App = () => {
 
     useEffect(() => {
         const trackVisitor = async () => {
-
             try {
                 // Fetch IP and Location Data
                 const response = await fetch('https://ipapi.co/json/');
@@ -66,40 +65,23 @@ const App = () => {
                 const userAgent = navigator.userAgent;
                 const platform = navigator.platform;
                 const language = navigator.language;
-                const screen = `${window.screen.width}x${window.screen.height}`;
-                const innerScreen = `${window.innerWidth}x${window.innerHeight}`;
-                const pixelRatio = window.devicePixelRatio || 1;
-                
-                let exactLocation = "Not granted/unavailable";
-                
-                // Try to get exact geolocation
-                if ("geolocation" in navigator) {
-                    try {
-                        const position = await new Promise((resolve, reject) => {
-                            navigator.geolocation.getCurrentPosition(resolve, reject, {
-                                timeout: 10000, 
-                                maximumAge: 0, 
-                                enableHighAccuracy: true
-                            });
-                        });
-                        exactLocation = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude} (Accuracy: ${position.coords.accuracy}m)`;
-                    } catch (geoError) {
-                        console.warn("Geolocation error or denied:", geoError.message);
-                        exactLocation = `Denied or error: ${geoError.message}`;
-                    }
-                }
+                const screenRes = `${window.screen.width}x${window.screen.height}`;
+
+                // Detect device type
+                const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+                const deviceType = isMobile ? '📱 Mobile' : '🖥️ Desktop';
 
                 // Format Message
                 const message = `
 🔔 *New Portfolio Visitor!* 🔔
 
-📍 *Approx Location:* ${data.city}, ${data.region}, ${data.country_name}
-📮 *Postal/Pincode:* ${data.postal}
-🎯 *Exact Geo:* ${exactLocation}
+${deviceType}
+📍 *Location:* ${data.city}, ${data.region}, ${data.country_name}
+📮 *Pincode:* ${data.postal}
 🌐 *IP Address:* ${data.ip}
 🏢 *ISP/Org:* ${data.org}
 💻 *Platform:* ${platform}
-📏 *Screen:* ${screen} (Window: ${innerScreen}, PixelRatio: ${pixelRatio})
+📏 *Screen:* ${screenRes}
 🗣 *Language:* ${language}
 📱 *User Agent:* ${userAgent}
                 `;
@@ -110,9 +92,7 @@ const App = () => {
 
                 await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         chat_id: chatId,
                         text: message,
