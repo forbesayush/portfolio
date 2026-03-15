@@ -742,7 +742,7 @@ const EducationSection = () => {
                             
                             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">MBA — Information Technology &amp; Marketing</h3>
                             <div className="text-slate-500 dark:text-zinc-400 text-lg mb-2">Regional College of Management (RCM), Bhubaneswar</div>
-                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">SGPA: 7.1 &middot; Strategic Management, IT &amp; HR Strategy</div>
+                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">Strategic Management, IT &amp; HR Strategy</div>
 
                             <div className="border-t border-slate-100 dark:border-zinc-800 pt-6">
                                 <div className="flex items-center gap-2 mb-4">
@@ -771,7 +771,7 @@ const EducationSection = () => {
                             
                             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">BBA — Bachelor of Business Administration</h3>
                             <div className="text-slate-500 dark:text-zinc-400 text-lg mb-2">Regional College of Management (RCM), Bhubaneswar</div>
-                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">SGPA: 8.22 &middot; Foundation in Business Principles</div>
+                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">Foundation in Business Principles</div>
 
                             <div className="border-t border-slate-100 dark:border-zinc-800 pt-6">
                                 <div className="flex items-center gap-2 mb-4">
