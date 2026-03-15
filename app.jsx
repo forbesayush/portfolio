@@ -213,7 +213,7 @@ ${deviceType}
 /* --- Hero Section --- */
 const HeroSection = () => {
     return (
-        <section className="pt-28 pb-16 md:pt-48 md:pb-24 px-4 md:px-6 relative overflow-hidden flex flex-col items-center justify-center min-h-[90vh]">
+        <section className="pt-32 pb-16 md:pt-48 md:pb-24 px-6 relative overflow-hidden flex flex-col items-center justify-center min-h-[90vh]">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
             <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] -translate-x-1/2 pointer-events-none"></div>
 
@@ -467,7 +467,7 @@ const ProjectsSection = () => {
                                 </div>
                                 
                                 {/* Body Columns */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-10">
+                                <div className="grid md:grid-cols-3 gap-8 mb-10">
                                     <div>
                                         <div className="text-xs font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase mb-3">Problem</div>
                                         <p className="text-slate-700 dark:text-zinc-300 leading-relaxed text-sm">{p.problem}</p>
@@ -560,7 +560,7 @@ const ExperienceSection = () => {
     return (
         <section id="experience" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950/80">
             <div className="container mx-auto max-w-4xl">
-                <div className="text-center mb-12 md:mb-16">
+                <div className="text-center mb-16">
                     <FadeInUp>
                         <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">CAREER PATH</div>
                         <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Experience</h2>
@@ -570,12 +570,12 @@ const ExperienceSection = () => {
                     </FadeInUp>
                 </div>
 
-                <div className="relative border-l border-slate-200 dark:border-zinc-800 ml-3 md:ml-0">
+                <div className="relative border-l border-slate-200 dark:border-zinc-800 ml-3 md:ml-0 md:pl-0">
                     {experiences.map((exp, i) => (
                         <FadeInUp key={i} delay={i * 0.1}>
                             <div className={`mb-12 relative ${i !== experiences.length - 1 ? '' : 'mb-0'}`}>
                                 <div className="absolute w-2 h-2 bg-blue-600 dark:bg-blue-500 rounded-full -left-[4.5px] top-6 ring-4 ring-slate-50 dark:ring-zinc-950"></div>
-                                <div className="ml-6 md:ml-12 bg-white dark:bg-[#0a0a0c] p-5 md:p-10 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <div className="ml-8 md:ml-12 bg-white dark:bg-[#0a0a0c] p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
                                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{exp.role}</h3>
                                         <span className="text-sm font-bold text-blue-600 dark:text-blue-500 shrink-0 uppercase tracking-widest">{exp.date}</span>
@@ -855,12 +855,12 @@ const ContactSection = () => {
                         Currently exploring full-time Product Manager and APM opportunities. If you're looking for a data-driven builder to join your team, I'd love to connect.
                     </p>
                     
-                    <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                        <a href="mailto:hello@example.com" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-500/30 transition-all font-semibold flex justify-center items-center gap-3 text-base md:text-lg">
+                    <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+                        <a href="mailto:hello@example.com" className="w-full sm:w-auto px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-500/30 transition-all font-semibold flex justify-center items-center gap-3 text-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                             Email Me
                         </a>
-                        <a href="https://www.linkedin.com/in/ayushmba" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-transparent border-2 border-slate-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 text-slate-900 dark:text-white rounded-full transition-all font-semibold flex justify-center items-center gap-3 text-base md:text-lg">
+                        <a href="https://www.linkedin.com/in/ayushmba" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-10 py-5 bg-white dark:bg-transparent border-2 border-slate-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 text-slate-900 dark:text-white rounded-full transition-all font-semibold flex justify-center items-center gap-3 text-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                             LinkedIn
                         </a>
