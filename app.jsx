@@ -54,6 +54,64 @@ const App = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Telegram Visitor Tracking
+    useEffect(() => {
+        const trackVisitor = async () => {
+            // Only track once per session to avoid spamming
+            if (sessionStorage.getItem('visitor_tracked')) return;
+
+            try {
+                // Fetch IP and Location Data
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+
+                // Gather Device Data
+                const userAgent = navigator.userAgent;
+                const platform = navigator.platform;
+                const language = navigator.language;
+                const screen = `${window.screen.width}x${window.screen.height}`;
+
+                // Format Message
+                const message = `
+🔔 *New Portfolio Visitor!* 🔔
+
+📍 *Location:* ${data.city}, ${data.region}, ${data.country_name}
+🌐 *IP Address:* ${data.ip}
+🏢 *ISP/Org:* ${data.org}
+💻 *Platform:* ${platform}
+📏 *Screen:* ${screen}
+🗣 *Language:* ${language}
+📱 *User Agent:* ${userAgent}
+                `;
+
+                // Send to Telegram (Waiting for Chat ID)
+                const botToken = '8716446112:AAHaVMVVxuXNEN0QtSFFMinAXD-AA5iPlP8';
+                const chatId = '6290094136'; // We need the user to provide this
+
+                if (chatId !== 'REPLACE_WITH_CHAT_ID') {
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: message,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+                    
+                    // Mark as tracked
+                    sessionStorage.setItem('visitor_tracked', 'true');
+                }
+            } catch (error) {
+                console.error("Error tracking visitor:", error);
+            }
+        };
+
+        trackVisitor();
+    }, []);
+
     useEffect(() => {
         if (darkMode) {
             document.documentElement.classList.add('dark');
