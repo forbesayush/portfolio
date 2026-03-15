@@ -1,16 +1,48 @@
 const { useState, useEffect, useRef } = React;
 const { motion, useInView } = window.Motion;
 
-// FadeInUp component for scroll reveal
+// FadeInUp component for scroll reveal - works on Android/iOS/PC
 const FadeInUp = ({ children, delay = 0 }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
+    const isInView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.6, delay: delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{ duration: 0.55, delay: delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+        >
+            {children}
+        </motion.div>
+    );
+};
+
+// ScaleIn - pops in with scale for cards and badges
+const ScaleIn = ({ children, delay = 0 }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
+            transition={{ duration: 0.45, delay: delay, ease: [0.34, 1.56, 0.64, 1] }}
+        >
+            {children}
+        </motion.div>
+    );
+};
+
+// SlideInLeft - slides in from left for timeline items
+const SlideInLeft = ({ children, delay = 0 }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 0.5, delay: delay, ease: [0.21, 0.47, 0.32, 0.98] }}
         >
             {children}
         </motion.div>
@@ -572,7 +604,7 @@ const ExperienceSection = () => {
 
                 <div className="relative border-l border-slate-200 dark:border-zinc-800 ml-3 md:ml-0 md:pl-0">
                     {experiences.map((exp, i) => (
-                        <FadeInUp key={i} delay={i * 0.1}>
+                        <SlideInLeft key={i} delay={i * 0.08}>
                             <div className={`mb-12 relative ${i !== experiences.length - 1 ? '' : 'mb-0'}`}>
                                 <div className="absolute w-2 h-2 bg-blue-600 dark:bg-blue-500 rounded-full -left-[4.5px] top-6 ring-4 ring-slate-50 dark:ring-zinc-950"></div>
                                 <div className="ml-8 md:ml-12 bg-white dark:bg-[#0a0a0c] p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
@@ -583,15 +615,21 @@ const ExperienceSection = () => {
                                     <div className="text-slate-500 dark:text-zinc-400 font-medium mb-8 text-lg">{exp.company}</div>
                                     <ul className="space-y-5">
                                         {exp.points.map((p, j) => (
-                                            <li key={j} className="text-slate-700 dark:text-zinc-300 flex items-start text-base leading-relaxed">
+                                            <motion.li
+                                                key={j}
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.3 + j * 0.1, duration: 0.4 }}
+                                                className="text-slate-700 dark:text-zinc-300 flex items-start text-base leading-relaxed"
+                                            >
                                                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-600 mr-4 mt-2.5 shrink-0"></div>
                                                 <span>{p}</span>
-                                            </li>
+                                            </motion.li>
                                         ))}
                                     </ul>
                                 </div>
                             </div>
-                        </FadeInUp>
+                        </SlideInLeft>
                     ))}
                 </div>
             </div>
@@ -648,14 +686,20 @@ const SkillsSection = () => {
                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">{c.title}</h3>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
-                                    {c.skills.map(s => (
-                                        <span key={s} className="px-4 py-2 bg-white dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/50 rounded-full text-sm font-semibold text-slate-700 dark:text-zinc-300 hover:border-blue-500 dark:hover:border-blue-500 transition-colors shadow-sm cursor-default">
+                                    {c.skills.map((s, si) => (
+                                        <motion.span
+                                            key={s}
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: si * 0.04, duration: 0.3 }}
+                                            className="px-4 py-2 bg-white dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/50 rounded-full text-sm font-semibold text-slate-700 dark:text-zinc-300 hover:border-blue-500 dark:hover:border-blue-500 transition-colors shadow-sm cursor-default"
+                                        >
                                             {s}
-                                        </span>
+                                        </motion.span>
                                     ))}
                                 </div>
                             </div>
-                        </FadeInUp>
+                        </ScaleIn>
                     ))}
                 </div>
             </div>
