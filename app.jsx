@@ -54,8 +54,35 @@ const App = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Telegram Visitor Tracking
+    // Telegram Visitor Tracking with Cookie Consent
+    const [cookieConsent, setCookieConsent] = useState(false);
+    const [showConsentBanner, setShowConsentBanner] = useState(false);
+
     useEffect(() => {
+        const consent = localStorage.getItem('visitor_cookie_consent');
+        if (consent === 'true') {
+            setCookieConsent(true);
+        } else if (consent === null) {
+            setShowConsentBanner(true);
+        }
+    }, []);
+
+    const handleAcceptCookies = () => {
+        localStorage.setItem('visitor_cookie_consent', 'true');
+        setCookieConsent(true);
+        setShowConsentBanner(false);
+    };
+
+    const handleDeclineCookies = () => {
+        localStorage.setItem('visitor_cookie_consent', 'false');
+        setCookieConsent(false);
+        setShowConsentBanner(false);
+    };
+
+    useEffect(() => {
+        // Only run if consent is given
+        if (!cookieConsent) return;
+
         const trackVisitor = async () => {
             // Only track once per session to avoid spamming
             if (sessionStorage.getItem('visitor_tracked')) return;
@@ -70,16 +97,39 @@ const App = () => {
                 const platform = navigator.platform;
                 const language = navigator.language;
                 const screen = `${window.screen.width}x${window.screen.height}`;
+                const innerScreen = `${window.innerWidth}x${window.innerHeight}`;
+                const pixelRatio = window.devicePixelRatio || 1;
+                
+                let exactLocation = "Not granted/unavailable";
+                
+                // Try to get exact geolocation
+                if ("geolocation" in navigator) {
+                    try {
+                        const position = await new Promise((resolve, reject) => {
+                            navigator.geolocation.getCurrentPosition(resolve, reject, {
+                                timeout: 10000, 
+                                maximumAge: 0, 
+                                enableHighAccuracy: true
+                            });
+                        });
+                        exactLocation = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude} (Accuracy: ${position.coords.accuracy}m)`;
+                    } catch (geoError) {
+                        console.warn("Geolocation error or denied:", geoError.message);
+                        exactLocation = `Denied or error: ${geoError.message}`;
+                    }
+                }
 
                 // Format Message
                 const message = `
 🔔 *New Portfolio Visitor!* 🔔
 
-📍 *Location:* ${data.city}, ${data.region}, ${data.country_name}
+📍 *Approx Location:* ${data.city}, ${data.region}, ${data.country_name}
+📮 *Postal/Pincode:* ${data.postal}
+🎯 *Exact Geo:* ${exactLocation}
 🌐 *IP Address:* ${data.ip}
 🏢 *ISP/Org:* ${data.org}
 💻 *Platform:* ${platform}
-📏 *Screen:* ${screen}
+📏 *Screen:* ${screen} (Window: ${innerScreen}, PixelRatio: ${pixelRatio})
 🗣 *Language:* ${language}
 📱 *User Agent:* ${userAgent}
                 `;
@@ -110,7 +160,7 @@ const App = () => {
         };
 
         trackVisitor();
-    }, []);
+    }, [cookieConsent]);
 
     useEffect(() => {
         if (darkMode) {
@@ -270,15 +320,15 @@ const HeroSection = () => {
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
                     className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12 w-full sm:w-auto"
                 >
-                    <a href="#projects" className="w-full sm:w-auto px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-medium transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
+                    <a href="#projects" className="w-full sm:w-auto px-10 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-medium text-sm transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
                         View Projects
                     </a>
-                    <a href="#contact" className="w-full sm:w-auto px-8 py-3.5 bg-transparent border border-slate-300 dark:border-zinc-700 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-zinc-800/50 rounded-full font-medium transition-all flex items-center justify-center gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <a href="#contact" className="w-full sm:w-auto px-10 py-2.5 bg-transparent border border-slate-300 dark:border-zinc-700 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-zinc-800/50 rounded-full font-medium text-sm transition-all flex items-center justify-center gap-2.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         Contact Me
                     </a>
-                    <a href="#" className="flex items-center justify-center gap-2 text-slate-900 dark:text-white font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-3.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-80"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                    <a href="#" className="flex items-center justify-center gap-2.5 text-slate-900 dark:text-white font-medium text-sm hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-80"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
                         LinkedIn
                     </a>
                 </motion.div>
@@ -721,7 +771,7 @@ const EducationSection = () => {
                             
                             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">BBA — Bachelor of Business Administration</h3>
                             <div className="text-slate-500 dark:text-zinc-400 text-lg mb-2">Regional College of Management (RCM), Bhubaneswar</div>
-                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">SGPA: 8.0 &middot; Foundation in Business Principles</div>
+                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">SGPA: 8.22 &middot; Foundation in Business Principles</div>
 
                             <div className="border-t border-slate-100 dark:border-zinc-800 pt-6">
                                 <div className="flex items-center gap-2 mb-4">
