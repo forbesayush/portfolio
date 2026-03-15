@@ -513,13 +513,13 @@ const ProjectsSection = () => {
 const ExperienceSection = () => {
     const experiences = [
         {
-            role: "Product Tester — Mobile OS & Devices (Pre-Release)",
+            role: "Product Tester — Mobile OS, Earbuds & Smart Watches (Pre-Release)",
             company: "OnePlus Software R&D Centre Private Limited",
             date: "SEP 2024 — DEC 2025",
             points: [
-                "Strengthened launch readiness by executing structured pre-release testing cycles across mobile OS builds, identifying 15+ UX and functional defects that improved product stability prior to release.",
-                "Enhanced validation workflows by refining defect tracking and cross-functional feedback loops, aligning processes with IT quality standards.",
-                "Contributed to usability improvements through systematic issue prioritization and reporting, directly impacting release confidence."
+                "Strengthened launch readiness by executing structured pre-release testing cycles across mobile OS builds, earbuds, and smart watches — identifying 15+ UX and functional defects that improved product stability prior to release.",
+                "Enhanced validation workflows by refining defect tracking and cross-functional feedback loops across multiple product categories, aligning processes with IT quality standards.",
+                "Contributed to usability improvements through systematic issue prioritization and reporting, directly impacting release confidence across devices."
             ]
         },
         {
