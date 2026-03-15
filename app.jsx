@@ -227,6 +227,9 @@ const HeroSection = () => {
                         src="profile.jpg" 
                         alt="Ayush Chatterjee" 
                         className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-4 border-white dark:border-zinc-900 shadow-xl relative z-10"
+                        loading="eager"
+                        fetchpriority="high"
+                        decoding="sync"
                     />
                     <div className="absolute bottom-2 right-2 w-5 h-5 bg-green-500 border-4 border-white dark:border-zinc-900 rounded-full z-20" title="Available for new opportunities"></div>
                 </motion.div>
@@ -615,7 +618,7 @@ const SkillsSection = () => {
             title: "Business & Strategy",
             icon: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></g>,
             colorClass: "text-purple-600 bg-purple-50 dark:text-purple-400 dark:bg-purple-500/10 border-purple-100 dark:border-purple-500/20",
-            skills: ["SWOT Analysis", "Porter's Five Forces", "BCG Matrix", "Competitive Benchmarking", "Stakeholder Reporting", "HR Strategy", "D2C Growth", "Structured Problem Solving"]
+            skills: ["Strategic Management", "SWOT Analysis", "Porter's Five Forces", "BCG Matrix", "Competitive Benchmarking", "Stakeholder Reporting", "HR Strategy", "D2C Growth", "Structured Problem Solving"]
         }
     ];
 
@@ -695,7 +698,7 @@ const EducationSection = () => {
                                     <div className="text-[11px] font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase">KEY COURSEWORK</div>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
-                                    {["Product Strategy", "IT Management", "HR Strategy", "Marketing Management", "Business Analytics"].map(course => (
+                                    {["Strategic Management", "Product Strategy", "IT Management", "HR Strategy", "Marketing Management", "Business Analytics"].map(course => (
                                         <span key={course} className="px-5 py-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-full text-sm font-semibold text-slate-600 dark:text-zinc-400">
                                             {course}
                                         </span>
@@ -724,7 +727,7 @@ const EducationSection = () => {
                                     <div className="text-[11px] font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase">KEY COURSEWORK</div>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
-                                    {["Business Analytics", "Organizational Behavior", "Marketing Strategy", "Financial Accounting"].map(course => (
+                                    {["Strategic Management", "Business Analytics", "Organizational Behavior", "Marketing Strategy", "Financial Accounting"].map(course => (
                                         <span key={course} className="px-5 py-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-full text-sm font-semibold text-slate-600 dark:text-zinc-400">
                                             {course}
                                         </span>
