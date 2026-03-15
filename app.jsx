@@ -74,7 +74,7 @@ const App = () => {
             <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass py-4' : 'bg-transparent py-6'}`}>
                 <div className="container mx-auto px-6 md:px-12 flex justify-between items-center max-w-6xl">
                     <a href="#" className="font-bold tracking-tight flex items-center gap-2">
-                        <span className="text-xl tracking-tighter text-slate-900 dark:text-white">PM.</span>
+                        <span className="text-xl tracking-tighter text-slate-900 dark:text-white">PM<span className="text-green-500">.</span></span>
                     </a>
                     
                     <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-zinc-400">
@@ -141,7 +141,7 @@ const App = () => {
                 <div className="container mx-auto px-6 md:px-12 max-w-6xl">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                          <div className="flex items-center gap-2">
-                             <span className="text-xl tracking-tighter text-slate-400 dark:text-white font-bold">PM.</span>
+                             <span className="text-xl tracking-tighter text-slate-400 dark:text-white font-bold">PM<span className="text-green-500">.</span></span>
                         </div>
                         <div className="flex gap-6">
                             <a href="#" className="hover:text-blue-500 transition">LinkedIn</a>
@@ -202,12 +202,10 @@ const HeroSection = () => {
 
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-                    className="inline-flex flex-wrap justify-center items-center px-6 py-2.5 rounded-full bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 text-sm font-medium border border-blue-200 dark:border-blue-900/50 shadow-sm"
+                    className="inline-block max-w-[95%] md:max-w-max px-6 py-2.5 rounded-3xl bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 text-sm font-medium border border-blue-200 dark:border-blue-900/50 shadow-sm text-center leading-relaxed"
                 >
-                    <span className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-500"></span> 
-                        Forecast Accuracy +10% &middot; 5,000+ Transactions Analyzed &middot; 15+ UX Defects Identified @ OnePlus
-                    </span>
+                    <span className="inline-block w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-500 align-middle mr-2 -mt-0.5"></span> 
+                    <span className="align-middle">Forecast Accuracy +10% &middot; 5,000+ Transactions Analyzed &middot; 15+ UX Defects Identified @ OnePlus</span>
                 </motion.div>
 
                 <motion.div 
@@ -227,6 +225,15 @@ const HeroSection = () => {
                     </a>
                 </motion.div>
                 
+                {/* Bouncing Arrow */}
+                <motion.div
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
+                >
+                    <a href="#about" className="text-slate-400 dark:text-zinc-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors animate-bounce p-2" aria-label="Scroll down">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+                    </a>
+                </motion.div>
             </div>
         </section>
     );
@@ -291,7 +298,7 @@ const AboutSection = () => {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {philosophies.map((item, i) => (
                         <FadeInUp key={i} delay={i * 0.1}>
-                            <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col items-start glow-effect">
+                            <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col items-start glow-effect">
                                 <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-500 mb-6">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         {item.icon}
@@ -388,7 +395,7 @@ const ProjectsSection = () => {
                 <div className="space-y-12">
                     {projects.map((p, i) => (
                         <FadeInUp key={i} delay={i * 0.1}>
-                            <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect">
+                            <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                                 
                                 {/* Header */}
                                 <div className="flex items-center gap-5 mb-10">
@@ -512,7 +519,7 @@ const ExperienceSection = () => {
                         <FadeInUp key={i} delay={i * 0.1}>
                             <div className={`mb-12 relative ${i !== experiences.length - 1 ? '' : 'mb-0'}`}>
                                 <div className="absolute w-2 h-2 bg-blue-600 dark:bg-blue-500 rounded-full -left-[4.5px] top-6 ring-4 ring-slate-50 dark:ring-zinc-950"></div>
-                                <div className="ml-8 md:ml-12 bg-white dark:bg-[#0a0a0c] p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm glow-effect">
+                                <div className="ml-8 md:ml-12 bg-white dark:bg-[#0a0a0c] p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
                                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{exp.role}</h3>
                                         <span className="text-sm font-bold text-blue-600 dark:text-blue-500 shrink-0 uppercase tracking-widest">{exp.date}</span>
@@ -575,7 +582,7 @@ const SkillsSection = () => {
                 <div className="grid md:grid-cols-3 gap-8">
                     {categories.map((c, i) => (
                         <FadeInUp key={i} delay={i * 0.1}>
-                            <div className="bg-slate-50 dark:bg-zinc-900/50 rounded-3xl p-8 h-full border border-slate-200 dark:border-zinc-800 shadow-sm">
+                            <div className="bg-slate-50 dark:bg-zinc-900/50 rounded-3xl p-8 h-full border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                                 <div className="flex flex-col mb-8">
                                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm border mb-6 ${c.colorClass}`}>
                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -617,7 +624,7 @@ const EducationSection = () => {
 
                 <div className="space-y-8">
                     <FadeInUp delay={0.1}>
-                        <div className="bg-white dark:bg-[#0a0a0c] rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect">
+                        <div className="bg-white dark:bg-[#0a0a0c] rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
                                 <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-500 shrink-0 border border-blue-100 dark:border-blue-900/30">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
@@ -646,7 +653,7 @@ const EducationSection = () => {
                     </FadeInUp>
                     
                     <FadeInUp delay={0.2}>
-                        <div className="bg-white dark:bg-[#0a0a0c] rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect">
+                        <div className="bg-white dark:bg-[#0a0a0c] rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
                                 <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-500 shrink-0 border border-blue-100 dark:border-blue-900/30">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
