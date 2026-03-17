@@ -103,11 +103,22 @@ const App = () => {
                 const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
                 const deviceType = isMobile ? '📱 Mobile' : '🖥️ Desktop';
 
+                // Detect Traffic Source (Referrer)
+                let source = "Direct / Bookmark";
+                const referrer = document.referrer;
+                if (referrer) {
+                    if (referrer.includes("linkedin.com")) source = "LinkedIn 🔵";
+                    else if (referrer.includes("google.com")) source = "Google Search 🔍";
+                    else if (referrer.includes("twitter.com") || referrer.includes("t.co")) source = "Twitter/X 🐦";
+                    else source = referrer; // Show the raw URL if it's something else
+                }
+
                 // Format Message
                 const message = `
 🔔 *New Portfolio Visitor!* 🔔
 
 ${deviceType}
+🔗 *Source:* ${source}
 📍 *Location:* ${data.city}, ${data.region}, ${data.country_name}
 📮 *Pincode:* ${data.postal}
 🌐 *IP Address:* ${data.ip}
