@@ -107,7 +107,7 @@ const App = () => {
                 let source = "Direct / Bookmark";
                 const referrer = document.referrer.toLowerCase();
                 const urlParams = new URLSearchParams(window.location.search);
-                const isWhatsApp = referrer.includes("whatsapp") || urlParams.get("utm_source") === "whatsapp" || userAgent.toLowerCase().includes("whatsapp");
+                const isWhatsApp = referrer.includes("whatsapp") || referrer.includes("wa.me") || urlParams.get("utm_source") === "whatsapp" || userAgent.toLowerCase().includes("whatsapp");
 
                 if (isWhatsApp) {
                     source = "WhatsApp 🟩";
