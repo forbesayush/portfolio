@@ -121,17 +121,14 @@ const App = () => {
                 // Get and Increment Total Visitor Count
                 let visitorCount = "1 (Live Tracking)";
                 try {
-                    // Using CountAPI (most reliable free host for simple counting)
-                    const countResponse = await fetch('https://api.countapi.xyz/hit/forbesayush/portfolio');
+                    // Use counterapi.dev with a cache buster so mobile browsers don't freeze the count
+                    const timestamp = new Date().getTime();
+                    const countResponse = await fetch(`https://api.counterapi.dev/v1/forbesayush/portfolio/up?t=${timestamp}`);
+                    
                     if (countResponse.ok) {
                         const countData = await countResponse.json();
-                        visitorCount = countData.value;
-                    } else {
-                        // Fallback API if the first is blocked
-                        const backupResponse = await fetch('https://api.counterapi.dev/v1/forbesayush/portfolio/up');
-                        const backupData = await backupResponse.json();
-                        if (backupData && backupData.count) {
-                            visitorCount = backupData.count;
+                        if (countData && countData.count) {
+                            visitorCount = countData.count;
                         }
                     }
                 } catch (e) {
