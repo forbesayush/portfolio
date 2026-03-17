@@ -103,14 +103,19 @@ const App = () => {
                 const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
                 const deviceType = isMobile ? '📱 Mobile' : '🖥️ Desktop';
 
-                // Detect Traffic Source (Referrer)
+                // Detect Traffic Source (Referrer & UTMs)
                 let source = "Direct / Bookmark";
-                const referrer = document.referrer;
-                if (referrer) {
+                const referrer = document.referrer.toLowerCase();
+                const urlParams = new URLSearchParams(window.location.search);
+                const isWhatsApp = referrer.includes("whatsapp") || urlParams.get("utm_source") === "whatsapp" || userAgent.toLowerCase().includes("whatsapp");
+
+                if (isWhatsApp) {
+                    source = "WhatsApp 🟩";
+                } else if (referrer) {
                     if (referrer.includes("linkedin.com")) source = "LinkedIn 🔵";
                     else if (referrer.includes("google.com")) source = "Google Search 🔍";
                     else if (referrer.includes("twitter.com") || referrer.includes("t.co")) source = "Twitter/X 🐦";
-                    else source = referrer; // Show the raw URL if it's something else
+                    else source = document.referrer; // Show the raw URL if it's something else
                 }
 
                 // Format Message
