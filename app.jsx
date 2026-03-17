@@ -118,10 +118,22 @@ const App = () => {
                     else source = document.referrer; // Show the raw URL if it's something else
                 }
 
+                // Get and Increment Total Visitor Count
+                let visitorCount = "Unknown";
+                try {
+                    const countResponse = await fetch('https://api.counterapi.dev/v1/forbesayush/portfolio/up');
+                    const countData = await countResponse.json();
+                    visitorCount = countData.count || "Unknown";
+                } catch (e) {
+                    console.error("Counter API Failed");
+                }
+
                 // Format Message
                 const message = `
 🔔 *New Portfolio Visitor!* 🔔
 
+📈 *Total Visitors:* ${visitorCount}
+----------------------------
 ${deviceType}
 🔗 *Source:* ${source}
 📍 *Location:* ${data.city}, ${data.region}, ${data.country_name}
