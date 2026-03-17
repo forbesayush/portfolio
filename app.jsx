@@ -285,7 +285,7 @@ const HeroSection = () => {
                     className="text-lg md:text-xl text-slate-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed text-glow-hover"
                 >
                     Product-focused professional at the intersection of technology, strategy, and data-driven decision-making. 
-                    Product Testing @ OnePlus &middot; Growth Research @ Innovist &middot; Founder, Karma Kama Lab-Grown Diamonds.
+                    Product Testing @ OnePlus &middot; Growth Research @ Innovist &middot; Founder, D-DZIRE JEWELS LAB GROWN DIAMONDS.
                 </motion.p>
 
                 <motion.div 
