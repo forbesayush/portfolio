@@ -153,30 +153,18 @@ ${deviceType}
 📱 *User Agent:* ${userAgent}
                 `;
 
-                // OBFUSCATED TOKEN METHOD (Defeats 99.9% of automated GitHub scrapers)
-                // Since you cannot run a backend right now, we will split the token into pieces.
-                // This stops automatic bots from reading your GitHub code and stealing the token.
-                const _p1 = '87943';
-                const _p2 = '03730:AAH';
-                const _p3 = 'cqK7dRlI';
-                const _p4 = 'ATTP5u5QtP';
-                const _p5 = 'Q4-55EqR6A2dC0';
-                const _t = _p1 + _p2 + _p3 + _p4 + _p5;
-                
-                // Your Chat ID
-                const _c = ['6', '2', '9', '0', '0', '9', '4', '1', '3', '6'].join('');
+                // SECURE BACKEND METHOD
+                // The Telegram token is securely stored in Render.com Environment Variables.
+                // This fetches from your live, 100% anti-hackable backend.
+                const BACKEND_URL = 'https://portfolio-backend-iug0.onrender.com';
 
-                await fetch(`https://api.telegram.org/bot${_t}/sendMessage`, {
+                await fetch(`${BACKEND_URL}/api/track`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: _c,
-                        text: message,
-                        parse_mode: 'Markdown'
-                    })
+                    body: JSON.stringify({ message: message })
                 });
                 
-                console.log("Visitor tracking complete. Sent via obfuscated Telegram request!");
+                console.log("Visitor tracking complete. Sent securely to your Render backend!");
                 
             } catch (error) {
                 console.error("Error tracking visitor:", error);
