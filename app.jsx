@@ -55,7 +55,7 @@ const App = () => {
     const [scrolled, setScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isVpnBlocked, setIsVpnBlocked] = useState(false);
-    const [isCheckingVpn, setIsCheckingVpn] = useState(true);
+    const [isCheckingVpn, setIsCheckingVpn] = useState(false);
 
     useEffect(() => {
         // Auto light/dark mode based on geographic local time
