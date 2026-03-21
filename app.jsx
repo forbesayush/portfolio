@@ -89,17 +89,31 @@ const App = () => {
     }, []);
 
     useEffect(() => {
+        const fetchWithTimeout = async (url, options = {}) => {
+            const { timeout = 3500 } = options;
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+            try {
+                const response = await fetch(url, { ...options, signal: controller.signal });
+                clearTimeout(id);
+                return response;
+            } catch (e) {
+                clearTimeout(id);
+                throw e;
+            }
+        };
+
         const trackVisitor = async () => {
             try {
-                // Fetch IP and Location Data
-                const response = await fetch('https://ipapi.co/json/');
+                // Fetch IP and Location Data (with timeout so it doesn't freeze the page)
+                const response = await fetchWithTimeout('https://ipapi.co/json/');
                 const data = await response.json();
 
                 // Advanced VPN/Proxy Check
                 let isVPN = "Unknown";
                 let vpnBrand = "N/A";
                 try {
-                    const vpnResponse = await fetch(`https://blackbox.ipinfo.app/lookup/${data.ip}`);
+                    const vpnResponse = await fetchWithTimeout(`https://blackbox.ipinfo.app/lookup/${data.ip}`, { timeout: 2500 });
                     const vpnText = await vpnResponse.text();
                     if (vpnText.trim() === 'Y') {
                         isVPN = "⚠️ YES (Proxy/VPN)";
