@@ -283,16 +283,10 @@ ${deviceType}
     if (isVpnBlocked) {
         return (
             <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans px-6 text-center`}>
-                <img 
-                    src="https://raw.githubusercontent.com/forbesayush/portfolio/master/vpn-meme.jpg" 
-                    alt="POV: You Tried VPN" 
-                    className="w-full max-w-lg shadow-2xl mb-8 border border-slate-200 dark:border-zinc-800"
-                />
-                
-                <div id="fallback-msg" style={{display: 'none'}}>
-                    <div className="w-24 h-24 bg-red-100 dark:bg-red-500/10 text-red-600 dark:text-red-500 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-red-200 dark:border-red-500/20 shadow-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /><path d="m9 12 2 2 4-4" /></svg>
-                    </div>
+                <div className="bg-white dark:bg-zinc-900 border-4 border-slate-900 dark:border-white shadow-2xl p-6 md:p-12 mb-8 max-w-xl w-full flex flex-col items-center">
+                    <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white uppercase leading-tight font-sans tracking-tight">
+                        POV: YOU TRIED<br/>VPN FOR THE FIRST TIME
+                    </h1>
                 </div>
 
                 <div className="text-slate-600 dark:text-zinc-400 text-sm bg-white dark:bg-[#0a0a0c] px-6 py-4 rounded-xl border border-slate-200 dark:border-zinc-800 inline-block shadow-sm font-medium">
