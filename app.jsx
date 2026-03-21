@@ -118,7 +118,6 @@ const App = () => {
                     if (vpnText.trim() === 'Y') {
                         isVPN = "⚠️ YES (Proxy/VPN)";
                         setIsVpnBlocked(true);
-                        setIsCheckingVpn(false);
                         const orgName = (data.org || "").toLowerCase();
                         if (orgName.includes("tefincom") || orgName.includes("nord")) vpnBrand = "NordVPN";
                         else if (orgName.includes("expressvpn") || orgName.includes("express vpn")) vpnBrand = "ExpressVPN";
@@ -129,12 +128,12 @@ const App = () => {
                         else if (orgName.includes("m247") || orgName.includes("datacamp") || orgName.includes("tzulo") || orgName.includes("leaseweb") || orgName.includes("quadranet")) vpnBrand = `Commercial VPN Host (${data.org})`;
                         else if (orgName.includes("google") || orgName.includes("amazon") || orgName.includes("aws") || orgName.includes("digitalocean") || orgName.includes("ovh") || orgName.includes("linode") || orgName.includes("cloudflare") || orgName.includes("akamai")) vpnBrand = `Cloud Proxy/VPN (${data.org})`;
                         else vpnBrand = data.org || "Unknown Provider";
-                    } else if (vpnText.trim() === 'N') {
+                    } else {
                         isVPN = "✅ NO";
-                        setIsCheckingVpn(false);
                     }
                 } catch (e) {
                     console.log("VPN check failed.");
+                } finally {
                     setIsCheckingVpn(false);
                 }
 
