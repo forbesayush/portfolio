@@ -283,20 +283,11 @@ ${deviceType}
     if (isVpnBlocked) {
         return (
             <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans px-6 text-center`}>
-                <div className="bg-white dark:bg-zinc-900 border-4 border-slate-900 dark:border-white shadow-2xl p-4 md:p-6 mb-8 max-w-xl w-full flex flex-col items-center">
-                    <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 uppercase leading-tight font-sans tracking-tight">
-                        POV: YOU TRIED<br/>VPN FOR THE FIRST TIME
-                    </h1>
-                    <img 
-                        src="https://external-preview.redd.it/1460v7N90wN_l1rYk32nL4Pz0f67E_xR3ZIfw_e-T0U.jpg?auto=webp&s=daebb81bb70bdba41f9d5c31cc9c013bc3df1dd5" 
-                        alt="Reality can be whatever I want" 
-                        className="w-full object-cover"
-                        onError={(e) => {
-                            e.target.onerror = null; 
-                            e.target.src = "https://i.imgflip.com/2wnq02.jpg";
-                        }}
-                    />
-                </div>
+                <img 
+                    src="https://raw.githubusercontent.com/forbesayush/portfolio/master/vpn-meme.jpg" 
+                    alt="POV: You Tried VPN" 
+                    className="w-full max-w-lg shadow-2xl mb-8 border border-slate-200 dark:border-zinc-800"
+                />
                 
                 <div id="fallback-msg" style={{display: 'none'}}>
                     <div className="w-24 h-24 bg-red-100 dark:bg-red-500/10 text-red-600 dark:text-red-500 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-red-200 dark:border-red-500/20 shadow-sm">
