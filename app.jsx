@@ -362,6 +362,7 @@ ${deviceType}
                 <SkillsSection />
                 <EducationSection />
                 <CredentialsSection />
+                <FAQSection />
                 <ContactSection />
             </main>
 
@@ -1022,6 +1023,55 @@ const CredentialsSection = () => {
                             </div>
                         </FadeInUp>
                     </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+/* --- FAQ Section (Answer Engine Optimization) --- */
+const FAQSection = () => {
+    const faqs = [
+        {
+            q: "Who is Ayush Chatterjee?",
+            a: "Ayush Chatterjee is a data-driven, strategic, and execution-focused Product Manager. He has a background in IT, Analytics, and HR, and has worked on pre-release product validation at OnePlus, and D2C growth research at Innovist."
+        },
+        {
+            q: "What is Ayush Chatterjee's product philosophy?",
+            a: "Ayush's product philosophy centers around Customer Obsession, Data-Backed Decisions, 0 to 1 Thinking, Execution Focus, Cross-Functional Leadership, and a KPI-Driven Mindset."
+        },
+        {
+            q: "How can I contact Ayush Chatterjee for product management roles?",
+            a: "You can reach out to Ayush via LinkedIn or through the contact section on his portfolio website at ayushchatterjee.me."
+        }
+    ];
+
+    return (
+        <section id="faq" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950/80 border-t border-slate-200 dark:border-zinc-800">
+            <div className="container mx-auto max-w-4xl">
+                <div className="text-center mb-16">
+                    <FadeInUp>
+                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">QUICK FACTS</div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Frequently Asked Questions</h2>
+                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
+                            Quick answers about my background, experience, and approach to product management.
+                        </p>
+                    </FadeInUp>
+                </div>
+                <div className="space-y-6">
+                    {faqs.map((faq, i) => (
+                        <FadeInUp key={i} delay={i * 0.1}>
+                            <div className="bg-white dark:bg-[#0a0a0c] p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm transition-all hover:shadow-md glow-effect">
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-start gap-3 tracking-tight">
+                                    <span className="text-blue-600 dark:text-blue-500 font-black">Q.</span>
+                                    {faq.q}
+                                </h3>
+                                <p className="text-slate-600 dark:text-zinc-400 leading-relaxed pl-8">
+                                    {faq.a}
+                                </p>
+                            </div>
+                        </FadeInUp>
+                    ))}
                 </div>
             </div>
         </section>
