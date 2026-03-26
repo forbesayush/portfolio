@@ -400,7 +400,7 @@ const HeroSection = () => {
                 >
                     <img 
                         src="profile.jpg" 
-                        alt="Ayush Chatterjee" 
+                        alt="Ayush Chatterjee - Product Manager Portfolio" 
                         className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-4 border-white dark:border-zinc-900 shadow-xl relative z-10"
                         loading="eager"
                         fetchpriority="high"
