@@ -288,36 +288,21 @@ ${deviceType}
     if (isVpnBlocked) {
         return (
             <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans px-6 text-center">
-                <div className="bg-white dark:bg-zinc-900 border-4 border-slate-900 dark:border-white shadow-2xl p-6 md:p-12 mb-8 max-w-xl w-full flex flex-col items-center">
-                    <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white uppercase leading-tight font-sans tracking-tight">
-                        POV: YOU TRIED<br/>VPN FOR THE FIRST TIME
+                <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xl p-8 md:p-12 mb-8 max-w-2xl w-full flex flex-col items-center rounded-3xl">
+                    <div className="w-16 h-16 bg-red-100 dark:bg-red-500/10 text-red-600 rounded-full flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                    </div>
+                    <h1 className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white uppercase leading-tight font-sans tracking-tight mb-4 text-center">
+                        Access Restricted
                     </h1>
+                    <div className="w-16 h-1 bg-red-500 mb-6 rounded-full"></div>
+                    <h2 className="text-xl font-bold text-slate-800 dark:text-zinc-200 mb-4">Why am I seeing this?</h2>
+                    <p className="text-slate-600 dark:text-zinc-400 text-base md:text-lg leading-relaxed max-w-xl text-center">
+                        To maintain accurate visitor analytics and prevent automated scrapers, connections originated from Commercial VPNs, Proxies, and Cloud Data Centers are restricted from viewing this portfolio.
+                    </p>
                 </div>
-                <div className="text-slate-600 dark:text-zinc-400 text-sm bg-white dark:bg-[#0a0a0c] px-6 py-4 rounded-xl border border-slate-200 dark:border-zinc-800 inline-block shadow-sm font-medium">
-                    Please disable your VPN or use a residential connection to view this portfolio.
-                </div>
-            </div>
-        );
-    }
-
-    if (isCheckingVpn) {
-        return (
-            <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans`}>
-                <div className="w-10 h-10 border-4 border-blue-200 dark:border-blue-900 border-t-blue-600 dark:border-t-blue-500 rounded-full animate-spin"></div>
-            </div>
-        );
-    }
-
-    if (isVpnBlocked) {
-        return (
-            <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans px-6 text-center`}>
-                <div className="bg-white dark:bg-zinc-900 border-4 border-slate-900 dark:border-white shadow-2xl p-6 md:p-12 mb-8 max-w-xl w-full flex flex-col items-center">
-                    <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white uppercase leading-tight font-sans tracking-tight">
-                        POV: YOU TRIED<br/>VPN FOR THE FIRST TIME
-                    </h1>
-                </div>
-                <div className="text-slate-600 dark:text-zinc-400 text-sm bg-white dark:bg-[#0a0a0c] px-6 py-4 rounded-xl border border-slate-200 dark:border-zinc-800 inline-block shadow-sm font-medium">
-                    Please disable your VPN or use a residential connection to view this portfolio.
+                <div className="text-slate-700 dark:text-zinc-300 text-sm md:text-base bg-white dark:bg-[#0a0a0c] px-8 py-5 rounded-2xl border border-slate-200 dark:border-zinc-800 inline-block shadow-sm font-medium">
+                    Please disable your VPN and use a standard residential connection to continue.
                 </div>
             </div>
         );
