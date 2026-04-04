@@ -414,7 +414,7 @@ const HeroSection = () => {
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
                     className="text-blue-600 dark:text-blue-500 text-xs md:text-sm font-bold tracking-[0.2em] mb-4 uppercase"
                 >
-                    ASPIRING PRODUCT MANAGER &middot; MBA (IT & HR)
+                    ASPIRING PRODUCT MANAGER &middot; MBA (IT & OPERATIONS)
                 </motion.div>
 
                 <motion.h1 
@@ -800,7 +800,7 @@ const SkillsSection = () => {
             title: "Business & Strategy",
             icon: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></g>,
             colorClass: "text-purple-600 bg-purple-50 dark:text-purple-400 dark:bg-purple-500/10 border-purple-100 dark:border-purple-500/20",
-            skills: ["Strategic Management", "SWOT Analysis", "Porter's Five Forces", "BCG Matrix", "Competitive Benchmarking", "Stakeholder Reporting", "HR Strategy", "D2C Growth", "Structured Problem Solving"]
+            skills: ["Strategic Management", "SWOT Analysis", "Porter's Five Forces", "BCG Matrix", "Competitive Benchmarking", "Stakeholder Reporting", "IT & OPERATIONS Strategy", "D2C Growth", "Structured Problem Solving"]
         }
     ];
 
@@ -876,9 +876,9 @@ const EducationSection = () => {
                                 <div className="text-sm font-bold text-blue-600 dark:text-blue-500 tracking-widest uppercase">AUG 2025 — APR 2027</div>
                             </div>
                             
-                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">MBA — Information Technology &amp; Marketing</h3>
+                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">MBA — Information Technology &amp; Operations</h3>
                             <div className="text-slate-500 dark:text-zinc-400 text-lg mb-2">Regional College of Management (RCM), Bhubaneswar</div>
-                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">Strategic Management, IT &amp; HR Strategy</div>
+                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">Strategic Management, IT &amp; OPERATIONS Strategy</div>
 
                             <div className="border-t border-slate-100 dark:border-zinc-800 pt-6">
                                 <div className="flex items-center gap-2 mb-4">
@@ -886,7 +886,7 @@ const EducationSection = () => {
                                     <div className="text-[11px] font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase">KEY COURSEWORK</div>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
-                                    {["Strategic Management", "Product Strategy", "IT Management", "HR Strategy", "Marketing Management", "Business Analytics"].map(course => (
+                                    {["Strategic Management", "Product Strategy", "IT Management", "IT & OPERATIONS Strategy", "Operations Management", "Business Analytics"].map(course => (
                                         <span key={course} className="px-5 py-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-full text-sm font-semibold text-slate-600 dark:text-zinc-400">
                                             {course}
                                         </span>
@@ -1034,7 +1034,7 @@ const FAQSection = () => {
     const faqs = [
         {
             q: "Who is Ayush Chatterjee?",
-            a: "Ayush Chatterjee is a data-driven, strategic, and execution-focused Product Manager. He has a background in IT, Analytics, and HR, and has worked on pre-release product validation at OnePlus, and D2C growth research at Innovist."
+            a: "Ayush Chatterjee is a data-driven, strategic, and execution-focused Product Manager. He has a background in IT, Analytics, and OPERATIONS, and has worked on pre-release product validation at OnePlus, and D2C growth research at Innovist."
         },
         {
             q: "What is Ayush Chatterjee's product philosophy?",
