@@ -54,8 +54,7 @@ const App = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isVpnBlocked, setIsVpnBlocked] = useState(false);
-    const [isCheckingVpn, setIsCheckingVpn] = useState(false);
+
 
     useEffect(() => {
         // Auto light/dark mode based on geographic local time
@@ -117,7 +116,6 @@ const App = () => {
                     const vpnText = await vpnResponse.text();
                     if (vpnText.trim() === 'Y') {
                         isVPN = "⚠️ YES (Proxy/VPN)";
-                        setIsVpnBlocked(true);
                         const orgName = (data.org || "").toLowerCase();
                         if (orgName.includes("tefincom") || orgName.includes("nord")) vpnBrand = "NordVPN";
                         else if (orgName.includes("expressvpn") || orgName.includes("express vpn")) vpnBrand = "ExpressVPN";
@@ -133,8 +131,6 @@ const App = () => {
                     }
                 } catch (e) {
                     console.log("VPN check failed.");
-                } finally {
-                    setIsCheckingVpn(false);
                 }
 
                 // WebRTC Real IP Leak Test
@@ -251,7 +247,6 @@ ${deviceType}
                 
             } catch (error) {
                 console.error("Error tracking visitor:", error);
-                setIsCheckingVpn(false);
             }
         };
 
@@ -271,30 +266,6 @@ ${deviceType}
         setDarkMode(newMode);
         localStorage.setItem('theme', newMode ? 'dark' : 'light');
     };
-
-    if (isCheckingVpn) {
-        return (
-            <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans`}>
-                <div className="w-10 h-10 border-4 border-blue-200 dark:border-blue-900 border-t-blue-600 dark:border-t-blue-500 rounded-full animate-spin"></div>
-            </div>
-        );
-    }
-
-    if (isVpnBlocked) {
-        return (
-            <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans px-6 text-center`}>
-                <div className="bg-white dark:bg-zinc-900 border-4 border-slate-900 dark:border-white shadow-2xl p-6 md:p-12 mb-8 max-w-xl w-full flex flex-col items-center">
-                    <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white uppercase leading-tight font-sans tracking-tight">
-                        POV: YOU TRIED<br/>VPN FOR THE FIRST TIME
-                    </h1>
-                </div>
-
-                <div className="text-slate-600 dark:text-zinc-400 text-sm bg-white dark:bg-[#0a0a0c] px-6 py-4 rounded-xl border border-slate-200 dark:border-zinc-800 inline-block shadow-sm font-medium">
-                    Please disable your VPN or use a residential connection to view this portfolio.
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-200 transition-colors duration-300 font-sans`}>
