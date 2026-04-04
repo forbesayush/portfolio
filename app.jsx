@@ -410,7 +410,6 @@ ${deviceType}
                 <SkillsSection />
                 <EducationSection />
                 <CredentialsSection />
-                <TestimonialsSection />
                 <FAQSection />
                 <ContactSection />
             </main>
@@ -1112,64 +1111,6 @@ const CredentialsSection = () => {
                             </div>
                         </FadeInUp>
                     </div>
-                </div>
-            </div>
-        </section>
-    );
-};
-
-/* --- Testimonials Section --- */
-const TestimonialsSection = () => {
-    const testimonials = [
-        {
-            name: "Rahul Sharma",
-            role: "Senior PM, OnePlus Software R&D",
-            text: "Ayush brought exceptional attention to detail during pre-release testing. His structured defect reporting directly improved our launch readiness and confidence across product categories.",
-            initials: "RS",
-            color: "bg-blue-600"
-        },
-        {
-            name: "Priya Mehta",
-            role: "Growth Lead, Innovist",
-            text: "His competitive benchmarking work was thorough and actionable. The 10+ data-backed recommendations he delivered gave us clear direction for D2C positioning and growth strategy.",
-            initials: "PM",
-            color: "bg-purple-600"
-        },
-        {
-            name: "Vikram Das",
-            role: "Business Head, D-Dzire Jewels",
-            text: "Ayush built our entire KPI dashboard from scratch. His ability to translate raw transaction data into executive-level insights was remarkable for someone at his stage.",
-            initials: "VD",
-            color: "bg-emerald-600"
-        }
-    ];
-    return (
-        <section id="testimonials" className="py-24 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
-            <div className="container mx-auto max-w-5xl">
-                <div className="text-center mb-16">
-                    <FadeInUp>
-                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">SOCIAL PROOF</div>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">What People Say</h2>
-                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
-                            Feedback from mentors and collaborators across my internships.
-                        </p>
-                    </FadeInUp>
-                </div>
-                <div className="grid md:grid-cols-3 gap-6">
-                    {testimonials.map((t, i) => (
-                        <FadeInUp key={i} delay={i * 0.1}>
-                            <div className="bg-slate-50 dark:bg-zinc-900 rounded-2xl p-8 border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
-                                <p className="text-slate-600 dark:text-zinc-400 leading-relaxed mb-8 flex-1 italic">&ldquo;{t.text}&rdquo;</p>
-                                <div className="flex items-center gap-3">
-                                    <div className={`w-10 h-10 ${t.color} rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>{t.initials}</div>
-                                    <div>
-                                        <div className="font-bold text-slate-900 dark:text-white text-sm">{t.name}</div>
-                                        <div className="text-xs text-slate-500 dark:text-zinc-500">{t.role}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </FadeInUp>
-                    ))}
                 </div>
             </div>
         </section>
