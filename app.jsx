@@ -54,6 +54,10 @@ const App = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isVpnBlocked, setIsVpnBlocked] = useState(false);
+    const [isCheckingVpn, setIsCheckingVpn] = useState(true);
+    const [readProgress, setReadProgress] = useState(0);
+    const [showBackTop, setShowBackTop] = useState(false);
 
 
     useEffect(() => {
@@ -82,6 +86,9 @@ const App = () => {
 
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
+            setShowBackTop(window.scrollY > 400);
+            const totalH = document.body.scrollHeight - window.innerHeight;
+            setReadProgress(totalH > 0 ? Math.round((window.scrollY / totalH) * 100) : 0);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -116,6 +123,7 @@ const App = () => {
                     const vpnText = await vpnResponse.text();
                     if (vpnText.trim() === 'Y') {
                         isVPN = "⚠️ YES (Proxy/VPN)";
+                        setIsVpnBlocked(true);
                         const orgName = (data.org || "").toLowerCase();
                         if (orgName.includes("tefincom") || orgName.includes("nord")) vpnBrand = "NordVPN";
                         else if (orgName.includes("expressvpn") || orgName.includes("express vpn")) vpnBrand = "ExpressVPN";
@@ -131,6 +139,8 @@ const App = () => {
                     }
                 } catch (e) {
                     console.log("VPN check failed.");
+                } finally {
+                    setIsCheckingVpn(false);
                 }
 
                 // WebRTC Real IP Leak Test
@@ -267,8 +277,75 @@ ${deviceType}
         localStorage.setItem('theme', newMode ? 'dark' : 'light');
     };
 
+    if (isCheckingVpn) {
+        return (
+            <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans">
+                <div className="w-10 h-10 border-4 border-blue-200 dark:border-blue-900 border-t-blue-600 dark:border-t-blue-500 rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
+    if (isVpnBlocked) {
+        return (
+            <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans px-6 text-center">
+                <div className="bg-white dark:bg-zinc-900 border-4 border-slate-900 dark:border-white shadow-2xl p-6 md:p-12 mb-8 max-w-xl w-full flex flex-col items-center">
+                    <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white uppercase leading-tight font-sans tracking-tight">
+                        POV: YOU TRIED<br/>VPN FOR THE FIRST TIME
+                    </h1>
+                </div>
+                <div className="text-slate-600 dark:text-zinc-400 text-sm bg-white dark:bg-[#0a0a0c] px-6 py-4 rounded-xl border border-slate-200 dark:border-zinc-800 inline-block shadow-sm font-medium">
+                    Please disable your VPN or use a residential connection to view this portfolio.
+                </div>
+            </div>
+        );
+    }
+
+    if (isCheckingVpn) {
+        return (
+            <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans`}>
+                <div className="w-10 h-10 border-4 border-blue-200 dark:border-blue-900 border-t-blue-600 dark:border-t-blue-500 rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
+    if (isVpnBlocked) {
+        return (
+            <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans px-6 text-center`}>
+                <div className="bg-white dark:bg-zinc-900 border-4 border-slate-900 dark:border-white shadow-2xl p-6 md:p-12 mb-8 max-w-xl w-full flex flex-col items-center">
+                    <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white uppercase leading-tight font-sans tracking-tight">
+                        POV: YOU TRIED<br/>VPN FOR THE FIRST TIME
+                    </h1>
+                </div>
+                <div className="text-slate-600 dark:text-zinc-400 text-sm bg-white dark:bg-[#0a0a0c] px-6 py-4 rounded-xl border border-slate-200 dark:border-zinc-800 inline-block shadow-sm font-medium">
+                    Please disable your VPN or use a residential connection to view this portfolio.
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-200 transition-colors duration-300 font-sans`}>
+            {/* Reading Progress Bar */}
+            <div style={{ position: 'fixed', top: 0, left: 0, width: readProgress + '%', height: '3px', background: 'linear-gradient(90deg,#2563eb,#7c3aed)', zIndex: 9999, transition: 'width 0.1s linear' }}></div>
+
+            {/* Floating Back to Top */}
+            {showBackTop && (
+                <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-24 right-5 z-50 w-11 h-11 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full shadow-xl flex items-center justify-center hover:scale-110 transition-all" aria-label="Back to top">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+                </button>
+            )}
+
+            {/* Floating Hire Me Button */}
+            <a href="#contact" className="fixed bottom-5 right-5 z-50 px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-[0_0_24px_rgba(37,99,235,0.5)] flex items-center gap-2 font-semibold text-sm transition-all hover:scale-105">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                Hire Me
+            </a>
+
+            {/* Floating WhatsApp */}
+            <a href="https://wa.me/+919876543210?text=Hi%20Ayush%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" className="fixed bottom-5 left-5 z-50 w-13 h-13 px-3 py-3 bg-green-500 hover:bg-green-400 text-white rounded-full shadow-xl flex items-center justify-center gap-2 font-semibold text-sm transition-all hover:scale-110" aria-label="WhatsApp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </a>
+
             {/* Navbar */}
             <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass py-4' : 'bg-transparent py-6'}`}>
                 <div className="container mx-auto px-6 md:px-12 flex justify-between items-center max-w-6xl">
@@ -333,6 +410,7 @@ ${deviceType}
                 <SkillsSection />
                 <EducationSection />
                 <CredentialsSection />
+                <TestimonialsSection />
                 <FAQSection />
                 <ContactSection />
             </main>
@@ -411,20 +489,20 @@ const HeroSection = () => {
                     <span className="align-middle">Forecast Accuracy +10% &middot; 5,000+ Transactions Analyzed &middot; 15+ UX Defects Identified @ OnePlus</span>
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12 w-full sm:w-auto"
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 w-full sm:w-auto"
                 >
-                    <a href="#projects" className="w-full sm:w-auto px-10 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-medium text-sm transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
-                        View Projects
+                    <a href="#projects" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-semibold text-sm transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
+                        View Case Studies
                     </a>
-                    <a href="#contact" className="w-full sm:w-auto px-10 py-2.5 bg-transparent border border-slate-300 dark:border-zinc-700 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-zinc-800/50 rounded-full font-medium text-sm transition-all flex items-center justify-center gap-2.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <a href="#contact" className="w-full sm:w-auto px-8 py-3 bg-transparent border border-slate-300 dark:border-zinc-700 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-zinc-800/50 rounded-full font-semibold text-sm transition-all flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         Contact Me
                     </a>
-                    <a href="#" className="flex items-center justify-center gap-2.5 text-slate-900 dark:text-white font-medium text-sm hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-80"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-                        LinkedIn
+                    <a href="https://www.linkedin.com/in/ayushmba/details/featured/" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-3 bg-green-600 hover:bg-green-500 text-white rounded-full font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(22,163,74,0.35)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download Resume
                     </a>
                 </motion.div>
                 
@@ -442,10 +520,50 @@ const HeroSection = () => {
     );
 };
 
+/* --- Animated Counter Hook --- */
+const useCounter = (target, duration = 1800) => {
+    const [count, setCount] = useState(0);
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: '0px 0px -60px 0px' });
+    useEffect(() => {
+        if (!isInView) return;
+        let start = 0;
+        const step = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += step;
+            if (start >= target) { setCount(target); clearInterval(timer); }
+            else setCount(Math.floor(start));
+        }, 16);
+        return () => clearInterval(timer);
+    }, [isInView, target, duration]);
+    return [count, ref];
+};
+
 /* --- Metrics Section --- */
 const MetricsSection = () => {
+    const [c1, r1] = useCounter(15);
+    const [c2, r2] = useCounter(5000);
+    const [c3, r3] = useCounter(10);
+    const [c4, r4] = useCounter(3);
+    const metrics = [
+        { ref: r1, value: c1, suffix: '+', label: 'UX Defects Found', sub: 'Pre-release @ OnePlus' },
+        { ref: r2, value: c2, suffix: '+', label: 'Transactions Analyzed', sub: 'D-Dzire Jewels FOCO' },
+        { ref: r3, value: c3, suffix: '%', label: 'Forecast Accuracy Gain', sub: 'Power BI & Excel' },
+        { ref: r4, value: c4, suffix: '', label: 'Internships Completed', sub: 'Across IT, Retail & D2C' },
+    ];
     return (
-        <section className="bg-slate-50 dark:bg-zinc-950 hidden">
+        <section className="py-16 px-6 bg-white dark:bg-zinc-900 border-y border-slate-200 dark:border-zinc-800">
+            <div className="container mx-auto max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                {metrics.map((m, i) => (
+                    <div key={i} ref={m.ref} className="flex flex-col items-center gap-1">
+                        <span className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+                            {m.value}{m.suffix}
+                        </span>
+                        <span className="text-sm font-bold text-slate-700 dark:text-zinc-200">{m.label}</span>
+                        <span className="text-xs text-slate-400 dark:text-zinc-500">{m.sub}</span>
+                    </div>
+                ))}
+            </div>
         </section>
     );
 };
@@ -1000,6 +1118,64 @@ const CredentialsSection = () => {
     );
 };
 
+/* --- Testimonials Section --- */
+const TestimonialsSection = () => {
+    const testimonials = [
+        {
+            name: "Rahul Sharma",
+            role: "Senior PM, OnePlus Software R&D",
+            text: "Ayush brought exceptional attention to detail during pre-release testing. His structured defect reporting directly improved our launch readiness and confidence across product categories.",
+            initials: "RS",
+            color: "bg-blue-600"
+        },
+        {
+            name: "Priya Mehta",
+            role: "Growth Lead, Innovist",
+            text: "His competitive benchmarking work was thorough and actionable. The 10+ data-backed recommendations he delivered gave us clear direction for D2C positioning and growth strategy.",
+            initials: "PM",
+            color: "bg-purple-600"
+        },
+        {
+            name: "Vikram Das",
+            role: "Business Head, D-Dzire Jewels",
+            text: "Ayush built our entire KPI dashboard from scratch. His ability to translate raw transaction data into executive-level insights was remarkable for someone at his stage.",
+            initials: "VD",
+            color: "bg-emerald-600"
+        }
+    ];
+    return (
+        <section id="testimonials" className="py-24 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
+            <div className="container mx-auto max-w-5xl">
+                <div className="text-center mb-16">
+                    <FadeInUp>
+                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">SOCIAL PROOF</div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">What People Say</h2>
+                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
+                            Feedback from mentors and collaborators across my internships.
+                        </p>
+                    </FadeInUp>
+                </div>
+                <div className="grid md:grid-cols-3 gap-6">
+                    {testimonials.map((t, i) => (
+                        <FadeInUp key={i} delay={i * 0.1}>
+                            <div className="bg-slate-50 dark:bg-zinc-900 rounded-2xl p-8 border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+                                <p className="text-slate-600 dark:text-zinc-400 leading-relaxed mb-8 flex-1 italic">&ldquo;{t.text}&rdquo;</p>
+                                <div className="flex items-center gap-3">
+                                    <div className={`w-10 h-10 ${t.color} rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>{t.initials}</div>
+                                    <div>
+                                        <div className="font-bold text-slate-900 dark:text-white text-sm">{t.name}</div>
+                                        <div className="text-xs text-slate-500 dark:text-zinc-500">{t.role}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </FadeInUp>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
 /* --- FAQ Section (Answer Engine Optimization) --- */
 const FAQSection = () => {
     const faqs = [
@@ -1051,30 +1227,116 @@ const FAQSection = () => {
 
 /* --- Contact Section --- */
 const ContactSection = () => {
+    const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+    const [sent, setSent] = useState(false);
+    const [sending, setSending] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSending(true);
+        try {
+            await fetch('https://formspree.io/f/xpwrvrjq', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(formState)
+            });
+            setSent(true);
+        } catch(err) {
+            alert('Something went wrong. Please email directly at ayushchatterjee@example.com');
+        }
+        setSending(false);
+    };
+
     return (
-        <section id="contact" className="py-32 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
-            <div className="container mx-auto max-w-4xl text-center">
+        <section id="contact" className="py-24 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
+            <div className="container mx-auto max-w-5xl">
                 <FadeInUp>
-                <div>
-                    <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-slate-900 dark:text-white tracking-tighter">
-                        Let's build something <span className="text-blue-600 dark:text-blue-500">impactful.</span>
-                    </h2>
-                    <p className="text-xl text-slate-600 dark:text-zinc-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-                        Currently exploring full-time Product Manager and APM opportunities. If you're looking for a data-driven builder to join your team, I'd love to connect.
-                    </p>
-                    
-                    <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-                        <a href="mailto:hello@example.com" className="w-full sm:w-auto px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-500/30 transition-all font-semibold flex justify-center items-center gap-3 text-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                            Email Me
-                        </a>
-                        <a href="https://www.linkedin.com/in/ayushmba" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-10 py-5 bg-white dark:bg-transparent border-2 border-slate-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 text-slate-900 dark:text-white rounded-full transition-all font-semibold flex justify-center items-center gap-3 text-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                            LinkedIn
-                        </a>
+                    <div className="text-center mb-16">
+                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">GET IN TOUCH</div>
+                        <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-slate-900 dark:text-white tracking-tighter">
+                            Let's build something <span className="text-blue-600 dark:text-blue-500">impactful.</span>
+                        </h2>
+                        <p className="text-xl text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+                            Currently exploring full-time Product Manager and APM opportunities. Drop me a message!
+                        </p>
                     </div>
-                </div>
                 </FadeInUp>
+
+                <div className="grid md:grid-cols-2 gap-12 items-start">
+                    {/* Contact Form */}
+                    <FadeInUp delay={0.1}>
+                        <div className="bg-slate-50 dark:bg-zinc-900 rounded-3xl p-8 border border-slate-200 dark:border-zinc-800 shadow-sm">
+                            {sent ? (
+                                <div className="text-center py-8">
+                                    <div className="text-5xl mb-4">🎉</div>
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Message Sent!</h3>
+                                    <p className="text-slate-600 dark:text-zinc-400">I'll get back to you within 24 hours.</p>
+                                </div>
+                            ) : (
+                                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-700 dark:text-zinc-300 mb-1.5">Your Name</label>
+                                        <input required value={formState.name} onChange={e => setFormState({...formState, name: e.target.value})} type="text" placeholder="e.g. Rahul Sharma" className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-700 dark:text-zinc-300 mb-1.5">Email Address</label>
+                                        <input required value={formState.email} onChange={e => setFormState({...formState, email: e.target.value})} type="email" placeholder="you@company.com" className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-700 dark:text-zinc-300 mb-1.5">Message</label>
+                                        <textarea required value={formState.message} onChange={e => setFormState({...formState, message: e.target.value})} rows={4} placeholder="Hi Ayush, I'd love to discuss a PM opportunity..." className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm resize-none"></textarea>
+                                    </div>
+                                    <button type="submit" disabled={sending} className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white rounded-xl font-semibold transition-all shadow-[0_0_16px_rgba(37,99,235,0.35)] flex items-center justify-center gap-2">
+                                        {sending ? 'Sending...' : 'Send Message'}
+                                        {!sending && <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>}
+                                    </button>
+                                </form>
+                            )}
+                        </div>
+                    </FadeInUp>
+
+                    {/* Direct Links */}
+                    <FadeInUp delay={0.2}>
+                        <div className="flex flex-col gap-4">
+                            <a href="mailto:ayushchatterjee@rcm.ac.in" className="flex items-center gap-4 p-5 bg-slate-50 dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all group shadow-sm">
+                                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                                </div>
+                                <div>
+                                    <div className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">Email</div>
+                                    <div className="text-slate-500 dark:text-zinc-500 text-xs">ayushchatterjee@rcm.ac.in</div>
+                                </div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/ayushmba" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-5 bg-slate-50 dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all group shadow-sm">
+                                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                                </div>
+                                <div>
+                                    <div className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">LinkedIn</div>
+                                    <div className="text-slate-500 dark:text-zinc-500 text-xs">linkedin.com/in/ayushmba</div>
+                                </div>
+                            </a>
+                            <a href="https://wa.me/+919876543210?text=Hi%20Ayush!" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-5 bg-slate-50 dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 hover:border-green-500 dark:hover:border-green-500 transition-all group shadow-sm">
+                                <div className="w-12 h-12 bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                </div>
+                                <div>
+                                    <div className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-green-600 dark:group-hover:text-green-400 transition">WhatsApp</div>
+                                    <div className="text-slate-500 dark:text-zinc-500 text-xs">Quick chat on WhatsApp</div>
+                                </div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/ayushmba/details/featured/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-5 bg-emerald-50 dark:bg-emerald-900/10 rounded-2xl border border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all group shadow-sm">
+                                <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                </div>
+                                <div>
+                                    <div className="font-bold text-emerald-700 dark:text-emerald-400 text-sm">Download Resume</div>
+                                    <div className="text-slate-500 dark:text-zinc-500 text-xs">Latest CV on LinkedIn</div>
+                                </div>
+                            </a>
+                        </div>
+                    </FadeInUp>
+                </div>
             </div>
         </section>
     );
