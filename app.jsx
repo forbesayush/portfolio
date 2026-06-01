@@ -781,12 +781,10 @@ const FAQContactSection = () => {
 };
 
 const App = () => {
-    const { scrollYProgress } = useScroll();
     return (
         <SecurityWrapper>
             <div className="min-h-screen bg-[#030303] text-zinc-300 font-sans selection:bg-cyan-500/30 selection:text-white relative">
                 <GlobalDataScene />
-                <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 z-50 origin-left" style={ scaleX: scrollYProgress } />
                 <div className="relative z-10">
                     <nav className="fixed w-full top-0 p-6 flex justify-between items-center z-40 mix-blend-difference text-white">
                         <div className="font-mono font-bold tracking-tighter text-xl">AC<span className="text-cyan-400">.</span></div>
