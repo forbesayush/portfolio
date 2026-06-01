@@ -25,15 +25,10 @@
     <link rel="canonical" href="https://ayushchatterjee.me/" />
     <meta name="google-site-verification" content="P_g8B0iaNzl_ey8Q5FCqrK95T49xV4jajkhQMAeM04c" />
     
-    <!-- Security Layers -->
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta name="referrer" content="no-referrer-when-downgrade">
-    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS (via CDN for local execution) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -43,15 +38,13 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Inter"', 'sans-serif'],
-                        heading: ['"Inter"', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#000000',
-                        accent: '#2563eb',
-                        secondary: '#64748b',
-                        darkBg: '#0a0a0a',
-                        darkCard: '#111111',
+                        primary: '#000000',    // Black text
+                        accent: '#2563eb',     // Base44 Blue (blue-600)
+                        secondary: '#4b5563',  // Muted gray (slate-600)
                     }
                 }
             }
@@ -137,7 +130,7 @@
     }]
     </script>
 </head>
-<body class="bg-white dark:bg-darkBg text-slate-900 dark:text-zinc-50 antialiased selection:bg-accent selection:text-white transition-colors duration-500">
+<body class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-[#0f172a] dark:text-gray-100 antialiased selection:bg-accent selection:text-white">
     <div id="root"></div>
 
     <!-- Main App Logic -->
