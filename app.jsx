@@ -213,7 +213,7 @@ ${deviceType}
         );
     }
 
-    return <>{children}</>;
+    return <React.Fragment>{children}</React.Fragment>;
 };
 
 // --- Custom Animated 3D Global IT Network ---
