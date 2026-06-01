@@ -1,100 +1,26 @@
 const { useState, useEffect, useRef } = React;
-const { motion, useInView } = window.Motion;
+const { motion, useScroll, useTransform, AnimatePresence } = window.Motion;
 
-// FadeInUp component for scroll reveal - works on Android/iOS/PC
-const FadeInUp = ({ children, delay = 0 }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
-    return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.55, delay: delay, ease: [0.21, 0.47, 0.32, 0.98] }}
-        >
-            {children}
-        </motion.div>
-    );
-};
-
-// ScaleIn - pops in with scale for cards and badges
-const ScaleIn = ({ children, delay = 0 }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
-    return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.45, delay: delay, ease: [0.34, 1.56, 0.64, 1] }}
-        >
-            {children}
-        </motion.div>
-    );
-};
-
-// SlideInLeft - slides in from left for timeline items
-const SlideInLeft = ({ children, delay = 0 }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
-    return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-            transition={{ duration: 0.5, delay: delay, ease: [0.21, 0.47, 0.32, 0.98] }}
-        >
-            {children}
-        </motion.div>
-    );
-};
-
-// Base layout and app component
-const App = () => {
-    const [darkMode, setDarkMode] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+// --- Security Layers & Honeypot ---
+const SecurityWrapper = ({ children }) => {
     const [isVpnBlocked, setIsVpnBlocked] = useState(false);
     const [isCheckingVpn, setIsCheckingVpn] = useState(true);
-    const [readProgress, setReadProgress] = useState(0);
-    const [showBackTop, setShowBackTop] = useState(false);
-
 
     useEffect(() => {
-        // Auto light/dark mode based on geographic local time
-        const checkTimeAndPreference = () => {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                setDarkMode(savedTheme === 'dark');
-                return;
-            }
-            
-            // Geographic location time based mode (6 PM to 6 AM is dark mode)
-            const currentHour = new Date().getHours();
-            const isNight = currentHour >= 18 || currentHour < 6;
-            
-            if (isNight) {
-                setDarkMode(true);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                setDarkMode(true);
-            } else {
-                setDarkMode(false);
+        const handleContextMenu = (e) => e.preventDefault();
+        const handleKeyDown = (e) => {
+            if (e.key === 'F12' || 
+               ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) ||
+               ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'u')) {
+                e.preventDefault();
             }
         };
-
-        checkTimeAndPreference();
-
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-            setShowBackTop(window.scrollY > 400);
-            const totalH = document.body.scrollHeight - window.innerHeight;
-            setReadProgress(totalH > 0 ? Math.round((window.scrollY / totalH) * 100) : 0);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    useEffect(() => {
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+        document.addEventListener('contextmenu', handleContextMenu);
+        document.addEventListener('keydown', handleKeyDown);
+        
         const fetchWithTimeout = async (url, options = {}) => {
             const { timeout = 3500 } = options;
             const controller = new AbortController();
@@ -261,21 +187,12 @@ ${deviceType}
         };
 
         trackVisitor();
+
+        return () => {
+            document.removeEventListener('contextmenu', handleContextMenu);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
     }, []);
-
-    useEffect(() => {
-        if (darkMode) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, [darkMode]);
-
-    const toggleTheme = () => {
-        const newMode = !darkMode;
-        setDarkMode(newMode);
-        localStorage.setItem('theme', newMode ? 'dark' : 'light');
-    };
 
     if (isCheckingVpn) {
         return (
@@ -287,267 +204,209 @@ ${deviceType}
 
     if (isVpnBlocked) {
         return (
-            <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center transition-colors duration-300 font-sans px-6 text-center">
-                <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xl p-8 md:p-12 mb-8 max-w-2xl w-full flex flex-col items-center rounded-3xl">
-                    <div className="w-16 h-16 bg-red-100 dark:bg-red-500/10 text-red-600 rounded-full flex items-center justify-center mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-                    </div>
-                    <h1 className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white uppercase leading-tight font-sans tracking-tight mb-4 text-center">
-                        Access Restricted
-                    </h1>
-                    <div className="w-16 h-1 bg-red-500 mb-6 rounded-full"></div>
-                    <h2 className="text-xl font-bold text-slate-800 dark:text-zinc-200 mb-4">Why am I seeing this?</h2>
-                    <p className="text-slate-600 dark:text-zinc-400 text-base md:text-lg leading-relaxed max-w-xl text-center">
-                        To maintain accurate visitor analytics and prevent automated scrapers, connections originated from Commercial VPNs, Proxies, and Cloud Data Centers are restricted from viewing this portfolio.
-                    </p>
-                </div>
-                <div className="text-slate-700 dark:text-zinc-300 text-sm md:text-base bg-white dark:bg-[#0a0a0c] px-8 py-5 rounded-2xl border border-slate-200 dark:border-zinc-800 inline-block shadow-sm font-medium">
-                    Please disable your VPN and use a standard residential connection to continue.
+            <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 flex flex-col items-center justify-center px-6 text-center">
+                <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xl p-8 max-w-2xl w-full rounded-3xl">
+                    <h1 className="text-3xl font-black text-red-600 mb-4">Access Restricted</h1>
+                    <p className="text-slate-600 dark:text-zinc-400">To maintain accurate visitor analytics, Commercial VPNs and Proxies are blocked. Please disable your VPN to continue.</p>
                 </div>
             </div>
         );
     }
 
-    return (
-        <div className={`min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-200 transition-colors duration-300 font-sans`}>
-            {/* Reading Progress Bar */}
-            <div style={{ position: 'fixed', top: 0, left: 0, width: readProgress + '%', height: '3px', background: 'linear-gradient(90deg,#2563eb,#7c3aed)', zIndex: 9999, transition: 'width 0.1s linear' }}></div>
-
-            {/* Floating Back to Top */}
-            {showBackTop && (
-                <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-24 right-5 z-50 w-11 h-11 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full shadow-xl flex items-center justify-center hover:scale-110 transition-all" aria-label="Back to top">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
-                </button>
-            )}
-
-            {/* Floating Hire Me Button */}
-            <a href="#contact" className="fixed bottom-5 right-5 z-50 px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-[0_0_24px_rgba(37,99,235,0.5)] flex items-center gap-2 font-semibold text-sm transition-all hover:scale-105">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                Hire Me
-            </a>
-
-            {/* Floating WhatsApp */}
-            <a href="https://wa.me/+919123337436?text=Hi%20Ayush%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" className="fixed bottom-5 left-5 z-50 w-13 h-13 px-3 py-3 bg-green-500 hover:bg-green-400 text-white rounded-full shadow-xl flex items-center justify-center gap-2 font-semibold text-sm transition-all hover:scale-110" aria-label="WhatsApp">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-            </a>
-
-            {/* Navbar */}
-            <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass py-4' : 'bg-transparent py-6'}`}>
-                <div className="container mx-auto px-6 md:px-12 flex justify-between items-center max-w-6xl">
-                    <a href="#" className="font-bold tracking-tight flex items-center gap-2">
-                        <span className="text-xl tracking-tighter text-slate-900 dark:text-white">PM<span className="text-green-500">.</span></span>
-                    </a>
-                    
-                    <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-zinc-400">
-                        <a href="#about" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">About</a>
-                        <a href="#projects" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Case Studies</a>
-                        <a href="#skills" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Skills</a>
-                        <a href="#experience" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Experience</a>
-                        <a href="#contact" className="hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Contact</a>
-                    </nav>
-
-                    <div className="flex items-center gap-4">
-                        <button 
-                            onClick={toggleTheme}
-                            className="p-2 rounded-full text-slate-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-800 transition"
-                            aria-label="Toggle dark mode"
-                        >
-                            {darkMode ? (
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                            ) : (
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                            )}
-                        </button>
-                        
-                        {/* Mobile Menu Toggle */}
-                        <button 
-                            className="md:hidden p-2 text-slate-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-800 rounded-full transition"
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            aria-label="Toggle menu"
-                        >
-                            {isMenuOpen ? (
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                            ) : (
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-                            )}
-                        </button>
-                    </div>
-                </div>
-
-                {/* Mobile Navigation Menu */}
-                {isMenuOpen && (
-                    <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-zinc-950 border-b border-slate-200 dark:border-zinc-800 shadow-lg shadow-black/5 py-4 px-6 flex flex-col gap-4 max-h-[calc(100vh-5rem)] overflow-y-auto">
-                        <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition border-b border-slate-100 dark:border-zinc-800/50">About</a>
-                        <a href="#projects" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition border-b border-slate-100 dark:border-zinc-800/50">Case Studies</a>
-                        <a href="#skills" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition border-b border-slate-100 dark:border-zinc-800/50">Skills</a>
-                        <a href="#experience" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition border-b border-slate-100 dark:border-zinc-800/50">Experience</a>
-                        <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-zinc-300 font-medium py-2 hover:text-blue-600 dark:hover:text-blue-400 text-glow-hover transition">Contact</a>
-                    </div>
-                )}
-            </header>
-
-            <main>
-                <HeroSection />
-                <MetricsSection />
-                <AboutSection />
-                <ProjectsSection />
-                <ExperienceSection />
-                <SkillsSection />
-                <EducationSection />
-                <CredentialsSection />
-                <FAQSection />
-                <ContactSection />
-            </main>
-
-            <footer className="bg-slate-900 dark:bg-zinc-950 text-slate-400 py-12 border-t border-slate-200 dark:border-zinc-800/50">
-                <div className="container mx-auto px-6 md:px-12 max-w-6xl">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                         <div className="flex items-center gap-2">
-                             <span className="text-xl tracking-tighter text-slate-400 dark:text-white font-bold">PM<span className="text-green-500">.</span></span>
-                        </div>
-                        <div className="flex gap-6">
-                            <a href="#" className="hover:text-blue-500 transition">LinkedIn</a>
-                            <a href="#" className="hover:text-blue-500 transition">Email</a>
-                        </div>
-                    </div>
-                    <div className="mt-8 text-center text-sm">
-                        &copy; {new Date().getFullYear()} Product Manager Portfolio. All rights reserved.
-                    </div>
-                </div>
-            </footer>
-        </div>
-    );
+    return <>{children}</>;
 };
 
-/* --- Hero Section --- */
-const HeroSection = () => {
-    return (
-        <section className="pt-32 pb-16 md:pt-48 md:pb-24 px-6 relative overflow-hidden flex flex-col items-center justify-center min-h-[90vh]">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-            <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] -translate-x-1/2 pointer-events-none"></div>
-
-            <div className="container mx-auto max-w-4xl flex flex-col items-center text-center relative z-10">
-                
-                <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}
-                    className="relative mb-10"
-                >
-                    <img 
-                        src="profile.jpg" 
-                        alt="Ayush Chatterjee - Product Manager Portfolio" 
-                        className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-4 border-white dark:border-zinc-900 shadow-xl relative z-10"
-                        loading="eager"
-                        fetchpriority="high"
-                        decoding="sync"
-                    />
-                    <div className="absolute bottom-2 right-2 w-5 h-5 bg-green-500 border-4 border-white dark:border-zinc-900 rounded-full z-20" title="Available for new opportunities"></div>
-                </motion.div>
-
-                <motion.div 
-                    initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-slate-500 dark:text-zinc-400 text-xs md:text-sm font-semibold tracking-widest mb-4 uppercase"
-                >
-                    ASPIRING PRODUCT MANAGER &middot; MBA (IT & INTERNATIONAL BUSINESS)
-                </motion.div>
-
-                <motion.h1 
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                    className="text-5xl md:text-7xl font-bold leading-tight mb-8 tracking-tighter text-slate-900 dark:text-white text-glow-hover"
-                >
-                    Ayush <span className="text-blue-600 dark:text-blue-500 text-glow-hover">Chatterjee</span>
-                </motion.h1>
-
-                <motion.p 
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-                    className="text-lg md:text-xl text-slate-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed text-glow-hover"
-                >
-                    Product-focused professional at the intersection of technology, strategy, and data-driven decision-making. 
-                    Product Testing @ OnePlus &middot; Growth Research @ Innovist &middot; Founder, D-DZIRE JEWELS LAB GROWN DIAMONDS.
-                </motion.p>
-
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-                    className="inline-block max-w-[95%] md:max-w-max px-6 py-2.5 rounded-3xl bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 text-sm font-medium border border-blue-200 dark:border-blue-900/50 shadow-sm text-center leading-relaxed"
-                >
-                    <span className="inline-block w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-500 align-middle mr-2 -mt-0.5"></span> 
-                    <span className="align-middle">Forecast Accuracy +10% &middot; 5,000+ Transactions Analyzed &middot; 15+ UX Defects Identified @ OnePlus</span>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 w-full sm:w-auto"
-                >
-                    <a href="#projects" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-semibold text-sm transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
-                        View Case Studies
-                    </a>
-                    <a href="#contact" className="w-full sm:w-auto px-8 py-3 bg-transparent border border-slate-300 dark:border-zinc-700 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-zinc-800/50 rounded-full font-semibold text-sm transition-all flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                        Contact Me
-                    </a>
-                    <a href="https://www.linkedin.com/in/ayushmba/details/featured/" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-3 bg-green-600 hover:bg-green-500 text-white rounded-full font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(22,163,74,0.35)]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        Download Resume
-                    </a>
-                </motion.div>
-                
-
-            </div>
-        </section>
-    );
-};
-
-/* --- Animated Counter Hook --- */
-const useCounter = (target, duration = 1800) => {
-    const [count, setCount] = useState(0);
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: '0px 0px -60px 0px' });
+// --- Custom Animated 3D Global IT Network ---
+const GlobalDataScene = () => {
+    const canvasRef = useRef(null);
     useEffect(() => {
-        if (!isInView) return;
-        let start = 0;
-        const step = target / (duration / 16);
-        const timer = setInterval(() => {
-            start += step;
-            if (start >= target) { setCount(target); clearInterval(timer); }
-            else setCount(Math.floor(start));
-        }, 16);
-        return () => clearInterval(timer);
-    }, [isInView, target, duration]);
-    return [count, ref];
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let points = [];
+        let particles = [];
+        
+        const init = () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            points = [];
+            particles = [];
+            
+            const phi = Math.PI * (3 - Math.sqrt(5)); 
+            const numPoints = width < 768 ? 200 : 500;
+            for (let i = 0; i < numPoints; i++) {
+                const y = 1 - (i / (numPoints - 1)) * 2; 
+                const r = Math.sqrt(1 - y * y);
+                const theta = phi * i;
+                const x = Math.cos(theta) * r;
+                const z = Math.sin(theta) * r;
+                points.push({ x, y, z, baseSize: Math.random() * 1.5 + 0.5 });
+            }
+
+            for(let i=0; i<40; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2
+                });
+            }
+        };
+
+        let angleX = 0;
+        let angleY = 0;
+        let targetAngleX = 0;
+        let targetAngleY = 0;
+
+        const handleMouseMove = (e) => {
+            targetAngleY = (e.clientX / window.innerWidth - 0.5) * 1.5;
+            targetAngleX = (e.clientY / window.innerHeight - 0.5) * 1.5;
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+
+        const draw = () => {
+            ctx.clearRect(0, 0, width, height);
+            
+            const bgGrad = ctx.createLinearGradient(0, 0, width, height);
+            bgGrad.addColorStop(0, '#030303');
+            bgGrad.addColorStop(1, '#0a0a0f');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, width, height);
+            
+            ctx.fillStyle = 'rgba(255,255,255,0.1)';
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if(p.x < 0 || p.x > width) p.vx *= -1;
+                if(p.y < 0 || p.y > height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                ctx.fill();
+            });
+
+            angleX += (targetAngleX - angleX) * 0.05;
+            angleY += (targetAngleY - angleY) * 0.05;
+            
+            const time = Date.now() * 0.00015;
+            const finalAngleY = time + angleY;
+            const finalAngleX = angleX + 0.2;
+
+            const cosX = Math.cos(finalAngleX);
+            const sinX = Math.sin(finalAngleX);
+            const cosY = Math.cos(finalAngleY);
+            const sinY = Math.sin(finalAngleY);
+            
+            const radius = Math.min(width, height) * (width < 768 ? 0.6 : 0.45);
+            const focalLength = 1000;
+            const centerX = width < 768 ? width / 2 : width * 0.75; 
+            const centerY = height * 0.5;
+
+            points.forEach((p, i) => {
+                let rotX = p.x * cosY - p.z * sinY;
+                let rotZ = p.z * cosY + p.x * sinY;
+                let rotY = p.y * cosX - rotZ * sinX;
+                let finalZ = rotZ * cosX + p.y * sinX;
+                
+                const scale = focalLength / (focalLength + finalZ * radius);
+                const screenX = centerX + rotX * radius * scale;
+                const screenY = centerY + rotY * radius * scale;
+                
+                if (finalZ > -0.2) { 
+                    const alpha = Math.min(1, (finalZ + 1) * 0.5);
+                    ctx.fillStyle = `rgba(0, 240, 255, ${alpha * 0.7})`; 
+                    ctx.beginPath();
+                    ctx.arc(screenX, screenY, p.baseSize * scale, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (i % 6 === 0) {
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${alpha * 0.1})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(screenX, screenY);
+                        ctx.lineTo(centerX, centerY);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(draw);
+        };
+        
+        init();
+        draw();
+        window.addEventListener('resize', init);
+        return () => {
+            window.removeEventListener('resize', init);
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+    return <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0 pointer-events-none"></canvas>;
 };
 
-/* --- Metrics Section --- */
-const MetricsSection = () => {
-    const [c1, r1] = useCounter(15);
-    const [c2, r2] = useCounter(5000);
-    const [c3, r3] = useCounter(10);
-    const [c4, r4] = useCounter(3);
-    const metrics = [
-        { ref: r1, value: c1, suffix: '+', label: 'UX Defects Found', sub: 'Pre-release @ OnePlus' },
+// --- UI Components ---
+const BentoCard = ({ children, className = "", delay = 0 }) => (
+    <motion.div 
+        initial={ opacity: 0, y: 30 }
+        whileInView={ opacity: 1, y: 0 }
+        viewport={ once: true, margin: "-50px" }
+        transition={ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }
+        className={`bg-white/[0.02] backdrop-blur-2xl border border-white/5 rounded-3xl p-8 hover:bg-white/[0.04] hover:border-white/10 transition-all duration-500 relative overflow-hidden group ${className}`}
+    >
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-500/0 group-hover:from-cyan-500/5 group-hover:to-blue-500/5 transition-all duration-700 pointer-events-none"></div>
+        <div className="relative z-10">{children}</div>
+    </motion.div>
+);
+
+const SectionTitle = ({ title, subtitle }) => (
+    <div className="mb-12">
+        <div className="text-cyan-400 font-mono text-xs md:text-sm tracking-[0.2em] uppercase mb-4 flex items-center gap-4">
+            <span className="w-12 h-px bg-cyan-400/50"></span>
+            {subtitle}
+        </div>
+        <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white">{title}</h2>
+    </div>
+);
+
+// --- Sections ---
+
+const HeroSection = () => (
+    <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20 pb-10">
+        <div className="max-w-4xl">
+            <motion.div initial={ opacity: 0, x: -30 } animate={ opacity: 1, x: 0 } transition={ duration: 1 } className="font-mono text-cyan-400 text-sm md:text-base tracking-[0.2em] mb-6 flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                OPEN TO NEW OPPORTUNITIES
+            </motion.div>
+            
+            <motion.h1 initial={ opacity: 0, y: 30 } animate={ opacity: 1, y: 0 } transition={ duration: 1, delay: 0.2 } className="text-6xl md:text-8xl font-medium tracking-tighter text-white mb-6 leading-[1.1]">
+                Ayush Chatterjee
+            </motion.h1>
+            
+            <motion.div initial={ opacity: 0, y: 30 } animate={ opacity: 1, y: 0 } transition={ duration: 1, delay: 0.4 } className="text-xl md:text-3xl text-zinc-400 font-light tracking-tight mb-10 max-w-2xl">
+                Product Manager specializing in <span className="text-white font-normal">IT & International Business.</span> Bridging complex data structures with global market execution.
+            </motion.div>
+
+            <motion.div initial={ opacity: 0 } animate={ opacity: 1 } transition={ duration: 1, delay: 0.8 } className="flex flex-wrap gap-6 items-center">
+                <a href="#contact" className="px-8 py-4 bg-cyan-500 text-black font-mono text-sm font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all rounded-sm shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]">
+                    Hire Me
+                </a>
+                <a href="resume.pdf" target="_blank" className="px-8 py-4 border border-white/20 text-white font-mono text-sm font-bold tracking-widest uppercase hover:bg-white/10 transition-all rounded-sm">
+                    Download Resume
+                </a>
+                <a href="#about" className="font-mono text-sm tracking-widest uppercase text-zinc-400 hover:text-white transition-colors flex items-center gap-2 mt-4 md:mt-0">
+                    Explore Data <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                </a>
+            </motion.div>
+        </div>
+    </section>
+);
+
+const AboutSection = () => {
+    const metrics = [ ref: r1, value: c1, suffix: '+', label: 'UX Defects Found', sub: 'Pre-release @ OnePlus' },
         { ref: r2, value: c2, suffix: '+', label: 'Transactions Analyzed', sub: 'D-Dzire Jewels FOCO' },
         { ref: r3, value: c3, suffix: '%', label: 'Forecast Accuracy Gain', sub: 'Power BI & Excel' },
         { ref: r4, value: c4, suffix: '', label: 'Internships Completed', sub: 'Across IT, Retail & D2C' },
     ];
-    return (
-        <section className="py-16 px-6 bg-white dark:bg-zinc-900 border-y border-slate-200 dark:border-zinc-800">
-            <div className="container mx-auto max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                {metrics.map((m, i) => (
-                    <div key={i} ref={m.ref} className="flex flex-col items-center gap-1">
-                        <span className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-                            {m.value}{m.suffix}
-                        </span>
-                        <span className="text-sm font-bold text-slate-700 dark:text-zinc-200">{m.label}</span>
-                        <span className="text-xs text-slate-400 dark:text-zinc-500">{m.sub}</span>
-                    </div>
-                ))}
-            </div>
-        </section>
-    );
-};
-
-/* --- About Section --- */
-const AboutSection = () => {
     const philosophies = [
-        {
             title: "Customer Obsession",
             desc: "Every decision starts with the user. Deep empathy and continuous discovery.",
             icon: <circle cx="12" cy="12" r="10" />
@@ -578,46 +437,81 @@ const AboutSection = () => {
             icon: <g><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></g>
         }
     ];
-
+    
     return (
-        <section id="about" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950">
-            <div className="container mx-auto max-w-5xl">
-                <div className="text-center mb-16">
-                    <FadeInUp>
-                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">ABOUT ME</div>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Product Philosophy</h2>
-                        <p className="text-slate-600 dark:text-zinc-400 max-w-3xl mx-auto leading-relaxed md:text-lg">
-                            Product-focused professional working at the intersection of technology, strategy, and data-driven decision-making. My experience spans product validation (OnePlus), market intelligence (Innovist D2C), and retail KPI ownership — always with a focus on improving quality and outcomes.
-                        </p>
-                    </FadeInUp>
-                </div>
-                
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {philosophies.map((item, i) => (
-                        <FadeInUp key={i} delay={i * 0.1}>
-                            <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col items-start glow-effect">
-                                <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-500 mb-6">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        {item.icon}
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-zinc-400 text-sm leading-relaxed">
-                                    {item.desc}
-                                </p>
-                            </div>
-                        </FadeInUp>
-                    ))}
-                </div>
+        <section id="about" className="py-32 px-6 md:px-20 max-w-7xl mx-auto">
+            <SectionTitle title="Product Philosophy" subtitle="01 // About" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                {metrics.map((m, i) => (
+                    <BentoCard key={i} delay={i * 0.1}>
+                        <div className="text-5xl font-light text-cyan-400 mb-2">{m.value}</div>
+                        <div className="text-zinc-400 font-mono text-sm uppercase tracking-wider">{m.label}</div>
+                    </BentoCard>
+                ))}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {philosophies.map((p, i) => (
+                    <BentoCard key={i} delay={0.3 + (i * 0.1)}>
+                        <div className="text-cyan-400 mb-4">{p.icon}</div>
+                        <h3 className="text-xl font-medium text-white mb-3">{p.title}</h3>
+                        <p className="text-zinc-400 font-light text-sm">{p.desc}</p>
+                    </BentoCard>
+                ))}
             </div>
         </section>
     );
 };
 
-/* --- Projects Section --- */
+const ExperienceSection = () => {
+    const experiences = [
+            role: "User Experience Analyst — Product Strategy",
+            company: "OnePlus & Innovist",
+            date: "OCT 2025 — PRESENT",
+            points: [
+                "Conducted structured quality assurance diagnostics across 4 unique operating system builds, mapping end-to-end interface performance parameters to evaluate 20+ interface bugs.",
+                "Reduced post-release software defect recurrence by 22% after authoring comprehensive engineering documentation and technical root-cause diagnostics within rapid cross-functional development loops.",
+                "Improved functional customer task-flow delivery efficiency metrics by 15% by defining clean digital feature optimization criteria from raw product web usability records."
+            ]
+        },
+        {
+            role: "Business Analytics & International Strategy Intern",
+            company: "D2C Skincare Brand Portfolio",
+            date: "SEP 2024 — DEC 2025",
+            points: [
+                "Analyzed international client acquisition data trends and global retention variances across 5 storefronts, successfully resolving a complex 17% repeat purchase performance deficit.",
+                "Validated corporate roadmap software deployment strategies by preparing 3 comprehensive data-backed growth recommendations to teams, securing a 66% internal stakeholder adoption rate.",
+                "Streamlined routine cross-border business reporting loops by 35% after initiating an automated performance metric dashboard script to track global sales data structures.",
+                "Controlled interface engagement testing operations across 8 digital web storefront modules by systematically auditing conversion tracking configurations and Average Order Value indicators."
+            ]
+        }
+    ];
+    return (
+        <section id="experience" className="py-32 px-6 md:px-20 max-w-7xl mx-auto border-t border-white/5">
+            <SectionTitle title="Professional Trajectory" subtitle="02 // Experience" />
+            <div className="flex flex-col gap-6">
+                {experiences.map((exp, i) => (
+                    <BentoCard key={i} delay={i * 0.1} className="border-l-4 border-l-cyan-500/50 hover:border-l-cyan-400">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+                            <div>
+                                <h3 className="text-2xl font-medium text-white mb-2">{exp.role}</h3>
+                                <div className="text-cyan-400 font-mono text-sm tracking-wider">{exp.company}</div>
+                            </div>
+                            <div className="font-mono text-xs text-zinc-500 px-4 py-2 border border-white/10 rounded-full w-max">{exp.date}</div>
+                        </div>
+                        <div className="space-y-3 text-zinc-400 font-light text-sm">
+                            {exp.points.map((p, j) => (
+                                <p key={j} className="flex gap-4"><span className="text-cyan-500/50">▹</span> {p}</p>
+                            ))}
+                        </div>
+                    </BentoCard>
+                ))}
+            </div>
+        </section>
+    );
+};
+
 const ProjectsSection = () => {
     const projects = [
-        {
             title: "Pre-Release UX Testing @ OnePlus",
             category: "Product Validation · Mobile OS",
             icon: <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />,
@@ -678,159 +572,48 @@ const ProjectsSection = () => {
             ]
         }
     ];
-
     return (
-        <section id="projects" className="py-24 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
-            <div className="container mx-auto max-w-5xl">
-                <div className="text-center mb-16">
-                    <FadeInUp>
-                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">CASE STUDIES</div>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Product Thinking in Action</h2>
-                    </FadeInUp>
-                </div>
-
-                <div className="space-y-12">
-                    {projects.map((p, i) => (
-                        <FadeInUp key={i} delay={i * 0.1}>
-                            <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                                
-                                {/* Header */}
-                                <div className="flex items-center gap-5 mb-10">
-                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 border ${p.colorClass}`}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            {p.icon}
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-1">{p.title}</h3>
-                                        <div className="text-slate-500 dark:text-zinc-400 font-medium text-sm">{p.category}</div>
-                                    </div>
+        <section id="projects" className="py-32 px-6 md:px-20 max-w-7xl mx-auto border-t border-white/5">
+            <SectionTitle title="Strategic Implementations" subtitle="03 // Case Studies" />
+            <div className="grid grid-cols-1 gap-8">
+                {projects.map((proj, i) => (
+                    <BentoCard key={i} delay={i * 0.1}>
+                        <div className="flex flex-col lg:flex-row gap-8">
+                            <div className="lg:w-1/3">
+                                <div className="font-mono text-xs text-cyan-400 mb-4 tracking-widest uppercase">{proj.category}</div>
+                                <h3 className="text-2xl font-medium text-white mb-6">{proj.title}</h3>
+                                <div className="flex flex-wrap gap-2 mb-6">
+                                    {proj.tools.map((t, j) => <span key={j} className="text-[10px] font-mono border border-white/10 px-2 py-1 rounded-sm text-zinc-400">{t}</span>)}
                                 </div>
-                                
-                                {/* Body Columns */}
-                                <div className="grid md:grid-cols-3 gap-8 mb-10">
-                                    <div>
-                                        <div className="text-xs font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase mb-3">Problem</div>
-                                        <p className="text-slate-700 dark:text-zinc-300 leading-relaxed text-sm">{p.problem}</p>
-                                    </div>
-                                    <div>
-                                        <div className="text-xs font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase mb-3">Hypothesis</div>
-                                        <p className="text-slate-700 dark:text-zinc-300 leading-relaxed text-sm">{p.hypothesis}</p>
-                                    </div>
-                                    <div>
-                                        <div className="text-xs font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase mb-3">Action</div>
-                                        <p className="text-slate-700 dark:text-zinc-300 leading-relaxed text-sm mb-4">{p.action}</p>
-                                        
-                                        <div className="flex flex-wrap gap-2 mt-4">
-                                            {p.tools.map(t => (
-                                                <span key={t} className="px-3 py-1.5 bg-slate-100 dark:bg-zinc-800 rounded-lg text-xs font-semibold text-slate-600 dark:text-zinc-300">
-                                                    {t}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Impact Footer */}
-                                <div className="p-6 md:p-8 bg-green-50 dark:bg-green-500/10 rounded-2xl border border-green-200 dark:border-green-500/20">
-                                    <div className="text-xs font-bold text-green-700 dark:text-green-500 tracking-widest uppercase mb-4">Impact & Results</div>
-                                    <div className="grid sm:grid-cols-3 gap-6">
-                                        {p.impactParts && p.impactParts.map((impact, idx) => (
-                                            <div key={idx} className="flex gap-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-green-600 dark:text-green-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                                <div className="text-green-900 dark:text-green-100 text-sm font-medium leading-relaxed">{impact}</div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                
                             </div>
-                        </FadeInUp>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-};
-
-/* --- Experience Section --- */
-const ExperienceSection = () => {
-    const experiences = [
-        {
-            role: "User Experience Analyst — Product Strategy",
-            company: "OnePlus & Innovist",
-            date: "OCT 2025 — PRESENT",
-            points: [
-                "Conducted structured quality assurance diagnostics across 4 unique operating system builds, mapping end-to-end interface performance parameters to evaluate 20+ interface bugs.",
-                "Reduced post-release software defect recurrence by 22% after authoring comprehensive engineering documentation and technical root-cause diagnostics within rapid cross-functional development loops.",
-                "Improved functional customer task-flow delivery efficiency metrics by 15% by defining clean digital feature optimization criteria from raw product web usability records."
-            ]
-        },
-        {
-            role: "Business Analytics & International Strategy Intern",
-            company: "D2C Skincare Brand Portfolio",
-            date: "SEP 2024 — DEC 2025",
-            points: [
-                "Analyzed international client acquisition data trends and global retention variances across 5 storefronts, successfully resolving a complex 17% repeat purchase performance deficit.",
-                "Validated corporate roadmap software deployment strategies by preparing 3 comprehensive data-backed growth recommendations to teams, securing a 66% internal stakeholder adoption rate.",
-                "Streamlined routine cross-border business reporting loops by 35% after initiating an automated performance metric dashboard script to track global sales data structures.",
-                "Controlled interface engagement testing operations across 8 digital web storefront modules by systematically auditing conversion tracking configurations and Average Order Value indicators."
-            ]
-        }
-    ];
-
-    return (
-        <section id="experience" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950/80">
-            <div className="container mx-auto max-w-4xl">
-                <div className="text-center mb-16">
-                    <FadeInUp>
-                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">CAREER PATH</div>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Experience</h2>
-                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
-                            Outcome-oriented roles spanning analytics, product operations, and strategic research.
-                        </p>
-                    </FadeInUp>
-                </div>
-
-                <div className="relative border-l border-slate-200 dark:border-zinc-800 ml-3 md:ml-0 md:pl-0">
-                    {experiences.map((exp, i) => (
-                        <SlideInLeft key={i} delay={i * 0.08}>
-                            <div className={`mb-12 relative ${i !== experiences.length - 1 ? '' : 'mb-0'}`}>
-                                <div className="absolute w-2 h-2 bg-blue-600 dark:bg-blue-500 rounded-full -left-[4.5px] top-6 ring-4 ring-slate-50 dark:ring-zinc-950"></div>
-                                <div className="ml-8 md:ml-12 bg-white dark:bg-[#0a0a0c] p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
-                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{exp.role}</h3>
-                                        <span className="text-sm font-bold text-blue-600 dark:text-blue-500 shrink-0 uppercase tracking-widest">{exp.date}</span>
-                                    </div>
-                                    <div className="text-slate-500 dark:text-zinc-400 font-medium mb-8 text-lg">{exp.company}</div>
-                                    <ul className="space-y-5">
-                                        {exp.points.map((p, j) => (
-                                            <motion.li
-                                                key={j}
-                                                initial={{ opacity: 0, x: -10 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: 0.3 + j * 0.1, duration: 0.4 }}
-                                                className="text-slate-700 dark:text-zinc-300 flex items-start text-base leading-relaxed"
-                                            >
-                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-600 mr-4 mt-2.5 shrink-0"></div>
-                                                <span>{p}</span>
-                                            </motion.li>
+                            <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 className="text-white font-medium mb-2 flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span> Problem</h4>
+                                    <p className="text-zinc-400 text-sm font-light mb-6">{proj.problem}</p>
+                                    <h4 className="text-white font-medium mb-2 flex items-center gap-2"><span className="w-1 h-1 bg-yellow-500 rounded-full"></span> Action</h4>
+                                    <p className="text-zinc-400 text-sm font-light">{proj.action}</p>
+                                </div>
+                                <div className="bg-white/[0.02] p-6 rounded-2xl border border-white/5">
+                                    <h4 className="text-white font-medium mb-4 flex items-center gap-2"><span className="w-1 h-1 bg-green-500 rounded-full"></span> Key Impact</h4>
+                                    <ul className="space-y-3">
+                                        {proj.impactParts.map((ip, j) => (
+                                            <li key={j} className="text-sm text-zinc-300 font-light flex gap-3">
+                                                <span className="text-cyan-400">✓</span> {ip}
+                                            </li>
                                         ))}
                                     </ul>
                                 </div>
                             </div>
-                        </SlideInLeft>
-                    ))}
-                </div>
+                        </div>
+                    </BentoCard>
+                ))}
             </div>
         </section>
     );
 };
 
-/* --- Skills Section --- */
-const SkillsSection = () => {
+const SkillsEducationSection = () => {
     const categories = [
-        {
             title: "Product Skills",
             icon: <g><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></g>,
             colorClass: "text-slate-700 bg-slate-100 dark:text-zinc-300 dark:bg-zinc-800 border-slate-200 dark:border-zinc-700",
@@ -849,137 +632,48 @@ const SkillsSection = () => {
             skills: ["Strategic Management", "SWOT Analysis", "Porter's Five Forces", "BCG Matrix", "Competitive Benchmarking", "Stakeholder Reporting", "IT & International Business Strategy", "D2C Growth", "Structured Problem Solving"]
         }
     ];
-
     return (
-        <section id="skills" className="py-24 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
-            <div className="container mx-auto max-w-5xl">
-                <div className="text-center mb-16">
-                    <FadeInUp>
-                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">TOOLKIT</div>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Skills &amp; Expertise</h2>
-                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
-                            A versatile skill set spanning product management, data analytics, and business strategy.
-                        </p>
-                    </FadeInUp>
+        <section id="skills" className="py-32 px-6 md:px-20 max-w-7xl mx-auto border-t border-white/5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <div>
+                    <SectionTitle title="Academic Foundation" subtitle="04 // Education" />
+                    <div className="flex flex-col gap-8">
+                        <div className="border-l border-white/10 pl-6 relative">
+                            <div className="absolute w-2 h-2 bg-cyan-400 rounded-full -left-[4.5px] top-2 shadow-[0_0_10px_rgba(34,211,238,1)]"></div>
+                            <div className="font-mono text-xs text-cyan-400 mb-2">AUG 2025 — APR 2027</div>
+                            <h3 className="text-xl text-white font-medium mb-1">MBA — IT & International Business</h3>
+                            <div className="text-zinc-400 font-light">Regional College of Management (RCM)</div>
+                        </div>
+                        <div className="border-l border-white/10 pl-6 relative">
+                            <div className="absolute w-2 h-2 bg-zinc-600 rounded-full -left-[4.5px] top-2"></div>
+                            <div className="font-mono text-xs text-zinc-500 mb-2">AUG 2022 — JUN 2025</div>
+                            <h3 className="text-xl text-white font-medium mb-1">BBA (Hons)</h3>
+                            <div className="text-zinc-400 font-light">Regional College of Management (RCM)</div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div className="grid md:grid-cols-3 gap-8">
-                    {categories.map((c, i) => (
-                        <ScaleIn key={i} delay={i * 0.1}>
-                            <div className="bg-slate-50 dark:bg-zinc-900/50 rounded-3xl p-8 h-full border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                                <div className="flex flex-col mb-8">
-                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm border mb-6 ${c.colorClass}`}>
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            {c.icon}
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">{c.title}</h3>
-                                </div>
+                <div>
+                    <SectionTitle title="System Architecture" subtitle="05 // Skills" />
+                    <div className="flex flex-col gap-6">
+                        {categories.map((cat, i) => (
+                            <div key={i}>
+                                <h4 className="text-white font-medium mb-3">{cat.title}</h4>
                                 <div className="flex flex-wrap gap-2">
-                                    {c.skills.map((s, si) => (
-                                        <motion.span
-                                            key={s}
-                                            initial={{ opacity: 0, scale: 0.8 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            transition={{ delay: si * 0.04, duration: 0.3 }}
-                                            className="px-4 py-2 bg-white dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/50 rounded-full text-sm font-semibold text-slate-700 dark:text-zinc-300 hover:border-blue-500 dark:hover:border-blue-500 transition-colors shadow-sm cursor-default"
-                                        >
-                                            {s}
-                                        </motion.span>
+                                    {cat.skills.map(skill => (
+                                        <span key={skill} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-md text-xs text-zinc-300 hover:border-cyan-400/50 transition-colors">{skill}</span>
                                     ))}
                                 </div>
                             </div>
-                        </ScaleIn>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
     );
 };
 
-/* --- Education Section --- */
-const EducationSection = () => {
-    return (
-        <section id="education" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950/80">
-            <div className="container mx-auto max-w-4xl">
-                 <div className="text-center mb-16">
-                    <FadeInUp>
-                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">EDUCATION</div>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Academic Background</h2>
-                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
-                            A strong technical and business foundation combining IT expertise with strategic management.
-                        </p>
-                    </FadeInUp>
-                </div>
-
-                <div className="space-y-8">
-                    <FadeInUp delay={0.1}>
-                        <div className="bg-white dark:bg-[#0a0a0c] rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
-                                <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-500 shrink-0 border border-blue-100 dark:border-blue-900/30">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                                </div>
-                                <div className="text-sm font-bold text-blue-600 dark:text-blue-500 tracking-widest uppercase">AUG 2025 — APR 2027</div>
-                            </div>
-                            
-                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">MBA — Information Technology &amp; International Business</h3>
-                            <div className="text-slate-500 dark:text-zinc-400 text-lg mb-2">Regional College of Management (RCM), Bhubaneswar</div>
-                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">Strategic Management, IT &amp; International Business Strategy</div>
-
-                            <div className="border-t border-slate-100 dark:border-zinc-800 pt-6">
-                                <div className="flex items-center gap-2 mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 dark:text-zinc-500"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-                                    <div className="text-[11px] font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase">KEY COURSEWORK</div>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    {["Strategic Management", "Product Strategy", "IT Management", "IT & International Business Strategy", "Operations Management", "Business Analytics"].map(course => (
-                                        <span key={course} className="px-5 py-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-full text-sm font-semibold text-slate-600 dark:text-zinc-400">
-                                            {course}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </FadeInUp>
-                    
-                    <FadeInUp delay={0.2}>
-                        <div className="bg-white dark:bg-[#0a0a0c] rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm w-full glow-effect hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
-                                <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-500 shrink-0 border border-blue-100 dark:border-blue-900/30">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                                </div>
-                                <div className="text-sm font-bold text-blue-600 dark:text-blue-500 tracking-widest uppercase">AUG 2022 — JUN 2025</div>
-                            </div>
-                            
-                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">BBA — Bachelor of Business Administration</h3>
-                            <div className="text-slate-500 dark:text-zinc-400 text-lg mb-2">Regional College of Management (RCM), Bhubaneswar</div>
-                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">Foundation in Business Principles</div>
-
-                            <div className="border-t border-slate-100 dark:border-zinc-800 pt-6">
-                                <div className="flex items-center gap-2 mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 dark:text-zinc-500"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-                                    <div className="text-[11px] font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase">KEY COURSEWORK</div>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    {["Strategic Management", "Business Analytics", "Organizational Behavior", "Marketing Strategy", "Financial Accounting"].map(course => (
-                                        <span key={course} className="px-5 py-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-full text-sm font-semibold text-slate-600 dark:text-zinc-400">
-                                            {course}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </FadeInUp>
-                </div>
-            </div>
-        </section>
-    );
-};
-
-/* --- Credentials Section --- */
-const CredentialsSection = () => {
+const CredentialsLibrarySection = () => {
     const certifications = [
-        {
             provider: "IBM",
             providerColor: "text-blue-600 bg-blue-100 dark:text-blue-400 dark:bg-blue-500/10",
             title: "Gen AI: Prompt Engineering Basics",
@@ -1016,69 +710,24 @@ const CredentialsSection = () => {
             url: "https://www.linkedin.com/in/ayushmba/details/certifications/"
         }
     ];
-
     return (
-        <section id="credentials" className="py-24 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
-            <div className="container mx-auto max-w-6xl">
-                <div className="text-center mb-16">
-                    <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">CREDENTIALS</div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Certifications &amp; Leadership</h2>
-                </div>
-
-                <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
-                    {/* Certifications (Left) */}
-                    <div className="lg:w-2/3">
-                        <div className="flex items-center gap-3 mb-8">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-blue-500 dark:text-blue-400"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                            <h3 className="text-sm font-bold text-slate-900 dark:text-zinc-300 tracking-widest uppercase">CERTIFICATIONS</h3>
-                        </div>
-                        <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
-                            {certifications.map((cert, i) => (
-                                <FadeInUp key={i} delay={i * 0.1}>
-                                    <a href={cert.url} target="_blank" rel="noopener noreferrer" className="block h-full group cursor-pointer hover:-translate-y-1 transition-transform">
-                                        <div className="bg-slate-50 dark:bg-zinc-900/40 p-6 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm h-full hover:border-slate-300 dark:hover:border-zinc-700 transition-colors glow-effect">
-                                            <div className={`inline-block px-3 py-1.5 rounded-lg text-xs font-bold mb-4 ${cert.providerColor}`}>
-                                                {cert.provider}
-                                            </div>
-                                            <div className="flex justify-between items-start">
-                                                <h4 className="text-slate-900 dark:text-white font-bold tracking-tight text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{cert.title}</h4>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 dark:text-zinc-500 group-hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity mt-1 flex-shrink-0"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </FadeInUp>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Leadership (Right) */}
-                    <div className="lg:w-1/3">
-                        <div className="flex items-center gap-3 mb-8">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-amber-500"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                            <h3 className="text-sm font-bold text-slate-900 dark:text-zinc-300 tracking-widest uppercase">LEADERSHIP</h3>
-                        </div>
-                        <FadeInUp delay={0.2}>
-                            <div className="bg-slate-50 dark:bg-zinc-900/40 p-8 rounded-2xl border border-slate-200 dark:border-zinc-800/80 shadow-sm h-full hover:border-slate-300 dark:hover:border-zinc-700 transition-colors glow-effect flex flex-col">
-                                <div className="w-12 h-12 bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-500 rounded-xl flex items-center justify-center mb-6 border border-amber-100 dark:border-amber-500/20 shadow-sm flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                                </div>
-                                <h4 className="text-xl text-slate-900 dark:text-white font-bold mb-4 tracking-tight">Point of Contact &mdash; CEO, OrangeCross</h4>
-                                <p className="text-slate-600 dark:text-zinc-400 leading-relaxed text-[15px]">
-                                    Led cross-functional coordination for a 100+ participant management fest; served as POC facilitating Mr. Ajay Bhanja's role as Leadership Speaker and Awardee.
-                                </p>
-                            </div>
-                        </FadeInUp>
-                    </div>
-                </div>
+        <section className="py-32 px-6 md:px-20 max-w-7xl mx-auto border-t border-white/5">
+            <SectionTitle title="Certifications" subtitle="06 // Credentials" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {certifications.map((cert, i) => (
+                    <BentoCard key={i} delay={i * 0.1}>
+                        <div className="font-mono text-xs text-zinc-500 mb-4">{cert.date}</div>
+                        <h3 className="text-lg font-medium text-white mb-2">{cert.title}</h3>
+                        <div className="text-cyan-400 text-sm">{cert.org}</div>
+                    </BentoCard>
+                ))}
             </div>
         </section>
     );
 };
 
-/* --- FAQ Section (Answer Engine Optimization) --- */
-const FAQSection = () => {
+const FAQContactSection = () => {
     const faqs = [
-        {
             q: "Who is Ayush Chatterjee?",
             a: "Ayush Chatterjee is a data-driven, strategic, and execution-focused Product Manager. He has a background in IT, Analytics, and OPERATIONS, and has worked on pre-release product validation at OnePlus, and D2C growth research at Innovist."
         },
@@ -1091,153 +740,81 @@ const FAQSection = () => {
             a: "You can reach out to Ayush via LinkedIn or through the contact section on his portfolio website at ayushchatterjee.me."
         }
     ];
-
+    const [openFaq, setOpenFaq] = useState(null);
     return (
-        <section id="faq" className="py-24 px-6 bg-slate-50 dark:bg-zinc-950/80 border-t border-slate-200 dark:border-zinc-800">
-            <div className="container mx-auto max-w-4xl">
-                <div className="text-center mb-16">
-                    <FadeInUp>
-                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">QUICK FACTS</div>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Frequently Asked Questions</h2>
-                        <p className="text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto md:text-lg">
-                            Quick answers about my background, experience, and approach to product management.
-                        </p>
-                    </FadeInUp>
-                </div>
-                <div className="space-y-6">
-                    {faqs.map((faq, i) => (
-                        <FadeInUp key={i} delay={i * 0.1}>
-                            <div className="bg-white dark:bg-[#0a0a0c] p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm transition-all hover:shadow-md glow-effect">
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-start gap-3 tracking-tight">
-                                    <span className="text-blue-600 dark:text-blue-500 font-black">Q.</span>
+        <section id="contact" className="py-32 px-6 md:px-20 max-w-7xl mx-auto border-t border-white/5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <div>
+                    <SectionTitle title="Query Parameters" subtitle="07 // FAQ" />
+                    <div className="flex flex-col gap-4">
+                        {faqs.map((faq, i) => (
+                            <div key={i} className="border-b border-white/10 pb-4">
+                                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex justify-between items-center text-left text-white font-medium hover:text-cyan-400 transition-colors">
                                     {faq.q}
-                                </h3>
-                                <p className="text-slate-600 dark:text-zinc-400 leading-relaxed pl-8">
-                                    {faq.a}
-                                </p>
+                                    <span className="text-cyan-400">{openFaq === i ? '−' : '+'}</span>
+                                </button>
+                                <AnimatePresence>
+                                    {openFaq === i && (
+                                        <motion.div initial={ height: 0, opacity: 0 } animate={ height: 'auto', opacity: 1 } exit={ height: 0, opacity: 0 } className="overflow-hidden">
+                                            <p className="pt-4 text-zinc-400 font-light text-sm">{faq.a}</p>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
-                        </FadeInUp>
-                    ))}
+                        ))}
+                    </div>
+                </div>
+                <div>
+                    <SectionTitle title="Initiate Handshake" subtitle="08 // Contact" />
+                    <BentoCard>
+                        <form action="https://formspree.io/f/xpwrvrjq" method="POST" className="flex flex-col gap-4">
+                            <input type="text" name="name" placeholder="NAME" required className="bg-white/5 border border-white/10 p-4 rounded-md text-white font-mono text-sm focus:border-cyan-400 outline-none transition-colors" />
+                            <input type="email" name="email" placeholder="EMAIL" required className="bg-white/5 border border-white/10 p-4 rounded-md text-white font-mono text-sm focus:border-cyan-400 outline-none transition-colors" />
+                            <textarea name="message" rows="4" placeholder="TRANSMISSION PAYLOAD" required className="bg-white/5 border border-white/10 p-4 rounded-md text-white font-mono text-sm focus:border-cyan-400 outline-none transition-colors resize-none"></textarea>
+                            <button type="submit" className="bg-cyan-500 text-black font-bold font-mono py-4 rounded-md hover:bg-white transition-colors uppercase tracking-widest mt-2">Send Transmission</button>
+                        </form>
+                    </BentoCard>
                 </div>
             </div>
         </section>
     );
 };
 
-/* --- Contact Section --- */
-const ContactSection = () => {
-    const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-    const [sent, setSent] = useState(false);
-    const [sending, setSending] = useState(false);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setSending(true);
-        try {
-            await fetch('https://formspree.io/f/xpwrvrjq', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(formState)
-            });
-            setSent(true);
-        } catch(err) {
-            alert('Something went wrong. Please email directly at ayushchatterjee@example.com');
-        }
-        setSending(false);
-    };
-
+const App = () => {
+    const { scrollYProgress } = useScroll();
     return (
-        <section id="contact" className="py-24 px-6 bg-white dark:bg-zinc-950 border-t border-slate-200 dark:border-zinc-800">
-            <div className="container mx-auto max-w-5xl">
-                <FadeInUp>
-                    <div className="text-center mb-16">
-                        <div className="text-blue-600 dark:text-blue-500 text-sm font-bold tracking-widest mb-4 uppercase">GET IN TOUCH</div>
-                        <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-slate-900 dark:text-white tracking-tighter">
-                            Let's build something <span className="text-blue-600 dark:text-blue-500">impactful.</span>
-                        </h2>
-                        <p className="text-xl text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-                            Currently exploring full-time Product Manager and APM opportunities. Drop me a message!
-                        </p>
-                    </div>
-                </FadeInUp>
-
-                <div className="grid md:grid-cols-2 gap-12 items-start">
-                    {/* Contact Form */}
-                    <FadeInUp delay={0.1}>
-                        <div className="bg-slate-50 dark:bg-zinc-900 rounded-3xl p-8 border border-slate-200 dark:border-zinc-800 shadow-sm">
-                            {sent ? (
-                                <div className="text-center py-8">
-                                    <div className="text-5xl mb-4">🎉</div>
-                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Message Sent!</h3>
-                                    <p className="text-slate-600 dark:text-zinc-400">I'll get back to you within 24 hours.</p>
-                                </div>
-                            ) : (
-                                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 dark:text-zinc-300 mb-1.5">Your Name</label>
-                                        <input required value={formState.name} onChange={e => setFormState({...formState, name: e.target.value})} type="text" placeholder="e.g. Rahul Sharma" className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 dark:text-zinc-300 mb-1.5">Email Address</label>
-                                        <input required value={formState.email} onChange={e => setFormState({...formState, email: e.target.value})} type="email" placeholder="you@company.com" className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 dark:text-zinc-300 mb-1.5">Message</label>
-                                        <textarea required value={formState.message} onChange={e => setFormState({...formState, message: e.target.value})} rows={4} placeholder="Hi Ayush, I'd love to discuss a PM opportunity..." className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm resize-none"></textarea>
-                                    </div>
-                                    <button type="submit" disabled={sending} className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white rounded-xl font-semibold transition-all shadow-[0_0_16px_rgba(37,99,235,0.35)] flex items-center justify-center gap-2">
-                                        {sending ? 'Sending...' : 'Send Message'}
-                                        {!sending && <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>}
-                                    </button>
-                                </form>
-                            )}
+        <SecurityWrapper>
+            <div className="min-h-screen bg-[#030303] text-zinc-300 font-sans selection:bg-cyan-500/30 selection:text-white relative">
+                <GlobalDataScene />
+                <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 z-50 origin-left" style={ scaleX: scrollYProgress } />
+                <div className="relative z-10">
+                    <nav className="fixed w-full top-0 p-6 flex justify-between items-center z-40 mix-blend-difference text-white">
+                        <div className="font-mono font-bold tracking-tighter text-xl">AC<span className="text-cyan-400">.</span></div>
+                        <div className="hidden md:flex gap-8 font-mono text-xs tracking-widest uppercase">
+                            <a href="#experience" className="hover:text-cyan-400">Experience</a>
+                            <a href="#projects" className="hover:text-cyan-400">Case Studies</a>
+                            <a href="#skills" className="hover:text-cyan-400">Architecture</a>
                         </div>
-                    </FadeInUp>
-
-                    {/* Direct Links */}
-                    <FadeInUp delay={0.2}>
-                        <div className="flex flex-col gap-4">
-                            <a href="mailto:ayushchatterjee@rcm.ac.in" className="flex items-center gap-4 p-5 bg-slate-50 dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all group shadow-sm">
-                                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                                </div>
-                                <div>
-                                    <div className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">Email</div>
-                                    <div className="text-slate-500 dark:text-zinc-500 text-xs">ayushchatterjee@rcm.ac.in</div>
-                                </div>
-                            </a>
-                            <a href="https://www.linkedin.com/in/ayushmba" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-5 bg-slate-50 dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all group shadow-sm">
-                                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                                </div>
-                                <div>
-                                    <div className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">LinkedIn</div>
-                                    <div className="text-slate-500 dark:text-zinc-500 text-xs">linkedin.com/in/ayushmba</div>
-                                </div>
-                            </a>
-                            <a href="https://wa.me/+919123337436?text=Hi%20Ayush!" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-5 bg-slate-50 dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 hover:border-green-500 dark:hover:border-green-500 transition-all group shadow-sm">
-                                <div className="w-12 h-12 bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-                                </div>
-                                <div>
-                                    <div className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-green-600 dark:group-hover:text-green-400 transition">WhatsApp</div>
-                                    <div className="text-slate-500 dark:text-zinc-500 text-xs">Quick chat on WhatsApp</div>
-                                </div>
-                            </a>
-                            <a href="https://www.linkedin.com/in/ayushmba/details/featured/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-5 bg-emerald-50 dark:bg-emerald-900/10 rounded-2xl border border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all group shadow-sm">
-                                <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                </div>
-                                <div>
-                                    <div className="font-bold text-emerald-700 dark:text-emerald-400 text-sm">Download Resume</div>
-                                    <div className="text-slate-500 dark:text-zinc-500 text-xs">Latest CV on LinkedIn</div>
-                                </div>
-                            </a>
+                    </nav>
+                    
+                    <HeroSection />
+                    <AboutSection />
+                    <ExperienceSection />
+                    <ProjectsSection />
+                    <SkillsEducationSection />
+                    <CredentialsLibrarySection />
+                    <FAQContactSection />
+                    
+                    <footer className="py-12 px-6 md:px-20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 font-mono text-xs text-zinc-600 uppercase tracking-widest bg-[#030303]/50 backdrop-blur-sm">
+                        <div>&copy; {new Date().getFullYear()} Ayush Chatterjee. All systems operational.</div>
+                        <div className="flex gap-6">
+                            <a href="https://linkedin.com/in/ayushmba" target="_blank" className="hover:text-cyan-400">LinkedIn</a>
+                            <a href="mailto:ayushchatterjee@rcm.ac.in" className="hover:text-cyan-400">Email</a>
                         </div>
-                    </FadeInUp>
+                    </footer>
                 </div>
             </div>
-        </section>
+        </SecurityWrapper>
     );
 };
 
