@@ -346,10 +346,10 @@ const GlobalDataScene = () => {
 // --- UI Components ---
 const BentoCard = ({ children, className = "", delay = 0 }) => (
     <motion.div 
-        initial={ opacity: 0, y: 30 }
-        whileInView={ opacity: 1, y: 0 }
-        viewport={ once: true, margin: "-50px" }
-        transition={ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }
+        initial={{opacity: 0, y: 30}}
+        whileInView={{ opacity: 1, y: 0}}
+        viewport={{ once: true, margin: "-50px"}}
+        transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1]}}
         className={`bg-white/[0.02] backdrop-blur-2xl border border-white/5 rounded-3xl p-8 hover:bg-white/[0.04] hover:border-white/10 transition-all duration-500 relative overflow-hidden group ${className}`}
     >
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-500/0 group-hover:from-cyan-500/5 group-hover:to-blue-500/5 transition-all duration-700 pointer-events-none"></div>
@@ -372,20 +372,20 @@ const SectionTitle = ({ title, subtitle }) => (
 const HeroSection = () => (
     <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20 pb-10">
         <div className="max-w-4xl">
-            <motion.div initial={ opacity: 0, x: -30 } animate={ opacity: 1, x: 0 } transition={ duration: 1 } className="font-mono text-cyan-400 text-sm md:text-base tracking-[0.2em] mb-6 flex items-center gap-3">
+            <motion.div initial={{opacity: 0, x: -30}} animate={{opacity: 1, x: 0}} transition={{ duration: 1}} className="font-mono text-cyan-400 text-sm md:text-base tracking-[0.2em] mb-6 flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
                 OPEN TO NEW OPPORTUNITIES
             </motion.div>
             
-            <motion.h1 initial={ opacity: 0, y: 30 } animate={ opacity: 1, y: 0 } transition={ duration: 1, delay: 0.2 } className="text-6xl md:text-8xl font-medium tracking-tighter text-white mb-6 leading-[1.1]">
+            <motion.h1 initial={{opacity: 0, y: 30}} animate={{opacity: 1, y: 0}} transition={{ duration: 1, delay: 0.2}} className="text-6xl md:text-8xl font-medium tracking-tighter text-white mb-6 leading-[1.1]">
                 Ayush Chatterjee
             </motion.h1>
             
-            <motion.div initial={ opacity: 0, y: 30 } animate={ opacity: 1, y: 0 } transition={ duration: 1, delay: 0.4 } className="text-xl md:text-3xl text-zinc-400 font-light tracking-tight mb-10 max-w-2xl">
+            <motion.div initial={{opacity: 0, y: 30}} animate={{opacity: 1, y: 0}} transition={{ duration: 1, delay: 0.4}} className="text-xl md:text-3xl text-zinc-400 font-light tracking-tight mb-10 max-w-2xl">
                 Product Manager specializing in <span className="text-white font-normal">IT & International Business.</span> Bridging complex data structures with global market execution.
             </motion.div>
 
-            <motion.div initial={ opacity: 0 } animate={ opacity: 1 } transition={ duration: 1, delay: 0.8 } className="flex flex-wrap gap-6 items-center">
+            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{ duration: 1, delay: 0.8}} className="flex flex-wrap gap-6 items-center">
                 <a href="#contact" className="px-8 py-4 bg-cyan-500 text-black font-mono text-sm font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all rounded-sm shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]">
                     Hire Me
                 </a>
@@ -401,12 +401,12 @@ const HeroSection = () => (
 );
 
 const AboutSection = () => {
-    const metrics = [ ref: r1, value: c1, suffix: '+', label: 'UX Defects Found', sub: 'Pre-release @ OnePlus' },
+    const metrics = [ { ref: r1, value: c1, suffix: '+', label: 'UX Defects Found', sub: 'Pre-release @ OnePlus' },
         { ref: r2, value: c2, suffix: '+', label: 'Transactions Analyzed', sub: 'D-Dzire Jewels FOCO' },
         { ref: r3, value: c3, suffix: '%', label: 'Forecast Accuracy Gain', sub: 'Power BI & Excel' },
         { ref: r4, value: c4, suffix: '', label: 'Internships Completed', sub: 'Across IT, Retail & D2C' },
     ];
-    const philosophies = [
+    const philosophies = [{
             title: "Customer Obsession",
             desc: "Every decision starts with the user. Deep empathy and continuous discovery.",
             icon: <circle cx="12" cy="12" r="10" />
@@ -463,7 +463,7 @@ const AboutSection = () => {
 };
 
 const ExperienceSection = () => {
-    const experiences = [
+    const experiences = [{
             role: "User Experience Analyst — Product Strategy",
             company: "OnePlus & Innovist",
             date: "OCT 2025 — PRESENT",
@@ -511,7 +511,7 @@ const ExperienceSection = () => {
 };
 
 const ProjectsSection = () => {
-    const projects = [
+    const projects = [{
             title: "Pre-Release UX Testing @ OnePlus",
             category: "Product Validation · Mobile OS",
             icon: <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />,
@@ -613,7 +613,7 @@ const ProjectsSection = () => {
 };
 
 const SkillsEducationSection = () => {
-    const categories = [
+    const categories = [{
             title: "Product Skills",
             icon: <g><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></g>,
             colorClass: "text-slate-700 bg-slate-100 dark:text-zinc-300 dark:bg-zinc-800 border-slate-200 dark:border-zinc-700",
@@ -673,7 +673,7 @@ const SkillsEducationSection = () => {
 };
 
 const CredentialsLibrarySection = () => {
-    const certifications = [
+    const certifications = [{
             provider: "IBM",
             providerColor: "text-blue-600 bg-blue-100 dark:text-blue-400 dark:bg-blue-500/10",
             title: "Gen AI: Prompt Engineering Basics",
@@ -727,7 +727,7 @@ const CredentialsLibrarySection = () => {
 };
 
 const FAQContactSection = () => {
-    const faqs = [
+    const faqs = [{
             q: "Who is Ayush Chatterjee?",
             a: "Ayush Chatterjee is a data-driven, strategic, and execution-focused Product Manager. He has a background in IT, Analytics, and OPERATIONS, and has worked on pre-release product validation at OnePlus, and D2C growth research at Innovist."
         },
@@ -755,7 +755,7 @@ const FAQContactSection = () => {
                                 </button>
                                 <AnimatePresence>
                                     {openFaq === i && (
-                                        <motion.div initial={ height: 0, opacity: 0 } animate={ height: 'auto', opacity: 1 } exit={ height: 0, opacity: 0 } className="overflow-hidden">
+                                        <motion.div initial={{height: 0, opacity: 0}} animate={{height: 'auto', opacity: 1}} exit={{ height: 0, opacity: 0}} className="overflow-hidden">
                                             <p className="pt-4 text-zinc-400 font-light text-sm">{faq.a}</p>
                                         </motion.div>
                                     )}
