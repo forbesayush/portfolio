@@ -8,9 +8,9 @@ const FadeInUp = ({ children, delay = 0 }) => {
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.55, delay: delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: delay, ease: [0.16, 1, 0.3, 1] }}
         >
             {children}
         </motion.div>
@@ -24,9 +24,9 @@ const ScaleIn = ({ children, delay = 0 }) => {
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.45, delay: delay, ease: [0.34, 1.56, 0.64, 1] }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.8, delay: delay, ease: [0.16, 1, 0.3, 1] }}
         >
             {children}
         </motion.div>
@@ -40,9 +40,9 @@ const SlideInLeft = ({ children, delay = 0 }) => {
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-            transition={{ duration: 0.5, delay: delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            transition={{ duration: 0.8, delay: delay, ease: [0.16, 1, 0.3, 1] }}
         >
             {children}
         </motion.div>
@@ -392,8 +392,10 @@ ${deviceType}
                 <AboutSection />
                 <ProjectsSection />
                 <ExperienceSection />
+                <ArsenalSection />
                 <SkillsSection />
                 <EducationSection />
+                <LibrarySection />
                 <CredentialsSection />
                 <FAQSection />
                 <ContactSection />
@@ -423,54 +425,53 @@ ${deviceType}
 const HeroSection = () => {
     return (
         <section className="pt-32 pb-16 md:pt-48 md:pb-24 px-6 relative overflow-hidden flex flex-col items-center justify-center min-h-[90vh]">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-            <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] -translate-x-1/2 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-slate-200/50 dark:bg-white/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-slate-200/50 dark:bg-white/5 rounded-full blur-[120px] -translate-x-1/2 pointer-events-none"></div>
 
             <div className="container mx-auto max-w-4xl flex flex-col items-center text-center relative z-10">
                 
                 <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                     className="relative mb-10"
                 >
                     <img 
                         src="profile.jpg" 
                         alt="Ayush Chatterjee - Product Manager Portfolio" 
-                        className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-4 border-white dark:border-zinc-900 shadow-xl relative z-10"
+                        className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border border-slate-200 dark:border-zinc-800 shadow-md relative z-10"
                         loading="eager"
                         fetchpriority="high"
                         decoding="sync"
                     />
-                    <div className="absolute bottom-2 right-2 w-5 h-5 bg-green-500 border-4 border-white dark:border-zinc-900 rounded-full z-20" title="Available for new opportunities"></div>
                 </motion.div>
 
                 <motion.div 
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                    className="text-blue-600 dark:text-blue-500 text-xs md:text-sm font-bold tracking-[0.2em] mb-4 uppercase"
+                    initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-slate-500 dark:text-zinc-400 text-xs md:text-sm font-semibold tracking-widest mb-4 uppercase"
                 >
-                    ASPIRING PRODUCT MANAGER &middot; MBA (IT & OPERATIONS)
+                    ASPIRING PRODUCT MANAGER &middot; MBA (IT & INTERNATIONAL BUSINESS)
                 </motion.div>
 
                 <motion.h1 
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                    className="text-5xl md:text-7xl font-bold leading-tight mb-8 tracking-tighter text-slate-900 dark:text-white text-glow-hover"
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-5xl md:text-7xl font-bold leading-tight mb-8 tracking-[-0.04em] text-slate-900 dark:text-white"
                 >
-                    Ayush <span className="text-blue-600 dark:text-blue-500 text-glow-hover">Chatterjee</span>
+                    Ayush <span className="text-slate-400 dark:text-zinc-500">Chatterjee</span>
                 </motion.h1>
 
                 <motion.p 
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-                    className="text-lg md:text-xl text-slate-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed text-glow-hover"
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-lg md:text-xl text-slate-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed tracking-[-0.01em]"
                 >
                     Product-focused professional at the intersection of technology, strategy, and data-driven decision-making. 
-                    Product Testing @ OnePlus &middot; Growth Research @ Innovist &middot; Founder, D-DZIRE JEWELS LAB GROWN DIAMONDS.
+                    Product Testing @ OnePlus &middot; Growth Research @ Innovist.
                 </motion.p>
 
                 <motion.div 
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-                    className="inline-block max-w-[95%] md:max-w-max px-6 py-2.5 rounded-3xl bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 text-sm font-medium border border-blue-200 dark:border-blue-900/50 shadow-sm text-center leading-relaxed"
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-flex items-center max-w-[95%] md:max-w-max px-6 py-2.5 rounded-full bg-slate-100 dark:bg-zinc-800/50 text-slate-700 dark:text-zinc-300 text-sm font-medium border border-slate-200 dark:border-zinc-700/50 shadow-sm text-center"
                 >
-                    <span className="inline-block w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-500 align-middle mr-2 -mt-0.5"></span> 
-                    <span className="align-middle">Forecast Accuracy +10% &middot; 5,000+ Transactions Analyzed &middot; 15+ UX Defects Identified @ OnePlus</span>
+                    <span className="w-2 h-2 rounded-full bg-green-500 mr-3"></span> 
+                    <span>Forecast Accuracy +10% &middot; 5,000+ Transactions Analyzed</span>
                 </motion.div>
 
                 <motion.div
@@ -765,43 +766,24 @@ const ProjectsSection = () => {
 const ExperienceSection = () => {
     const experiences = [
         {
-            role: "Product Tester — Mobile OS, Earbuds & Smart Watches (Pre-Release)",
-            company: "OnePlus Software R&D Centre Private Limited",
+            role: "User Experience Analyst — Product Strategy",
+            company: "OnePlus & Innovist",
+            date: "OCT 2025 — PRESENT",
+            points: [
+                "Conducted structured quality assurance diagnostics across 4 unique operating system builds, mapping end-to-end interface performance parameters to evaluate 20+ interface bugs.",
+                "Reduced post-release software defect recurrence by 22% after authoring comprehensive engineering documentation and technical root-cause diagnostics within rapid cross-functional development loops.",
+                "Improved functional customer task-flow delivery efficiency metrics by 15% by defining clean digital feature optimization criteria from raw product web usability records."
+            ]
+        },
+        {
+            role: "Business Analytics & International Strategy Intern",
+            company: "D2C Skincare Brand Portfolio",
             date: "SEP 2024 — DEC 2025",
             points: [
-                "Strengthened launch readiness by executing structured pre-release testing cycles across mobile OS builds, earbuds, and smart watches — identifying 15+ UX and functional defects that improved product stability prior to release.",
-                "Enhanced validation workflows by refining defect tracking and cross-functional feedback loops across multiple product categories, aligning processes with IT quality standards.",
-                "Contributed to usability improvements through systematic issue prioritization and reporting, directly impacting release confidence across devices."
-            ]
-        },
-        {
-            role: "Product Research Contributor — D2C Brand Portfolio",
-            company: "Innovist (5 Skincare Brands)",
-            date: "APR 2024 — PRESENT",
-            points: [
-                "Influenced product and growth strategy by conducting competitive benchmarking across a multi-brand D2C portfolio of 5 skincare brands.",
-                "Analyzed acquisition funnels and customer retention drivers to identify optimization opportunities, resulting in 10+ data-backed operational and positioning improvement recommendations.",
-                "Evaluated product-market positioning within the D2C ecosystem to strengthen brand differentiation and go-to-market strategy."
-            ]
-        },
-        {
-            role: "Business Analytics & Retail Operations Intern",
-            company: "D-DZIRE JEWELS — FOCO Model Analysis",
-            date: "MAY 2025 — OCT 2025",
-            points: [
-                "Built KPI dashboards tracking Conversion Rate, AOV, Sales/sq ft, and Gross Margin %; improved reporting accuracy by 8–10% through structured MIS design using Excel & SQL.",
-                "Analyzed 5,000+ transactions using Power BI and Excel, improving forecast accuracy by 10% and reducing excess inventory by 11%.",
-                "Delivered weekly executive performance insights enabling data-driven decision-making at the leadership level."
-            ]
-        },
-        {
-            role: "Industry & Competitive Strategy Intern",
-            company: "D-DZIRE JEWELS — Lab-Grown Diamonds Sector",
-            date: "MAY 2025 — OCT 2025",
-            points: [
-                "Assessed pricing models and market positioning within an emerging luxury-tech industry, enabling clearer competitive strategy for the brand.",
-                "Applied SWOT and Porter's Five Forces to evaluate D2C expansion potential and FOCO Model viability.",
-                "Conducted product and competitor analysis to identify strategic market gaps and growth opportunities."
+                "Analyzed international client acquisition data trends and global retention variances across 5 storefronts, successfully resolving a complex 17% repeat purchase performance deficit.",
+                "Validated corporate roadmap software deployment strategies by preparing 3 comprehensive data-backed growth recommendations to teams, securing a 66% internal stakeholder adoption rate.",
+                "Streamlined routine cross-border business reporting loops by 35% after initiating an automated performance metric dashboard script to track global sales data structures.",
+                "Controlled interface engagement testing operations across 8 digital web storefront modules by systematically auditing conversion tracking configurations and Average Order Value indicators."
             ]
         }
     ];
@@ -873,7 +855,7 @@ const SkillsSection = () => {
             title: "Business & Strategy",
             icon: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></g>,
             colorClass: "text-purple-600 bg-purple-50 dark:text-purple-400 dark:bg-purple-500/10 border-purple-100 dark:border-purple-500/20",
-            skills: ["Strategic Management", "SWOT Analysis", "Porter's Five Forces", "BCG Matrix", "Competitive Benchmarking", "Stakeholder Reporting", "IT & OPERATIONS Strategy", "D2C Growth", "Structured Problem Solving"]
+            skills: ["Strategic Management", "SWOT Analysis", "Porter's Five Forces", "BCG Matrix", "Competitive Benchmarking", "Stakeholder Reporting", "IT & International Business Strategy", "D2C Growth", "Structured Problem Solving"]
         }
     ];
 
@@ -949,9 +931,9 @@ const EducationSection = () => {
                                 <div className="text-sm font-bold text-blue-600 dark:text-blue-500 tracking-widest uppercase">AUG 2025 — APR 2027</div>
                             </div>
                             
-                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">MBA — Information Technology &amp; Operations</h3>
+                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">MBA — Information Technology &amp; International Business</h3>
                             <div className="text-slate-500 dark:text-zinc-400 text-lg mb-2">Regional College of Management (RCM), Bhubaneswar</div>
-                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">Strategic Management, IT &amp; OPERATIONS Strategy</div>
+                            <div className="text-blue-600 dark:text-blue-500 font-medium mb-8">Strategic Management, IT &amp; International Business Strategy</div>
 
                             <div className="border-t border-slate-100 dark:border-zinc-800 pt-6">
                                 <div className="flex items-center gap-2 mb-4">
@@ -959,7 +941,7 @@ const EducationSection = () => {
                                     <div className="text-[11px] font-bold text-slate-400 dark:text-zinc-500 tracking-widest uppercase">KEY COURSEWORK</div>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
-                                    {["Strategic Management", "Product Strategy", "IT Management", "IT & OPERATIONS Strategy", "Operations Management", "Business Analytics"].map(course => (
+                                    {["Strategic Management", "Product Strategy", "IT Management", "IT & International Business Strategy", "Operations Management", "Business Analytics"].map(course => (
                                         <span key={course} className="px-5 py-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-full text-sm font-semibold text-slate-600 dark:text-zinc-400">
                                             {course}
                                         </span>
@@ -1264,6 +1246,111 @@ const ContactSection = () => {
                     </FadeInUp>
                 </div>
             </div>
+        </section>
+    );
+};
+
+/* --- Arsenal Section (Tech Stack) --- */
+const ArsenalSection = () => {
+    const tools = [
+        { name: "Power BI", desc: "Data Visualization & Dashboarding", category: "Analytics" },
+        { name: "SQL", desc: "Database Management & Queries", category: "Data" },
+        { name: "Excel (Adv.)", desc: "Financial Modeling & Reporting", category: "Analytics" },
+        { name: "Jira", desc: "Agile Project Management", category: "Delivery" },
+        { name: "Figma", desc: "UI/UX Prototyping", category: "Design" },
+        { name: "Postman", desc: "API Testing & Validation", category: "Development" }
+    ];
+
+    return (
+        <section id="arsenal" className="py-32 px-6 bg-[#030303] text-white overflow-hidden relative border-y border-white/5">
+            <div className="container mx-auto max-w-5xl relative z-10">
+                <FadeInUp>
+                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+                        <div>
+                            <div className="text-zinc-500 text-xs font-semibold tracking-[0.4em] mb-6 uppercase flex items-center gap-3">
+                                <span className="w-8 h-[1px] bg-zinc-700"></span> The Arsenal
+                            </div>
+                            <h2 className="text-5xl md:text-7xl font-light tracking-tighter leading-tight">Core <span className="font-bold text-white">Stack.</span></h2>
+                        </div>
+                        <p className="text-zinc-400 max-w-md text-sm md:text-base leading-relaxed font-light mb-2">
+                            A curated selection of the pivotal platforms and tools utilized to manipulate data, design experiences, and ship products at unparalleled velocity.
+                        </p>
+                    </div>
+                </FadeInUp>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 p-px">
+                    {tools.map((tool, i) => (
+                        <FadeInUp key={i} delay={i * 0.05} className="h-full">
+                            <div className="group relative p-10 bg-[#060608] hover:bg-[#0a0a0c] transition-all duration-700 min-h-[220px] flex flex-col justify-end h-full overflow-hidden">
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-blue-500/10 transition-colors duration-700"></div>
+                                <div className="absolute top-8 right-8 text-white/20 group-hover:text-white/60 transition-colors duration-500 group-hover:-translate-y-1 group-hover:translate-x-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                                </div>
+                                <div className="relative z-10">
+                                    <div className="text-[10px] font-bold tracking-[0.2em] text-zinc-600 uppercase mb-3 flex items-center gap-2">
+                                        <div className="w-1.5 h-1.5 bg-zinc-700 group-hover:bg-blue-500 rounded-full transition-colors"></div>
+                                        {tool.category}
+                                    </div>
+                                    <h3 className="text-2xl font-medium tracking-tight text-white mb-2">{tool.name}</h3>
+                                    <p className="text-sm text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed">{tool.desc}</p>
+                                </div>
+                            </div>
+                        </FadeInUp>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+/* --- Library Section (What I'm Reading) --- */
+const LibrarySection = () => {
+    const books = [
+        { title: "Inspired", author: "Marty Cagan", topic: "Product Discovery", type: "Core Philosophy" },
+        { title: "Hooked", author: "Nir Eyal", topic: "Habit-Forming Products", type: "Behavioral Design" },
+        { title: "Continuous Discovery", author: "Teresa Torres", topic: "Customer Feedback", type: "Discovery Methodology" },
+        { title: "The Lean Product Playbook", author: "Dan Olsen", topic: "Product-Market Fit", type: "Execution Strategy" }
+    ];
+
+    return (
+        <section id="library" className="py-32 px-6 bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-white relative">
+            <div className="container mx-auto max-w-6xl">
+                <FadeInUp>
+                    <div className="mb-24 flex flex-col md:flex-row justify-between md:items-end border-b border-slate-200 dark:border-zinc-800 pb-12 gap-6">
+                        <div>
+                            <div className="text-slate-500 dark:text-zinc-500 text-xs font-semibold tracking-[0.4em] mb-6 uppercase flex items-center gap-3">
+                                <span className="w-8 h-[1px] bg-slate-300 dark:bg-zinc-700"></span> The Intellect
+                            </div>
+                            <h2 className="text-5xl md:text-7xl font-serif italic tracking-tight text-slate-800 dark:text-zinc-200">Library<span className="text-blue-600 dark:text-blue-500">.</span></h2>
+                        </div>
+                        <div className="text-sm text-slate-500 dark:text-zinc-600 tracking-[0.2em] uppercase font-medium">Continuous Learning</div>
+                    </div>
+                </FadeInUp>
+                
+                <div className="flex overflow-x-auto pb-16 snap-x snap-mandatory hide-scrollbar gap-8" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    {books.map((book, i) => (
+                        <div key={i} className="min-w-[280px] md:min-w-[340px] flex-shrink-0 snap-center">
+                            <FadeInUp delay={i * 0.1} className="h-full">
+                                <div className="group relative cursor-pointer h-full">
+                                    <div className="aspect-[4/5] bg-white dark:bg-[#0c0c0e] border border-slate-200 dark:border-zinc-800/80 p-8 flex flex-col justify-between shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] dark:shadow-none hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 relative overflow-hidden group-hover:-translate-y-2">
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 dark:bg-blue-500/10 blur-[50px] rounded-full translate-x-1/2 -translate-y-1/2 group-hover:scale-150 transition-transform duration-700"></div>
+                                        <div className="relative z-10">
+                                            <div className="text-[10px] font-bold tracking-[0.2em] text-slate-400 dark:text-zinc-500 uppercase mb-8">{book.type}</div>
+                                            <h3 className="text-3xl md:text-4xl font-serif font-black tracking-tighter leading-[1.1] mb-6 text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{book.title}</h3>
+                                        </div>
+                                        <div className="relative z-10 flex flex-col gap-1 border-t border-slate-100 dark:border-zinc-800/50 pt-6">
+                                            <div className="text-xs font-bold tracking-widest text-slate-800 dark:text-zinc-300 uppercase">{book.author}</div>
+                                            <div className="text-xs text-slate-500 dark:text-zinc-500 font-serif italic mt-1">{book.topic}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </FadeInUp>
+                        </div>
+                    ))}
+                    {/* Add extra padding element for smooth scrolling to end */}
+                    <div className="min-w-[5vw] flex-shrink-0"></div>
+                </div>
+            </div>
+            <style dangerouslySetInnerHTML={{__html: ".hide-scrollbar::-webkit-scrollbar { display: none; }"}} />
         </section>
     );
 };

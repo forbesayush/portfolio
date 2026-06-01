@@ -1,164 +1,217 @@
-/* Base Typographic details */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
   --nav-height: 5rem;
+  --bg-light: #ffffff;
+  --bg-dark: #0a0a0a;
 }
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-family: inherit;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
+  background-color: var(--bg-light);
+  transition: background-color 0.5s ease;
 }
 
+html.dark body {
+  background-color: var(--bg-dark);
+}
+
+/* Heading Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Inter', sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
-/* Glassmorphism utility for sticky nav */
+p, span, li {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Base Bento Box Styles */
+div[class*="rounded-2xl"], div[class*="rounded-3xl"] {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), inset 0 2px 4px rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #171717 !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+}
+
+/* Hover effects for bento cards (Light) */
+div[class*="rounded-2xl"]:hover, div[class*="rounded-3xl"]:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04), inset 0 2px 4px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Dark Mode Overrides for Bento Boxes */
+html.dark div[class*="rounded-2xl"], html.dark div[class*="rounded-3xl"] {
+  background: rgba(20, 20, 20, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+  color: #f4f4f5 !important;
+}
+
+html.dark div[class*="rounded-2xl"]:hover, html.dark div[class*="rounded-3xl"]:hover {
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 15px 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Nav Bar Glassmorphism */
 .glass {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02) !important;
 }
-
-.dark .glass {
-  background: rgba(9, 9, 11, 0.85);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+html.dark .glass {
+  background: rgba(10, 10, 10, 0.7) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background-color: #cbd5e1;
-  border-radius: 20px;
+  background-color: rgba(150, 150, 150, 0.3);
+  border-radius: 10px;
+  border: 2px solid var(--bg-light);
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 2px solid var(--bg-dark);
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  background-color: #3f3f46;
+/* Selection */
+::selection {
+  background: rgba(37, 99, 235, 0.2);
+  color: inherit;
+}
+html.dark ::selection {
+  background: rgba(255, 255, 255, 0.2);
 }
 
-/* Remove gradient backgrounds */
-.bg-gradient-subtle {
-  background: none;
+/* Buttons override */
+a[class*="bg-primary"], button[class*="bg-primary"], 
+a[class*="bg-slate-900"], button[class*="bg-slate-900"],
+a[class*="bg-accent"], button[class*="bg-accent"],
+a[class*="bg-blue-600"], button[class*="bg-blue-600"] {
+  background: #171717 !important;
+  border: 1px solid #262626 !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 9999px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-.dark .bg-gradient-subtle {
-  background: none;
+html.dark a[class*="bg-primary"], html.dark button[class*="bg-primary"], 
+html.dark a[class*="bg-slate-900"], html.dark button[class*="bg-slate-900"],
+html.dark a[class*="bg-accent"], html.dark button[class*="bg-accent"],
+html.dark a[class*="bg-blue-600"], html.dark button[class*="bg-blue-600"] {
+  background: #ffffff !important;
+  border: 1px solid #e5e5e5 !important;
+  color: #171717 !important;
+  box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Subtle glowing card effects */
-.glow-effect {
-  position: relative;
+a[class*="bg-primary"]:hover, button[class*="bg-primary"]:hover, 
+a[class*="bg-slate-900"]:hover, button[class*="bg-slate-900"]:hover,
+a[class*="bg-accent"]:hover, button[class*="bg-accent"]:hover,
+a[class*="bg-blue-600"]:hover, button[class*="bg-blue-600"]:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
-.glow-effect::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  box-shadow: 0 0 40px rgba(37, 99, 235, 0.15);
-  z-index: -1;
-  opacity: 0;
+html.dark a[class*="bg-primary"]:hover, html.dark button[class*="bg-primary"]:hover, 
+html.dark a[class*="bg-slate-900"]:hover, html.dark button[class*="bg-slate-900"]:hover,
+html.dark a[class*="bg-accent"]:hover, html.dark button[class*="bg-accent"]:hover,
+html.dark a[class*="bg-blue-600"]:hover, html.dark button[class*="bg-blue-600"]:hover {
+  filter: brightness(0.9);
+  box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Badges and Tags */
+div.inline-flex.text-xs.font-semibold,
+span.inline-flex.text-xs.font-semibold,
+span.rounded-lg.text-xs,
+span.rounded-lg.text-sm,
+span.rounded-full.text-xs,
+span.rounded-full.text-sm,
+span[class*="rounded-lg"][class*="text-xs"],
+span[class*="rounded-full"][class*="text-xs"],
+span[class*="rounded-lg"][class*="text-sm"],
+span[class*="rounded-full"][class*="text-sm"],
+div[class*="rounded-lg"][class*="text-xs"],
+div[class*="rounded-full"][class*="text-xs"] {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  color: #525252 !important;
+  box-shadow: none !important;
+  font-weight: 500;
+  border-radius: 9999px !important;
+}
+
+html.dark div.inline-flex.text-xs.font-semibold,
+html.dark span.inline-flex.text-xs.font-semibold,
+html.dark span.rounded-lg.text-xs,
+html.dark span.rounded-lg.text-sm,
+html.dark span.rounded-full.text-xs,
+html.dark span.rounded-full.text-sm,
+html.dark span[class*="rounded-lg"][class*="text-xs"],
+html.dark span[class*="rounded-full"][class*="text-xs"],
+html.dark span[class*="rounded-lg"][class*="text-sm"],
+html.dark span[class*="rounded-full"][class*="text-sm"],
+html.dark div[class*="rounded-lg"][class*="text-xs"],
+html.dark div[class*="rounded-full"][class*="text-xs"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #a1a1aa !important;
+}
+
+/* Clean Gradients for Text */
+.text-glow-hover {
   transition: opacity 0.3s ease;
 }
 
-.glow-effect:hover::before {
-  opacity: 1;
+/* Hide cyber elements */
+.cyber-grid {
+  background-image: none !important;
 }
 
-/* Text glow on hover/touch */
-.text-glow-hover {
-  transition: text-shadow 0.3s ease, color 0.3s ease;
-}
-.text-glow-hover:hover,
-.text-glow-hover:active {
-  text-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
-}
-.dark .text-glow-hover:hover,
-.dark .text-glow-hover:active {
-  text-shadow: 0 0 20px rgba(96, 165, 250, 0.6);
-}
-
-/* ================================================ */
-/* MOBILE-ONLY COMPACTION (phones up to 767px wide) */
-/* Keeps desktop layout identical                   */
-/* ================================================ */
 @media (max-width: 767px) {
-
-  /* Prevent horizontal overflow */
   html, body {
     overflow-x: hidden;
-    -webkit-tap-highlight-color: transparent;
   }
-
-  /* Reduce all section vertical padding by ~50% */
   section {
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
-    padding-left: 1.25rem !important;
-    padding-right: 1.25rem !important;
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
   }
-
-  /* Shrink heading sizes on phone */
-  h1 {
-    font-size: 2.25rem !important;
-    line-height: 1.15 !important;
+  h1 { font-size: 2.5rem !important; line-height: 1.1 !important; letter-spacing: -0.04em !important; }
+  h2 { font-size: 1.75rem !important; line-height: 1.15 !important; letter-spacing: -0.03em !important; }
+  h3 { font-size: 1.25rem !important; }
+  div[class*="rounded-2xl"], div[class*="rounded-3xl"] {
+    padding: 1.5rem !important;
   }
-  h2 {
-    font-size: 1.75rem !important;
-    line-height: 1.2 !important;
-  }
-  h3 {
-    font-size: 1.1rem !important;
-  }
-
-  /* Compact card padding */
-  .rounded-2xl, .rounded-3xl {
-    padding: 1.25rem !important;
-  }
-
-  /* Ensure grids are always single column on phone */
-  .grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Reduce gap in grids */
-  .gap-8 { gap: 1.25rem !important; }
-  .gap-6 { gap: 1rem !important; }
-
-  /* Hero: reduce minimum height so it doesn't take 90vh on phone */
-  section.min-h-\[90vh\] {
-    min-height: 100svh !important;
-    padding-top: 5rem !important;
-    padding-bottom: 2rem !important;
-  }
-
-  /* Make experience timeline card margins smaller */
-  .ml-8 { margin-left: 1.5rem !important; }
-  .ml-12 { margin-left: 2rem !important; }
-
-  /* Reduce mb-16 and mb-12 header gaps */
-  .mb-16 { margin-bottom: 2rem !important; }
-  .mb-12 { margin-bottom: 1.5rem !important; }
-  .mb-10 { margin-bottom: 1.25rem !important; }
 }
