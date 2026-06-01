@@ -90,8 +90,31 @@ const App = () => {
             const totalH = document.body.scrollHeight - window.innerHeight;
             setReadProgress(totalH > 0 ? Math.round((window.scrollY / totalH) * 100) : 0);
         };
+
+        // Security Layers: Prevent Context Menu & DevTools Keys
+        const handleContextMenu = (e) => e.preventDefault();
+        const handleKeyDown = (e) => {
+            if (e.key === 'F12' || 
+               ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) ||
+               ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'u')) {
+                e.preventDefault();
+            }
+        };
+        
+        // Anti-Clickjacking / Framebusting
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        document.addEventListener('contextmenu', handleContextMenu);
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            document.removeEventListener('contextmenu', handleContextMenu);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
     }, []);
 
     useEffect(() => {
