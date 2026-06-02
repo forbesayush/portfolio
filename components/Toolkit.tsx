@@ -10,8 +10,8 @@ export default function Toolkit() {
   const filtered = activeCategory === 'All' ? TOOLKIT : TOOLKIT.filter(t => t.category === activeCategory);
 
   return (
-    <section id="toolkit" className="py-32 px-6 md:px-20 border-t border-white/5">
-      <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
+    <section id="toolkit" className="py-32 px-6 md:px-20 border-t border-white/5 w-full flex flex-col items-center">
+      <div className="max-w-7xl w-full flex flex-col items-center text-center">
         <motion.p
           initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
           className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3 text-center"
@@ -47,7 +47,7 @@ export default function Toolkit() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl w-full">
 
         {/* Tool grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 mb-20">

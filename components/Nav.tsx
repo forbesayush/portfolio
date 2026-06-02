@@ -23,7 +23,7 @@ export default function Nav() {
         <div className="font-mono font-bold text-2xl md:text-3xl text-white tracking-tight">
           AC<span className="text-cyan-400">.</span>
         </div>
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-10 md:gap-12">
           {links.map((l, i) => (
             <motion.a
               key={l}
@@ -31,7 +31,7 @@ export default function Nav() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + i * 0.05 }}
-              className="text-sm font-mono text-zinc-400 hover:text-cyan-400 transition-colors capitalize"
+              className="text-base md:text-lg font-mono text-zinc-400 hover:text-cyan-400 transition-colors capitalize"
             >
               {l}
             </motion.a>
@@ -44,7 +44,7 @@ export default function Nav() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="hidden md:inline-flex px-5 py-2.5 text-sm font-mono border border-cyan-500/60 text-cyan-400 rounded-full hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300"
+          className="hidden md:inline-flex px-6 py-3 text-base md:text-lg font-mono border border-cyan-500/60 text-cyan-400 rounded-full hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300"
         >
           Hire Me ↗
         </motion.a>
@@ -67,11 +67,11 @@ export default function Nav() {
           className="md:hidden bg-black/90 backdrop-blur-2xl border-t border-white/5 px-6 py-6 flex flex-col gap-4"
         >
           {links.map(l => (
-            <a key={l} href={`#${l}`} onClick={() => setMobileOpen(false)} className="text-sm font-mono text-zinc-400 hover:text-cyan-400 capitalize transition-colors">
+            <a key={l} href={`#${l}`} onClick={() => setMobileOpen(false)} className="text-base md:text-lg font-mono text-zinc-400 hover:text-cyan-400 capitalize transition-colors">
               {l}
             </a>
           ))}
-          <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm font-mono text-cyan-400">Hire Me ↗</a>
+          <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer" className="text-base md:text-lg font-mono text-cyan-400">Hire Me ↗</a>
         </motion.div>
       )}
     </motion.nav>
