@@ -204,10 +204,10 @@ function ContactForm() {
 // ─── Contact Section ─────────────────────────────────────
 export default function Contact() {
   return (
-    <section id="contact" className="py-32 px-6 md:px-20 border-t border-white/5 w-full flex flex-col items-center">
+    <section id="contact" className="py-44 md:py-52 px-6 md:px-20 border-t border-white/5 w-full flex flex-col items-center">
       <div className="max-w-7xl w-full mx-auto">
         {/* FAQ Section — Centered Layout */}
-        <div className="mb-28 flex flex-col items-center text-center">
+        <div className="mb-40 md:mb-48 flex flex-col items-center text-center">
           <motion.p
             initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3"
