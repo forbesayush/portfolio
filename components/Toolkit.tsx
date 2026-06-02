@@ -71,10 +71,10 @@ export default function Toolkit() {
         </div>
 
         {/* Certifications */}
-        <div>
+        <div className="mt-20">
           <motion.h3
             initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="text-2xl font-semibold text-white mb-8"
+            className="text-2xl font-semibold text-white mb-8 text-center"
           >
             Certifications
           </motion.h3>

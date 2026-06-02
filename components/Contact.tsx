@@ -206,25 +206,23 @@ export default function Contact() {
   return (
     <section id="contact" className="py-32 px-6 md:px-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
-        {/* FAQ first — Two-column layout */}
-        <div className="grid lg:grid-cols-12 gap-10 md:gap-16 mb-28">
-          <div className="lg:col-span-5">
-            <motion.p
-              initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-              className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3"
-            >05 // FAQ</motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-6"
-            >Frequently Asked Questions</motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
-              className="text-zinc-400 text-sm leading-relaxed"
-            >
-              Have questions about my background, process, or availability? Here are quick answers to some of the most common inquiries. If you have any other questions, feel free to reach out directly via the contact form or LinkedIn!
-            </motion.p>
-          </div>
-          <div className="lg:col-span-7">
+        {/* FAQ Section — Centered Layout */}
+        <div className="mb-28 flex flex-col items-center text-center">
+          <motion.p
+            initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3"
+          >05 // FAQ</motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-6"
+          >Frequently Asked Questions</motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+            className="text-zinc-400 text-sm leading-relaxed max-w-2xl mx-auto mb-12"
+          >
+            Have questions about my background, process, or availability? Here are quick answers to some of the most common inquiries. If you have any other questions, feel free to reach out directly via the contact form below or LinkedIn!
+          </motion.p>
+          <div className="w-full max-w-3xl text-left">
             <FAQ />
           </div>
         </div>
