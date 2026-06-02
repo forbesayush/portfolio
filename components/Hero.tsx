@@ -41,7 +41,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex items-center justify-center gap-3 mb-10"
+          className="flex items-center justify-center gap-3 mb-10 md:mb-12"
         >
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
@@ -53,7 +53,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Name — character stagger */}
-        <h1 className="text-6xl md:text-9xl font-semibold text-white tracking-tight leading-none mb-6 overflow-hidden text-center">
+        <h1 className="text-6xl md:text-9xl font-semibold text-white tracking-tight leading-[1.1] md:leading-[1.15] mb-8 md:mb-10 overflow-hidden text-center">
           {CHARS.map((char, i) => (
             <motion.span
               key={i}
@@ -73,7 +73,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="text-zinc-400 text-lg md:text-2xl font-light max-w-2xl mx-auto mb-4 min-h-[2rem] text-center"
+          className="text-zinc-400 text-lg md:text-2xl font-light max-w-2xl mx-auto mb-6 md:mb-8 min-h-[2rem] text-center"
         >
           {tagline}
           <span className="cursor-blink text-cyan-400 ml-0.5">|</span>
@@ -83,7 +83,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5 }}
-          className="text-zinc-500 text-sm font-mono mb-12 text-center"
+          className="text-zinc-500 text-sm font-mono mb-12 md:mb-16 text-center"
         >
           {PERSONAL.location}
         </motion.p>
@@ -93,11 +93,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.8, duration: 0.7 }}
-          className="flex flex-wrap justify-center gap-4 mb-20"
+          className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-20"
         >
           <a
             href="#pipeline"
-            className="group px-8 py-4 bg-cyan-500 text-black font-semibold rounded-full hover:bg-cyan-400 hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            className="group px-8 py-4 bg-cyan-500 text-black font-semibold rounded-full hover:bg-cyan-400 hover:scale-105 transition-all duration-300 inline-flex items-center justify-center gap-2 whitespace-nowrap"
           >
             See the Pipeline
             <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -106,7 +106,7 @@ export default function Hero() {
             href={PERSONAL.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 border border-white/20 text-white rounded-full hover:bg-white/5 hover:border-white/40 transition-all duration-300"
+            className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white rounded-full hover:bg-white/5 hover:border-white/40 transition-all duration-300 gap-2 whitespace-nowrap"
           >
             LinkedIn ↗
           </a>

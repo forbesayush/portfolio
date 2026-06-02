@@ -158,7 +158,7 @@ export default function Pipeline() {
             </div>
 
             {/* Stage nodes */}
-            <div className="grid grid-cols-2 md:grid-cols-6 gap-4 md:gap-0 relative z-10">
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-y-8 gap-x-4 md:gap-0 relative z-10">
               {PIPELINE_STAGES.map((stage, i) => {
                 const isCompleted = i < completedCount;
                 const isActive = i === completedCount;

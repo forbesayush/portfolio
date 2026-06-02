@@ -50,7 +50,7 @@ export default function Toolkit() {
       <div className="max-w-7xl w-full mx-auto">
 
         {/* Tool grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 mb-20">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-y-6 gap-x-4 mb-20">
           {filtered.map((tool, i) => (
             <motion.div
               key={tool.name}
