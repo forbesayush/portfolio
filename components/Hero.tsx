@@ -125,6 +125,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.1 + i * 0.1 }}
+              className="text-center"
             >
               <div className="text-3xl md:text-4xl font-semibold text-white mb-1">{s.value}</div>
               <div className="text-zinc-400 text-sm">{s.label}</div>

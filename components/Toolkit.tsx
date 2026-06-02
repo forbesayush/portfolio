@@ -61,7 +61,7 @@ export default function Toolkit() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.04, duration: 0.4 }}
               whileHover={{ y: -4, scale: 1.03 }}
-              className="glass rounded-2xl p-5 cursor-default group"
+              className="glass rounded-2xl p-5 cursor-default group flex flex-col items-center text-center"
             >
               <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">{tool.emoji}</div>
               <div className="text-white text-sm font-medium mb-1">{tool.name}</div>
