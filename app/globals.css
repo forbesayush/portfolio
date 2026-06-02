@@ -1,13 +1,45 @@
 @import "tailwindcss";
 
+@theme {
+  --color-white: var(--text-primary);
+  --color-zinc-300: var(--text-secondary);
+  --color-zinc-400: var(--text-muted);
+  --color-zinc-500: var(--text-muted);
+  --color-zinc-600: var(--text-muted);
+  --color-bg-color: var(--bg-color);
+  --color-nav-bg: var(--nav-bg);
+}
+
 :root {
   --font-inter: 'Inter', sans-serif;
+  --bg-color: #fafafa;
+  --text-primary: #09090b;
+  --text-secondary: #27272a;
+  --text-muted: #71717a;
+  --border-color: rgba(9, 9, 11, 0.06);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(9, 9, 11, 0.08);
+  --text-hero-grey: #71717a;
+  --nav-bg: rgba(250, 250, 250, 0.75);
+}
+
+.dark {
+  --bg-color: #030303;
+  --text-primary: #ffffff;
+  --text-secondary: #d4d4d8;
+  --text-muted: #a1a1aa;
+  --border-color: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.025);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --text-hero-grey: #52525b;
+  --nav-bg: rgba(3, 3, 3, 0.7);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 html {
@@ -16,8 +48,8 @@ html {
 
 body {
   font-family: var(--font-inter), sans-serif;
-  background: #030303;
-  color: #d4d4d8;
+  background: var(--bg-color);
+  color: var(--text-secondary);
   overflow-x: hidden;
 }
 
@@ -33,7 +65,7 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-track { background: var(--bg-color); }
 ::-webkit-scrollbar-thumb { background: #06b6d4; border-radius: 2px; }
 
 /* Reduced motion */
@@ -47,9 +79,9 @@ body {
 
 /* Glass card */
 .glass {
-  background: rgba(255,255,255,0.025);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid var(--glass-border);
 }
 
 /* Stage node pulse ring */

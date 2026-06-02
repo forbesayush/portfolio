@@ -29,7 +29,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} font-sans bg-[#030303] text-zinc-300 antialiased`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          try {
+            if (localStorage.theme === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+              document.documentElement.classList.add('light');
+              document.documentElement.classList.remove('dark');
+            } else {
+              document.documentElement.classList.add('dark');
+              document.documentElement.classList.remove('light');
+            }
+          } catch (_) {}
+        `}} />
+      </head>
+      <body className={`${inter.variable} font-sans bg-bg-color text-zinc-300 antialiased`}>
         {children}
       </body>
     </html>

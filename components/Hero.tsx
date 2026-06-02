@@ -61,7 +61,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 + i * 0.045, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block"
-              style={{ color: char === ' ' ? 'transparent' : (i >= 5 ? '#52525b' : 'white') }}
+              style={{ color: char === ' ' ? 'transparent' : (i >= 5 ? 'var(--text-hero-grey)' : 'var(--text-primary)') }}
             >
               {char === ' ' ? '\u00A0' : char}
             </motion.span>
