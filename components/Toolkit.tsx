@@ -30,12 +30,12 @@ export default function Toolkit() {
         </motion.p>
 
         {/* Category filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
           {CATEGORIES.map(cat => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 text-xs font-mono rounded-full border transition-all duration-200 ${
+              className={`inline-flex items-center justify-center px-4 py-2 text-xs font-mono rounded-full border transition-all duration-200 whitespace-nowrap ${
                 activeCategory === cat
                   ? 'bg-cyan-500/20 border-cyan-500/60 text-cyan-400'
                   : 'border-white/10 text-zinc-500 hover:border-white/20 hover:text-zinc-400'
