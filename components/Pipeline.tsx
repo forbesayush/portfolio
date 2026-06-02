@@ -80,10 +80,16 @@ export default function Pipeline() {
       const rect = sectionRef.current.getBoundingClientRect();
       const total = sectionRef.current.offsetHeight - window.innerHeight;
       const scrolled = -rect.top;
-      setProgress(Math.min(1, Math.max(0, scrolled / total)));
+      const scrollFraction = total > 0 ? scrolled / total : 0;
+      setProgress(Math.min(1, Math.max(0, scrollFraction)));
     };
+    fn();
     window.addEventListener('scroll', fn, { passive: true });
-    return () => window.removeEventListener('scroll', fn);
+    window.addEventListener('resize', fn);
+    return () => {
+      window.removeEventListener('scroll', fn);
+      window.removeEventListener('resize', fn);
+    };
   }, []);
 
   const completedCount = Math.floor(progress * PIPELINE_STAGES.length);

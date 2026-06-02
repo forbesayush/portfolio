@@ -69,7 +69,16 @@ function ContactForm() {
     const fn = () => setHasMoved(true);
     window.addEventListener('mousemove', fn, { once: true });
     window.addEventListener('keydown', fn, { once: true });
-    return () => { window.removeEventListener('mousemove', fn); window.removeEventListener('keydown', fn); };
+    window.addEventListener('touchstart', fn, { once: true });
+    window.addEventListener('click', fn, { once: true });
+    window.addEventListener('scroll', fn, { once: true });
+    return () => {
+      window.removeEventListener('mousemove', fn);
+      window.removeEventListener('keydown', fn);
+      window.removeEventListener('touchstart', fn);
+      window.removeEventListener('click', fn);
+      window.removeEventListener('scroll', fn);
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
