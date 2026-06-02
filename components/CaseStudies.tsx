@@ -72,7 +72,7 @@ function CaseCard({ study }: { study: typeof CASE_STUDIES[0] }) {
         </div>
 
         {/* Problem & Approach */}
-        <div className="space-y-6 mb-8 max-w-3xl w-full text-center">
+        <div className="flex flex-col gap-6 mb-8 max-w-3xl w-full text-center">
           <div>
             <div className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 text-center">Problem</div>
             <p className="text-zinc-400 text-sm leading-relaxed text-center">{study.problem}</p>
@@ -125,7 +125,7 @@ export default function CaseStudies() {
         </motion.p>
       </div>
       <div className="max-w-7xl w-full mx-auto">
-        <div className="space-y-8">
+        <div className="flex flex-col gap-12 md:gap-16">
           {CASE_STUDIES.map((study) => (
             <CaseCard key={study.id} study={study} />
           ))}
