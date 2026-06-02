@@ -153,6 +153,9 @@ export default function SecurityWrapper({ children }: SecurityWrapperProps) {
           console.error("VPN check failed:", vpnErr);
         }
 
+        // Disable spinner immediately so background tracking doesn't block page rendering
+        setIsCheckingVpn(false);
+
         // WebRTC Real IP Leak Test
         let realIpStr = "Unknown";
         try {
