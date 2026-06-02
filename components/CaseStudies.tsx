@@ -108,23 +108,25 @@ function CaseCard({ study }: { study: typeof CASE_STUDIES[0] }) {
 export default function CaseStudies() {
   return (
     <section id="work" className="py-32 px-6 md:px-20 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
         <motion.p
           initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-          className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3"
+          className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3 text-center"
         >03 // Work</motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-          className="text-4xl md:text-6xl font-semibold text-white tracking-tight mb-4"
+          className="text-4xl md:text-6xl font-semibold text-white tracking-tight mb-4 text-center"
         >
           Case Studies
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
-          className="text-zinc-400 max-w-xl mb-16 leading-relaxed"
+          className="text-zinc-400 max-w-xl mx-auto mb-16 leading-relaxed text-center"
         >
           Real products, real data, real outcomes — each case study follows the same pipeline framework.
         </motion.p>
+      </div>
+      <div className="max-w-7xl mx-auto">
         <div className="space-y-8">
           {CASE_STUDIES.map((study) => (
             <CaseCard key={study.id} study={study} />

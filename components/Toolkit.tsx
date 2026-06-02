@@ -11,26 +11,26 @@ export default function Toolkit() {
 
   return (
     <section id="toolkit" className="py-32 px-6 md:px-20 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
         <motion.p
           initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-          className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3"
+          className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3 text-center"
         >04 // Toolkit</motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-          className="text-4xl md:text-6xl font-semibold text-white tracking-tight mb-4"
+          className="text-4xl md:text-6xl font-semibold text-white tracking-tight mb-4 text-center"
         >
           Tools &amp; Methods
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
-          className="text-zinc-400 max-w-xl mb-10 leading-relaxed"
+          className="text-zinc-400 max-w-xl mx-auto mb-10 leading-relaxed text-center"
         >
           The full stack of tools, frameworks, and methodologies I deploy across every pipeline stage.
         </motion.p>
 
         {/* Category filter */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           {CATEGORIES.map(cat => (
             <button
               key={cat}
@@ -45,6 +45,9 @@ export default function Toolkit() {
             </button>
           ))}
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto">
 
         {/* Tool grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 mb-20">

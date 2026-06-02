@@ -22,7 +22,7 @@ function useTypewriter(text: string, speed = 40) {
 export default function Hero() {
   const tagline = useTypewriter(PERSONAL.tagline, 35);
   return (
-    <section id="about" className="relative min-h-screen flex flex-col justify-center px-6 md:px-20 pt-28 pb-10 max-w-7xl mx-auto">
+    <section id="about" className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 md:px-20 pt-28 pb-10 max-w-7xl mx-auto">
       {/* Blueprint grid overlay */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <svg width="100%" height="100%" className="opacity-[0.03]">
@@ -40,7 +40,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="flex items-center gap-3 mb-10"
+        className="flex items-center justify-center gap-3 mb-10"
       >
         <span className="relative flex h-2.5 w-2.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
@@ -52,7 +52,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Name — character stagger */}
-      <h1 className="text-6xl md:text-9xl font-semibold text-white tracking-tight leading-none mb-6 overflow-hidden">
+      <h1 className="text-6xl md:text-9xl font-semibold text-white tracking-tight leading-none mb-6 overflow-hidden text-center">
         {CHARS.map((char, i) => (
           <motion.span
             key={i}
@@ -72,7 +72,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="text-zinc-400 text-lg md:text-2xl font-light max-w-2xl mb-4 min-h-[2rem]"
+        className="text-zinc-400 text-lg md:text-2xl font-light max-w-2xl mx-auto mb-4 min-h-[2rem] text-center"
       >
         {tagline}
         <span className="cursor-blink text-cyan-400 ml-0.5">|</span>
@@ -82,7 +82,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5 }}
-        className="text-zinc-500 text-sm font-mono mb-12"
+        className="text-zinc-500 text-sm font-mono mb-12 text-center"
       >
         {PERSONAL.location}
       </motion.p>
@@ -92,7 +92,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.8, duration: 0.7 }}
-        className="flex flex-wrap gap-4 mb-20"
+        className="flex flex-wrap justify-center gap-4 mb-20"
       >
         <a
           href="#pipeline"

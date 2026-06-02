@@ -206,17 +206,25 @@ export default function Contact() {
   return (
     <section id="contact" className="py-32 px-6 md:px-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
-        {/* FAQ first */}
-        <div className="mb-24">
-          <motion.p
-            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-            className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3"
-          >05 // FAQ</motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-12"
-          >Frequently Asked</motion.h2>
-          <div className="max-w-3xl">
+        {/* FAQ first — Two-column layout */}
+        <div className="grid lg:grid-cols-12 gap-10 md:gap-16 mb-28">
+          <div className="lg:col-span-5">
+            <motion.p
+              initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+              className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3"
+            >05 // FAQ</motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+              className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-6"
+            >Frequently Asked Questions</motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+              className="text-zinc-400 text-sm leading-relaxed"
+            >
+              Have questions about my background, process, or availability? Here are quick answers to some of the most common inquiries. If you have any other questions, feel free to reach out directly via the contact form or LinkedIn!
+            </motion.p>
+          </div>
+          <div className="lg:col-span-7">
             <FAQ />
           </div>
         </div>
@@ -248,7 +256,7 @@ export default function Contact() {
               <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-3 text-zinc-400 hover:text-cyan-400 transition-colors text-sm group">
                 <span className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/10 transition-colors">🔗</span>
-                linkedin.com/in/ayush-chatterjee
+                linkedin.com/in/ayushmba
               </a>
               <a href={`mailto:${PERSONAL.email}`}
                 className="flex items-center gap-3 text-zinc-400 hover:text-cyan-400 transition-colors text-sm group">

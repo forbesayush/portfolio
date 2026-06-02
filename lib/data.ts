@@ -5,9 +5,9 @@ export const PERSONAL = {
   title: "Product Manager",
   tagline: "Turning data into products people love.",
   location: "India · Open to Remote & Global Roles",
-  linkedin: "https://www.linkedin.com/in/ayush-chatterjee",
+  linkedin: "https://www.linkedin.com/in/ayushmba",
   github: "https://github.com/forbesayush",
-  email: "ayush@ayushchatterjee.me",
+  email: "ayushchatterjee.edu@gmail.com",
 };
 
 export const STATS = [
@@ -173,5 +173,5 @@ export const FAQS = [
   { q: "What is Ayush's product philosophy?", a: "Customer Obsession, Data-Backed Decisions, 0-to-1 Thinking, Execution Focus, Cross-Functional Leadership, and KPI-Driven Mindset." },
   { q: "What industries has Ayush worked in?", a: "Consumer Electronics (OnePlus), D2C Skincare (Innovist), Retail Jewellery (D-Dzire Jewels), and IT & International Business." },
   { q: "Is Ayush open to remote or global roles?", a: "Yes — actively seeking remote, hybrid, and global PM roles at the intersection of technology and international business strategy." },
-  { q: "How can I contact Ayush?", a: "Via LinkedIn at linkedin.com/in/ayush-chatterjee or through the contact section on this portfolio." },
+  { q: "How can I contact Ayush?", a: "Via LinkedIn at linkedin.com/in/ayushmba or through the contact section on this portfolio." },
 ];
