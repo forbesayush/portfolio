@@ -205,7 +205,7 @@ function ContactForm() {
 export default function Contact() {
   return (
     <section id="contact" className="py-32 px-6 md:px-20 border-t border-white/5 w-full flex flex-col items-center">
-      <div className="max-w-7xl w-full">
+      <div className="max-w-7xl w-full mx-auto">
         {/* FAQ Section — Centered Layout */}
         <div className="mb-28 flex flex-col items-center text-center">
           <motion.p

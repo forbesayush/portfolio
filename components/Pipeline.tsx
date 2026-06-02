@@ -97,7 +97,7 @@ export default function Pipeline() {
   return (
     <>
       <section id="pipeline" ref={sectionRef} className="py-32 px-6 md:px-20 border-t border-white/5 w-full flex flex-col items-center">
-        <div className="max-w-7xl w-full flex flex-col items-center text-center">
+        <div className="max-w-7xl w-full mx-auto flex flex-col items-center text-center">
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -124,7 +124,7 @@ export default function Pipeline() {
           </motion.p>
         </div>
 
-        <div className="max-w-7xl w-full">
+        <div className="max-w-7xl w-full mx-auto">
 
           {/* Progress bar */}
           <div className="w-full h-px bg-white/5 rounded-full mb-16 overflow-hidden">

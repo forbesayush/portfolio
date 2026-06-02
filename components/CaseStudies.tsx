@@ -57,43 +57,41 @@ function CaseCard({ study }: { study: typeof CASE_STUDIES[0] }) {
     >
       {/* Header bar */}
       <div className="h-1.5 w-full" style={{ background: `linear-gradient(to right, ${study.color}, ${study.color}80)` }} />
-      <div className="p-8 md:p-10">
+      <div className="p-8 md:p-10 flex flex-col items-center text-center">
         {/* Type badge */}
-        <div className="inline-block text-xs font-mono px-3 py-1 rounded-full border mb-5"
+        <div className="inline-block text-xs font-mono px-3 py-1 rounded-full border mb-5 mx-auto"
           style={{ color: study.color, borderColor: study.color + '40', background: study.color + '10' }}>
           {study.type}
         </div>
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-          <div>
-            <h3 className="text-2xl font-semibold text-white mb-1">{study.title}</h3>
-            <div className="font-mono text-sm" style={{ color: study.color }}>{study.company}</div>
-          </div>
-          <div className="font-mono text-xs text-zinc-500 px-3 py-1.5 border border-white/10 rounded-full w-max">
+        <div className="flex flex-col items-center gap-2 mb-6">
+          <h3 className="text-2xl md:text-3xl font-semibold text-white mb-1 text-center">{study.title}</h3>
+          <div className="font-mono text-sm" style={{ color: study.color }}>{study.company}</div>
+          <div className="font-mono text-xs text-zinc-500 px-3 py-1.5 border border-white/10 rounded-full w-max mt-1">
             {study.period}
           </div>
         </div>
 
         {/* Problem & Approach */}
-        <div className="space-y-4 mb-8">
+        <div className="space-y-6 mb-8 max-w-3xl w-full text-center">
           <div>
-            <div className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2">Problem</div>
-            <p className="text-zinc-400 text-sm leading-relaxed">{study.problem}</p>
+            <div className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 text-center">Problem</div>
+            <p className="text-zinc-400 text-sm leading-relaxed text-center">{study.problem}</p>
           </div>
           <div>
-            <div className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2">Approach</div>
-            <p className="text-zinc-400 text-sm leading-relaxed">{study.approach}</p>
+            <div className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 text-center">Approach</div>
+            <p className="text-zinc-400 text-sm leading-relaxed text-center">{study.approach}</p>
           </div>
         </div>
 
         {/* Metrics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 w-full">
           {study.metrics.map((m, i) => (
             <MetricCard key={i} value={m.value} suffix={m.suffix} label={m.label} color={study.color} trigger={visible} />
           ))}
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           {study.tags.map((t, i) => (
             <span key={i} className="text-xs font-mono text-zinc-500 px-2.5 py-1 border border-white/5 rounded-lg hover:border-white/20 hover:text-zinc-400 transition-colors">
               {t}
@@ -108,7 +106,7 @@ function CaseCard({ study }: { study: typeof CASE_STUDIES[0] }) {
 export default function CaseStudies() {
   return (
     <section id="work" className="py-32 px-6 md:px-20 border-t border-white/5 w-full flex flex-col items-center">
-      <div className="max-w-7xl w-full flex flex-col items-center text-center">
+      <div className="max-w-7xl w-full mx-auto flex flex-col items-center text-center">
         <motion.p
           initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
           className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3 text-center"
@@ -126,7 +124,7 @@ export default function CaseStudies() {
           Real products, real data, real outcomes — each case study follows the same pipeline framework.
         </motion.p>
       </div>
-      <div className="max-w-7xl w-full">
+      <div className="max-w-7xl w-full mx-auto">
         <div className="space-y-8">
           {CASE_STUDIES.map((study) => (
             <CaseCard key={study.id} study={study} />
