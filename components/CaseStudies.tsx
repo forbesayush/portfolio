@@ -105,7 +105,7 @@ function CaseCard({ study }: { study: typeof CASE_STUDIES[0] }) {
 
 export default function CaseStudies() {
   return (
-    <section id="work" className="py-44 md:py-52 px-6 md:px-20 border-t border-white/5 w-full flex flex-col items-center">
+    <section id="work" className="py-[140px] md:py-[180px] px-6 md:px-20 border-t border-white/5 w-full flex flex-col items-center">
       <div className="max-w-7xl w-full mx-auto flex flex-col items-center text-center">
         <motion.p
           initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
