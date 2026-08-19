@@ -1,16 +1,80 @@
 /**
- * Advanced Visitor Intelligence & Encrypted Telegram Tracker
- * 
- * Security & Reliability:
- * - Credentials encrypted via XOR in-memory vault.
- * - Robust HTML entity escaping prevents Telegram API 400 rejection on underscores/URLs.
- * - Automatic plain-text fallback on network/parsing edge cases.
+ * Advanced Visitor Intelligence, Encrypted Telegram Tracker,
+ * and B2B Big Brand / Enterprise Reverse-Resolution Engine.
  */
 
 // Cryptographic Seed & In-Memory Vault
 const VAULT_KEY = 'ayush-portfolio-vault-key-2026';
 const ENC_TOKEN_PAYLOAD = 'WU5MR1sdQ1hBRFwuLSEMXD1WET4YZCoxLX0HRQdnFSkkR0UYRSoDJlAuXg0sHQ==';
 const ENC_CHAT_PAYLOAD = 'V0tMQ1gURF5BQg==';
+
+/**
+ * Curated Enterprise & Big Brand Recognition Roster
+ */
+const BRAND_PATTERNS = [
+  // Top Management Consulting & Advisory
+  { pattern: /mckinsey/i, name: 'McKinsey & Company', category: '💼 Tier-1 Strategy Consulting' },
+  { pattern: /boston consulting|bcg/i, name: 'Boston Consulting Group (BCG)', category: '💼 Tier-1 Strategy Consulting' },
+  { pattern: /bain/i, name: 'Bain & Company', category: '💼 Tier-1 Strategy Consulting' },
+  { pattern: /deloitte/i, name: 'Deloitte', category: '💼 Big 4 Consulting & Advisory' },
+  { pattern: /pricewaterhouse|pwc/i, name: 'PwC', category: '💼 Big 4 Consulting & Advisory' },
+  { pattern: /ernst.*young|ey /i, name: 'Ernst & Young (EY)', category: '💼 Big 4 Consulting & Advisory' },
+  { pattern: /kpmg/i, name: 'KPMG', category: '💼 Big 4 Consulting & Advisory' },
+  { pattern: /accenture/i, name: 'Accenture', category: '💼 Global Tech Consulting' },
+  { pattern: /oliver wyman/i, name: 'Oliver Wyman', category: '💼 Global Strategy Advisory' },
+  { pattern: /kearney/i, name: 'Kearney', category: '💼 Management Consulting' },
+  { pattern: /roland berger/i, name: 'Roland Berger', category: '💼 Management Consulting' },
+
+  // Big Tech & Global Product Giants
+  { pattern: /google|alphabet/i, name: 'Google / Alphabet', category: '🚀 Big Tech / Product' },
+  { pattern: /microsoft/i, name: 'Microsoft', category: '🚀 Big Tech / Enterprise Cloud' },
+  { pattern: /apple/i, name: 'Apple Inc.', category: '🚀 Global Consumer Tech' },
+  { pattern: /amazon|aws /i, name: 'Amazon / AWS', category: '🚀 Cloud & E-Commerce Giant' },
+  { pattern: /meta platforms|facebook/i, name: 'Meta (Facebook / Instagram)', category: '🚀 Big Tech / Social' },
+  { pattern: /netflix/i, name: 'Netflix', category: '🚀 Global Tech / Streaming' },
+  { pattern: /bytedance|tiktok/i, name: 'ByteDance / TikTok', category: '🚀 Global Tech / Media' },
+  { pattern: /openai/i, name: 'OpenAI', category: '🤖 Frontier AI' },
+  { pattern: /nvidia/i, name: 'NVIDIA', category: '⚡ AI & Hardware Giant' },
+  { pattern: /salesforce/i, name: 'Salesforce', category: '☁️ Enterprise SaaS' },
+  { pattern: /adobe/i, name: 'Adobe', category: '🎨 Creative & Enterprise Software' },
+  { pattern: /uber/i, name: 'Uber Technologies', category: '🚗 Global Tech Platform' },
+  { pattern: /spotify/i, name: 'Spotify', category: '🎵 Global Product Team' },
+  { pattern: /oneplus|oppo|bbk electronics/i, name: 'OnePlus / BBK Electronics', category: '📱 Global Consumer Electronics' },
+  { pattern: /innovist/i, name: 'Innovist Brands', category: '🌿 D2C Consumer Portfolio' },
+  { pattern: /swash/i, name: 'Swash Consulting', category: '📊 Media & Consulting' },
+
+  // Financial Services & Venture Capital
+  { pattern: /goldman sachs/i, name: 'Goldman Sachs', category: '🏦 Global Investment Banking' },
+  { pattern: /morgan stanley/i, name: 'Morgan Stanley', category: '🏦 Global Investment Banking' },
+  { pattern: /jpmorgan|chase/i, name: 'JPMorgan Chase', category: '🏦 Global Banking & Strategy' },
+  { pattern: /blackrock/i, name: 'BlackRock', category: '📈 Global Asset Management' },
+  { pattern: /sequoia/i, name: 'Sequoia Capital', category: '🦄 Tier-1 Venture Capital' },
+  { pattern: /andreessen|a16z/i, name: 'Andreessen Horowitz (a16z)', category: '🦄 Tier-1 Venture Capital' },
+
+  // Indian Tech Giants & Leading Unicorns
+  { pattern: /flipkart/i, name: 'Flipkart', category: '🛒 Leading E-Commerce' },
+  { pattern: /swiggy/i, name: 'Swiggy', category: '🛵 Tech & Logistics' },
+  { pattern: /zomato/i, name: 'Zomato / Blinkit', category: '🛵 Consumer Tech Platform' },
+  { pattern: /reliance|jio/i, name: 'Reliance Industries / Jio Platforms', category: '🌐 Telecom & Digital Conglomerate' },
+  { pattern: /tata consultancy|tcs/i, name: 'Tata Consultancy Services (TCS)', category: '🏢 Global IT Conglomerate' },
+  { pattern: /infosys/i, name: 'Infosys', category: '🏢 Global IT Services' },
+  { pattern: /wipro/i, name: 'Wipro', category: '🏢 Global IT Services' },
+  { pattern: /razorpay/i, name: 'Razorpay', category: '💳 FinTech Unicorn' },
+  { pattern: /zerodha/i, name: 'Zerodha', category: '📈 FinTech Platform' }
+];
+
+/**
+ * Identify Corporate Brand from ISP / ASN Org
+ */
+function identifyEnterpriseBrand(orgString) {
+  if (!orgString || typeof orgString !== 'string') return null;
+  for (const item of BRAND_PATTERNS) {
+    if (item.pattern.test(orgString)) {
+      return item;
+    }
+  }
+  return null;
+}
 
 /**
  * In-Memory Decryption
@@ -225,7 +289,7 @@ export async function sendTelegramNotification(htmlMessage, rawFallback = '') {
 }
 
 /**
- * Master Visitor Telemetry Tracker
+ * Master Visitor Telemetry Tracker with Corporate B2B Brand Recognition
  */
 export async function trackVisitor() {
   if (typeof window === 'undefined') return;
@@ -280,7 +344,20 @@ export async function trackVisitor() {
       } catch (_) {}
     }
 
-    // 2. Advanced VPN / Commercial Proxy / Datacenter Check
+    // 2. Corporate Brand & Consulting Organization Reverse-Resolution
+    const detectedBrand = identifyEnterpriseBrand(geo.org);
+    let brandHeader = '';
+    if (detectedBrand) {
+      brandHeader = `
+🏢🏢 <b>ENTERPRISE / BIG BRAND VISIT DETECTED!</b> 🏢🏢
+🏛️ <b>Organization:</b> <b>${escapeHtml(detectedBrand.name)}</b>
+🏷️ <b>Category:</b> ${escapeHtml(detectedBrand.category)}
+🏢 <b>Network / ASN:</b> <code>${escapeHtml(geo.org)}</code>
+━━━━━━━━━━━━━━━━━━━━━━━
+      `.trim() + '\n\n';
+    }
+
+    // 3. Advanced VPN / Commercial Proxy / Datacenter Check
     let isVPN = '✅ NO (Clean Residential)';
     let vpnBrand = 'N/A';
     try {
@@ -308,18 +385,18 @@ export async function trackVisitor() {
       }
     } catch (_) {}
 
-    // 3. WebRTC Real IP Leak Probe
+    // 4. WebRTC Real IP Leak Probe
     let realIpStr = 'No leak detected';
     try {
       realIpStr = await getWebRTCIP(geo.ip);
     } catch (_) {}
 
-    // 4. Battery & Network Telemetry
+    // 5. Battery & Network Telemetry
     const batteryStatus = await getBatteryStatus();
     const networkInfo = getNetworkInfo();
     const adBlockStatus = await checkAdBlocker();
 
-    // 5. Hardware & Device Probing
+    // 6. Hardware & Device Probing
     const userAgent = navigator.userAgent || 'Unknown';
     const platform = navigator.platform || 'Unknown';
     const languages = navigator.languages ? navigator.languages.join(', ') : navigator.language || 'Unknown';
@@ -333,7 +410,7 @@ export async function trackVisitor() {
     const deviceType = isMobile ? '📱 Mobile' : '💻 Desktop / Laptop';
     const themePref = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? '🌙 Dark Mode' : '☀️ Light Mode';
 
-    // 6. Source & UTM Campaign Attribution
+    // 7. Source & UTM Campaign Attribution
     let source = 'Direct / Bookmark 🔖';
     const referrer = (document.referrer || '').toLowerCase();
     const urlParams = new URLSearchParams(window.location.search);
@@ -359,7 +436,7 @@ export async function trackVisitor() {
       else source = document.referrer;
     }
 
-    // 7. Live Visitor Counter (CounterAPI)
+    // 8. Live Visitor Counter (CounterAPI)
     let visitorCount = 'Live Tracking';
     try {
       const timestamp = new Date().getTime();
@@ -372,16 +449,16 @@ export async function trackVisitor() {
       }
     } catch (_) {}
 
-    // 8. Timestamps & Timezones
+    // 9. Timestamps & Timezones
     const visitorTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || geo.timezone || 'Unknown';
     const visitorLocalTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     const istTimestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'medium' });
     const loadDuration = Math.round(performance.now() - startTime);
     const coordsStr = (geo.latitude && geo.longitude) ? `${geo.latitude}, ${geo.longitude}` : 'N/A';
 
-    // 9. Master Formatted HTML Notification
+    // 10. Master Formatted HTML Notification
     const messageHtml = `
-${vipHeader}🚨 <b>ADVANCED VISITOR INTELLIGENCE ALERT</b> 🚨
+${brandHeader}${vipHeader}🚨 <b>ADVANCED VISITOR INTELLIGENCE ALERT</b> 🚨
 
 📈 <b>Total Visitors:</b> #${visitorCount}
 ━━━━━━━━━━━━━━━━━━━━━━━
@@ -403,7 +480,7 @@ ${vipHeader}🚨 <b>ADVANCED VISITOR INTELLIGENCE ALERT</b> 🚨
 • <b>Landing Page:</b> ${escapeHtml(currentUrl)}
 
 ━━━━━━━━━━━━━━━━━━━━━━━
-🖥️ <b>HARDWARE & CLIENT ENVIRONMENT</b>
+🖥 <b>HARDWARE & CLIENT ENVIRONMENT</b>
 • <b>Device Type:</b> ${escapeHtml(deviceType)}
 • <b>Platform:</b> ${escapeHtml(platform)}
 • <b>CPU Cores:</b> ${escapeHtml(cpuCores)}
@@ -416,7 +493,7 @@ ${vipHeader}🚨 <b>ADVANCED VISITOR INTELLIGENCE ALERT</b> 🚨
 
 ━━━━━━━━━━━━━━━━━━━━━━━
 📶 <b>NETWORK & BROWSER INTEGRITY</b>
-• <b>Connection:</b> ${escapeHtml(networkInfo)}
+• <b>Connection:</b> ${networkInfo}
 • <b>AdBlocker Status:</b> ${escapeHtml(adBlockStatus)}
 • <b>Languages:</b> ${escapeHtml(languages)}
 • <b>Page Load Speed:</b> ${loadDuration} ms
