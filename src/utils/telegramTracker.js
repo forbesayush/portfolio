@@ -1,21 +1,19 @@
 /**
  * Advanced Visitor Intelligence & Encrypted Telegram Tracker
  * 
- * Security:
- * - Credentials & API Endpoints are encrypted using a dynamic multi-byte XOR cipher.
- * - Raw Bot Tokens and Chat IDs are never stored in plain-text.
- * - Decryption occurs strictly in-memory during network dispatch.
- * - .env credentials remain git-ignored and secret.
+ * Security & Reliability:
+ * - Credentials encrypted via XOR in-memory vault.
+ * - Robust HTML entity escaping prevents Telegram API 400 rejection on underscores/URLs.
+ * - Automatic plain-text fallback on network/parsing edge cases.
  */
 
-// Cryptographic Seed & Obfuscated Vault
+// Cryptographic Seed & In-Memory Vault
 const VAULT_KEY = 'ayush-portfolio-vault-key-2026';
 const ENC_TOKEN_PAYLOAD = 'WU5MR1sdQ1hBRFwuLSEMXD1WET4YZCoxLX0HRQdnFSkkR0UYRSoDJlAuXg0sHQ==';
 const ENC_CHAT_PAYLOAD = 'V0tMQ1gURF5BQg==';
-const ENC_ENDPOINT_PREFIX = 'bQhQEkxLTVpMRR1dFlpdX11C'; // Obfuscated api.telegram.org/bot
 
 /**
- * Runtime Decryption Engine
+ * In-Memory Decryption
  */
 function decryptPayload(encodedStr, key = VAULT_KEY) {
   try {
@@ -32,7 +30,7 @@ function decryptPayload(encodedStr, key = VAULT_KEY) {
 }
 
 /**
- * Get Secure Runtime Credentials
+ * Retrieve Credentials Safely
  */
 function getSecureCredentials() {
   const envToken = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_TELEGRAM_BOT_TOKEN : '';
@@ -44,7 +42,17 @@ function getSecureCredentials() {
 }
 
 /**
- * Helper: Fetch with timeout
+ * Escape HTML special characters for Telegram HTML mode
+ */
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/**
+ * Fetch with timeout
  */
 const fetchWithTimeout = async (url, options = {}) => {
   const { timeout = 3500, ...fetchOpts } = options;
@@ -146,9 +154,9 @@ const checkAdBlocker = async () => {
   try {
     const url = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
     const res = await fetch(url, { method: 'HEAD', mode: 'no-cors' });
-    return '✅ Clean Browser (No AdBlock)';
+    return 'Clean Browser (No AdBlock)';
   } catch (_) {
-    return '🛡️ AdBlocker / Tracker Shield Active';
+    return 'AdBlocker / Tracker Shield Active';
   }
 };
 
@@ -170,28 +178,46 @@ export function getIdentifiedVisitor() {
 }
 
 /**
- * Send Encrypted Message via In-Memory Decryption
+ * Send Message via Telegram Bot API with Auto-Retry & Fallbacks
  */
-export async function sendTelegramNotification(messageText) {
+export async function sendTelegramNotification(htmlMessage, rawFallback = '') {
   let sent = false;
   const { token, chatId } = getSecureCredentials();
 
   if (token && chatId) {
     try {
       const endpoint = `https://api.telegram.org/bot${token}/sendMessage`;
+      
+      // 1. Try HTML Parse Mode
       const tgRes = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chat_id: chatId,
-          text: messageText,
-          parse_mode: 'Markdown',
+          text: htmlMessage,
+          parse_mode: 'HTML',
           disable_web_page_preview: true,
         }),
       });
-      if (tgRes.ok) sent = true;
+
+      if (tgRes.ok) {
+        sent = true;
+      } else {
+        // 2. Fallback to Plain Text if HTML parse failed
+        const plainText = rawFallback || htmlMessage.replace(/<[^>]*>?/gm, '');
+        const retryRes = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: plainText,
+            disable_web_page_preview: true,
+          }),
+        });
+        if (retryRes.ok) sent = true;
+      }
     } catch (e) {
-      console.warn('[Telegram Tracker] API dispatch error');
+      console.warn('[Telegram Tracker] Dispatch error:', e);
     }
   }
 
@@ -204,12 +230,15 @@ export async function sendTelegramNotification(messageText) {
 export async function trackVisitor() {
   if (typeof window === 'undefined') return;
 
-  // Deduplicate per browser session
-  if (sessionStorage.getItem('tg_visitor_tracked')) {
-    return;
-  }
-
   try {
+    const currentUrl = window.location.href;
+    const cacheKey = `tg_track_${encodeURIComponent(window.location.search || 'root')}`;
+
+    // Deduplicate within the same tab/search query
+    if (sessionStorage.getItem(cacheKey)) {
+      return;
+    }
+
     const startTime = performance.now();
 
     // 0. Check for Identified VIP Visitor / Recruiter Name in URL
@@ -217,9 +246,9 @@ export async function trackVisitor() {
     let vipHeader = '';
     if (identified) {
       vipHeader = `
-🎯🎯 *IDENTIFIED VIP VISITOR / RECRUITER!* 🎯🎯
-👤 *Identified Name:* ${identified.name ? `*${identified.name}*` : 'N/A'}
-🏢 *Identified Company:* ${identified.company ? `*${identified.company}*` : 'N/A'}
+🎯🎯 <b>IDENTIFIED VIP VISITOR / RECRUITER!</b> 🎯🎯
+👤 <b>Identified Name:</b> ${identified.name ? `<b>${escapeHtml(identified.name)}</b>` : 'N/A'}
+🏢 <b>Identified Company:</b> ${identified.company ? `<b>${escapeHtml(identified.company)}</b>` : 'N/A'}
 ━━━━━━━━━━━━━━━━━━━━━━━
       `.trim() + '\n\n';
     }
@@ -348,62 +377,63 @@ export async function trackVisitor() {
     const visitorLocalTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     const istTimestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'medium' });
     const loadDuration = Math.round(performance.now() - startTime);
-
     const coordsStr = (geo.latitude && geo.longitude) ? `${geo.latitude}, ${geo.longitude}` : 'N/A';
 
-    // 9. Master Formatted Notification Message
-    const messageText = `
-${vipHeader}🚨 *ADVANCED VISITOR INTELLIGENCE ALERT* 🚨
+    // 9. Master Formatted HTML Notification
+    const messageHtml = `
+${vipHeader}🚨 <b>ADVANCED VISITOR INTELLIGENCE ALERT</b> 🚨
 
-📈 *Total Visitors:* #${visitorCount}
+📈 <b>Total Visitors:</b> #${visitorCount}
 ━━━━━━━━━━━━━━━━━━━━━━━
-📍 *GEOLOCATION & NETWORK*
-• *Location:* ${geo.city || 'N/A'}, ${geo.region || 'N/A'}, ${geo.country_name || 'N/A'}
-• *Postal Pincode:* ${geo.postal || 'N/A'}
-• *Coordinates:* ${coordsStr}
-• *IP Address:* \`${geo.ip || 'N/A'}\`
-• *ISP / Org:* ${geo.org || 'N/A'}
-• *VPN/Proxy:* ${isVPN}
-• *VPN Provider:* ${vpnBrand}
-• *WebRTC Real IP:* \`${realIpStr}\`
-
-━━━━━━━━━━━━━━━━━━━━━━━
-🧭 *TRAFFIC & CAMPAIGN ATTRIBUTION*
-• *Traffic Source:* ${source}
-• *Referrer URL:* ${document.referrer || 'Direct Entry'}
-• *UTM Attribution:* ${utmSummary}
-• *Landing Page:* ${window.location.href}
+📍 <b>GEOLOCATION & NETWORK</b>
+• <b>Location:</b> ${escapeHtml(geo.city)}, ${escapeHtml(geo.region)}, ${escapeHtml(geo.country_name)}
+• <b>Postal Pincode:</b> ${escapeHtml(geo.postal)}
+• <b>Coordinates:</b> ${escapeHtml(coordsStr)}
+• <b>IP Address:</b> <code>${escapeHtml(geo.ip)}</code>
+• <b>ISP / Org:</b> ${escapeHtml(geo.org)}
+• <b>VPN/Proxy:</b> ${escapeHtml(isVPN)}
+• <b>VPN Provider:</b> ${escapeHtml(vpnBrand)}
+• <b>WebRTC Real IP:</b> <code>${escapeHtml(realIpStr)}</code>
 
 ━━━━━━━━━━━━━━━━━━━━━━━
-🖥️ *HARDWARE & CLIENT ENVIRONMENT*
-• *Device Type:* ${deviceType}
-• *Platform:* ${platform}
-• *CPU Cores:* ${cpuCores}
-• *Device Memory:* ${deviceMemory}
-• *Battery Status:* ${batteryStatus}
-• *Screen Resolution:* ${screenRes} (${dpr})
-• *Active Viewport:* ${viewportRes}
-• *Input Mode:* ${touchSupport}
-• *OS Theme Preference:* ${themePref}
+🧭 <b>TRAFFIC & CAMPAIGN ATTRIBUTION</b>
+• <b>Traffic Source:</b> ${escapeHtml(source)}
+• <b>Referrer URL:</b> ${escapeHtml(document.referrer || 'Direct Entry')}
+• <b>UTM Attribution:</b> ${escapeHtml(utmSummary)}
+• <b>Landing Page:</b> ${escapeHtml(currentUrl)}
 
 ━━━━━━━━━━━━━━━━━━━━━━━
-📶 *NETWORK & BROWSER INTEGRITY*
-• *Connection:* ${networkInfo}
-• *AdBlocker Status:* ${adBlockStatus}
-• *Languages:* ${languages}
-• *Page Load Speed:* ${loadDuration} ms
+🖥️ <b>HARDWARE & CLIENT ENVIRONMENT</b>
+• <b>Device Type:</b> ${escapeHtml(deviceType)}
+• <b>Platform:</b> ${escapeHtml(platform)}
+• <b>CPU Cores:</b> ${escapeHtml(cpuCores)}
+• <b>Device Memory:</b> ${escapeHtml(deviceMemory)}
+• <b>Battery Status:</b> ${escapeHtml(batteryStatus)}
+• <b>Screen Resolution:</b> ${escapeHtml(screenRes)} (${escapeHtml(dpr)})
+• <b>Active Viewport:</b> ${escapeHtml(viewportRes)}
+• <b>Input Mode:</b> ${escapeHtml(touchSupport)}
+• <b>OS Theme Preference:</b> ${escapeHtml(themePref)}
 
 ━━━━━━━━━━━━━━━━━━━━━━━
-⏰ *TIME & TEMPORAL METRICS*
-• *Visitor Local Time:* ${visitorLocalTime} (${visitorTimezone})
-• *India Time (IST):* ${istTimestamp}
+📶 <b>NETWORK & BROWSER INTEGRITY</b>
+• <b>Connection:</b> ${escapeHtml(networkInfo)}
+• <b>AdBlocker Status:</b> ${escapeHtml(adBlockStatus)}
+• <b>Languages:</b> ${escapeHtml(languages)}
+• <b>Page Load Speed:</b> ${loadDuration} ms
 
-📱 *User Agent:*
-\`${userAgent}\`
+━━━━━━━━━━━━━━━━━━━━━━━
+⏰ <b>TIME & TEMPORAL METRICS</b>
+• <b>Visitor Local Time:</b> ${escapeHtml(visitorLocalTime)} (${escapeHtml(visitorTimezone)})
+• <b>India Time (IST):</b> ${escapeHtml(istTimestamp)}
+
+📱 <b>User Agent:</b>
+<code>${escapeHtml(userAgent)}</code>
     `.trim();
 
-    await sendTelegramNotification(messageText);
-    sessionStorage.setItem('tg_visitor_tracked', 'true');
+    const sent = await sendTelegramNotification(messageHtml);
+    if (sent) {
+      sessionStorage.setItem(cacheKey, 'true');
+    }
   } catch (err) {
     console.error('[Telegram Tracker] Error in visitor tracking:', err);
   }
@@ -415,17 +445,17 @@ ${vipHeader}🚨 *ADVANCED VISITOR INTELLIGENCE ALERT* 🚨
 export async function sendContactInquiry({ name, email, topic, message }) {
   const istTimestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'medium' });
 
-  const text = `
-📬 *NEW DIRECT INQUIRY FROM PORTFOLIO!* 📬
+  const html = `
+📬 <b>NEW DIRECT INQUIRY FROM PORTFOLIO!</b> 📬
 
-👤 *Name:* ${name}
-📧 *Email:* ${email}
-🎯 *Discussion Topic:* ${topic}
-⏰ *Time (IST):* ${istTimestamp}
+👤 <b>Name:</b> ${escapeHtml(name)}
+📧 <b>Email:</b> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>
+🎯 <b>Discussion Topic:</b> ${escapeHtml(topic)}
+⏰ <b>Time (IST):</b> ${escapeHtml(istTimestamp)}
 
-💬 *Message Content:*
-"${message}"
+💬 <b>Message Content:</b>
+<i>"${escapeHtml(message)}"</i>
   `.trim();
 
-  return await sendTelegramNotification(text);
+  return await sendTelegramNotification(html);
 }
