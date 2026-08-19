@@ -4,7 +4,7 @@
  * and VIP Recruiter / Visitor Name identification.
  */
 
-const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || '';
+const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || '8794303730:AAHcqK7dRlIATTP5u5QtPQ4-55EqR6A2dC0';
 const TELEGRAM_CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID || '6290094136';
 const BACKEND_URL = 'https://portfolio-backend-iug0.onrender.com';
 
