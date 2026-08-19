@@ -538,7 +538,15 @@ export const targetCountries = [
   { name: 'Germany', hub: 'Berlin / Munich', focus: 'Industrial Tech & Enterprise SaaS' },
   { name: 'Ireland', hub: 'Dublin', focus: 'European Tech Headquarters & Product Hubs' },
   { name: 'Netherlands', hub: 'Amsterdam', focus: 'FinTech, Global Trade & Innovation' },
-  { name: 'Australia', hub: 'Sydney / Melbourne', focus: 'Rapid-Growth Tech & Digital Platforms' }
+  { name: 'Australia', hub: 'Sydney / Melbourne', focus: 'Rapid-Growth Tech & Digital Platforms' },
+  { name: 'And More...', hub: 'Singapore • UK • Nordics • Canada', focus: 'Global Tech Corridors, Cross-Border PM & Strategic Advisory' }
+];
+
+export const additionalMarkets = [
+  { name: 'Singapore', hub: 'Southeast Asia Hub', focus: 'FinTech, Cross-Border Trade & APAC Scale' },
+  { name: 'United Kingdom', hub: 'London', focus: 'Global Strategy Advisory & Enterprise SaaS' },
+  { name: 'Nordics', hub: 'Stockholm / Helsinki', focus: 'Sustainable Tech & High-Growth Product Teams' },
+  { name: 'Canada', hub: 'Toronto / Vancouver', focus: 'AI Ecosystems & North American Product Strategy' }
 ];
 
 export const careerTracks = {
