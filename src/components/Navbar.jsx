@@ -118,17 +118,29 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
             </nav>
 
             {/* Right Action Cluster */}
-            <div className="hidden sm:flex items-center gap-2.5">
+            <div className="hidden sm:flex items-center gap-2">
               
               {/* 1-Page Brief Modal Trigger */}
               <button
                 onClick={onOpenBrief}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-accent-dark/10 border border-blue-200 dark:border-accent-dark/20 text-accent dark:text-accent-dark text-xs font-mono font-bold hover:bg-blue-100 dark:hover:bg-accent-dark/20 transition-all shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-50 dark:bg-accent-dark/10 border border-blue-200 dark:border-accent-dark/20 text-accent dark:text-accent-dark text-xs font-mono font-bold hover:bg-blue-100 dark:hover:bg-accent-dark/20 transition-all shadow-2xs"
                 title="View ATS & Recruiter 1-Page Brief"
               >
                 <FileText className="w-3.5 h-3.5" />
                 <span>1P BRIEF</span>
               </button>
+
+              {/* Resume / CV Download Button beside Connect */}
+              <a
+                href="/Ayush_Chatterjee_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 text-xs font-mono font-bold hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-950 dark:hover:text-white transition-all duration-200 shadow-2xs group"
+                title="Download / View Official CV"
+              >
+                <Download className="w-3.5 h-3.5 text-accent dark:text-accent-dark group-hover:translate-y-0.5 transition-transform" />
+                <span>RESUME</span>
+              </a>
 
               {/* Theme Toggle Button */}
               <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
@@ -180,6 +192,17 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
             </div>
 
             <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-2">
+              <a
+                href="/Ayush_Chatterjee_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 px-4 rounded-lg bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 font-mono font-bold text-xs flex items-center justify-center gap-2 shadow-2xs"
+              >
+                <Download className="w-4 h-4 text-accent dark:text-accent-dark" />
+                <span>DOWNLOAD OFFICIAL CV / RESUME</span>
+              </a>
+
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenBrief(); }}
                 className="w-full py-2.5 px-4 rounded-lg bg-blue-50 dark:bg-accent-dark/10 border border-blue-200 dark:border-accent-dark/20 text-accent dark:text-accent-dark font-mono font-bold text-xs flex items-center justify-center gap-2"

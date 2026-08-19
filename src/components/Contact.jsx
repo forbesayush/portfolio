@@ -1,31 +1,27 @@
 import React, { useState } from 'react';
-import { Mail, Linkedin, Globe, Copy, Check, ArrowUpRight, Send, Sparkles, MessageSquare } from 'lucide-react';
+import { Mail, Linkedin, Globe, Copy, Check, ArrowUpRight, Send, Sparkles, MessageSquare, Download, FileText } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import { sendContactInquiry } from '../utils/telegramTracker';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    topic: 'Product Management Opportunity',
+    topic: 'Product Management Strategy',
     message: ''
   });
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const copyEmail = () => {
-    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(personalInfo.email);
-    } else {
-      const textarea = document.createElement('textarea');
-      textarea.value = personalInfo.email;
-      document.body.appendChild(textarea);
-      textarea.select();
-      try { document.execCommand('copy'); } catch(e) {}
-      document.body.removeChild(textarea);
-    }
+    navigator.clipboard.writeText(personalInfo.email);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -131,23 +127,29 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Portfolio Domain Card */}
+            {/* Official Resume / CV Card */}
             <div className="p-6 rounded-2xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-card-dark flex flex-col justify-between group hover:bg-white dark:hover:bg-obsidian-800 hover:shadow-card-light transition-all">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-obsidian-950 border border-indigo-200 dark:border-white/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                  <Globe className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-obsidian-950 border border-purple-200 dark:border-white/10 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                  <Download className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 px-2.5 py-0.5 rounded font-semibold">
-                  Live Property
-                </span>
+                <a
+                  href="/Ayush_Chatterjee_CV.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/20 transition-all shadow-2xs font-semibold"
+                >
+                  <span>Download</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
               </div>
 
               <div>
                 <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
-                  Verified Portfolio Domain
+                  Executive Resume / CV
                 </span>
                 <div className="text-base sm:text-lg font-mono font-bold text-slate-950 dark:text-white mt-1">
-                  {personalInfo.portfolioDomain}
+                  Ayush_Chatterjee_CV.pdf
                 </div>
               </div>
             </div>
@@ -163,13 +165,13 @@ export default function Contact() {
               </a>
 
               <a
-                href={personalInfo.linkedinUrl}
+                href="/Ayush_Chatterjee_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 py-3.5 px-5 rounded-xl bg-slate-900 dark:bg-obsidian-850 border border-slate-800 dark:border-white/15 text-white dark:text-slate-200 font-bold text-xs tracking-wider uppercase text-center hover:bg-slate-800 dark:hover:bg-white/10 transition-all shadow-sm flex items-center justify-center gap-2"
+                className="flex-1 py-3.5 px-5 rounded-xl bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-900 dark:text-slate-100 font-bold text-xs tracking-wider uppercase text-center hover:bg-slate-100 dark:hover:bg-white/10 transition-all shadow-sm flex items-center justify-center gap-2"
               >
-                <span>VIEW LINKEDIN</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <span>DOWNLOAD CV</span>
+                <Download className="w-4 h-4 text-accent dark:text-accent-dark" />
               </a>
             </div>
 
@@ -180,86 +182,95 @@ export default function Contact() {
             <h3 className="text-xl font-display font-bold text-slate-950 dark:text-white uppercase tracking-tight mb-2">
               Send a Direct Message
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mb-6 font-normal">
-              Connect directly regarding Product Management, Strategy Advisory, or Global Projects.
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono mb-6">
+              Messages trigger immediate priority routing and inbox notifications.
             </p>
 
             {formSubmitted ? (
-              <div className="p-8 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-center space-y-3">
-                <Check className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
-                <h4 className="text-lg font-display font-bold text-slate-950 dark:text-white uppercase">
-                  Inquiry Initiated
+              <div className="p-6 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/20 text-center animate-fade-in">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mx-auto mb-3">
+                  <Check className="w-6 h-6" />
+                </div>
+                <h4 className="font-display font-bold text-slate-950 dark:text-white text-base mb-1">
+                  Message Dispatched!
                 </h4>
-                <p className="text-xs text-slate-700 dark:text-slate-300">
-                  Your message has been logged and forwarded directly to {personalInfo.email}.
+                <p className="text-xs text-slate-600 dark:text-slate-400 font-mono">
+                  Thank you, {formData.name}. Opening your email client as fallback...
                 </p>
-                <button
-                  onClick={() => setFormSubmitted(false)}
-                  className="text-xs font-mono text-accent dark:text-accent-dark hover:underline pt-2 font-semibold"
-                >
-                  Send another message
-                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-mono text-slate-700 dark:text-slate-300 font-semibold">Your Name</label>
+                  <div>
+                    <label className="block text-xs font-mono uppercase text-slate-700 dark:text-slate-300 font-semibold mb-1.5">
+                      Your Name *
+                    </label>
                     <input
                       type="text"
+                      name="name"
                       required
-                      placeholder="e.g. Sarah Jenkins"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/10 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-accent dark:focus:border-accent-dark transition-colors shadow-2xs"
+                      onChange={handleInputChange}
+                      placeholder="e.g. Sarah Jenkins"
+                      className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-obsidian-950 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-accent dark:focus:border-accent-dark transition-colors"
                     />
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-mono text-slate-700 dark:text-slate-300 font-semibold">Your Email</label>
+                  <div>
+                    <label className="block text-xs font-mono uppercase text-slate-700 dark:text-slate-300 font-semibold mb-1.5">
+                      Your Email *
+                    </label>
                     <input
                       type="email"
+                      name="email"
                       required
-                      placeholder="e.g. sarah@venture.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/10 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-accent dark:focus:border-accent-dark transition-colors shadow-2xs"
+                      onChange={handleInputChange}
+                      placeholder="e.g. sarah@mckinsey.com"
+                      className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-obsidian-950 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-accent dark:focus:border-accent-dark transition-colors"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-slate-700 dark:text-slate-300 font-semibold">Topic of Discussion</label>
+                <div>
+                  <label className="block text-xs font-mono uppercase text-slate-700 dark:text-slate-300 font-semibold mb-1.5">
+                    Discussion Topic
+                  </label>
                   <select
+                    name="topic"
                     value={formData.topic}
-                    onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/10 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-accent dark:focus:border-accent-dark transition-colors shadow-2xs"
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-obsidian-950 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-accent dark:focus:border-accent-dark transition-colors font-mono text-xs"
                   >
-                    <option value="Product Management Opportunity">Product Management Role / Opportunity</option>
-                    <option value="Management Consulting / Strategy Advisory">Management Consulting / Strategy Advisory</option>
-                    <option value="International Project Collaboration">International Project / Cross-Border Initiative</option>
-                    <option value="Executive Networking">Executive Networking & General Inquiries</option>
+                    <option value="Product Management Strategy">Product Management Strategy</option>
+                    <option value="Management Consulting Engagement">Management Consulting Engagement</option>
+                    <option value="Global Ecosystem Advisory">Global Ecosystem Advisory</option>
+                    <option value="Full-Time Executive Hiring">Full-Time Executive Hiring</option>
+                    <option value="General Professional Inquiry">General Professional Inquiry</option>
                   </select>
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-slate-700 dark:text-slate-300 font-semibold">Your Message</label>
+                <div>
+                  <label className="block text-xs font-mono uppercase text-slate-700 dark:text-slate-300 font-semibold mb-1.5">
+                    Your Message *
+                  </label>
                   <textarea
-                    rows={4}
+                    name="message"
                     required
-                    placeholder="Share brief context regarding your team, challenge, or opportunity..."
+                    rows="4"
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/10 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-accent dark:focus:border-accent-dark transition-colors resize-none shadow-2xs"
+                    onChange={handleInputChange}
+                    placeholder="Describe your initiative, mandate, or opportunity..."
+                    className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-obsidian-950 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-accent dark:focus:border-accent-dark transition-colors resize-none"
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 font-bold text-xs tracking-widest uppercase hover:bg-accent dark:hover:bg-accent dark:hover:text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-sm"
+                  className="w-full py-3.5 px-6 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 font-mono font-bold text-xs tracking-wider uppercase hover:bg-accent dark:hover:bg-accent dark:hover:text-white transition-all duration-200 shadow-md flex items-center justify-center gap-2"
                 >
-                  <span>SEND DIRECT MESSAGE</span>
-                  <Send className="w-3.5 h-3.5" />
+                  <span>TRANSMIT DIRECT MESSAGE</span>
+                  <Send className="w-4 h-4" />
                 </button>
               </form>
             )}

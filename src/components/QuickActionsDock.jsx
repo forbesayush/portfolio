@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Copy, Check, FileText, ArrowUp, Sun, Moon } from 'lucide-react';
+import { Mail, Copy, Check, FileText, ArrowUp, Sun, Moon, Download } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function QuickActionsDock({ isDark, onToggleTheme, onOpenBrief }) {
@@ -39,6 +39,18 @@ export default function QuickActionsDock({ isDark, onToggleTheme, onOpenBrief })
         <span className="hidden sm:inline">1P Brief</span>
       </button>
 
+      {/* Download CV Action */}
+      <a
+        href="/Ayush_Chatterjee_CV.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-obsidian-800 text-slate-800 dark:text-slate-200 hover:text-accent dark:hover:text-accent-dark text-xs font-mono font-semibold transition-all hover:bg-slate-200/70 dark:hover:bg-obsidian-750"
+        title="Download Official CV"
+      >
+        <Download className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+        <span className="hidden sm:inline">CV</span>
+      </a>
+
       {/* Copy Email Button */}
       <button
         onClick={copyEmail}
@@ -46,7 +58,7 @@ export default function QuickActionsDock({ isDark, onToggleTheme, onOpenBrief })
         title="Copy direct email address"
       >
         {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-        <span>{copied ? 'Email Copied!' : 'Copy Email'}</span>
+        <span>{copied ? 'Copied!' : 'Copy Email'}</span>
       </button>
 
       {/* Theme Toggle */}

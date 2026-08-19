@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowDown, ArrowUpRight, ShieldCheck, MapPin, Sparkles, CheckCircle2, Award, Globe2, FileText } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, ShieldCheck, MapPin, Sparkles, CheckCircle2, Award, Globe2, FileText, Download } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function Hero({ onOpenBrief }) {
@@ -59,11 +59,11 @@ export default function Hero({ onOpenBrief }) {
               </blockquote>
             </div>
 
-            {/* CTAs */}
+            {/* CTAs with Resume / CV Button beside Connect */}
             <div className="flex flex-wrap items-center gap-3 mb-8">
               <a
                 href="#case-studies"
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 font-bold text-xs tracking-widest uppercase hover:bg-accent dark:hover:bg-accent dark:hover:text-white transition-all duration-300 shadow-md hover:shadow-glow-blue group"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 font-bold text-xs tracking-widest uppercase hover:bg-accent dark:hover:bg-accent dark:hover:text-white transition-all duration-300 shadow-md hover:shadow-glow-blue group"
               >
                 <span>VIEW MY WORK</span>
                 <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
@@ -71,18 +71,29 @@ export default function Hero({ onOpenBrief }) {
 
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 font-bold text-xs tracking-widest uppercase hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-950 dark:hover:text-white transition-all duration-300 shadow-2xs group"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 font-bold text-xs tracking-widest uppercase hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-950 dark:hover:text-white transition-all duration-300 shadow-2xs group"
               >
                 <span>LET'S CONNECT</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
 
+              <a
+                href="/Ayush_Chatterjee_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 font-bold text-xs tracking-widest uppercase hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-950 dark:hover:text-white transition-all duration-300 shadow-2xs group"
+                title="Download Official CV"
+              >
+                <Download className="w-4 h-4 text-accent dark:text-accent-dark group-hover:translate-y-0.5 transition-transform" />
+                <span>CV / RESUME</span>
+              </a>
+
               <button
                 onClick={onOpenBrief}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-blue-50 dark:bg-accent-dark/10 border border-blue-200 dark:border-accent-dark/20 text-accent dark:text-accent-dark font-bold text-xs tracking-widest uppercase hover:bg-blue-100 dark:hover:bg-accent-dark/20 transition-all shadow-2xs group"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-blue-50 dark:bg-accent-dark/10 border border-blue-200 dark:border-accent-dark/20 text-accent dark:text-accent-dark font-bold text-xs tracking-widest uppercase hover:bg-blue-100 dark:hover:bg-accent-dark/20 transition-all shadow-2xs group"
               >
                 <FileText className="w-4 h-4" />
-                <span>1-PAGE BRIEF</span>
+                <span>1P BRIEF</span>
               </button>
             </div>
 
