@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Linkedin, Globe, Copy, Check, ArrowUpRight, Send, Sparkles, MessageSquare } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import { sendContactInquiry } from '../utils/telegramTracker';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -13,14 +14,31 @@ export default function Contact() {
   });
 
   const copyEmail = () => {
-    navigator.clipboard.writeText(personalInfo.email);
+    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(personalInfo.email);
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = personalInfo.email;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(textarea);
+    }
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormSubmitted(true);
+
+    // Send instant Telegram Alert to Bot
+    try {
+      await sendContactInquiry(formData);
+    } catch (err) {
+      console.warn('Telegram inquiry notification error:', err);
+    }
+
     setTimeout(() => {
       // open mailto fallback
       const subject = encodeURIComponent(`[Portfolio Inquiry] ${formData.topic} - from ${formData.name}`);
@@ -173,7 +191,7 @@ export default function Contact() {
                   Inquiry Initiated
                 </h4>
                 <p className="text-xs text-slate-700 dark:text-slate-300">
-                  Launching your default mail client to deliver your message directly to {personalInfo.email}.
+                  Your message has been logged and forwarded directly to {personalInfo.email}.
                 </p>
                 <button
                   onClick={() => setFormSubmitted(false)}

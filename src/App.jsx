@@ -18,6 +18,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ExecutiveBriefModal from './components/ExecutiveBriefModal';
 import QuickActionsDock from './components/QuickActionsDock';
+import { trackVisitor } from './utils/telegramTracker';
 
 export default function App() {
   const [isBriefOpen, setIsBriefOpen] = useState(false);
@@ -54,6 +55,11 @@ export default function App() {
       }
     }
   }, [isDark]);
+
+  useEffect(() => {
+    // Track visitor arrival via Telegram Bot
+    trackVisitor();
+  }, []);
 
   const toggleTheme = () => {
     setIsDark(prev => !prev);
