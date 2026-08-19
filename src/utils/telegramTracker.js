@@ -1,6 +1,7 @@
 /**
  * Advanced Visitor Intelligence & Telegram Tracking Engine
- * Comprehensive real-time telemetry, hardware probing, VPN detection, and UTM attribution.
+ * Comprehensive real-time telemetry, hardware probing, VPN detection, UTM attribution,
+ * and VIP Recruiter / Visitor Name identification.
  */
 
 const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || '';
@@ -8,7 +9,7 @@ const TELEGRAM_CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID || '6290094136';
 const BACKEND_URL = 'https://portfolio-backend-iug0.onrender.com';
 
 /**
- * Fetch with custom timeout
+ * Helper: Fetch with timeout
  */
 const fetchWithTimeout = async (url, options = {}) => {
   const { timeout = 3500, ...fetchOpts } = options;
@@ -104,7 +105,7 @@ const getNetworkInfo = () => {
 };
 
 /**
- * AdBlocker / Privacy Extension Probe
+ * AdBlocker Probe
  */
 const checkAdBlocker = async () => {
   try {
@@ -115,6 +116,24 @@ const checkAdBlocker = async () => {
     return '🛡️ AdBlocker / Tracker Shield Active';
   }
 };
+
+/**
+ * Extract Identified Name from URL params
+ * e.g. ?name=Sundar_Pichai or ?v=Sarah_Jenkins or ?recruiter=John_Doe
+ */
+export function getIdentifiedVisitor() {
+  if (typeof window === 'undefined') return null;
+  const params = new URLSearchParams(window.location.search);
+  const rawName = params.get('name') || params.get('v') || params.get('recruiter') || params.get('for') || params.get('who') || params.get('lead');
+  const rawCompany = params.get('company') || params.get('org') || params.get('team');
+
+  if (!rawName && !rawCompany) return null;
+
+  const cleanName = rawName ? decodeURIComponent(rawName.replace(/[+_]/g, ' ')) : null;
+  const cleanCompany = rawCompany ? decodeURIComponent(rawCompany.replace(/[+_]/g, ' ')) : null;
+
+  return { name: cleanName, company: cleanCompany };
+}
 
 /**
  * Send Message to Telegram & Backend Relay
@@ -168,8 +187,19 @@ export async function trackVisitor() {
   }
 
   try {
-    // Start timing
     const startTime = performance.now();
+
+    // 0. Check for Identified VIP Visitor / Recruiter Name in URL
+    const identified = getIdentifiedVisitor();
+    let vipHeader = '';
+    if (identified) {
+      vipHeader = `
+🎯🎯 *IDENTIFIED VIP VISITOR / RECRUITER!* 🎯🎯
+👤 *Identified Name:* ${identified.name ? `*${identified.name}*` : 'N/A'}
+🏢 *Identified Company:* ${identified.company ? `*${identified.company}*` : 'N/A'}
+━━━━━━━━━━━━━━━━━━━━━━━
+      `.trim() + '\n\n';
+    }
 
     // 1. IP & Deep Geolocation
     let geo = { ip: 'Unknown', city: 'N/A', region: 'N/A', country_name: 'N/A', postal: 'N/A', org: 'N/A', latitude: '', longitude: '', timezone: '' };
@@ -300,7 +330,7 @@ export async function trackVisitor() {
 
     // 9. Master Formatted Notification Message
     const messageText = `
-🚨 *ADVANCED VISITOR INTELLIGENCE ALERT* 🚨
+${vipHeader}🚨 *ADVANCED VISITOR INTELLIGENCE ALERT* 🚨
 
 📈 *Total Visitors:* #${visitorCount}
 ━━━━━━━━━━━━━━━━━━━━━━━
