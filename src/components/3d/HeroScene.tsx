@@ -48,9 +48,9 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
     const colors = new Float32Array(particleCount * 3);
     const scales = new Float32Array(particleCount);
 
-    const accentColor = new THREE.Color(0xe07a5f);
-    const warmLightColor = new THREE.Color(0xf4a261);
-    const neutralColor = new THREE.Color(0x8a92a0);
+    const accentColor = new THREE.Color(0x38bdf8);
+    const azureColor = new THREE.Color(0x60a5fa);
+    const warmAccentColor = new THREE.Color(0xe07a5f);
 
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
@@ -70,10 +70,10 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
       originalPositions[i3 + 1] = y;
       originalPositions[i3 + 2] = z;
 
-      // Color distribution (warm terracotta accent with gentle neutral falloff)
-      const mixedColor = Math.random() > 0.6
-        ? accentColor.clone().lerp(warmLightColor, Math.random())
-        : neutralColor.clone().lerp(accentColor, Math.random() * 0.3);
+      // Color distribution (deep ocean blue with sky cyan and warm accent flecks)
+      const mixedColor = Math.random() > 0.7
+        ? accentColor.clone().lerp(warmAccentColor, Math.random() * 0.4)
+        : azureColor.clone().lerp(accentColor, Math.random());
 
       colors[i3] = mixedColor.r;
       colors[i3 + 1] = mixedColor.g;
@@ -104,9 +104,9 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
     const coreGeometry = new THREE.TorusKnotGeometry(4.2, 1.1, 140, 24, 2, 3);
     const coreWireframe = new THREE.WireframeGeometry(coreGeometry);
     const coreMaterial = new THREE.LineBasicMaterial({
-      color: 0xe07a5f,
+      color: 0x38bdf8,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.2,
       blending: THREE.AdditiveBlending,
     });
     const coreMesh = new THREE.LineSegments(coreWireframe, coreMaterial);
@@ -115,10 +115,10 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
     // Inner sphere core
     const innerSphereGeo = new THREE.IcosahedronGeometry(2.4, 3);
     const innerSphereMat = new THREE.MeshBasicMaterial({
-      color: 0xf4a261,
+      color: 0x60a5fa,
       wireframe: true,
       transparent: true,
-      opacity: 0.12,
+      opacity: 0.15,
       blending: THREE.AdditiveBlending,
     });
     const innerSphere = new THREE.Mesh(innerSphereGeo, innerSphereMat);
@@ -127,10 +127,10 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
     // Dynamic Ambient Rings
     const ringGeo = new THREE.RingGeometry(8.5, 8.6, 64);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: 0xe07a5f,
+      color: 0x38bdf8,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.18,
     });
     const ringMesh = new THREE.Mesh(ringGeo, ringMat);
     ringMesh.rotation.x = Math.PI / 3;

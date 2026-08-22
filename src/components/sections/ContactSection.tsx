@@ -174,7 +174,7 @@ export const ContactSection: React.FC = () => {
                   <select
                     value={formData.topic}
                     onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#15181f] border border-white/10 focus:border-accent text-white font-sans text-sm outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-[#0f172a] border border-white/10 focus:border-accent text-white font-sans text-sm outline-none transition-colors"
                   >
                     <option value="Job Opportunity">Full-Time Product / APM Role</option>
                     <option value="Internship Opportunity">MBA Summer Internship (2026)</option>

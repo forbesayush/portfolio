@@ -11,24 +11,24 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: #06070a;
+    background-color: #0a0f1d;
     color: #f1f5f9;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
-  /* Custom Cyber Scrollbar */
+  /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #06070a;
+    background: #0a0f1d;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(0, 240, 255, 0.25);
+    background: rgba(56, 189, 248, 0.25);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 240, 255, 0.6);
+    background: rgba(56, 189, 248, 0.6);
   }
 }
 
@@ -52,7 +52,7 @@
 
 /* Glassmorphism helpers */
 .glass-panel {
-  background: rgba(18, 22, 34, 0.65);
+  background: rgba(15, 23, 42, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);

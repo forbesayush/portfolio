@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Users, TrendingDown, Clock, BarChart3, Grid3X3, Filter } from 'lucide-react';
 import { soundManager } from '../../audio/soundManager';
 
@@ -74,9 +74,9 @@ export const CohortRetentionChart: React.FC = () => {
             }}
             className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-sans text-white focus:border-accent outline-none"
           >
-            <option value="ALL" className="bg-[#15181f]">All Cohorts (Aggregated)</option>
+            <option value="ALL" className="bg-[#0f172a]">All Cohorts (Aggregated)</option>
             {SAMPLE_COHORTS.map((c) => (
-              <option key={c.cohort} value={c.cohort} className="bg-[#15181f]">
+              <option key={c.cohort} value={c.cohort} className="bg-[#0f172a]">
                 {c.cohort} ({c.customers.toLocaleString()} users)
               </option>
             ))}

@@ -9,9 +9,9 @@ export default {
     extend: {
       colors: {
         background: {
-          DEFAULT: '#0e1014',
-          secondary: '#15181f',
-          card: '#12151b',
+          DEFAULT: '#0a0f1d',
+          secondary: '#0f172a',
+          card: '#111c35',
         },
         accent: {
           DEFAULT: '#e07a5f',
@@ -20,18 +20,18 @@ export default {
           muted: 'rgba(224, 122, 95, 0.12)',
         },
         cyber: {
-          cyan: '#e07a5f',
-          neon: '#e07a5f',
-          amber: '#f4a261',
-          violet: '#9ca3af',
+          cyan: '#38bdf8',
+          neon: '#38bdf8',
+          amber: '#f59e0b',
+          violet: '#818cf8',
           pink: '#e07a5f',
           red: '#e07a5f',
         },
         surface: {
-          glass: 'rgba(18, 21, 27, 0.75)',
-          'glass-hover': 'rgba(26, 30, 39, 0.85)',
+          glass: 'rgba(15, 23, 42, 0.8)',
+          'glass-hover': 'rgba(23, 37, 68, 0.9)',
           border: 'rgba(255, 255, 255, 0.08)',
-          'border-active': 'rgba(224, 122, 95, 0.4)',
+          'border-active': 'rgba(56, 189, 248, 0.4)',
         }
       },
       fontFamily: {
