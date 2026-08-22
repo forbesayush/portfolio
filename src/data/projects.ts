@@ -102,8 +102,8 @@ export const projects: Project[] = [
     architectureSummary: 'Assessed software adoption in Germany, Ireland, Netherlands, and Singapore. Built unit economic models comparing direct sales versus partner distribution.',
     liveUrl: '#',
     githubUrl: 'https://github.com/forbesayush',
-    featured: false,
-    year: '2024',
+    featured: true,
+    year: '2026',
     accentColor: '#8a2be2',
     glslPreset: 'core'
   }
