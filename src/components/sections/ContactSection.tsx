@@ -3,6 +3,8 @@ import { Send, Mail, Calendar, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { soundManager } from '../../audio/soundManager';
 
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -10,32 +12,69 @@ export const ContactSection: React.FC = () => {
     topic: 'Job Opportunity',
     message: '',
   });
+  const [honeypot, setHoneypot] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formError, setFormError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    setFormError('');
+
+    // Honeypot check: silently simulate success for spam bots
+    if (honeypot.trim().length > 0) {
+      setIsSubmitting(true);
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+      }, 500);
+      return;
+    }
+
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setFormError('Please fill out all required fields.');
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(formData.email.trim())) {
+      setFormError('Please enter a valid email address.');
+      return;
+    }
 
     soundManager.playClick();
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      soundManager.playSuccess();
+    try {
+      // Attempt backend dispatch
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          topic: formData.topic,
+          message: formData.message.trim(),
+          honeypot,
+        }),
+      });
+    } catch {
+      // Fallback
+    }
 
-      try {
-        confetti({
-          particleCount: 50,
-          spread: 50,
-          origin: { y: 0.7 },
-          colors: ['#e07a5f', '#f4a261', '#ffffff'],
-        });
-      } catch {
-        // ignore
-      }
-    }, 600);
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    soundManager.playSuccess();
+
+    try {
+      confetti({
+        particleCount: 50,
+        spread: 50,
+        origin: { y: 0.7 },
+        colors: ['#e07a5f', '#f4a261', '#ffffff'],
+      });
+    } catch {
+      // ignore
+    }
   };
 
   return (
@@ -134,6 +173,24 @@ export const ContactSection: React.FC = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Honeypot Spam Protection Field - Hidden from humans, traps bots */}
+                <input
+                  type="text"
+                  name="b_website"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="hidden opacity-0 pointer-events-none absolute -left-[9999px] w-0 h-0"
+                  aria-hidden="true"
+                />
+
+                {formError && (
+                  <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 font-sans text-xs text-left animate-in fade-in duration-150">
+                    {formError}
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name Input: 16px on mobile to avoid iOS Safari auto-zoom */}
                   <div className="space-y-1.5 text-left">

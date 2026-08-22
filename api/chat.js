@@ -41,6 +41,19 @@ RULES:
 const requestLog = new Map();
 const MAX_REQUESTS_PER_HOUR = 30;
 
+// Periodic cleanup of rate-limit map every 10 minutes to prevent memory leak
+setInterval(() => {
+  const hourAgo = Date.now() - 60 * 60 * 1000;
+  for (const [ip, timestamps] of requestLog.entries()) {
+    const valid = timestamps.filter((t) => t > hourAgo);
+    if (valid.length === 0) {
+      requestLog.delete(ip);
+    } else {
+      requestLog.set(ip, valid);
+    }
+  }
+}, 10 * 60 * 1000).unref?.();
+
 function isRateLimited(ip) {
   const now = Date.now();
   const hourAgo = now - 60 * 60 * 1000;
@@ -50,14 +63,48 @@ function isRateLimited(ip) {
   return timestamps.length > MAX_REQUESTS_PER_HOUR;
 }
 
+// XSS Sanitizer: strips HTML/script tags and normalizes whitespace
+function sanitizeText(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str
+    .replace(/<[^>]*>?/gm, '')
+    .replace(/[<>'"&]/g, (match) => {
+      switch (match) {
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case "'": return '&#39;';
+        case '"': return '&quot;';
+        case '&': return '&amp;';
+        default: return match;
+      }
+    })
+    .trim();
+}
+
+const ALLOWED_ORIGINS = new Set([
+  'https://ayushchatterjee.me',
+  'https://forbesayush.github.io',
+  'http://localhost:5173',
+  'http://localhost:3000',
+]);
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
+  const origin = req.headers.origin;
+
+  // Strict CORS policy: Allow only authorized domain origins
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  } else if (!origin) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://ayushchatterjee.me');
+  } else {
+    return res.status(403).json({ error: 'CORS forbidden' });
+  }
+
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
 
   if (req.method === 'OPTIONS') {
     res.status(200).end();
@@ -68,29 +115,39 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
   if (isRateLimited(ip)) {
     return res.status(429).json({
-      reply: "This chat has hit its hourly limit. Please try again a bit later, or reach out directly at ayushchatterjee.edu@gmail.com.",
+      reply: "Hourly rate limit reached. Please reach out directly at ayushchatterjee.edu@gmail.com.",
     });
   }
 
   const { message, conversationHistory = [] } = req.body || {};
-  if (!message || typeof message !== 'string' || message.length > 2000) {
+  if (!message || typeof message !== 'string' || message.trim().length === 0) {
     return res.status(400).json({ error: 'Invalid message' });
+  }
+
+  // Cap message length server-side & sanitize
+  const cleanMessage = sanitizeText(message).slice(0, 500);
+  if (!cleanMessage) {
+    return res.status(400).json({ error: 'Message contains invalid characters' });
   }
 
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
   const groqKey = process.env.GROQ_API_KEY;
 
+  // Sanitize history and enforce maximum 6 turns to prevent token exhaustion
   const historyMessages = Array.isArray(conversationHistory)
-    ? conversationHistory.map((m) => ({
-        role: m.role === 'assistant' || m.sender === 'ai' ? 'assistant' : 'user',
-        content: m.content || m.text || '',
-      })).filter((m) => m.content.trim().length > 0)
+    ? conversationHistory
+        .slice(-6)
+        .map((m) => ({
+          role: m.role === 'assistant' || m.sender === 'ai' ? 'assistant' : 'user',
+          content: sanitizeText(m.content || m.text || '').slice(0, 500),
+        }))
+        .filter((m) => m.content.length > 0)
     : [];
 
-  // 1. Anthropic API if key is set
+  // 1. Anthropic Claude API
   if (anthropicKey) {
     try {
       const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
@@ -102,11 +159,11 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           model: 'claude-3-5-sonnet-20241022',
-          max_tokens: 400,
+          max_tokens: 350,
           system: SYSTEM_PROMPT,
           messages: [
             ...historyMessages,
-            { role: 'user', content: message.trim() },
+            { role: 'user', content: cleanMessage },
           ],
         }),
       });
@@ -114,46 +171,45 @@ export default async function handler(req, res) {
       if (anthropicRes.ok) {
         const data = await anthropicRes.json();
         const reply = data.content?.find((b) => b.type === 'text')?.text;
-        if (reply) return res.status(200).json({ reply });
+        if (reply) return res.status(200).json({ reply: sanitizeText(reply) });
+      }
+    } catch {
+      // Fallback to Groq or local
+    }
+  }
+
+  // 2. Groq LLM API
+  if (groqKey) {
+    try {
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${groqKey}`,
+        },
+        body: JSON.stringify({
+          model: 'openai/gpt-oss-120b',
+          max_tokens: 350,
+          temperature: 0.4,
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            ...historyMessages,
+            { role: 'user', content: cleanMessage },
+          ],
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const reply = data.choices?.[0]?.message?.content;
+        if (reply) return res.status(200).json({ reply: sanitizeText(reply) });
       }
     } catch {
       // Fallback
     }
   }
 
-  // 2. Groq API
-  const activeGroqKey = groqKey || process.env.GROQ_API_KEY;
-  if (activeGroqKey) {
-    try {
-      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${activeGroqKey}`,
-        },
-      body: JSON.stringify({
-        model: 'openai/gpt-oss-120b',
-        max_tokens: 400,
-        temperature: 0.5,
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          ...historyMessages,
-          { role: 'user', content: message.trim() },
-        ],
-      }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      const reply = data.choices?.[0]?.message?.content;
-      if (reply) return res.status(200).json({ reply });
-    }
-  } catch (err) {
-    console.error('Chat endpoint error:', err);
-  }
-}
-
   return res.status(200).json({
-    reply: "Sorry, something went wrong on my end. Try again in a moment, or use the contact form below.",
+    reply: "I am having trouble reaching the inference server at this moment. You can reach Ayush directly at ayushchatterjee.edu@gmail.com.",
   });
 }
