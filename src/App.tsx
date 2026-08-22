@@ -19,14 +19,26 @@ export function App() {
   const [isAIOpen, setIsAIOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Initialize Lenis 120 FPS inertial smooth scroll
+  // Fast, responsive smooth scroll without input delay
   useEffect(() => {
+    // If mobile/touch, rely on native 120Hz smooth scroll for zero lag
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      const handleScroll = () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        setScrollProgress(total > 0 ? window.scrollY / total : 0);
+      };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.6,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
+      wheelMultiplier: 1.1,
+      touchMultiplier: 1.0,
     });
 
     function raf(time: number) {

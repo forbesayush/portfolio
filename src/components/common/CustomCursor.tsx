@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
 
 export const CustomCursor: React.FC = () => {
   const [cursorText, setCursorText] = useState('');
-  const [cursorVariant, setCursorVariant] = useState<'default' | 'hover' | 'drag' | 'code'>('default');
+  const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-
-  const springConfig = { damping: 28, stiffness: 350, mass: 0.5 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const mousePos = useRef({ x: -100, y: -100 });
+  const ringPos = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
     // Only enable on pointer-supported devices (non-touch)
@@ -19,81 +16,101 @@ export const CustomCursor: React.FC = () => {
       return;
     }
 
+    let animId: number;
+    let isTicking = false;
+
     const moveMouse = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
+      mousePos.current.x = e.clientX;
+      mousePos.current.y = e.clientY;
+
       if (!isVisible) setIsVisible(true);
 
-      const target = e.target as HTMLElement | null;
-      if (!target) return;
+      if (!isTicking) {
+        isTicking = true;
+        requestAnimationFrame(() => {
+          const target = e.target as HTMLElement | null;
+          if (target) {
+            const customCursorAttr = target.closest('[data-cursor-text]')?.getAttribute('data-cursor-text');
+            const interactive = target.closest('button, a, [data-cursor], input, textarea, select');
 
-      const interactive = target.closest('button, a, [data-cursor], input, textarea, select');
-      const customCursorAttr = target.closest('[data-cursor-text]')?.getAttribute('data-cursor-text');
-
-      if (customCursorAttr) {
-        setCursorText(customCursorAttr);
-        setCursorVariant('hover');
-      } else if (interactive) {
-        setCursorText('');
-        setCursorVariant('hover');
-      } else {
-        setCursorText('');
-        setCursorVariant('default');
+            if (customCursorAttr) {
+              setCursorText(customCursorAttr);
+              setIsHovered(true);
+            } else if (interactive) {
+              setCursorText('');
+              setIsHovered(true);
+            } else {
+              setCursorText('');
+              setIsHovered(false);
+            }
+          }
+          isTicking = false;
+        });
       }
     };
+
+    // Smooth trailing ring via 60/120fps RAF lerp (GPU translate3d)
+    const renderLoop = () => {
+      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.25;
+      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.25;
+
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0) translate(-50%, -50%)`;
+      }
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) translate(-50%, -50%)`;
+      }
+
+      animId = requestAnimationFrame(renderLoop);
+    };
+
+    animId = requestAnimationFrame(renderLoop);
 
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
-    window.addEventListener('mousemove', moveMouse);
+    window.addEventListener('mousemove', moveMouse, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
+      cancelAnimationFrame(animId);
       window.removeEventListener('mousemove', moveMouse);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [isVisible, mouseX, mouseY]);
+  }, [isVisible]);
 
   if (!isVisible) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden mix-blend-difference hidden md:block">
-      {/* Outer Spatial Ring */}
-      <motion.div
-        className="fixed top-0 left-0 rounded-full border border-accent/60 flex items-center justify-center pointer-events-none"
-        style={{
-          x: smoothX,
-          y: smoothY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-        animate={{
-          width: cursorVariant === 'hover' ? (cursorText ? 84 : 48) : 24,
-          height: cursorVariant === 'hover' ? (cursorText ? 84 : 48) : 24,
-          backgroundColor: cursorVariant === 'hover' ? 'rgba(224, 122, 95, 0.12)' : 'rgba(224, 122, 95, 0)',
-          borderColor: cursorVariant === 'hover' ? '#e07a5f' : 'rgba(224, 122, 95, 0.4)',
-        }}
-        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden hidden md:block" aria-hidden="true">
+      {/* Outer Trailing Ring */}
+      <div
+        ref={ringRef}
+        className={`fixed top-0 left-0 rounded-full border transition-[width,height,background-color] duration-150 ease-out flex items-center justify-center pointer-events-none ${
+          isHovered
+            ? cursorText
+              ? 'w-20 h-20 bg-accent/15 border-accent/80'
+              : 'w-10 h-10 bg-accent/10 border-accent'
+            : 'w-6 h-6 bg-transparent border-accent/40'
+        }`}
+        style={{ willChange: 'transform' }}
       >
         {cursorText && (
-          <span className="text-[10px] font-sans font-medium tracking-wide text-accent uppercase select-none text-center px-1">
+          <span className="text-[10px] font-sans font-medium tracking-wider text-accent uppercase select-none text-center px-1">
             {cursorText}
           </span>
         )}
-      </motion.div>
+      </div>
 
-      {/* Center Precise Dot */}
-      <motion.div
+      {/* Center Precision Dot */}
+      <div
+        ref={dotRef}
         className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-accent pointer-events-none"
-        style={{
-          x: mouseX,
-          y: mouseY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
+        style={{ willChange: 'transform' }}
       />
     </div>
   );
 };
+
