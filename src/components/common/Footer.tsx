@@ -87,10 +87,10 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-7 h-7 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/40 flex items-center justify-center font-mono font-bold text-cyber-cyan text-xs">
-                AV
+                AC
               </div>
               <span className="font-display font-bold text-lg text-white tracking-wide">
-                ALEX VANCE
+                AYUSH CHATTERJEE
               </span>
             </div>
             <p className="text-sm text-slate-400 font-sans max-w-md leading-relaxed">
@@ -98,7 +98,7 @@ export const Footer: React.FC = () => {
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://github.com"
+                href="https://github.com/forbesayush"
                 target="_blank"
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -185,7 +185,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500">
-          <p>© 2027 ALEX VANCE. ALL RIGHTS RESERVED.</p>
+          <p>© 2027 AYUSH CHATTERJEE. ALL RIGHTS RESERVED.</p>
           <div className="flex items-center gap-4">
             <span className="hover:text-slate-300 cursor-pointer">PRIVACY PROTOCOL</span>
             <span>•</span>

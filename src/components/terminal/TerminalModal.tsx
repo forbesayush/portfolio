@@ -20,7 +20,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       command: 'systemctl status neural-core',
       output: (
         <div className="text-cyber-cyan">
-          ● neural-core.service: Alex Vance Autonomous Core<br />
+          ● neural-core.service: Ayush Chatterjee Autonomous Core<br />
           &nbsp;&nbsp;Loaded: loaded (/etc/systemd/system/neural-core.service)<br />
           &nbsp;&nbsp;Active: <span className="text-cyber-neon font-bold">active (running)</span> since 2027-01-01 00:00:00 UTC<br />
           &nbsp;&nbsp;Tasks: 128 threads | Memory: 42.4M | Latency: 0.12ms<br />
@@ -100,7 +100,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'whoami':
         outputNode = (
           <div className="space-y-2 text-slate-200">
-            <div className="text-cyber-cyan font-bold">ALEX VANCE [Staff Spatial &amp; Distributed AI Architect]</div>
+            <div className="text-cyber-cyan font-bold">AYUSH CHATTERJEE [Staff Spatial &amp; Distributed AI Architect]</div>
             <p>
               I build low-latency distributed architectures, in-browser WebGPU 3D graphics, and decentralized multi-agent platforms. Over 8 years designing enterprise high-throughput infrastructure.
             </p>
@@ -152,8 +152,8 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
           outputNode = (
             <div className="space-y-2 font-mono text-xs text-slate-300">
               <div className="text-cyber-cyan font-bold">================== RESUME.TXT ==================</div>
-              <div>NAME: Alex Vance | ROLE: Staff Spatial &amp; AI Systems Architect</div>
-              <div>EMAIL: contact@alexvance.io | GITHUB: github.com/alexvance</div>
+              <div>NAME: Ayush Chatterjee | ROLE: Staff Spatial &amp; AI Systems Architect</div>
+              <div>EMAIL: ayushchatterjee.edu@gmail.com | GITHUB: github.com/forbesayush</div>
               <div>SUMMARY: Systems engineer building edge AI swarms, WebGPU compute, and distributed consensus.</div>
               <div>KEY METRICS: $1.8M/yr cloud cost reduction, 12M msgs/sec ingestion, 120 FPS 4K browser spatial render.</div>
               <div className="text-cyber-cyan font-bold">================================================</div>
@@ -167,9 +167,9 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'contact':
         outputNode = (
           <div className="space-y-1 text-slate-200">
-            <div>Email: <span className="text-cyber-cyan font-bold">contact@alexvance.io</span></div>
+            <div>Email: <span className="text-cyber-cyan font-bold">ayushchatterjee.edu@gmail.com</span></div>
             <div>PGP Key Fingerprint: <span className="text-cyber-amber font-mono text-xs">8F32 99A1 C402 B889 00EA 2027 D301 77FE</span></div>
-            <div>Calendar Sync: <span className="text-cyber-neon font-bold">cal.com/alexvance/30min</span></div>
+            <div>Calendar Sync: <span className="text-cyber-neon font-bold">cal.com/ayushchatterjee/30min</span></div>
           </div>
         );
         break;
@@ -180,9 +180,9 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
             <div className="space-y-2 text-cyber-neon font-bold">
               <div>[ACCESS GRANTED: PRIORITY STATUS]</div>
               <div className="text-slate-200 font-normal">
-                You have triggered the direct intro protocol. Sending notification to Alex...
+                You have triggered the direct intro protocol. Sending notification to Ayush...
               </div>
-              <div className="text-cyber-cyan">Direct link: contact@alexvance.io | Subject: "Fast-Track Discussion"</div>
+              <div className="text-cyber-cyan">Direct link: ayushchatterjee.edu@gmail.com | Subject: "Fast-Track Discussion"</div>
             </div>
           );
         } else {
@@ -266,7 +266,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
             </div>
             <div className="flex items-center gap-2 text-xs text-slate-400">
               <TerminalIcon className="w-3.5 h-3.5 text-cyber-amber" />
-              <span>vance@quantum-core: ~ (zsh)</span>
+              <span>ayush@quantum-core: ~ (zsh)</span>
             </div>
           </div>
 
@@ -296,7 +296,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
           {logs.map((item) => (
             <div key={item.id} className="space-y-1">
               <div className="flex items-center gap-2 text-slate-400">
-                <span className="text-cyber-cyan">root@alexvance:~$</span>
+                <span className="text-cyber-cyan">root@ayushchatterjee:~$</span>
                 <span className="text-white font-bold">{item.command}</span>
               </div>
               <div className="pl-4 py-1 leading-relaxed">{item.output}</div>
@@ -311,7 +311,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
             }}
             className="flex items-center gap-2 pt-1"
           >
-            <span className="text-cyber-cyan flex-shrink-0">root@alexvance:~$</span>
+            <span className="text-cyber-cyan flex-shrink-0">root@ayushchatterjee:~$</span>
             <input
               ref={inputRef}
               type="text"

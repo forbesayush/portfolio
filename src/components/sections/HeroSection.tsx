@@ -37,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
             &amp; SPATIAL WORLDS.
           </h1>
           <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-400 font-sans leading-relaxed pt-2">
-            I am <strong className="text-white font-medium">Alex Vance</strong>, a staff AI systems architect and distributed graphics engineer. I build low-latency autonomous swarms, real-time WebGPU shaders, and post-quantum zero-trust infrastructure.
+            I am <strong className="text-white font-medium">Ayush Chatterjee</strong>, a staff AI systems architect and distributed graphics engineer. I build low-latency autonomous swarms, real-time WebGPU shaders, and post-quantum zero-trust infrastructure.
           </p>
         </div>
 

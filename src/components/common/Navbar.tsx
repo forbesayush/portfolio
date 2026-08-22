@@ -45,13 +45,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
           className="flex items-center gap-3 group"
         >
           <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan/20 to-cyber-neon/10 border border-cyber-cyan/40 flex items-center justify-center group-hover:border-cyber-cyan transition-all duration-300 shadow-glow-cyan/20">
-            <span className="font-mono font-bold text-cyber-cyan text-sm">AV</span>
+            <span className="font-mono font-bold text-cyber-cyan text-sm">AC</span>
             <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-cyber-neon animate-ping" />
             <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-cyber-neon" />
           </div>
           <div className="flex flex-col">
             <span className="font-display font-bold text-sm tracking-wider text-white group-hover:text-cyber-cyan transition-colors">
-              ALEX VANCE
+              AYUSH CHATTERJEE
             </span>
             <span className="text-[10px] font-mono text-slate-400 tracking-tight">
               SPATIAL &amp; AI ARCHITECT

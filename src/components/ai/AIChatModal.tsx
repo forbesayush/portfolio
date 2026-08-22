@@ -26,7 +26,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
     {
       id: '1',
       sender: 'ai',
-      text: "Hello! I am NEURAL CORE, Alex Vance's synthetic assistant. I know all about Alex's architectural designs, WebGPU compute pipelines, distributed systems work, and current availability. What would you like to know?",
+      text: "Hello! I am NEURAL CORE, Ayush Chatterjee's synthetic assistant. I know all about Ayush's architectural designs, WebGPU compute pipelines, distributed systems work, and current availability. What would you like to know?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -118,7 +118,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
                 </span>
               </div>
               <p className="text-[11px] font-mono text-slate-400">
-                Direct assistant for Alex Vance portfolio
+                Direct assistant for Ayush Chatterjee portfolio
               </p>
             </div>
           </div>
@@ -250,15 +250,15 @@ function generateAIResponse(query: string): string {
   const q = query.toLowerCase();
 
   if (q.includes('aegis') || q.includes('swarm') || q.includes('agent')) {
-    return "AEGIS is Alex's autonomous swarm operating system. It coordinates distributed language model agents using Rust and WebAssembly with lock-free ring buffers. Key highlights include:\n• Byzantine Fault Tolerant consensus with sub-2.4ms latency\n• Browser execution using WebWorkers and WebRTC data meshes\n• 45,000 ops/s verified benchmark throughput.";
+    return "AEGIS is Ayush's autonomous swarm operating system. It coordinates distributed language model agents using Rust and WebAssembly with lock-free ring buffers. Key highlights include:\n• Byzantine Fault Tolerant consensus with sub-2.4ms latency\n• Browser execution using WebWorkers and WebRTC data meshes\n• 45,000 ops/s verified benchmark throughput.";
   }
 
   if (q.includes('webgpu') || q.includes('nerf') || q.includes('3d') || q.includes('graphics')) {
-    return "Alex specializes in spatial computing and WebGPU graphics. His Chronos NeRF engine achieves 120 FPS 6DoF neural volumetric rendering straight in the browser. He writes custom WGSL compute shaders, 3D Gaussian splatting pipelines, and particle physics engines.";
+    return "Ayush specializes in spatial computing and WebGPU graphics. His Chronos NeRF engine achieves 120 FPS 6DoF neural volumetric rendering straight in the browser. He writes custom WGSL compute shaders, 3D Gaussian splatting pipelines, and particle physics engines.";
   }
 
   if (q.includes('hire') || q.includes('role') || q.includes('open') || q.includes('opportunity') || q.includes('salary')) {
-    return "Alex is currently considering Staff and Principal Architect roles and founding engineer positions centered on autonomous agent infrastructure, spatial computing, and distributed core systems. You can connect through the contact form below or email contact@alexvance.io directly.";
+    return "Ayush is currently considering Staff and Principal Architect roles and founding engineer positions centered on autonomous agent infrastructure, spatial computing, and distributed core systems. You can connect through the contact form below or email ayushchatterjee.edu@gmail.com directly.";
   }
 
   if (q.includes('schedule') || q.includes('intro') || q.includes('call') || q.includes('interview')) {
@@ -269,9 +269,9 @@ function generateAIResponse(query: string): string {
     return "Core Technical Mastery:\n• Languages: Rust, C++23, TypeScript, WGSL, GLSL, Go, Python\n• AI and Agents: Multi-Agent Swarms, AWQ Quantization, HNSW Vector Clustering, CUDA, Triton\n• Graphics: WebGPU, Three.js, React Three Fiber, 3D Gaussian Splats\n• Systems: Lock-Free Queues, DPDK Kernel Bypass, Raft Consensus, Post-Quantum Cryptography.";
   }
 
-  if (q.includes('who') || q.includes('alex') || q.includes('bio')) {
-    return "Alex Vance is a staff AI systems engineer and spatial architect with over 8 years of high-performance systems experience. He has built distributed systems saving millions in compute costs, won international graphics awards, and pushed the boundaries of edge AI and volumetric WebGPU rendering.";
+  if (q.includes('who') || q.includes('ayush') || q.includes('bio')) {
+    return "Ayush Chatterjee is a staff AI systems engineer and spatial architect with over 8 years of high-performance systems experience. He has built distributed systems saving millions in compute costs, won international graphics awards, and pushed the boundaries of edge AI and volumetric WebGPU rendering.";
   }
 
-  return `I have recorded your question about "${query}". Alex focuses on building high-performance software: sub-millisecond distributed architectures, WebGPU 3D spatial interfaces, and resilient autonomous swarms. Feel free to inspect the project blueprints or reach out directly through the contact form.`;
+  return `I have recorded your question about "${query}". Ayush focuses on building high-performance software: sub-millisecond distributed architectures, WebGPU 3D spatial interfaces, and resilient autonomous swarms. Feel free to inspect the project blueprints or reach out directly through the contact form.`;
 }

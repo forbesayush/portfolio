@@ -80,7 +80,7 @@ export const ContactSection: React.FC = () => {
             <div className="space-y-4 font-mono text-xs">
               {/* Email */}
               <a
-                href="mailto:contact@alexvance.io"
+                href="mailto:ayushchatterjee.edu@gmail.com"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
                 className="flex items-center gap-3 p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-cyber-cyan/40 text-slate-200 hover:text-white transition-all group"
@@ -90,7 +90,7 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] text-slate-500 uppercase">Direct Email</span>
-                  <span className="text-cyber-cyan font-bold">contact@alexvance.io</span>
+                  <span className="text-cyber-cyan font-bold">ayushchatterjee.edu@gmail.com</span>
                 </div>
               </a>
 
@@ -108,7 +108,7 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] text-slate-500 uppercase">30-Min Technical Sync</span>
-                  <span className="text-cyber-amber font-bold">cal.com/alexvance/30min</span>
+                  <span className="text-cyber-amber font-bold">cal.com/ayushchatterjee/30min</span>
                 </div>
               </a>
 
@@ -148,7 +148,7 @@ export const ContactSection: React.FC = () => {
                   TRANSMISSION RECEIVED &amp; QUEUED
                 </h3>
                 <p className="font-sans text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-                  Your message has been authenticated and routed to Alex Vance&apos;s priority queue. I will follow up within 4 hours.
+                  Your message has been authenticated and routed to Ayush Chatterjee&apos;s priority queue. I will follow up within 4 hours.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
