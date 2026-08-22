@@ -27,7 +27,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
     {
       id: '1',
       sender: 'ai',
-      text: "Hey! I'm an AI assistant for Ayush's portfolio. You can ask me about his work experience, or ask random product management, business strategy, and consulting questions.",
+      text: "Hey! I'm AVA, a custom AI assistant for Ayush's portfolio. You can ask me about his work experience, or ask random product management, business strategy, and consulting questions.",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -124,7 +124,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
       {
         id: '1',
         sender: 'ai',
-        text: "Chat cleared. Ask me about Ayush's background, or ask any product management, business strategy, or consulting question.",
+        text: "Chat cleared. I'm AVA. Ask me about Ayush's background, or ask any product management, business strategy, or consulting question.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       },
     ]);
@@ -145,10 +145,10 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-serif font-medium text-base text-white tracking-wide">
-                  Portfolio &amp; Strategy AI
+                  AVA &bull; Strategy &amp; PM AI
                 </h3>
                 <span className="px-1.5 py-0.5 rounded text-[10px] font-sans bg-accent/10 text-accent border border-accent/30">
-                  Interactive
+                  Online
                 </span>
               </div>
               <p className="text-xs font-sans text-slate-400">
@@ -202,7 +202,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
               >
                 <div className="flex items-center justify-between gap-4 mb-1">
                   <span className="font-sans text-[11px] uppercase font-medium tracking-wide text-slate-400">
-                    {msg.sender === 'user' ? 'Visitor' : 'AI Assistant'}
+                    {msg.sender === 'user' ? 'Visitor' : 'AVA'}
                   </span>
                   <span className="font-sans text-[10px] text-slate-500">{msg.timestamp}</span>
                 </div>
