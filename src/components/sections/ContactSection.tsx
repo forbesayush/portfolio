@@ -43,14 +43,14 @@ export const ContactSection: React.FC = () => {
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4 border-b border-white/10 pb-6">
         <div>
-          <span className="font-mono text-xs text-cyber-cyan tracking-wider uppercase block mb-1">
+          <span className="font-mono text-xs sm:text-sm text-cyber-cyan tracking-wider uppercase block mb-1.5 font-bold">
             GET IN TOUCH
           </span>
-          <h2 className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight">
+          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
             START A CONVERSATION
           </h2>
         </div>
-        <div className="font-mono text-xs text-slate-400">
+        <div className="font-mono text-xs sm:text-sm text-slate-400 font-medium">
           I usually reply within a day
         </div>
       </div>
@@ -58,28 +58,28 @@ export const ContactSection: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Direct Channels */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="p-6 rounded-xl bg-[#090b10] border border-white/10 space-y-5">
-            <h3 className="font-display font-bold text-lg text-white">
+          <div className="p-7 sm:p-8 rounded-2xl bg-[#090b10] border border-white/10 space-y-6 shadow-2xl">
+            <h3 className="font-display font-black text-xl sm:text-2xl text-white">
               Direct Channels
             </h3>
-            <p className="font-sans text-sm text-slate-300 leading-relaxed">
+            <p className="font-sans text-base text-slate-300 leading-relaxed font-normal">
               Open to staff engineering roles, architecture consulting, and technical advisory.
             </p>
 
-            <div className="space-y-3 font-mono text-xs">
+            <div className="space-y-3.5 font-mono text-xs sm:text-sm">
               {/* Email */}
               <a
                 href="mailto:ayushchatterjee.edu@gmail.com"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="flex items-center gap-3 p-3.5 rounded-lg bg-white/5 border border-white/5 hover:border-cyber-cyan/40 text-slate-200 hover:text-white transition-all group"
+                className="flex items-center gap-3.5 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-cyber-cyan/40 text-slate-200 hover:text-white transition-all group"
               >
-                <div className="p-2 rounded bg-cyber-cyan/10 text-cyber-cyan group-hover:bg-cyber-cyan group-hover:text-black transition-colors">
-                  <Mail className="w-4 h-4" />
+                <div className="p-2.5 rounded-lg bg-cyber-cyan/10 text-cyber-cyan group-hover:bg-cyber-cyan group-hover:text-black transition-colors">
+                  <Mail className="w-5 h-5" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-slate-400 uppercase">Email</span>
-                  <span className="text-cyber-cyan font-bold">ayushchatterjee.edu@gmail.com</span>
+                  <span className="text-[11px] text-slate-400 uppercase font-semibold">Email</span>
+                  <span className="text-cyber-cyan font-bold text-sm sm:text-base">ayushchatterjee.edu@gmail.com</span>
                 </div>
               </a>
 
@@ -90,14 +90,14 @@ export const ContactSection: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="flex items-center gap-3 p-3.5 rounded-lg bg-white/5 border border-white/5 hover:border-cyber-amber/40 text-slate-200 hover:text-white transition-all group"
+                className="flex items-center gap-3.5 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-cyber-amber/40 text-slate-200 hover:text-white transition-all group"
               >
-                <div className="p-2 rounded bg-cyber-amber/10 text-cyber-amber group-hover:bg-cyber-amber group-hover:text-black transition-colors">
-                  <Calendar className="w-4 h-4" />
+                <div className="p-2.5 rounded-lg bg-cyber-amber/10 text-cyber-amber group-hover:bg-cyber-amber group-hover:text-black transition-colors">
+                  <Calendar className="w-5 h-5" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-slate-400 uppercase">Schedule Intro Call</span>
-                  <span className="text-cyber-amber font-bold">30-minute chat</span>
+                  <span className="text-[11px] text-slate-400 uppercase font-semibold">Schedule Intro Call</span>
+                  <span className="text-cyber-amber font-bold text-sm sm:text-base">30-minute chat</span>
                 </div>
               </a>
             </div>
@@ -106,22 +106,22 @@ export const ContactSection: React.FC = () => {
 
         {/* Right Column: Contact Form */}
         <div className="lg:col-span-7">
-          <div className="p-6 sm:p-8 rounded-xl bg-[#090b10] border border-white/10">
+          <div className="p-7 sm:p-9 rounded-2xl bg-[#090b10] border border-white/10 shadow-2xl">
             {isSubmitted ? (
               <div className="py-12 text-center space-y-4 animate-in zoom-in-95 duration-200">
-                <div className="w-12 h-12 rounded-full bg-cyber-neon/20 border border-cyber-neon/40 text-cyber-neon flex items-center justify-center mx-auto">
-                  <Sparkles className="w-6 h-6" />
+                <div className="w-14 h-14 rounded-full bg-cyber-neon/20 border border-cyber-neon/40 text-cyber-neon flex items-center justify-center mx-auto">
+                  <Sparkles className="w-7 h-7" />
                 </div>
-                <h3 className="font-display font-bold text-2xl text-white">
+                <h3 className="font-display font-black text-2xl sm:text-3xl text-white">
                   Message Sent
                 </h3>
-                <p className="font-sans text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
+                <p className="font-sans text-base text-slate-300 max-w-md mx-auto leading-relaxed">
                   Thanks for getting in touch. I'll reply to your email shortly.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
                   onMouseEnter={() => soundManager.playHover()}
-                  className="px-5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono text-white transition-all"
+                  className="px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs sm:text-sm font-mono font-medium text-white transition-all"
                 >
                   Send another message
                 </button>
@@ -129,8 +129,8 @@ export const ContactSection: React.FC = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 font-sans text-left">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="block font-mono text-xs text-slate-400 uppercase">
+                  <div className="space-y-1.5">
+                    <label className="block font-mono text-xs sm:text-sm text-slate-300 font-bold uppercase">
                       Your Name
                     </label>
                     <input
@@ -140,12 +140,12 @@ export const ContactSection: React.FC = () => {
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       onKeyDown={() => soundManager.playTypeKey()}
                       placeholder="Alex"
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyber-cyan transition-colors"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder-slate-500 focus:outline-none focus:border-cyber-cyan transition-colors"
                     />
                   </div>
 
-                  <div className="space-y-1">
-                    <label className="block font-mono text-xs text-slate-400 uppercase">
+                  <div className="space-y-1.5">
+                    <label className="block font-mono text-xs sm:text-sm text-slate-300 font-bold uppercase">
                       Email Address
                     </label>
                     <input
@@ -155,19 +155,19 @@ export const ContactSection: React.FC = () => {
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       onKeyDown={() => soundManager.playTypeKey()}
                       placeholder="you@company.com"
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyber-cyan transition-colors"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder-slate-500 focus:outline-none focus:border-cyber-cyan transition-colors"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="block font-mono text-xs text-slate-400 uppercase">
+                <div className="space-y-1.5">
+                  <label className="block font-mono text-xs sm:text-sm text-slate-300 font-bold uppercase">
                     Topic
                   </label>
                   <select
                     value={formData.topic}
                     onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-                    className="w-full bg-[#0c0f18] border border-white/10 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-cyber-cyan transition-colors"
+                    className="w-full bg-[#0c0f18] border border-white/10 rounded-xl px-4 py-3 text-base text-white focus:outline-none focus:border-cyber-cyan transition-colors font-medium"
                   >
                     <option value="Job Opportunity">Job Opportunity</option>
                     <option value="Project Collaboration">Project Collaboration</option>
@@ -176,8 +176,8 @@ export const ContactSection: React.FC = () => {
                   </select>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="block font-mono text-xs text-slate-400 uppercase">
+                <div className="space-y-1.5">
+                  <label className="block font-mono text-xs sm:text-sm text-slate-300 font-bold uppercase">
                     Your Message
                   </label>
                   <textarea
@@ -187,7 +187,7 @@ export const ContactSection: React.FC = () => {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     onKeyDown={() => soundManager.playTypeKey()}
                     placeholder="Tell me what you have in mind..."
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyber-cyan transition-colors"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder-slate-500 focus:outline-none focus:border-cyber-cyan transition-colors"
                   />
                 </div>
 
@@ -196,9 +196,9 @@ export const ContactSection: React.FC = () => {
                   disabled={isSubmitting}
                   onMouseEnter={() => soundManager.playHover()}
                   data-cursor-text="SEND"
-                  className="w-full py-3 rounded-lg bg-cyber-cyan hover:bg-cyber-neon text-black font-mono font-bold text-xs tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 group disabled:opacity-50"
+                  className="w-full py-4 rounded-xl bg-cyber-cyan hover:bg-cyber-neon text-black font-mono font-bold text-xs sm:text-sm tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 group disabled:opacity-50 shadow-glow-cyan/20 mt-2"
                 >
-                  <Send className="w-3.5 h-3.5" />
+                  <Send className="w-4 h-4" />
                   <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                 </button>
               </form>

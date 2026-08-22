@@ -34,25 +34,25 @@ export const ProjectsSection: React.FC = () => {
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b border-white/10 pb-6 text-left">
         <div>
-          <span className="font-mono text-xs text-cyber-amber tracking-wider uppercase block mb-1">
+          <span className="font-mono text-xs sm:text-sm text-cyber-amber tracking-wider uppercase block mb-1.5 font-bold">
             SELECTED WORK
           </span>
-          <h2 className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight">
+          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
             THINGS I'VE BUILT
           </h2>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2.5">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
               onMouseEnter={() => soundManager.playHover()}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'bg-cyber-cyan text-black font-bold'
-                  : 'bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/5'
+                  ? 'bg-cyber-cyan text-black font-bold shadow-glow-cyan/30'
+                  : 'bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/5'
               }`}
             >
               {cat}
@@ -62,9 +62,8 @@ export const ProjectsSection: React.FC = () => {
       </div>
 
       {/* Asymmetric Projects Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7">
         {filteredProjects.map((project, idx) => {
-          // Asymmetric layout: 1st card takes 7 cols, 2nd card takes 5 cols, 3rd takes 5 cols, 4th takes 7 cols
           const colSpan = idx % 3 === 0 ? 'lg:col-span-7' : idx % 3 === 1 ? 'lg:col-span-5' : 'lg:col-span-12';
 
           return (
@@ -73,63 +72,63 @@ export const ProjectsSection: React.FC = () => {
               onClick={() => handleOpenModal(project)}
               onMouseEnter={() => soundManager.playHover()}
               data-cursor-text="VIEW"
-              className={`${colSpan} group rounded-xl bg-[#090b10] border border-white/10 hover:border-cyber-cyan/50 p-6 sm:p-7 transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden`}
+              className={`${colSpan} group rounded-2xl bg-[#090b10] border border-white/10 hover:border-cyber-cyan/50 p-7 sm:p-8 transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden shadow-xl`}
             >
               {/* Subtle top accent */}
               <div
-                className="absolute top-0 left-0 right-0 h-0.5 opacity-60 group-hover:opacity-100 transition-opacity"
+                className="absolute top-0 left-0 right-0 h-1 opacity-60 group-hover:opacity-100 transition-opacity"
                 style={{ backgroundColor: project.accentColor }}
               />
 
               <div className="space-y-4 text-left">
                 {/* Header Meta */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs text-cyber-cyan font-semibold">
+                  <div className="flex items-center gap-2.5">
+                    <span className="font-mono text-xs sm:text-sm text-cyber-cyan font-bold uppercase tracking-wider">
                       {project.category}
                     </span>
                     <span className="text-slate-600 font-mono text-xs">/</span>
-                    <span className="font-mono text-xs text-slate-400">{project.year}</span>
+                    <span className="font-mono text-xs sm:text-sm text-slate-400 font-medium">{project.year}</span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-cyber-cyan font-mono text-xs transition-colors">
+                  <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-cyber-cyan font-mono text-xs sm:text-sm font-semibold transition-colors">
                     <span>Details</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <ExternalLink className="w-4 h-4" />
                   </div>
                 </div>
 
                 {/* Title & Tagline */}
                 <div>
-                  <h3 className="font-display font-bold text-2xl text-white group-hover:text-cyber-cyan transition-colors">
+                  <h3 className="font-display font-black text-2xl sm:text-3xl text-white group-hover:text-cyber-cyan transition-colors">
                     {project.title}
                   </h3>
-                  <p className="font-mono text-xs text-slate-400 mt-1">
+                  <p className="font-mono text-xs sm:text-sm text-slate-400 mt-1.5 font-medium">
                     {project.tagline}
                   </p>
                 </div>
 
                 {/* Description */}
-                <p className="font-sans text-sm text-slate-300 leading-relaxed">
+                <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
                   {project.description}
                 </p>
 
                 {/* Metrics */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
                   {project.metrics.map((m, mIdx) => (
-                    <div key={mIdx} className="p-2.5 rounded-lg bg-white/5 border border-white/5">
-                      <span className="font-mono text-[10px] text-slate-400 uppercase block">{m.label}</span>
-                      <span className="font-display font-bold text-sm text-white">{m.value}</span>
+                    <div key={mIdx} className="p-3 rounded-xl bg-white/5 border border-white/5">
+                      <span className="font-mono text-[11px] text-slate-400 uppercase font-semibold block">{m.label}</span>
+                      <span className="font-display font-bold text-base sm:text-lg text-white">{m.value}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Tags Footer */}
-              <div className="flex flex-wrap gap-1.5 pt-5 mt-4 border-t border-white/5">
+              <div className="flex flex-wrap gap-2 pt-6 mt-4 border-t border-white/5">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-0.5 rounded text-[11px] font-mono bg-white/5 text-slate-300 border border-white/5"
+                    className="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-white/5 text-slate-300 border border-white/5"
                   >
                     {tag}
                   </span>

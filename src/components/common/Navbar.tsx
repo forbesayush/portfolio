@@ -50,24 +50,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
             <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-cyber-neon" />
           </div>
           <div className="flex flex-col">
-            <span className="font-display font-bold text-sm tracking-wider text-white group-hover:text-cyber-cyan transition-colors">
+            <span className="font-display font-black text-sm sm:text-base tracking-wider text-white group-hover:text-cyber-cyan transition-colors">
               AYUSH CHATTERJEE
             </span>
-            <span className="text-[10px] font-mono text-slate-400 tracking-tight">
+            <span className="text-[11px] font-mono text-slate-400 font-medium tracking-wider">
               SYSTEMS ENGINEER
             </span>
           </div>
         </a>
 
         {/* Desktop Nav Links */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-7">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               onMouseEnter={() => soundManager.playHover()}
               onClick={() => soundManager.playClick()}
-              className="text-xs font-mono text-slate-400 hover:text-cyber-cyan transition-colors tracking-wider py-1 relative group"
+              className="text-xs sm:text-sm font-mono text-slate-300 hover:text-cyber-cyan transition-colors tracking-wider py-1 relative group font-medium"
             >
               {link.label}
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-cyber-cyan transition-all duration-300 group-hover:w-full" />
