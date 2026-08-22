@@ -51,18 +51,19 @@ export const experiences: ExperienceItem[] = [
   },
   {
     id: 'exp-3',
-    role: 'Business Operations Intern',
-    company: 'Jewellery Retail & Franchise Operations',
+    role: 'Franchise Launch & Retail Expansion Intern',
+    company: 'Jewellery Retail & Franchise Network',
     location: 'India',
     period: 'Business Exposure',
-    badge: 'Operations',
-    summary: 'Built standard store opening checklists and audited inventory flows for franchise partners. Gathered frontline customer feedback on pricing and selection directly on the retail floor.',
+    badge: 'Franchise Launch',
+    summary: 'Structured end-to-end franchise store opening playbooks, partner onboarding workflows, and opening day inventory audits to ensure zero-discrepancy retail launches.',
     achievements: [
-      'Standardized store launch checklists and initial stock audits for franchise outlets.',
-      'Identified sales floor pricing and product selection friction through customer interviews.'
+      'Designed standardized franchise store launch checklists covering pre-opening stock intake, display merchandising, and POS readiness.',
+      'Executed opening day inventory compliance audits, eliminating initial stock count variances for new franchise partners.',
+      'Captured customer purchase behavior and pricing sensitivity on the retail floor to refine product assortment for upcoming store rollouts.'
     ],
-    technologies: ['Retail Operations', 'Inventory Tracking', 'Process Mapping'],
-    architecturalImpact: 'Standardized launch checklists kept franchise partner store openings on schedule.'
+    technologies: ['Franchise Onboarding', 'Store Launch Playbooks', 'Stock Intake Audit', 'Retail Merchandising', 'Partner SOPs'],
+    architecturalImpact: 'Standardized opening playbooks eliminated launch delays and day-one inventory discrepancies across franchise partner store rollouts.'
   }
 ];
 

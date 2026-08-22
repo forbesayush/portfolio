@@ -385,6 +385,11 @@ function getSmartLocalResponse(query: string): string {
     return "In 2026, Ayush completed a 2-month Media Internship at Swash Consulting Limited, focusing on technical and on-page SEO, backlink strategy execution, and digital marketing performance analysis using Google Search Console and Google Analytics.";
   }
 
+  // Franchise & Retail Launch
+  if (q.includes('franchise') || q.includes('store launch') || q.includes('opening') || q.includes('retail')) {
+    return "During his franchise retail exposure, Ayush built standardized store launch playbooks and initial inventory audit workflows, eliminating opening-day stock discrepancies across partner store rollouts.";
+  }
+
   // Analytics
   if (q.includes('d2c') || q.includes('analytics') || q.includes('power bi')) {
     return "During his analytics internship, Ayush built cohort retention models across 5 online storefronts and automated reporting workflows in Power BI, cutting weekly report prep time by 35%.";
