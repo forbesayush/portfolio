@@ -64,7 +64,7 @@ export const ActivitySection: React.FC = () => {
           <button
             onClick={handleRefresh}
             onMouseEnter={() => soundManager.playHover()}
-            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-colors"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-colors active:scale-95"
             title="Refresh"
             aria-label="Refresh Repositories"
           >

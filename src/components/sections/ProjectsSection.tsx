@@ -38,7 +38,7 @@ export const ProjectsSection: React.FC = () => {
               key={cat}
               onClick={() => handleCategoryChange(cat)}
               onMouseEnter={() => soundManager.playHover()}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all duration-200 ${
+              className={`px-4 py-2.5 min-h-[44px] rounded-xl text-xs sm:text-sm font-sans font-medium transition-all duration-200 active:scale-95 flex items-center justify-center ${
                 activeCategory === cat
                   ? 'bg-accent text-white shadow-accent'
                   : 'bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/5'
@@ -73,7 +73,7 @@ export const ProjectsSection: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="inline-flex items-center gap-1.5 text-slate-400 hover:text-accent font-sans text-xs font-medium transition-colors"
+                className="inline-flex items-center gap-1.5 min-h-[44px] py-1 text-slate-400 hover:text-accent font-sans text-xs font-medium transition-colors"
               >
                 <Github className="w-3.5 h-3.5" />
                 <span>GitHub repository</span>

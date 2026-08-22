@@ -135,8 +135,8 @@ export const ContactSection: React.FC = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Name Input */}
-                  <div className="space-y-1.5">
+                  {/* Name Input: 16px on mobile to avoid iOS Safari auto-zoom */}
+                  <div className="space-y-1.5 text-left">
                     <label className="block font-sans text-xs text-slate-300 font-medium uppercase tracking-wider">
                       Your name
                     </label>
@@ -146,12 +146,12 @@ export const ContactSection: React.FC = () => {
                       placeholder="Jane Doe"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-accent text-white font-sans text-sm placeholder-slate-500 outline-none transition-colors"
+                      className="w-full px-4 py-3 min-h-[44px] rounded-xl bg-white/5 border border-white/10 focus:border-accent text-white font-sans text-base sm:text-sm placeholder-slate-500 outline-none transition-colors"
                     />
                   </div>
 
-                  {/* Email Input */}
-                  <div className="space-y-1.5">
+                  {/* Email Input: 16px on mobile */}
+                  <div className="space-y-1.5 text-left">
                     <label className="block font-sans text-xs text-slate-300 font-medium uppercase tracking-wider">
                       Your email
                     </label>
@@ -161,20 +161,20 @@ export const ContactSection: React.FC = () => {
                       placeholder="you@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-accent text-white font-sans text-sm placeholder-slate-500 outline-none transition-colors"
+                      className="w-full px-4 py-3 min-h-[44px] rounded-xl bg-white/5 border border-white/10 focus:border-accent text-white font-sans text-base sm:text-sm placeholder-slate-500 outline-none transition-colors"
                     />
                   </div>
                 </div>
 
-                {/* Topic Select */}
-                <div className="space-y-1.5">
+                {/* Topic Select: 16px on mobile */}
+                <div className="space-y-1.5 text-left">
                   <label className="block font-sans text-xs text-slate-300 font-medium uppercase tracking-wider">
                     Topic
                   </label>
                   <select
                     value={formData.topic}
                     onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#0f172a] border border-white/10 focus:border-accent text-white font-sans text-sm outline-none transition-colors"
+                    className="w-full px-4 py-3 min-h-[44px] rounded-xl bg-[#0f172a] border border-white/10 focus:border-accent text-white font-sans text-base sm:text-sm outline-none transition-colors"
                   >
                     <option value="Job Opportunity">Full-Time Product / APM Role</option>
                     <option value="Internship Opportunity">MBA Summer Internship (2026)</option>
@@ -184,8 +184,8 @@ export const ContactSection: React.FC = () => {
                   </select>
                 </div>
 
-                {/* Message Input */}
-                <div className="space-y-1.5">
+                {/* Message Input: 16px on mobile */}
+                <div className="space-y-1.5 text-left">
                   <label className="block font-sans text-xs text-slate-300 font-medium uppercase tracking-wider">
                     Your message
                   </label>
@@ -195,7 +195,7 @@ export const ContactSection: React.FC = () => {
                     placeholder="Tell me what you have in mind..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-accent text-white font-sans text-sm placeholder-slate-500 outline-none transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-accent text-white font-sans text-base sm:text-sm placeholder-slate-500 outline-none transition-colors resize-none"
                   />
                 </div>
 
@@ -204,7 +204,7 @@ export const ContactSection: React.FC = () => {
                   type="submit"
                   disabled={isSubmitting}
                   onMouseEnter={() => soundManager.playHover()}
-                  className="w-full py-3.5 rounded-xl bg-accent text-white font-sans font-medium text-sm hover:bg-accent-hover transition-all duration-200 flex items-center justify-center gap-2 shadow-accent disabled:opacity-50"
+                  className="w-full py-3.5 min-h-[48px] rounded-xl bg-accent text-white font-sans font-medium text-sm hover:bg-accent-hover transition-all duration-200 flex items-center justify-center gap-2 shadow-accent disabled:opacity-50 active:scale-98"
                 >
                   <Send className="w-4 h-4" />
                   <span>{isSubmitting ? 'Sending...' : 'Send message'}</span>

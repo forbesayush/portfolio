@@ -22,7 +22,7 @@ export const SoundToggle: React.FC = () => {
       onClick={handleToggle}
       onMouseEnter={() => soundManager.playHover()}
       aria-label={isMuted ? 'Unmute Audio Engine' : 'Mute Audio Engine'}
-      className="group relative flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-glass border border-white/10 hover:border-cyber-cyan/50 hover:bg-surface-glass-hover transition-all duration-300 backdrop-blur-md text-xs font-mono"
+      className="group relative flex items-center justify-center gap-2 px-3 py-2 min-w-[44px] min-h-[44px] rounded-xl bg-white/5 border border-white/10 hover:border-accent/50 hover:bg-white/10 transition-all duration-200 text-xs font-sans active:scale-95"
     >
       <div className="flex items-center gap-0.5 h-3">
         {!isMuted ? (

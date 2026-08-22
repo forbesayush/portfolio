@@ -64,7 +64,7 @@ export const CohortRetentionChart: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         {/* Cohort Selector */}
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-accent" />
+          <Filter className="w-4 h-4 text-accent flex-shrink-0" />
           <span className="font-sans text-xs text-slate-400 font-medium">Cohort:</span>
           <select
             value={selectedCohort}
@@ -72,7 +72,7 @@ export const CohortRetentionChart: React.FC = () => {
               soundManager.playClick();
               setSelectedCohort(e.target.value);
             }}
-            className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-sans text-white focus:border-accent outline-none"
+            className="px-3 py-2 min-h-[44px] rounded-xl bg-white/5 border border-white/10 text-base sm:text-xs font-sans text-white focus:border-accent outline-none"
           >
             <option value="ALL" className="bg-[#0f172a]">All Cohorts (Aggregated)</option>
             {SAMPLE_COHORTS.map((c) => (
@@ -84,13 +84,13 @@ export const CohortRetentionChart: React.FC = () => {
         </div>
 
         {/* View Mode Toggle */}
-        <div className="flex items-center rounded-lg bg-white/5 p-1 border border-white/10">
+        <div className="flex items-center rounded-xl bg-white/5 p-1 border border-white/10">
           <button
             onClick={() => {
               soundManager.playClick();
               setViewMode('chart');
             }}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-sans font-medium transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg text-xs font-sans font-medium transition-all ${
               viewMode === 'chart' ? 'bg-accent text-white shadow-sm' : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -102,51 +102,42 @@ export const CohortRetentionChart: React.FC = () => {
               soundManager.playClick();
               setViewMode('matrix');
             }}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-sans font-medium transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg text-xs font-sans font-medium transition-all ${
               viewMode === 'matrix' ? 'bg-accent text-white shadow-sm' : 'text-slate-400 hover:text-white'
             }`}
           >
             <Grid3X3 className="w-3.5 h-3.5" />
-            <span>Cohort Matrix</span>
+            <span>Heatmap Matrix</span>
           </button>
         </div>
       </div>
 
-      {/* Summary KPI Ribbon */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
-          <div className="flex items-center gap-1.5 text-slate-400 text-xs font-sans mb-1">
-            <Users className="w-3.5 h-3.5 text-accent" />
-            <span>Tracked Users</span>
+      {/* Metric Callouts */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-white/5">
+        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-accent" />
+            <span className="font-sans text-xs text-slate-400">Total Cohort Users</span>
           </div>
           <span className="font-serif font-medium text-lg text-white">
             {totalCustomers.toLocaleString()}
           </span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
-          <div className="flex items-center gap-1.5 text-slate-400 text-xs font-sans mb-1">
-            <TrendingDown className="w-3.5 h-3.5 text-accent" />
-            <span>Month 1 Retention</span>
+        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <TrendingDown className="w-4 h-4 text-accent" />
+            <span className="font-sans text-xs text-slate-400">Month 1 Retention</span>
           </div>
           <span className="font-serif font-medium text-lg text-white">
-            {aggregatedRates[1]}%
+            {aggregatedRates[1] || 0}%
           </span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
-          <div className="flex items-center gap-1.5 text-slate-400 text-xs font-sans mb-1">
-            <Clock className="w-3.5 h-3.5 text-accent" />
-            <span>Avg Reorder Day</span>
-          </div>
-          <span className="font-serif font-medium text-lg text-white">
-            Day 42.6
-          </span>
-        </div>
-
-        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
-          <div className="flex items-center gap-1.5 text-slate-400 text-xs font-sans mb-1">
-            <span>Steady Baseline</span>
+        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-accent" />
+            <span className="font-sans text-xs text-slate-400">Month 5 Retention</span>
           </div>
           <span className="font-serif font-medium text-lg text-white">
             ~10.8%
@@ -157,7 +148,7 @@ export const CohortRetentionChart: React.FC = () => {
       {/* Chart View */}
       {viewMode === 'chart' ? (
         <div className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-sans text-slate-400">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-sans text-slate-400 gap-1">
             <span>Customer Retention Rate (%) over 6 Months</span>
             <span className="text-accent font-medium">Repurchase Plateau: Month 4+</span>
           </div>
@@ -180,11 +171,15 @@ export const CohortRetentionChart: React.FC = () => {
                     setHoveredMonth(idx);
                   }}
                   onMouseLeave={() => setHoveredMonth(null)}
-                  className="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer relative z-10"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setHoveredMonth(hoveredMonth === idx ? null : idx);
+                  }}
+                  className="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer relative z-10 select-none min-h-[44px]"
                 >
-                  {/* Tooltip */}
+                  {/* Tooltip on touch / hover */}
                   {isHovered && (
-                    <div className="absolute -top-10 px-2.5 py-1 rounded-md bg-accent text-white font-sans text-xs shadow-lg whitespace-nowrap animate-in fade-in zoom-in-95 duration-150">
+                    <div className="absolute -top-10 px-2.5 py-1 rounded-md bg-accent text-white font-sans text-xs shadow-lg whitespace-nowrap animate-in fade-in zoom-in-95 duration-150 z-20">
                       {months[idx]}: {rate}% retained
                     </div>
                   )}

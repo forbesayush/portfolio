@@ -9,35 +9,35 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTerminal }) => {
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-28 pb-16">
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+    <section className="relative min-h-[90dvh] flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-28 pb-12 sm:pb-16 overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left Column: Core Positioning & Concrete Proof */}
         <div className="lg:col-span-7 space-y-6 text-left">
           {/* Status Tag */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-sans text-slate-300">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span>Targeting: Product Management (APM/PM), Business Analytics, Strategy Consulting</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-xs font-sans text-slate-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse flex-shrink-0" />
+            <span className="leading-tight">Targeting: Product Management (APM/PM), Business Analytics, Strategy Consulting</span>
           </div>
 
           {/* Headline */}
-          <h1 className="font-serif font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] tracking-tight text-white leading-[1.05]">
+          <h1 className="font-serif font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] tracking-tight text-white leading-[1.08] sm:leading-[1.05]">
             Product &amp; <br />
             <span className="italic text-accent">business strategy</span> <br />
             backed by data.
           </h1>
 
           {/* Core Subtitle with concrete proof */}
-          <p className="max-w-xl text-base sm:text-lg text-slate-300 font-sans leading-relaxed font-normal">
+          <p className="max-w-xl text-sm sm:text-lg text-slate-300 font-sans leading-relaxed font-normal">
             I'm <strong className="text-white font-medium">Ayush Chatterjee</strong>, an MBA candidate (2027) at Regional College of Management, Bhubaneswar. I cut post-release defect recurrence by 22% across 4 mobile OS builds, reduced weekly reporting time by 35% across 5 D2C storefronts, and built standardized retail launch playbooks.
           </p>
 
           {/* Direct Contact & Location Bar: 0 clicks needed */}
-          <div className="flex flex-wrap items-center gap-4 text-xs font-sans text-slate-300 py-1">
+          <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs font-sans text-slate-300 py-1">
             <a
               href="mailto:ayushchatterjee.edu@gmail.com"
-              className="flex items-center gap-1.5 text-slate-300 hover:text-accent transition-colors"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-accent transition-colors min-h-[44px] py-1 break-all"
             >
-              <Mail className="w-3.5 h-3.5 text-accent" />
+              <Mail className="w-3.5 h-3.5 text-accent flex-shrink-0" />
               <span>ayushchatterjee.edu@gmail.com</span>
             </a>
             <span className="text-slate-600 hidden sm:inline">&bull;</span>
@@ -45,26 +45,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
               href="https://linkedin.com/in/ayushmba"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-1.5 text-slate-300 hover:text-accent transition-colors"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-accent transition-colors min-h-[44px] py-1"
             >
-              <Linkedin className="w-3.5 h-3.5 text-accent" />
+              <Linkedin className="w-3.5 h-3.5 text-accent flex-shrink-0" />
               <span>linkedin.com/in/ayushmba</span>
             </a>
             <span className="text-slate-600 hidden sm:inline">&bull;</span>
-            <span className="flex items-center gap-1.5 text-slate-400">
-              <MapPin className="w-3.5 h-3.5 text-slate-500" />
+            <span className="flex items-center gap-1.5 text-slate-400 min-h-[44px] py-1">
+              <MapPin className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
               <span>Bhubaneswar &bull; Open to relocation</span>
             </span>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+          {/* Action Buttons: 44px+ touch targets */}
+          <div className="flex flex-wrap items-center gap-3 pt-1">
             <a
               href="#projects"
               onMouseEnter={() => soundManager.playHover()}
               onClick={() => soundManager.playClick()}
               data-cursor-text="WORK"
-              className="px-6 py-3 rounded-xl bg-accent text-white font-sans font-medium text-sm hover:bg-accent-hover transition-all duration-200 flex items-center gap-2 shadow-accent"
+              className="px-6 py-3 min-h-[44px] rounded-xl bg-accent text-white font-sans font-medium text-sm hover:bg-accent-hover transition-all duration-200 flex items-center justify-center gap-2 shadow-accent active:scale-95"
             >
               <span>Case studies</span>
               <ArrowDown className="w-4 h-4" />
@@ -77,7 +77,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
               }}
               onMouseEnter={() => soundManager.playHover()}
               data-cursor-text="ASK"
-              className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 hover:text-white font-sans text-sm font-medium transition-all duration-200 flex items-center gap-2"
+              className="px-5 py-3 min-h-[44px] rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 hover:text-white font-sans text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
             >
               <Bot className="w-4 h-4 text-accent" />
               <span>Ask AVA</span>
@@ -90,7 +90,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
               }}
               onMouseEnter={() => soundManager.playHover()}
               data-cursor-text="CLI"
-              className="px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white font-sans text-sm font-medium transition-all duration-200 flex items-center gap-2"
+              className="px-4 py-3 min-h-[44px] rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white font-sans text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
             >
               <Terminal className="w-4 h-4 text-slate-400" />
               <span>Terminal</span>
@@ -106,8 +106,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
               <img
                 src="/ayush-chatterjee.png"
                 alt="Ayush Chatterjee"
+                width={384}
+                height={384}
                 className="w-full h-full object-cover object-top"
                 loading="eager"
+                decoding="async"
               />
             </div>
 

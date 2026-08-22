@@ -60,10 +60,10 @@ export const NetworkDiagnosticsSection: React.FC = () => {
           onClick={runDiagnostic}
           disabled={isTesting}
           onMouseEnter={() => soundManager.playHover()}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs sm:text-sm font-sans text-slate-200 hover:text-white transition-all font-medium"
+          className="flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs sm:text-sm font-sans text-slate-200 hover:text-white transition-all font-medium active:scale-95 disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isTesting ? 'animate-spin text-accent' : ''}`} />
-          <span>{isTesting ? 'Testing...' : 'Run Diagnostic'}</span>
+          <span>{isTesting ? 'Testing...' : 'Run diagnostic'}</span>
         </button>
       </div>
 

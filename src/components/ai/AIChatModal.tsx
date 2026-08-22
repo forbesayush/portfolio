@@ -197,15 +197,17 @@ RULES:
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+      onClick={onClose}
+    >
       <div
-        className="relative w-full max-w-2xl bg-background-card border border-white/15 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-2xl bg-background-card border-t sm:border border-white/15 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[92dvh] sm:h-auto sm:max-h-[85dvh] animate-in slide-in-from-bottom-5 sm:zoom-in-95 duration-200 pb-[env(safe-area-inset-bottom)]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-white/5">
+        <div className="flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 border-b border-white/10 bg-white/5 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent">
+            <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent flex-shrink-0">
               <Bot className="w-4 h-4" />
             </div>
             <div>
@@ -213,9 +215,6 @@ RULES:
                 <h3 className="font-serif font-medium text-base text-white tracking-wide">
                   AVA &bull; Strategy &amp; PM AI
                 </h3>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-sans bg-accent/10 text-accent border border-accent/30">
-                  Online
-                </span>
               </div>
               <p className="text-xs font-sans text-slate-400">
                 Ask about Ayush or ask business, PM &amp; consulting questions
@@ -223,14 +222,15 @@ RULES:
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={handleClear}
               onMouseEnter={() => soundManager.playHover()}
-              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-slate-200 text-xs transition-colors"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-slate-200 transition-colors"
               title="Clear Memory"
+              aria-label="Clear Memory"
             >
-              <RefreshCw className="w-3.5 h-3.5" />
+              <RefreshCw className="w-4 h-4" />
             </button>
             <button
               onClick={() => {
@@ -238,7 +238,7 @@ RULES:
                 onClose();
               }}
               onMouseEnter={() => soundManager.playHover()}
-              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white text-xs transition-colors"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-colors"
               aria-label="Close Modal"
             >
               <X className="w-4 h-4" />
@@ -246,12 +246,13 @@ RULES:
           </div>
         </div>
 
-        {/* Message Thread */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4 font-sans text-sm">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 font-sans text-sm overscroll-contain">
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex gap-3 text-left ${
+                msg.sender === 'user' ? 'justify-end' : 'justify-start'
+              }`}
             >
               {msg.sender === 'ai' && (
                 <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent flex-shrink-0 mt-0.5">
@@ -260,23 +261,25 @@ RULES:
               )}
 
               <div
-                className={`max-w-[80%] rounded-2xl p-4 leading-relaxed ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
                   msg.sender === 'user'
-                    ? 'bg-accent/15 border border-accent/40 text-white rounded-tr-sm'
-                    : 'bg-white/5 border border-white/10 text-slate-200 rounded-tl-sm'
+                    ? 'bg-accent text-white rounded-tr-none'
+                    : 'bg-white/5 border border-white/10 text-slate-100 rounded-tl-none'
                 }`}
               >
-                <div className="flex items-center justify-between gap-4 mb-1">
-                  <span className="font-sans text-[11px] uppercase font-medium tracking-wide text-slate-400">
-                    {msg.sender === 'user' ? 'Visitor' : 'AVA'}
+                <div className="flex items-center justify-between gap-4 mb-1 border-b border-white/10 pb-1">
+                  <span className="text-[10px] font-sans font-medium uppercase tracking-wider text-slate-300">
+                    {msg.sender === 'user' ? 'Visitor' : 'AVA (AI)'}
                   </span>
-                  <span className="font-sans text-[10px] text-slate-500">{msg.timestamp}</span>
+                  <span className="text-[10px] text-slate-400 font-sans">{msg.timestamp}</span>
                 </div>
-                <div className="whitespace-pre-wrap">{msg.text}</div>
+                <div className="whitespace-pre-wrap font-sans text-xs sm:text-sm font-normal">
+                  {msg.text}
+                </div>
               </div>
 
               {msg.sender === 'user' && (
-                <div className="w-7 h-7 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-slate-300 flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-slate-300 flex-shrink-0 mt-0.5">
                   <User className="w-3.5 h-3.5" />
                 </div>
               )}
@@ -284,55 +287,51 @@ RULES:
           ))}
 
           {isTyping && (
-            <div className="flex gap-3 justify-start items-center text-slate-400 text-xs font-sans">
-              <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent">
-                <Bot className="w-3.5 h-3.5 animate-pulse" />
+            <div className="flex items-center gap-3 text-left">
+              <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent flex-shrink-0">
+                <Bot className="w-3.5 h-3.5" />
               </div>
-              <div className="flex items-center gap-1 bg-white/5 border border-white/10 px-3.5 py-2 rounded-xl">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce" />
-                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce [animation-delay:0.2s]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce [animation-delay:0.4s]" />
+              <div className="px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-slate-400 text-xs flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5 text-accent animate-spin" />
+                <span>Thinking...</span>
               </div>
             </div>
           )}
           <div ref={chatEndRef} />
         </div>
 
-        {/* Suggestion Chips */}
-        <div className="px-5 py-2 border-t border-white/5 bg-black/20 flex flex-wrap gap-2">
+        <div className="px-4 sm:px-5 py-2 border-t border-white/5 bg-black/20 flex flex-wrap gap-2 flex-shrink-0">
           {INITIAL_SUGGESTIONS.map((sug, i) => (
             <button
               key={i}
               onClick={() => handleSend(sug)}
               onMouseEnter={() => soundManager.playHover()}
-              className="text-xs font-sans px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all"
+              className="text-xs font-sans px-3 py-1.5 min-h-[36px] rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all active:scale-95"
             >
               {sug}
             </button>
           ))}
         </div>
 
-        {/* Input Bar */}
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSend();
           }}
-          className="p-4 border-t border-white/10 bg-white/5 flex items-center gap-3"
+          className="p-3 sm:p-4 border-t border-white/10 bg-white/5 flex items-center gap-2 sm:gap-3 flex-shrink-0"
         >
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about Ayush or ask any business/PM/consulting question..."
-            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-accent transition-colors font-sans"
-            autoFocus
+            placeholder="Ask about Ayush or ask any business/PM question..."
+            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-accent transition-colors font-sans min-h-[44px]"
           />
           <button
             type="submit"
             disabled={!input.trim() || isTyping}
             onMouseEnter={() => soundManager.playHover()}
-            className="p-2.5 rounded-xl bg-accent text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-hover transition-all flex items-center justify-center shadow-accent"
+            className="min-w-[44px] min-h-[44px] p-3 rounded-xl bg-accent text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-hover transition-all flex items-center justify-center shadow-accent flex-shrink-0"
             aria-label="Send"
           >
             <Send className="w-4 h-4" />

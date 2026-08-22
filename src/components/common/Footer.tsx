@@ -78,14 +78,14 @@ export const Footer: React.FC = () => {
             <p className="text-xs sm:text-sm text-slate-400 font-sans max-w-md leading-relaxed">
               Targeting full-time Product Management (APM/PM), Business Analytics, and Strategy Consulting roles starting 2027. MBA Candidate, Regional College of Management, Bhubaneswar.
             </p>
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-2 pt-2">
               <a
                 href="https://github.com/forbesayush"
                 target="_blank"
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all active:scale-95"
                 aria-label="GitHub Profile"
               >
                 <Github className="w-4 h-4" />
@@ -96,7 +96,7 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all active:scale-95"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-4 h-4" />
@@ -107,7 +107,7 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all active:scale-95"
                 aria-label="Twitter / X Profile"
               >
                 <Twitter className="w-4 h-4" />
@@ -146,19 +146,19 @@ export const Footer: React.FC = () => {
               <h4 className="font-sans text-xs text-accent tracking-wide uppercase mb-3 font-medium">
                 Navigation
               </h4>
-              <ul className="space-y-1.5 font-sans text-xs text-slate-400">
-                <li><a href="#projects" className="hover:text-white transition-colors">Case studies</a></li>
-                <li><a href="#skills" className="hover:text-white transition-colors">Skills</a></li>
-                <li><a href="#experience" className="hover:text-white transition-colors">Experience</a></li>
-                <li><a href="#diagnostics" className="hover:text-white transition-colors">Diagnostics</a></li>
-                <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+              <ul className="space-y-1 font-sans text-xs text-slate-400">
+                <li><a href="#projects" className="py-1.5 inline-block hover:text-white transition-colors">Case studies</a></li>
+                <li><a href="#skills" className="py-1.5 inline-block hover:text-white transition-colors">Skills</a></li>
+                <li><a href="#experience" className="py-1.5 inline-block hover:text-white transition-colors">Experience</a></li>
+                <li><a href="#diagnostics" className="py-1.5 inline-block hover:text-white transition-colors">Diagnostics</a></li>
+                <li><a href="#contact" className="py-1.5 inline-block hover:text-white transition-colors">Contact</a></li>
               </ul>
             </div>
 
             <button
               onClick={scrollToTop}
               onMouseEnter={() => soundManager.playHover()}
-              className="mt-6 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-sans text-slate-300 hover:text-white transition-all group"
+              className="mt-6 flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-sans text-slate-300 hover:text-white transition-all group active:scale-95"
             >
               <span>Return to top</span>
               <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-1 transition-transform" />
@@ -167,11 +167,11 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom */}
-        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-xs text-slate-500">
+        <div className="pt-8 pb-[max(1rem,env(safe-area-inset-bottom))] border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-xs text-slate-500">
           <p>© 2025 Ayush Chatterjee</p>
           <div className="flex items-center gap-6">
-            <span className="hover:text-slate-300 cursor-pointer">Privacy</span>
-            <span className="hover:text-slate-300 cursor-pointer">Terms</span>
+            <span className="hover:text-slate-300 cursor-pointer py-2">Privacy</span>
+            <span className="hover:text-slate-300 cursor-pointer py-2">Terms</span>
           </div>
         </div>
       </div>
