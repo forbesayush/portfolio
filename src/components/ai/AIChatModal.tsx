@@ -71,6 +71,9 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
     setInput('');
     setIsTyping(true);
 
+    let replyText = '';
+
+    // 1. Try serverless /api/chat endpoint (Vercel)
     try {
       const historyPayload = messages.map((m) => ({
         role: m.sender === 'user' ? 'user' : 'assistant',
@@ -79,43 +82,95 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
 
       const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
           conversationHistory: historyPayload,
         }),
       });
 
-      let replyText = '';
       if (res.ok) {
         const data = await res.json();
-        replyText = data.reply || data.message || "Thanks for your question. You can connect with Ayush directly at ayushchatterjee.edu@gmail.com.";
-      } else {
-        const data = await res.json().catch(() => ({}));
-        replyText = data.reply || "Thanks for your question. You can reach out to Ayush at ayushchatterjee.edu@gmail.com.";
+        if (data.reply && !data.reply.includes('is not configured')) {
+          replyText = data.reply;
+        }
       }
-
-      const aiMsg: Message = {
-        id: (Date.now() + 1).toString(),
-        sender: 'ai',
-        text: replyText,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      };
-      setMessages((prev) => [...prev, aiMsg]);
-      soundManager.playSuccess();
     } catch {
-      const aiMsg: Message = {
-        id: (Date.now() + 1).toString(),
-        sender: 'ai',
-        text: "Thanks for your inquiry. Ayush is an MBA candidate (2027) focused on product management, business analytics, and strategy consulting. Feel free to connect directly at ayushchatterjee.edu@gmail.com.",
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      };
-      setMessages((prev) => [...prev, aiMsg]);
-    } finally {
-      setIsTyping(false);
+      // Proceed to direct Groq call
     }
+
+    // 2. Direct client-side Groq call (Works instantly on GitHub Pages!)
+    if (!replyText) {
+      try {
+        const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || '';
+        const systemPrompt = `You are AVA, a custom AI assistant built for Ayush Chatterjee's portfolio site. Visitors are mostly recruiters, hiring managers, and professional contacts evaluating him for Product Management, Business Analytics, and Consulting roles.
+
+IDENTITY RULES:
+- Introduce yourself as AVA if asked who you are.
+- Do not volunteer what underlying model or provider powers you.
+- If asked directly what model or AI you are built on (e.g. "are you claude, gpt, or groq"), say: "I am AVA, a custom assistant built specifically for Ayush's portfolio site. I do not get into the underlying technical stack, but I am happy to answer any questions about Ayush's background, product management, or consulting case frameworks."
+
+GROUNDED FACTS ABOUT AYUSH:
+- MBA candidate at Regional College of Management, Bhubaneswar, graduating 2027. Specialization: Information Technology and International Business.
+- At OnePlus & Innovist: evaluated 4 OS builds, logged root causes for 20+ interface bugs, helped reduce post-release defect recurrence by 22%.
+- Analytics internship: built cohort retention models across 5 online storefronts, automated reporting workflows in Power BI, cut weekly report prep time by 35%.
+- Works with PRDs, user stories, RICE feature scoring, QA bug triage, Power BI, Excel cohort modeling, Google Analytics, SQL basics.
+- Open to full-time Product Manager, Associate Product Manager, and Consulting Analyst roles, plus MBA internships. Contact: ayushchatterjee.edu@gmail.com.
+
+SCOPE:
+1. BUSINESS STRATEGY: market entry, competitive positioning, growth strategy, unit economics. Use standard frameworks (SWOT, Porter's Five Forces, BCG matrix, Jobs-to-be-Done) where relevant.
+2. MANAGEMENT CONSULTING: case-style problem breakdowns (market sizing, profitability diagnosis, operations). Structure answers clearly: clarify objective, approach, and reasoned recommendation.
+3. SAAS PRODUCT: PMF, pricing/packaging, retention/churn, PLG vs sales-led motion, activation metrics, roadmap prioritization (RICE, MoSCoW).
+
+RULES:
+- Direct, structured, no filler, no hedging.
+- Refer to Ayush in third person.
+- Keep answers under ~150 words.`;
+
+        const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${groqApiKey}`,
+          },
+          body: JSON.stringify({
+            model: 'openai/gpt-oss-120b',
+            max_tokens: 350,
+            temperature: 0.6,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              ...messages.slice(-6).map((m) => ({
+                role: m.sender === 'user' ? 'user' : 'assistant',
+                content: m.text,
+              })),
+              { role: 'user', content: text },
+            ],
+          }),
+        });
+
+        if (groqRes.ok) {
+          const groqData = await groqRes.json();
+          replyText = groqData.choices?.[0]?.message?.content || '';
+        }
+      } catch {
+        // Fallback to intelligent local reasoning
+      }
+    }
+
+    // 3. Fallback to smart structured engine if network or rate-limits occur
+    if (!replyText) {
+      replyText = getSmartLocalResponse(text);
+    }
+
+    const aiMsg: Message = {
+      id: (Date.now() + 1).toString(),
+      sender: 'ai',
+      text: replyText,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+    setMessages((prev) => [...prev, aiMsg]);
+    setIsTyping(false);
+    soundManager.playSuccess();
   };
 
   const handleClear = () => {
@@ -276,3 +331,59 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
     </div>
   );
 };
+
+function getSmartLocalResponse(query: string): string {
+  const q = query.toLowerCase();
+
+  // Identity / Model question
+  if (q.includes('who are you') || q.includes('claude') || q.includes('gpt') || q.includes('groq') || q.includes('what are you') || q.includes('what model')) {
+    return "I am AVA, a custom assistant built specifically for Ayush's portfolio site. I do not get into the underlying technical stack, but I am happy to answer any questions about Ayush's background, product management, or consulting case frameworks.";
+  }
+
+  // Market Sizing
+  if (q.includes('tam') || q.includes('sam') || q.includes('som') || q.includes('market size') || q.includes('sizing')) {
+    return "To size a market, structure your approach bottom-up:\n\n1. Define the unit of consumption (target population or businesses).\n2. Calculate TAM = Potential units × Average annual spend per unit.\n3. Filter for SAM = Target segment filtered by product and geographic constraints.\n4. Determine SOM = Target market share achievable within a 2-3 year operating horizon.";
+  }
+
+  // Prioritization
+  if (q.includes('rice') || q.includes('prioritization') || q.includes('prioritize') || q.includes('kano') || q.includes('moscow')) {
+    return "The RICE framework scores roadmap candidates to eliminate subjective bias:\n\n• Reach: Number of users impacted per month.\n• Impact: Value delivered per user (0.25 minimal to 3 massive).\n• Confidence: Data confidence percentage (50% gut feel to 100% quantitative data).\n• Effort: Person-weeks required.\n\nScore = (Reach × Impact × Confidence) / Effort.";
+  }
+
+  // Retention / D2C
+  if (q.includes('retention') || q.includes('cohort') || q.includes('repurchase') || q.includes('churn')) {
+    return "In D2C e-commerce, repeat order drop-off is typically an operational timing mismatch:\n\n1. Consumption Timing: A 50ml bottle lasts 42-48 days with daily use. Reaching out on day 14 is too early; day 60 is too late.\n2. Frictionless Checkout: Trigger a WhatsApp notification on day 40 with a pre-filled one-click payment link.\n3. Cohort Tracking: Track Month 1-6 retention curves to isolate the steep initial drop.";
+  }
+
+  // COD / RTO
+  if (q.includes('cod') || q.includes('rto') || q.includes('checkout') || q.includes('funnel')) {
+    return "To reduce Cash-on-Delivery (COD) Return-to-Origin (RTO) rates in Indian e-commerce:\n\n1. Offer instant 5-10% discounts for UPI/prepaid payments at checkout.\n2. Run automated WhatsApp address and PIN code confirmation before dispatch.\n3. Restrict COD for phone numbers or pincodes with high historical return rates.";
+  }
+
+  // OnePlus & QA
+  if (q.includes('oneplus') || q.includes('qa') || q.includes('bug') || q.includes('defect') || q.includes('innovist')) {
+    return "At OnePlus and Innovist, Ayush evaluated 4 mobile OS builds, logged 20+ interface bugs with exact reproduction steps, and contributed to a 22% reduction in post-release defect recurrence.";
+  }
+
+  // Analytics
+  if (q.includes('d2c') || q.includes('analytics') || q.includes('power bi')) {
+    return "During his analytics internship, Ayush built cohort retention models across 5 online storefronts and automated reporting workflows in Power BI, cutting weekly report prep time by 35%.";
+  }
+
+  // MBA & Background
+  if (q.includes('mba') || q.includes('education') || q.includes('college') || q.includes('degree')) {
+    return "Ayush is an MBA candidate at Regional College of Management, Bhubaneswar, graduating in 2027 with a dual specialization in Information Technology and International Business.";
+  }
+
+  // Roles & Hiring
+  if (q.includes('hire') || q.includes('role') || q.includes('open') || q.includes('opportunity') || q.includes('intern') || q.includes('job')) {
+    return "Ayush is open to full-time Product Manager, Associate Product Manager (APM), Product Analyst, and Strategy Consulting Analyst roles, plus MBA summer internships. Contact: ayushchatterjee.edu@gmail.com.";
+  }
+
+  // Contact
+  if (q.includes('schedule') || q.includes('intro') || q.includes('call') || q.includes('contact') || q.includes('email')) {
+    return "You can reach Ayush directly via email at ayushchatterjee.edu@gmail.com, connect on LinkedIn at linkedin.com/in/forbesayush, or use the contact form at the bottom of the page.";
+  }
+
+  return `Regarding "${query}": A structured way to evaluate this is to define the primary business objective, identify the root friction points or cost drivers, and evaluate trade-offs based on customer willingness to pay and operational feasibility. Check out the case studies on this site or reach out to Ayush at ayushchatterjee.edu@gmail.com.`;
+}
