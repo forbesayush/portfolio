@@ -16,7 +16,7 @@ export const ExperienceSection: React.FC = () => {
           </h2>
         </div>
         <div className="font-sans text-xs sm:text-sm text-slate-400 font-normal">
-          Product &bull; Analytics &bull; Operations
+          Product Management &bull; Product Analytics &bull; Strategy
         </div>
       </div>
 

@@ -7,7 +7,7 @@ import { CohortRetentionChart } from '../analytics/CohortRetentionChart';
 export const ProjectsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
 
-  const categories = ['ALL', 'Product Management', 'Business Analytics', 'Operations & Strategy', 'Strategy & Consulting'];
+  const categories = ['ALL', 'Product Management', 'Business Analytics', 'Product Strategy', 'Strategy & Consulting'];
 
   const filteredProjects = activeCategory === 'ALL'
     ? projects

@@ -35,11 +35,11 @@ export const experiences: ExperienceItem[] = [
   },
   {
     id: 'exp-2',
-    role: 'Business Analytics Intern',
+    role: 'Product Analytics Intern',
     company: 'D2C Skincare Brand Portfolio',
     location: 'Kolkata, India (Remote)',
     period: 'September 2024 to December 2025',
-    badge: 'Analytics',
+    badge: 'Product Analytics',
     summary: 'Built retention and checkout funnel models across 5 online storefronts. Cut weekly reporting time by 35% by automating reporting workflows in Power BI.',
     achievements: [
       'Segmented customer cohorts to diagnose a 17% drop in repeat purchase rates.',
@@ -47,15 +47,15 @@ export const experiences: ExperienceItem[] = [
       'Audited 8 checkout flows, identifying conversion drop-offs and order value shifts.'
     ],
     technologies: ['Power BI', 'Excel', 'Cohort Analysis', 'Funnel Analytics', 'Google Analytics'],
-    architecturalImpact: 'Automated dashboards used weekly by marketing and operations teams without manual data pulls.'
+    architecturalImpact: 'Automated dashboards used weekly by product and marketing teams without manual data pulls.'
   },
   {
     id: 'exp-3',
-    role: 'Franchise Launch & Retail Operations Intern',
+    role: 'Product & Retail Strategy Intern',
     company: 'D-Dzire Jewels (Lab-Grown Diamonds)',
     location: 'India',
     period: 'Business Exposure',
-    badge: 'Franchise Launch',
+    badge: 'Product Strategy',
     summary: 'Managed franchise store opening workflows, 4Cs inventory grading audits (Cut, Clarity across VS1/VS2/SI, Carat, Color), and customer pricing perception for lab-grown diamond jewellery outlets.',
     achievements: [
       'Standardized franchise store opening checklists, display casing layouts, and initial stock intake audits.',

@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   tagline: string;
   description: string;
-  category: 'Product Management' | 'Business Analytics' | 'Operations & Strategy' | 'Strategy & Consulting';
+  category: 'Product Management' | 'Business Analytics' | 'Product Strategy' | 'Strategy & Consulting';
   tags: string[];
   metrics: { label: string; value: string }[];
   architectureSummary: string;

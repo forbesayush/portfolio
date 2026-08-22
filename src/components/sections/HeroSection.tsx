@@ -45,7 +45,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
           {/* Status Tag with gentle entrance */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-xs font-sans text-slate-300 animate-in fade-in slide-in-from-bottom-2 duration-500">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse flex-shrink-0" />
-            <span className="leading-tight">Targeting: Product Management (APM/PM), Business Analytics, Strategy Consulting</span>
+            <span className="leading-tight">Targeting: Product Management (APM/PM), Product Analytics, Strategy Consulting</span>
           </div>
 
           {/* Kinetic Display Headline */}
@@ -176,7 +176,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
                 <span className="text-xs text-accent font-sans font-medium">MBA &bull; IT &amp; IB</span>
               </div>
               <p className="font-sans text-xs text-slate-300 leading-relaxed font-normal">
-                Regional College of Management, Bhubaneswar (2025 to 2027). Hands-on exposure in mobile OS QA, D2C funnel retention modeling, and retail franchise operations.
+                Regional College of Management, Bhubaneswar (2025 to 2027). Hands-on exposure in mobile OS QA, D2C funnel retention modeling, and retail product strategy.
               </p>
             </div>
           </div>

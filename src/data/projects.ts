@@ -6,8 +6,8 @@ export const projects: Project[] = [
     title: 'Deals.Seller — Ops & Fraud Intelligence Platform',
     tagline: 'Admin command center and real-time cashback risk scoring',
     description: 'Built the admin command center for a cashback and deals marketplace: order fulfillment, refunds, withdrawals, and support tickets in one operational view. The core value is the fraud layer: scoring claims on order velocity and duplicate IDs before human review, so the admin only investigates anomalies.',
-    category: 'Operations & Strategy',
-    tags: ['Operations MIS', 'Fraud Intelligence', 'Product Architecture', 'Fintech / Cashback', 'LTV Analytics'],
+    category: 'Product Management',
+    tags: ['Product MIS', 'Fraud Intelligence', 'Product Architecture', 'Fintech / Cashback', 'LTV Analytics'],
     metrics: [
       { label: 'Repeat purchase rate', value: '33%' },
       { label: 'Avg buyer LTV', value: '₹348' },
@@ -70,8 +70,8 @@ export const projects: Project[] = [
     title: 'Lab-Grown Diamond Franchise Store Launch Playbook',
     tagline: 'Opening checklists, 4Cs inventory grading, and partner SOPs',
     description: 'Created standardized franchise store launch workflows, inventory intake audits across 4Cs grading parameters (Cut, Clarity across VS1/VS2, Carat, Color), and sales floor merchandising for D-Dzire Jewels.',
-    category: 'Operations & Strategy',
-    tags: ['Franchise Onboarding', '4Cs Diamond Grading', 'Inventory Intake', 'Retail Merchandising', 'Partner SOPs'],
+    category: 'Product Strategy',
+    tags: ['Product Onboarding', '4Cs Diamond Grading', 'Inventory Intake', 'Retail Merchandising', 'Partner SOPs'],
     metrics: [
       { label: 'Domain', value: 'Lab-grown diamonds' },
       { label: 'Grading audit', value: '4Cs (VS1/VS2/VVS)' },
