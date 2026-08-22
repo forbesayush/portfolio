@@ -6,7 +6,7 @@ export const projects: Project[] = [
     title: 'Deals.Seller — Ops & Fraud Intelligence Platform',
     tagline: 'Admin command center and real-time cashback risk scoring',
     description: 'Built the admin command center for a cashback and deals marketplace: order fulfillment, refunds, withdrawals, and support tickets in one operational view. The core value is the fraud layer: scoring claims on order velocity and duplicate IDs before human review, so the admin only investigates anomalies.',
-    category: 'Product Management',
+    category: 'Operations & Strategy',
     tags: ['Operations MIS', 'Fraud Intelligence', 'Product Architecture', 'Fintech / Cashback', 'LTV Analytics'],
     metrics: [
       { label: 'Repeat purchase rate', value: '33%' },
@@ -19,7 +19,7 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/forbesayush',
     role: 'Product Lead / Builder',
     featured: true,
-    year: '2026',
+    year: '2024 - 2025',
     accentColor: '#00f0ff',
     glslPreset: 'particles'
   },
