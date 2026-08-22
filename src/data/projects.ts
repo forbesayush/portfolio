@@ -2,6 +2,27 @@ import { Project } from '../types';
 
 export const projects: Project[] = [
   {
+    id: 'deals-seller-mis',
+    title: 'Deals.Seller — Operations & Fraud Intelligence MIS',
+    tagline: 'Marketplace command center and cashback fraud detection engine',
+    description: 'Designed and shipped an operations MIS and fraud intelligence hub for an affiliate cashback marketplace. Built automated order velocity scoring, duplicate claim clustering, payout forecasting, and instant withdrawal triage.',
+    category: 'Product Management',
+    tags: ['Product Design', 'Fraud Intelligence', 'Operations MIS', 'Fintech / Cashback', 'LTV Analytics'],
+    metrics: [
+      { label: 'Repeat purchase rate', value: '33%' },
+      { label: 'Avg buyer LTV', value: '₹348' },
+      { label: 'Fraud detection', value: 'Real-time' },
+      { label: 'Withdrawal triage', value: 'Instant' }
+    ],
+    architectureSummary: 'Centralized orders, refunds, and support tickets into one command center. Designed heuristic fraud rules to flag high-risk claims for manual review, balancing risk mitigation with buyer trust.',
+    liveUrl: '#',
+    githubUrl: 'https://github.com/forbesayush',
+    featured: true,
+    year: '2025',
+    accentColor: '#00f0ff',
+    glslPreset: 'particles'
+  },
+  {
     id: 'oneplus-os-diagnostics',
     title: 'Mobile OS Usability & Bug Triage',
     tagline: 'Defect root-cause mapping across 4 OS builds',

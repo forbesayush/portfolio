@@ -375,6 +375,11 @@ function getSmartLocalResponse(query: string): string {
     return "At OnePlus and Innovist, Ayush evaluated 4 mobile OS builds, logged 20+ interface bugs with exact reproduction steps, and contributed to a 22% reduction in post-release defect recurrence.";
   }
 
+  // Deals.Seller & Operations MIS
+  if (q.includes('deals.seller') || q.includes('deals seller') || q.includes('mis') || q.includes('fraud') || q.includes('cashback')) {
+    return "Deals.Seller is a marketplace operations MIS and fraud intelligence command center designed and shipped by Ayush. It handles real-time order verification, duplicate claim clustering, payout forecasting, and instant withdrawal triage with a 33% repeat buyer rate.";
+  }
+
   // Analytics
   if (q.includes('d2c') || q.includes('analytics') || q.includes('power bi')) {
     return "During his analytics internship, Ayush built cohort retention models across 5 online storefronts and automated reporting workflows in Power BI, cutting weekly report prep time by 35%.";
