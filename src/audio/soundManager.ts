@@ -139,6 +139,31 @@ class SoundEngine {
     }
   }
 
+  public playTick() {
+    if (this.isMuted) return;
+    try {
+      this.initContext();
+      if (!this.ctx || !this.masterGain) return;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1400, this.ctx.currentTime);
+
+      gain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.04);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.04);
+    } catch {
+      // ignore
+    }
+  }
+
   public playModalClose() {
     if (this.isMuted) return;
     try {

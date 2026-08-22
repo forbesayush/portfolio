@@ -22,14 +22,15 @@ export const SkillsSection: React.FC = () => {
         </div>
       </div>
 
-      {/* 3-Column Direct Grid: All skill pillars visible simultaneously with 0 clicks */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {skillCategories.map((cat, idx) => {
-          const IconComponent = icons[idx] || Layers;
+      {/* 3 Core Capability Columns */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
+        {skillCategories.map((cat, sIdx) => {
+          const IconComponent = icons[sIdx] || Layers;
           return (
             <div
               key={cat.category}
-              className="rounded-2xl bg-background-card border border-white/10 hover:border-white/20 p-6 sm:p-7 flex flex-col justify-between space-y-6 shadow-xl transition-all duration-200"
+              style={{ animationDelay: `${sIdx * 80}ms` }}
+              className="rounded-2xl bg-background-card border border-white/10 hover:border-white/20 p-6 sm:p-7 flex flex-col justify-between space-y-6 shadow-xl transition-all duration-200 animate-in fade-in slide-in-from-bottom-3 duration-500 fill-mode-backwards"
             >
               <div className="space-y-4">
                 {/* Pillar Header */}

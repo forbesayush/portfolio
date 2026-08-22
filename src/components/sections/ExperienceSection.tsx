@@ -22,10 +22,11 @@ export const ExperienceSection: React.FC = () => {
 
       {/* Experience List: All details visible directly without accordion */}
       <div className="space-y-6">
-        {experiences.map((exp) => (
+        {experiences.map((exp, eIdx) => (
           <div
             key={exp.id}
-            className="rounded-2xl bg-background-card border border-white/10 hover:border-white/20 p-6 sm:p-8 space-y-5 transition-all duration-200 shadow-xl"
+            style={{ animationDelay: `${eIdx * 80}ms` }}
+            className="rounded-2xl bg-background-card border border-white/10 hover:border-white/20 p-6 sm:p-8 space-y-5 transition-all duration-200 shadow-xl animate-in fade-in slide-in-from-bottom-3 duration-500 fill-mode-backwards"
           >
             {/* Card Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-white/5 pb-4">

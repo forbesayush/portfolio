@@ -52,10 +52,11 @@ export const ProjectsSection: React.FC = () => {
 
       {/* Projects Grid: All information visible directly without modals */}
       <div className="space-y-8">
-        {filteredProjects.map((project) => (
+        {filteredProjects.map((project, pIdx) => (
           <div
             key={project.id}
-            className="rounded-2xl bg-background-card border border-white/10 hover:border-white/20 p-6 sm:p-8 transition-all duration-300 shadow-xl space-y-6"
+            style={{ animationDelay: `${pIdx * 80}ms` }}
+            className="rounded-2xl bg-background-card border border-white/10 hover:border-white/20 p-6 sm:p-8 transition-all duration-300 shadow-xl space-y-6 animate-in fade-in slide-in-from-bottom-3 duration-500 fill-mode-backwards"
           >
             {/* Header Meta */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-4">
