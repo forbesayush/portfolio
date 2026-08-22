@@ -3,18 +3,18 @@ import { Project } from '../types';
 export const projects: Project[] = [
   {
     id: 'deals-seller-mis',
-    title: 'Deals.Seller — Operations & Fraud Intelligence MIS',
-    tagline: 'Marketplace command center and cashback fraud detection engine',
-    description: 'Designed and shipped an operations MIS and fraud intelligence hub for an affiliate cashback marketplace. Built automated order velocity scoring, duplicate claim clustering, payout forecasting, and instant withdrawal triage.',
+    title: 'Deals.Seller — Ops & Fraud Intelligence Platform',
+    tagline: 'Admin command center and real-time cashback risk scoring',
+    description: 'Built the admin command center for a cashback and deals marketplace: order fulfillment, refunds, withdrawals, and support tickets in one operational view. The core value is the fraud layer: scoring claims on order velocity and duplicate IDs before human review, so the admin only investigates anomalies.',
     category: 'Product Management',
-    tags: ['Product Design', 'Fraud Intelligence', 'Operations MIS', 'Fintech / Cashback', 'LTV Analytics'],
+    tags: ['Operations MIS', 'Fraud Intelligence', 'Product Architecture', 'Fintech / Cashback', 'LTV Analytics'],
     metrics: [
       { label: 'Repeat purchase rate', value: '33%' },
       { label: 'Avg buyer LTV', value: '₹348' },
-      { label: 'Fraud detection', value: 'Real-time' },
-      { label: 'Withdrawal triage', value: 'Instant' }
+      { label: 'Fraud triage', value: 'Velocity & duplication' },
+      { label: 'Withdrawal processing', value: 'Instant UPI' }
     ],
-    architectureSummary: 'Centralized orders, refunds, and support tickets into one command center. Designed heuristic fraud rules to flag high-risk claims for manual review, balancing risk mitigation with buyer trust.',
+    architectureSummary: 'Flags trigger on duplicate merchant order IDs across accounts and velocity spikes above threshold. Surfaced to administrators with full audit logs rather than hard-blocking, protecting buyer trust while preventing payout leakages.',
     liveUrl: '#',
     githubUrl: 'https://github.com/forbesayush',
     featured: true,
