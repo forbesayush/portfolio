@@ -2,6 +2,22 @@ import { ExperienceItem } from '../types';
 
 export const experiences: ExperienceItem[] = [
   {
+    id: 'exp-swash',
+    role: 'Media Intern',
+    company: 'Swash Consulting Limited',
+    location: 'Bhubaneswar, India',
+    period: '2026 (2 months)',
+    badge: 'Growth & SEO',
+    summary: 'Executed on-page and off-page search engine optimization (SEO), backlink acquisition, and digital marketing strategies to drive organic search visibility and domain authority.',
+    achievements: [
+      'Conducted technical SEO audits, optimizing metadata, keyword hierarchies, and internal linking structures.',
+      'Executed backlink building strategies and analyzed organic traffic growth trends using Google Analytics and Search Console.',
+      'Refined digital marketing campaigns to improve search indexing and organic engagement across target segments.'
+    ],
+    technologies: ['Technical SEO', 'Backlink Strategy', 'Digital Marketing', 'Google Search Console', 'Google Analytics'],
+    architecturalImpact: 'Strengthened organic domain authority and search rankings through structured keyword targeting and clean backlink acquisition.'
+  },
+  {
     id: 'exp-1',
     role: 'User Experience Analyst',
     company: 'OnePlus & Innovist',

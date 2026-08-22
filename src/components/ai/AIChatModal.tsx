@@ -380,6 +380,11 @@ function getSmartLocalResponse(query: string): string {
     return "Deals.Seller is a marketplace operations MIS and fraud intelligence command center designed and shipped by Ayush. It handles real-time order verification, duplicate claim clustering, payout forecasting, and instant withdrawal triage with a 33% repeat buyer rate.";
   }
 
+  // Swash Consulting Limited
+  if (q.includes('swash') || q.includes('seo') || q.includes('backlink') || q.includes('media intern')) {
+    return "In 2026, Ayush completed a 2-month Media Internship at Swash Consulting Limited, focusing on technical and on-page SEO, backlink strategy execution, and digital marketing performance analysis using Google Search Console and Google Analytics.";
+  }
+
   // Analytics
   if (q.includes('d2c') || q.includes('analytics') || q.includes('power bi')) {
     return "During his analytics internship, Ayush built cohort retention models across 5 online storefronts and automated reporting workflows in Power BI, cutting weekly report prep time by 35%.";
