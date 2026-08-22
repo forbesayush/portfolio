@@ -38,6 +38,7 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.setClearColor(0x0a0f1d, 1); // Midnight navy blue — matches CSS background
     container.appendChild(renderer.domElement);
 
     // 1. Interactive Particle Vortex
