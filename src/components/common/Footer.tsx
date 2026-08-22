@@ -91,7 +91,7 @@ export const Footer: React.FC = () => {
                 <Github className="w-4 h-4" />
               </a>
               <a
-                href="https://linkedin.com/in/forbesayush"
+                href="https://linkedin.com/in/ayushmba"
                 target="_blank"
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}

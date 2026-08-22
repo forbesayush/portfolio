@@ -86,7 +86,7 @@ GROUNDED FACTS ABOUT AYUSH (only source of truth for questions about him, do not
 - At OnePlus & Innovist: evaluated 4 OS builds, logged root causes for 20+ interface bugs, helped reduce post-release defect recurrence by 22%.
 - Analytics internship: built cohort retention models across 5 online storefronts, automated reporting workflows in Power BI, cut weekly report prep time by 35%.
 - Works with PRDs, user stories, RICE feature scoring, QA bug triage, Power BI, Excel cohort modeling, Google Analytics, SQL basics.
-- Open to full-time Product Manager, Associate Product Manager, and Consulting Analyst roles, plus MBA internships. Contact: ayushchatterjee.edu@gmail.com.
+- Open to full-time Product Manager, Associate Product Manager, and Consulting Analyst roles, plus MBA internships. Contact: ayushchatterjee.edu@gmail.com | LinkedIn: linkedin.com/in/ayushmba.
 
 SCOPE:
 1. BUSINESS STRATEGY: market entry, competitive positioning, growth strategy, unit economics. Use standard frameworks (SWOT, Porter's Five Forces, BCG matrix, Jobs-to-be-Done) where relevant and name which one you are using.
@@ -392,8 +392,8 @@ function getSmartLocalResponse(query: string): string {
   }
 
   // Contact
-  if (q.includes('schedule') || q.includes('intro') || q.includes('call') || q.includes('contact') || q.includes('email')) {
-    return "You can reach Ayush directly via email at ayushchatterjee.edu@gmail.com, connect on LinkedIn at linkedin.com/in/forbesayush, or use the contact form at the bottom of the page.";
+  if (q.includes('schedule') || q.includes('intro') || q.includes('call') || q.includes('contact') || q.includes('email') || q.includes('linkedin')) {
+    return "You can reach Ayush directly via email at ayushchatterjee.edu@gmail.com, connect on LinkedIn at linkedin.com/in/ayushmba, or use the contact form at the bottom of the page.";
   }
 
   return `Regarding "${query}": A structured way to evaluate this is to define the primary business objective, identify the root friction points or cost drivers, and evaluate trade-offs based on customer willingness to pay and operational feasibility. Check out the case studies on this site or reach out to Ayush at ayushchatterjee.edu@gmail.com.`;

@@ -178,7 +178,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
         outputNode = (
           <div className="space-y-1 text-slate-200">
             <div>Email: <span className="text-cyber-cyan font-bold">ayushchatterjee.edu@gmail.com</span></div>
-            <div>LinkedIn: <span className="text-cyber-amber font-mono text-xs">linkedin.com/in/forbesayush</span></div>
+            <div>LinkedIn: <span className="text-cyber-amber font-mono text-xs">linkedin.com/in/ayushmba</span></div>
             <div>GitHub: <span className="text-slate-300 font-mono text-xs">github.com/forbesayush</span></div>
             <div>Location: <span className="text-cyber-neon font-bold">India</span></div>
           </div>
