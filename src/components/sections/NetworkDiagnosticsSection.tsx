@@ -69,7 +69,7 @@ export const NetworkDiagnosticsSection: React.FC = () => {
 
       {/* Caption */}
       <p className="font-sans text-sm sm:text-base text-slate-300 mb-8 max-w-3xl leading-relaxed">
-        Live client-side diagnostics — latency, protocol, and environment. Runs in the browser, collects nothing.
+        Live client-side diagnostics for latency, protocol encryption, and browser environment. Runs locally with zero backend storage.
       </p>
 
       {/* Diagnostics Cards Grid */}

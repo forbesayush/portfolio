@@ -75,8 +75,8 @@ export const Footer: React.FC = () => {
                 Ayush Chatterjee
               </span>
             </div>
-            <p className="text-sm text-slate-400 font-sans max-w-md leading-relaxed">
-              MBA candidate building things at the intersection of product, data, and the way users actually behave.
+            <p className="text-xs sm:text-sm text-slate-400 font-sans max-w-md leading-relaxed">
+              Targeting full-time Product Management (APM/PM), Business Analytics, and Strategy Consulting roles starting 2027. MBA Candidate, Regional College of Management, Bhubaneswar.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a

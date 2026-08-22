@@ -5,16 +5,16 @@ export const projects: Project[] = [
     id: 'oneplus-os-diagnostics',
     title: 'Mobile OS Usability & Bug Triage',
     tagline: 'Defect root-cause mapping across 4 OS builds',
-    description: 'Found 20+ interface defects — not by running a script, but by actually using the phone the way real users do. Wrote reproduction steps specific enough that engineers could reproduce and fix within the same sprint.',
+    description: 'Tested 4 mobile OS builds and logged 20+ interface defects with exact reproduction steps. Cut post-release recurrence by 22% and improved navigation task speed by 15% through structured sprint documentation.',
     category: 'Product Management',
     tags: ['Product QA', 'Jira', 'Usability Testing', 'Mobile OS', 'Root Cause Analysis'],
     metrics: [
       { label: 'Defect recurrence', value: '-22%' },
-      { label: 'Task speed', value: '+15%' },
-      { label: 'Bugs logged', value: '20+' },
+      { label: 'Task speed gain', value: '+15%' },
+      { label: 'Bugs evaluated', value: '20+' },
       { label: 'Builds tested', value: '4 OS' }
     ],
-    architectureSummary: 'Analyzed friction in settings and notification menus. Structured bug logs that engineering used to prioritize sprint fixes rather than park in backlog.',
+    architectureSummary: 'Analyzed navigation friction in settings and notification drawers. Structured bug logs that engineering resolved in the active sprint.',
     liveUrl: '#',
     githubUrl: 'https://github.com/forbesayush',
     featured: true,
@@ -26,7 +26,7 @@ export const projects: Project[] = [
     id: 'd2c-cohort-analytics',
     title: 'E-Commerce Funnel & Cohort Retention',
     tagline: 'Customer retention modeling across 5 storefronts',
-    description: 'Most retention dashboards tell you a number went down. The interesting question is why it stopped mattering to that cohort in week 3. Built the models to find that answer — and automated the reporting so no one had to rebuild it every Friday.',
+    description: 'Built customer retention models across 5 online storefronts to diagnose a 17% drop in repeat purchases. Automated weekly reporting in Power BI, cutting report preparation time by 35%.',
     category: 'Business Analytics',
     tags: ['Power BI', 'Cohort Analysis', 'Excel Modeling', 'Funnel Analytics', 'Google Analytics'],
     metrics: [
@@ -35,7 +35,7 @@ export const projects: Project[] = [
       { label: 'Checkout flows', value: '8 audited' },
       { label: 'Repeat order gap', value: '17%' }
     ],
-    architectureSummary: 'Replaced manual tracking sheets with automated Power BI dashboards. Tracked customer lifetime order frequency by acquisition month and mapped checkout drop-offs by stage.',
+    architectureSummary: 'Replaced manual tracking sheets with automated dashboards tracking customer repurchase curves and checkout drop-offs by acquisition month.',
     liveUrl: '#',
     githubUrl: 'https://github.com/forbesayush',
     featured: true,
@@ -47,16 +47,16 @@ export const projects: Project[] = [
     id: 'franchise-launch-playbook',
     title: 'Retail Franchise Launch Playbook',
     tagline: 'Store opening checklists and inventory flows for franchise partners',
-    description: 'Franchise launches fail on the operational details no one wrote down. Built the checklists — from initial stock intake to daily POS audits — that helped partners open on schedule.',
+    description: 'Created standardized store launch workflows, inventory checklists, and sales floor guidelines. Kept multi-unit franchise openings on schedule with zero initial stock discrepancies.',
     category: 'Operations & Strategy',
     tags: ['Retail Operations', 'Inventory Flow', 'Process Mapping', 'Onboarding'],
     metrics: [
-      { label: 'Scope', value: 'Franchise' },
+      { label: 'Scope', value: 'Franchise retail' },
       { label: 'Category', value: 'High-value goods' },
       { label: 'Output', value: 'Launch checklist' },
-      { label: 'Status', value: 'Completed' }
+      { label: 'Status', value: 'Delivered' }
     ],
-    architectureSummary: 'Mapped end-to-end store opening steps from stock intake to daily audits, reducing delays on new store launches.',
+    architectureSummary: 'Mapped end-to-end store opening steps from initial stock intake to daily point-of-sale audits, preventing launch delays for franchise partners.',
     liveUrl: '#',
     githubUrl: 'https://github.com/forbesayush',
     featured: true,
@@ -67,17 +67,17 @@ export const projects: Project[] = [
   {
     id: 'market-entry-case',
     title: 'SaaS Market Entry Strategy',
-    tagline: 'Market sizing and distribution model for B2B software expansion',
-    description: 'Evaluated market entry paths for enterprise software expanding into European and APAC corridors. Built unit economics comparing direct sales against channel partner distribution in four markets.',
+    tagline: 'Market sizing and channel distribution model for B2B expansion',
+    description: 'Evaluated market entry paths for enterprise software expanding into European and APAC tech corridors. Modeled unit economics comparing direct sales against channel partner distribution across 4 target markets.',
     category: 'Strategy & Consulting',
     tags: ['Market Sizing', 'Competitor Analysis', 'GTM Strategy', 'Unit Economics'],
     metrics: [
-      { label: 'Markets', value: '4 evaluated' },
-      { label: 'Model', value: 'Direct vs partner' },
+      { label: 'Markets evaluated', value: '4 hubs' },
+      { label: 'Distribution', value: 'Direct vs partner' },
       { label: 'Framework', value: 'Unit economics' },
       { label: 'Type', value: 'MBA case study' }
     ],
-    architectureSummary: 'Evaluated software adoption in Germany, Ireland, Netherlands, and Singapore. Compared direct sales versus channel partner distribution by unit economics.',
+    architectureSummary: 'Assessed software adoption in Germany, Ireland, Netherlands, and Singapore. Built unit economic models comparing direct sales versus partner distribution.',
     liveUrl: '#',
     githubUrl: 'https://github.com/forbesayush',
     featured: false,
@@ -86,4 +86,3 @@ export const projects: Project[] = [
     glslPreset: 'core'
   }
 ];
-
