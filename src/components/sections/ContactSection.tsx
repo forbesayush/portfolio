@@ -60,10 +60,10 @@ export const ContactSection: React.FC = () => {
         <div className="lg:col-span-5 space-y-4">
           <div className="p-7 sm:p-8 rounded-2xl bg-background-card border border-white/10 space-y-6 shadow-2xl">
             <h3 className="font-serif font-medium text-xl sm:text-2xl text-white">
-              Direct Channels
+              Direct channels
             </h3>
             <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-              Open to full-time product management and consulting roles, MBA internships, and project collaborations.
+              Open to PM, APM, and consulting analyst roles, MBA internships, and project work. Replies within a day.
             </p>
 
             <div className="space-y-3 font-sans text-sm">

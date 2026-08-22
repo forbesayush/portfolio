@@ -28,7 +28,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
 
           {/* Subtitle in Clean Humanist Sans */}
           <p className="max-w-xl text-lg sm:text-xl text-slate-300 font-sans leading-relaxed font-normal">
-            I'm <strong className="text-white font-medium">Ayush Chatterjee</strong>. I evaluate user friction, analyze retention funnels, and build product roadmaps backed by data.
+            I'm <strong className="text-white font-medium">Ayush Chatterjee</strong>. I find where users drop off, figure out why, and build the case for fixing it — in product, analytics, and operations.
           </p>
 
           {/* Action Buttons: 1 deliberate accent moment */}
@@ -40,7 +40,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
               data-cursor-text="WORK"
               className="px-6 py-3 rounded-xl bg-accent text-white font-sans font-medium text-sm hover:bg-accent-hover transition-all duration-200 flex items-center gap-2 shadow-accent"
             >
-              <span>View Case Studies</span>
+              <span>Case studies</span>
               <ArrowDown className="w-4 h-4" />
             </a>
 
@@ -54,7 +54,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
               className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 hover:text-white font-sans text-sm font-medium transition-all duration-200 flex items-center gap-2"
             >
               <Bot className="w-4 h-4 text-slate-400" />
-              <span>Ask AI</span>
+              <span>Ask AVA</span>
             </button>
 
             <button
@@ -72,10 +72,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
           </div>
         </div>
 
-        {/* Right Column: Authentic Personal Photo & Key Focus Card */}
+        {/* Right Column: Photo & Quick Context */}
         <div className="lg:col-span-5 flex flex-col items-center lg:items-end">
           <div className="w-full max-w-sm rounded-2xl bg-background-card border border-white/10 p-5 space-y-5 shadow-2xl">
-            {/* Authentic Portrait Photo */}
+            {/* Portrait */}
             <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-white/5 border border-white/10">
               <img
                 src="/ayush-chatterjee.png"
@@ -92,7 +92,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
                 <span className="text-xs text-accent font-sans font-medium">MBA &bull; IT &amp; IB</span>
               </div>
               <p className="font-sans text-xs text-slate-400 leading-relaxed">
-                Specializing in Information Technology &amp; International Business. Practical exposure across mobile QA, e-commerce retention, and retail operations.
+                MBA candidate, RCM Bhubaneswar. Practical exposure in mobile QA, D2C retention analytics, and retail operations.
               </p>
             </div>
           </div>

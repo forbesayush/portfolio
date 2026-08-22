@@ -67,9 +67,9 @@ export const NetworkDiagnosticsSection: React.FC = () => {
         </button>
       </div>
 
-      {/* Explicit One-Line Caption */}
+      {/* Caption */}
       <p className="font-sans text-sm sm:text-base text-slate-300 mb-8 max-w-3xl leading-relaxed">
-        A client-side network diagnostics tool built to inspect connection latency, protocol encryption, and client environment in real time without collecting or storing personal data.
+        Live client-side diagnostics — latency, protocol, and environment. Runs in the browser, collects nothing.
       </p>
 
       {/* Diagnostics Cards Grid */}
@@ -86,14 +86,14 @@ export const NetworkDiagnosticsSection: React.FC = () => {
             <span className="font-sans text-xs text-slate-400 uppercase font-medium block">Protocol</span>
             <span className="font-serif font-medium text-lg text-white">{clientInfo.protocol}</span>
           </div>
-          <p className="font-sans text-xs text-slate-400">Standard encrypted transport layer</p>
+          <p className="font-sans text-xs text-slate-400">Encrypted transport layer</p>
         </div>
 
         {/* Latency Ping */}
         <div className="p-6 rounded-2xl bg-background-card border border-white/10 space-y-3 shadow-lg">
           <div className="flex items-center justify-between text-accent">
             <Wifi className="w-5 h-5" />
-            <span className="font-sans text-xs text-accent font-medium">Round-Trip</span>
+            <span className="font-sans text-xs text-accent font-medium">Round-trip</span>
           </div>
           <div>
             <span className="font-sans text-xs text-slate-400 uppercase font-medium block">Latency</span>
@@ -101,7 +101,7 @@ export const NetworkDiagnosticsSection: React.FC = () => {
               {latency !== null ? `${latency} ms` : 'Testing...'}
             </span>
           </div>
-          <p className="font-sans text-xs text-slate-400">Real-time HTTP round-trip response time</p>
+          <p className="font-sans text-xs text-slate-400">Real-time HTTP response time</p>
         </div>
 
         {/* VPN & Proxy Friendly Status */}
@@ -111,10 +111,10 @@ export const NetworkDiagnosticsSection: React.FC = () => {
             <span className="font-sans text-xs text-accent font-medium">Compatible</span>
           </div>
           <div>
-            <span className="font-sans text-xs text-slate-400 uppercase font-medium block">VPN / Proxy Policy</span>
-            <span className="font-serif font-medium text-lg text-white">Corporate Friendly</span>
+            <span className="font-sans text-xs text-slate-400 uppercase font-medium block">VPN / Proxy</span>
+            <span className="font-serif font-medium text-lg text-white">Corporate friendly</span>
           </div>
-          <p className="font-sans text-xs text-slate-400">Standard corporate VPN traffic is permitted without restriction</p>
+          <p className="font-sans text-xs text-slate-400">No restrictions on corporate VPN traffic</p>
         </div>
 
         {/* Client Platform */}
@@ -124,12 +124,12 @@ export const NetworkDiagnosticsSection: React.FC = () => {
             <span className="font-sans text-xs text-slate-300 font-normal">{clientInfo.screenRes}</span>
           </div>
           <div>
-            <span className="font-sans text-xs text-slate-400 uppercase font-medium block">Client Environment</span>
+            <span className="font-sans text-xs text-slate-400 uppercase font-medium block">Environment</span>
             <span className="font-serif font-medium text-lg text-white truncate block">
-              {clientInfo.online ? 'Online Browser' : 'Offline'}
+              {clientInfo.online ? 'Online browser' : 'Offline'}
             </span>
           </div>
-          <p className="font-sans text-xs text-slate-400">Client-rendered without backend storage</p>
+          <p className="font-sans text-xs text-slate-400">Client-rendered, no backend storage</p>
         </div>
       </div>
     </section>

@@ -76,7 +76,7 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-sm text-slate-400 font-sans max-w-md leading-relaxed">
-              MBA candidate focusing on product management, business analytics, and strategy. Interested in building products backed by customer research and data.
+              MBA candidate building things at the intersection of product, data, and the way users actually behave.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a

@@ -151,7 +151,7 @@ export const ExperienceSection: React.FC = () => {
               Regional College of Management, Bhubaneswar
             </p>
             <p className="font-sans text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
-              Specialization in Information Technology and International Business. Coursework in technology management, business strategy, and enterprise information systems.
+              Specialization in IT and International Business. Coursework in technology management, business strategy, and enterprise information systems.
             </p>
           </div>
 
@@ -169,7 +169,7 @@ export const ExperienceSection: React.FC = () => {
               Regional College of Management, Bhubaneswar
             </p>
             <p className="font-sans text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
-              Focus on business administration, quantitative business statistics, marketing management, and financial accounting fundamentals.
+              Business statistics, marketing management, and financial accounting.
             </p>
           </div>
         </div>

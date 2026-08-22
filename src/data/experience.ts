@@ -3,35 +3,35 @@ import { ExperienceItem } from '../types';
 export const experiences: ExperienceItem[] = [
   {
     id: 'exp-1',
-    role: 'User Experience Analyst (Product Strategy)',
+    role: 'User Experience Analyst',
     company: 'OnePlus & Innovist',
     location: 'Bhubaneswar, India',
     period: 'October 2025 to Present',
     badge: 'Current',
-    summary: 'Tested mobile operating system builds, identified usability bottlenecks, and collaborated with engineers to fix defect regressions.',
+    summary: 'Tested 4 OS builds and wrote reproduction logs engineers could act on the same sprint — not the usual one-line bug title that gets closed as "cannot reproduce."',
     achievements: [
-      'Tested 4 operating system builds and logged root causes for 20+ interface bugs.',
-      'Reduced post-release defect recurrence by 22% through technical bug reports and engineering documentation.',
-      'Improved task completion speed by 15% after reorganizing navigation flows based on usability testing records.'
+      'Logged root causes for 20+ interface defects across settings and notification menus.',
+      'Reduced post-release defect recurrence by 22% by replacing informal reports with structured reproduction steps.',
+      'Cut task completion time by 15% after reorganizing navigation flows based on usability test records.'
     ],
-    technologies: ['Product Strategy', 'Software QA', 'Jira', 'Usability Testing', 'Defect Tracking'],
+    technologies: ['Product QA', 'Jira', 'Usability Testing', 'Defect Tracking'],
     architecturalImpact: 'Replaced informal bug reporting with structured reproduction logs, preventing repeat issues in subsequent releases.'
   },
   {
     id: 'exp-2',
-    role: 'Business Analytics & Strategy Intern',
+    role: 'Business Analytics Intern',
     company: 'D2C Skincare Brand Portfolio',
     location: 'Kolkata, India (Remote)',
     period: 'September 2024 to December 2025',
     badge: 'Analytics',
-    summary: 'Built analytics models and evaluated customer drop-offs across 5 online storefronts.',
+    summary: 'Cut weekly reporting time 35% by automating what used to be a Friday-afternoon manual pull across 5 storefronts.',
     achievements: [
-      'Segmented customer cohorts to address a 17% drop in repeat purchases.',
-      'Automated weekly reporting workflows in Power BI, cutting report preparation time by 35%.',
-      'Audited 8 checkout flows to identify conversion drop-offs and Average Order Value patterns.'
+      'Segmented customer cohorts to diagnose a 17% drop in repeat purchase rate.',
+      'Built automated Power BI dashboards that replaced manual spreadsheets used by marketing and operations weekly.',
+      'Audited 8 checkout flows, mapping drop-off by stage and surfacing Average Order Value patterns by acquisition month.'
     ],
     technologies: ['Power BI', 'Excel', 'Cohort Analysis', 'Funnel Analytics', 'Google Analytics'],
-    architecturalImpact: 'Replaced manual spreadsheets with automated dashboards used weekly by marketing and operations teams.'
+    architecturalImpact: 'Dashboards are now used weekly by both marketing and operations teams without manual intervention.'
   },
   {
     id: 'exp-3',
@@ -40,12 +40,13 @@ export const experiences: ExperienceItem[] = [
     location: 'India',
     period: 'Business Exposure',
     badge: 'Operations',
-    summary: 'Supported retail store openings, inventory tracking, and daily store operations.',
+    summary: 'Stood on the sales floor and listened — which turns out to be a faster way to find pricing friction than a survey.',
     achievements: [
-      'Coordinated store opening checklists and initial inventory intake for franchise outlets.',
-      'Gathered customer feedback on pricing, product choices, and purchase hesitations on the sales floor.'
+      'Built store-opening checklists that helped franchise partners launch on schedule.',
+      'Gathered direct customer feedback on pricing hesitation and product choice from the sales floor.'
     ],
-    technologies: ['Retail Operations', 'Inventory Tracking', 'Process Mapping', 'Customer Research'],
-    architecturalImpact: 'Standardized opening day checklists to help franchise partners launch on schedule.'
+    technologies: ['Retail Operations', 'Inventory Tracking', 'Process Mapping'],
+    architecturalImpact: 'Standardized opening day checklists reduced launch delays for franchise partners.'
   }
 ];
+
