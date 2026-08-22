@@ -67,22 +67,22 @@ export const projects: Project[] = [
   },
   {
     id: 'franchise-launch-playbook',
-    title: 'Retail Franchise Launch Playbook',
-    tagline: 'Store opening checklists and inventory flows for franchise partners',
-    description: 'Created standardized store launch workflows, inventory checklists, and sales floor guidelines. Kept multi-unit franchise openings on schedule with zero initial stock discrepancies.',
+    title: 'Lab-Grown Diamond Franchise Store Launch Playbook',
+    tagline: 'Opening checklists, 4Cs inventory grading, and partner SOPs',
+    description: 'Created standardized franchise store launch workflows, inventory intake audits across 4Cs grading parameters (Cut, Clarity across VS1/VS2, Carat, Color), and sales floor merchandising for D-Dzire Jewels.',
     category: 'Operations & Strategy',
-    tags: ['Retail Operations', 'Inventory Flow', 'Process Mapping', 'Onboarding'],
+    tags: ['Franchise Onboarding', '4Cs Diamond Grading', 'Inventory Intake', 'Retail Merchandising', 'Partner SOPs'],
     metrics: [
-      { label: 'Scope', value: 'Franchise retail' },
-      { label: 'Category', value: 'High-value goods' },
-      { label: 'Output', value: 'Launch checklist' },
-      { label: 'Status', value: 'Delivered' }
+      { label: 'Domain', value: 'Lab-grown diamonds' },
+      { label: 'Grading audit', value: '4Cs (VS1/VS2/VVS)' },
+      { label: 'Deliverable', value: 'Store launch SOP' },
+      { label: 'Stock variance', value: 'Zero opening gap' }
     ],
-    architectureSummary: 'Mapped end-to-end store opening steps from initial stock intake to daily point-of-sale audits, preventing launch delays for franchise partners.',
+    architectureSummary: 'Mapped end-to-end store opening steps from initial certification and grading stock intake to daily point-of-sale audits, preventing launch delays and inventory discrepancies for franchise partners.',
     liveUrl: '#',
     githubUrl: 'https://github.com/forbesayush',
     featured: true,
-    year: '2024',
+    year: '2024 - 2025',
     accentColor: '#00ffaa',
     glslPreset: 'quantum'
   },

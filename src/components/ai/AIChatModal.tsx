@@ -385,9 +385,9 @@ function getSmartLocalResponse(query: string): string {
     return "In 2026, Ayush completed a 2-month Media Internship at Swash Consulting Limited, focusing on technical and on-page SEO, backlink strategy execution, and digital marketing performance analysis using Google Search Console and Google Analytics.";
   }
 
-  // Franchise & Retail Launch
-  if (q.includes('franchise') || q.includes('store launch') || q.includes('opening') || q.includes('retail')) {
-    return "During his franchise retail exposure, Ayush built standardized store launch playbooks and initial inventory audit workflows, eliminating opening-day stock discrepancies across partner store rollouts.";
+  // Franchise & Retail Launch (D-Dzire Jewels)
+  if (q.includes('franchise') || q.includes('store launch') || q.includes('opening') || q.includes('retail') || q.includes('diamond') || q.includes('dzire') || q.includes('4cs')) {
+    return "At D-Dzire Jewels (Lab-Grown Diamonds), Ayush managed franchise store opening workflows, 4Cs inventory grading audits (Cut, Clarity across VS1/VS2/SI, Carat, Color), and customer pricing perception, eliminating opening-day stock discrepancies across partner outlets.";
   }
 
   // Analytics

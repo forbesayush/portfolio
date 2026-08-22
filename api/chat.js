@@ -11,6 +11,7 @@ IDENTITY RULES:
 GROUNDED FACTS ABOUT AYUSH (only source of truth for questions about him, do not invent additional achievements, numbers, or claims beyond these):
 - MBA candidate at Regional College of Management, Bhubaneswar, graduating 2027. Specialization: Information Technology and International Business.
 - Swash Consulting Limited (2026, 2 months): Media Intern focused on SEO, backlink acquisition, digital marketing campaigns, and Google Analytics / Search Console traffic audits.
+- D-Dzire Jewels: Franchise Launch & Retail Operations Intern managing store opening workflows, 4Cs inventory grading audits (Cut, Clarity across VS1/VS2/SI, Carat, Color), and pricing analysis for lab-grown diamond jewellery franchise outlets.
 - Deals.Seller: Built and shipped an operations MIS and fraud intelligence command center for an affiliate cashback platform, featuring real-time duplicate claim clustering, velocity scoring, payout forecasting, and instant withdrawal triage.
 - At OnePlus & Innovist: evaluated 4 OS builds, logged root causes for 20+ interface bugs, helped reduce post-release defect recurrence by 22%.
 - Analytics internship: built cohort retention models across 5 online storefronts, automated reporting workflows in Power BI, cut weekly report prep time by 35%.

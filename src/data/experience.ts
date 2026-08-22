@@ -51,19 +51,19 @@ export const experiences: ExperienceItem[] = [
   },
   {
     id: 'exp-3',
-    role: 'Franchise Launch & Retail Expansion Intern',
-    company: 'Jewellery Retail & Franchise Network',
+    role: 'Franchise Launch & Retail Operations Intern',
+    company: 'D-Dzire Jewels (Lab-Grown Diamonds)',
     location: 'India',
     period: 'Business Exposure',
     badge: 'Franchise Launch',
-    summary: 'Structured end-to-end franchise store opening playbooks, partner onboarding workflows, and opening day inventory audits to ensure zero-discrepancy retail launches.',
+    summary: 'Managed franchise store opening workflows, 4Cs inventory grading audits (Cut, Clarity across VS1/VS2/SI, Carat, Color), and customer pricing perception for lab-grown diamond jewellery outlets.',
     achievements: [
-      'Designed standardized franchise store launch checklists covering pre-opening stock intake, display merchandising, and POS readiness.',
-      'Executed opening day inventory compliance audits, eliminating initial stock count variances for new franchise partners.',
-      'Captured customer purchase behavior and pricing sensitivity on the retail floor to refine product assortment for upcoming store rollouts.'
+      'Standardized franchise store opening checklists, display casing layouts, and initial stock intake audits.',
+      'Audited inventory tracking across 4Cs diamond certification parameters (VS1, VS2, VVS clarity grades and cut specifications).',
+      'Conducted frontline customer interviews on pricing awareness and willingness-to-pay for lab-grown vs natural diamonds to optimize retail assortment.'
     ],
-    technologies: ['Franchise Onboarding', 'Store Launch Playbooks', 'Stock Intake Audit', 'Retail Merchandising', 'Partner SOPs'],
-    architecturalImpact: 'Standardized opening playbooks eliminated launch delays and day-one inventory discrepancies across franchise partner store rollouts.'
+    technologies: ['Lab-Grown Diamonds (4Cs)', 'Franchise Store Launch', 'Inventory Audit (VS1/VS2)', 'Retail Pricing Analysis', 'SOP Design'],
+    architecturalImpact: 'Standardized opening playbooks and 4Cs grading controls eliminated opening-day stock variances across franchise partner store rollouts.'
   }
 ];
 
