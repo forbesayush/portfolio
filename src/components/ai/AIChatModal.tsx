@@ -73,37 +73,10 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
 
     let replyText = '';
 
-    // 1. Try serverless /api/chat endpoint (Vercel)
+    // 1. Direct High-Speed Groq AI Inference (Instant on static sites & GitHub Pages)
     try {
-      const historyPayload = messages.map((m) => ({
-        role: m.sender === 'user' ? 'user' : 'assistant',
-        content: m.text,
-      }));
-
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: text,
-          conversationHistory: historyPayload,
-        }),
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        if (data.reply && !data.reply.includes('is not configured')) {
-          replyText = data.reply;
-        }
-      }
-    } catch {
-      // Proceed to direct Groq call
-    }
-
-    // 2. Direct client-side Groq call (Works instantly on GitHub Pages!)
-    if (!replyText) {
-      try {
-        const groqApiKey = (import.meta as unknown as { env: Record<string, string> })?.env?.VITE_GROQ_API_KEY || (String.fromCharCode(103, 115, 107, 95) + ['tcB9BrgcCLnC79R4enE3', 'WGdyb3FYDWXezr3208uuaJHI1k2Niu0B'].join(''));
-        const systemPrompt = `You are AVA, a custom AI assistant built for Ayush Chatterjee's portfolio site. Visitors are mostly recruiters, hiring managers, and professional contacts evaluating him for Product Management, Business Analytics, and Consulting roles.
+      const groqApiKey = (import.meta as unknown as { env: Record<string, string> })?.env?.VITE_GROQ_API_KEY || (String.fromCharCode(103, 115, 107, 95) + ['tcB9BrgcCLnC79R4enE3', 'WGdyb3FYDWXezr3208uuaJHI1k2Niu0B'].join(''));
+      const systemPrompt = `You are AVA, a custom AI assistant built for Ayush Chatterjee's portfolio site. Visitors are mostly recruiters, hiring managers, and professional contacts evaluating him for Product Management, Business Analytics, and Consulting roles.
 
 IDENTITY RULES:
 - Introduce yourself as AVA if asked who you are.
@@ -127,37 +100,67 @@ RULES:
 - Refer to Ayush in third person.
 - Keep answers under ~150 words.`;
 
-        const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      const formattedHistory = messages
+        .filter((m) => m.text && m.text.trim().length > 0)
+        .slice(-6)
+        .map((m) => ({
+          role: m.sender === 'user' ? ('user' as const) : ('assistant' as const),
+          content: m.text,
+        }));
+
+      const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${groqApiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'openai/gpt-oss-120b',
+          max_tokens: 350,
+          temperature: 0.6,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            ...formattedHistory,
+            { role: 'user', content: text },
+          ],
+        }),
+      });
+
+      if (groqRes.ok) {
+        const groqData = await groqRes.json();
+        replyText = groqData.choices?.[0]?.message?.content || '';
+      }
+    } catch {
+      // Fallback
+    }
+
+    // 2. Fallback to /api/chat if deployed on Vercel
+    if (!replyText) {
+      try {
+        const res = await fetch('/api/chat', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${groqApiKey}`,
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'openai/gpt-oss-120b',
-            max_tokens: 350,
-            temperature: 0.6,
-            messages: [
-              { role: 'system', content: systemPrompt },
-              ...messages.slice(-6).map((m) => ({
-                role: m.sender === 'user' ? 'user' : 'assistant',
-                content: m.text,
-              })),
-              { role: 'user', content: text },
-            ],
+            message: text,
+            conversationHistory: messages.map((m) => ({
+              role: m.sender === 'user' ? 'user' : 'assistant',
+              content: m.text,
+            })),
           }),
         });
 
-        if (groqRes.ok) {
-          const groqData = await groqRes.json();
-          replyText = groqData.choices?.[0]?.message?.content || '';
+        if (res.ok) {
+          const data = await res.json();
+          if (data.reply && !data.reply.includes('is not configured')) {
+            replyText = data.reply;
+          }
         }
       } catch {
-        // Fallback to intelligent local reasoning
+        // Fallback
       }
     }
 
-    // 3. Fallback to smart structured engine if network or rate-limits occur
+    // 3. Smart offline reasoning engine
     if (!replyText) {
       replyText = getSmartLocalResponse(text);
     }
