@@ -60,10 +60,16 @@ export const ProjectsSection: React.FC = () => {
           >
             {/* Header Meta */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-4">
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
                 <span className="font-sans text-xs font-medium text-accent uppercase tracking-wider">
                   {project.category}
                 </span>
+                {project.role && (
+                  <>
+                    <span className="text-slate-600 text-xs">&bull;</span>
+                    <span className="font-sans text-xs text-slate-200 font-medium">{project.role}</span>
+                  </>
+                )}
                 <span className="text-slate-600 text-xs">&bull;</span>
                 <span className="font-sans text-xs text-slate-400 font-medium">{project.year}</span>
               </div>

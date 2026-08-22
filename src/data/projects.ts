@@ -17,8 +17,9 @@ export const projects: Project[] = [
     architectureSummary: 'Flags trigger on duplicate merchant order IDs across accounts and velocity spikes above threshold. Surfaced to administrators with full audit logs rather than hard-blocking, protecting buyer trust while preventing payout leakages.',
     liveUrl: '#',
     githubUrl: 'https://github.com/forbesayush',
+    role: 'Product Lead / Builder',
     featured: true,
-    year: '2025',
+    year: '2026',
     accentColor: '#00f0ff',
     glslPreset: 'particles'
   },

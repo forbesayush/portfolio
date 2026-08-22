@@ -9,6 +9,7 @@ export interface Project {
   architectureSummary: string;
   liveUrl?: string;
   githubUrl?: string;
+  role?: string;
   featured: boolean;
   year: string;
   accentColor: string;
