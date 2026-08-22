@@ -44,10 +44,10 @@ export const ContactSection: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4 border-b border-white/10 pb-6">
         <div>
           <span className="font-mono text-xs sm:text-sm text-cyber-cyan tracking-wider uppercase block mb-1.5 font-bold">
-            GET IN TOUCH
+            Contact
           </span>
           <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
-            START A CONVERSATION
+            Start a conversation
           </h2>
         </div>
         <div className="font-mono text-xs sm:text-sm text-slate-400 font-medium">
@@ -63,7 +63,7 @@ export const ContactSection: React.FC = () => {
               Direct Channels
             </h3>
             <p className="font-sans text-base text-slate-300 leading-relaxed font-normal">
-              Open to staff engineering roles, architecture consulting, and technical advisory.
+              Open to full-time product management and consulting roles, MBA internships, and project collaborations.
             </p>
 
             <div className="space-y-3.5 font-mono text-xs sm:text-sm">

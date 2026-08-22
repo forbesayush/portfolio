@@ -100,26 +100,27 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'whoami':
         outputNode = (
           <div className="space-y-2 text-slate-200">
-            <div className="text-cyber-cyan font-bold">AYUSH CHATTERJEE [Systems Engineer]</div>
+            <div className="text-cyber-cyan font-bold">AYUSH CHATTERJEE [MBA Candidate (2027)]</div>
             <p>
-              I work on distributed systems, browser 3D graphics, and multi-agent platforms. 8+ years of building production software.
+              MBA student at Regional College of Management focusing on IT and International Business. Working on product roadmaps, user testing analysis, and cohort analytics.
             </p>
             <div className="font-mono text-xs text-slate-400">
-              Location: San Francisco, CA | Status: Open to work
+              Location: India | Status: Open to Product &amp; Consulting Roles
             </div>
           </div>
         );
         break;
 
       case 'projects':
+      case 'casestudies':
         outputNode = (
           <div className="space-y-2 text-slate-200">
-            <div className="text-cyber-amber font-bold">PROJECTS:</div>
+            <div className="text-cyber-amber font-bold">CASE STUDIES &amp; PROJECTS:</div>
             <div className="space-y-1">
-              <div>&gt; <span className="text-cyber-cyan font-bold">AEGIS Swarm OS</span>: Distributed multi-agent runtime (Rust/Wasm)</div>
-              <div>&gt; <span className="text-cyber-amber font-bold">Chronos NeRF</span>: WebGPU volumetric rendering engine</div>
-              <div>&gt; <span className="text-cyber-neon font-bold">KyberShield Mesh</span>: Post-quantum zero-trust network</div>
-              <div>&gt; <span className="text-purple-400 font-bold">HyperFlow State</span>: Lock-free DPDK event streaming engine</div>
+              <div>&gt; <span className="text-cyber-cyan font-bold">Mobile OS Usability &amp; Bug Triage</span>: Tested 4 OS builds, logged 20+ defects at OnePlus &amp; Innovist</div>
+              <div>&gt; <span className="text-cyber-amber font-bold">E-Commerce Funnel &amp; Cohort Analytics</span>: Analyzed retention and checkout funnels across 5 online storefronts</div>
+              <div>&gt; <span className="text-cyber-neon font-bold">Retail Franchise Launch Playbook</span>: Created standardized store opening checklist and inventory tracking workflow</div>
+              <div>&gt; <span className="text-purple-400 font-bold">SaaS Market Entry Strategy</span>: Market sizing and distribution channel comparison for European and APAC expansion</div>
             </div>
           </div>
         );
@@ -128,11 +129,10 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'skills':
         outputNode = (
           <div className="space-y-2 text-slate-300 font-mono text-xs">
-            <div className="text-cyber-cyan font-bold">SKILLS:</div>
-            <div>[AI / Agents] Rust, Multi-Agent Swarms, AWQ/GGUF, Triton, HNSW Vector DB</div>
-            <div>[Graphics/WebGPU] WebGPU/WGSL, Three.js, Raymarching, Gaussian Splats</div>
-            <div>[Systems/Core] C++23, Go, DPDK, Lock-Free Queues, Raft Consensus</div>
-            <div>[Modern Web] React 19, TypeScript, Tailwind CSS, Lenis, Web Audio API</div>
+            <div className="text-cyber-cyan font-bold">SKILLS &amp; FRAMEWORKS:</div>
+            <div>[Product Management] PRDs, User Stories, RICE Prioritization, QA Bug Triage, User Journey Mapping</div>
+            <div>[Business Analytics] Power BI Dashboards, Cohort Retention Curves, Funnel Analysis, Excel Modeling</div>
+            <div>[Strategy &amp; Ops] Market Sizing (TAM/SAM/SOM), Competitor Benchmarking, Franchise Onboarding Checklists</div>
           </div>
         );
         break;
@@ -140,9 +140,18 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'experience':
         outputNode = (
           <div className="space-y-1.5 text-slate-200">
-            <div><span className="text-cyber-cyan font-bold">2025 to Present:</span> Principal Spatial &amp; AI Architect at Nexus Cognitive Labs</div>
-            <div><span className="text-cyber-amber font-bold">2023 to 2025:</span> Staff Distributed Systems Engineer at HyperScale Systems</div>
-            <div><span className="text-cyber-neon font-bold">2021 to 2023:</span> Senior Creative Technologist &amp; Graphics Lead at Voxel Studio</div>
+            <div><span className="text-cyber-cyan font-bold">Oct 2025 to Present:</span> User Experience Analyst at OnePlus &amp; Innovist</div>
+            <div><span className="text-cyber-amber font-bold">Sep 2024 to Dec 2025:</span> Business Analytics &amp; Strategy Intern at D2C Skincare Portfolio</div>
+            <div><span className="text-cyber-neon font-bold">Practical Exposure:</span> Business Operations Intern at Jewellery Retail &amp; Franchise Ops</div>
+          </div>
+        );
+        break;
+
+      case 'education':
+        outputNode = (
+          <div className="space-y-1.5 text-slate-200">
+            <div><span className="text-cyber-cyan font-bold">MBA (2025 to 2027):</span> Regional College of Management, Bhubaneswar &bull; IT &amp; International Business</div>
+            <div><span className="text-cyber-amber font-bold">BBA (2022 to 2025):</span> Regional College of Management, Bhubaneswar &bull; Business Administration</div>
           </div>
         );
         break;
@@ -152,10 +161,11 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
           outputNode = (
             <div className="space-y-2 font-mono text-xs text-slate-300">
               <div className="text-cyber-cyan font-bold">================== RESUME.TXT ==================</div>
-              <div>NAME: Ayush Chatterjee | ROLE: Systems Engineer</div>
+              <div>NAME: Ayush Chatterjee | ROLE: MBA Candidate &bull; Product &amp; Strategy</div>
+              <div>EDUCATION: MBA (IT &amp; International Business, 2027)</div>
               <div>EMAIL: ayushchatterjee.edu@gmail.com | GITHUB: github.com/forbesayush</div>
-              <div>SUMMARY: Systems engineer working on distributed infrastructure, WebGPU graphics, and AI agents.</div>
-              <div>FOCUS: Distributed systems, browser 3D, agent infrastructure.</div>
+              <div>SUMMARY: MBA student with practical exposure in product usability QA, e-commerce retention analytics, and retail operations.</div>
+              <div>FOCUS: Product Management (APM / PM), Business Analytics, Management Consulting Analyst.</div>
               <div className="text-cyber-cyan font-bold">================================================</div>
             </div>
           );
@@ -168,8 +178,9 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
         outputNode = (
           <div className="space-y-1 text-slate-200">
             <div>Email: <span className="text-cyber-cyan font-bold">ayushchatterjee.edu@gmail.com</span></div>
-            <div>GitHub: <span className="text-cyber-amber font-mono text-xs">github.com/forbesayush</span></div>
-            <div>Location: <span className="text-cyber-neon font-bold">San Francisco, CA</span></div>
+            <div>LinkedIn: <span className="text-cyber-amber font-mono text-xs">linkedin.com/in/forbesayush</span></div>
+            <div>GitHub: <span className="text-slate-300 font-mono text-xs">github.com/forbesayush</span></div>
+            <div>Location: <span className="text-cyber-neon font-bold">India</span></div>
           </div>
         );
         break;

@@ -2,107 +2,130 @@ import { SkillCategory } from '../types';
 
 export const skillCategories: SkillCategory[] = [
   {
-    category: 'AI & Agent Systems',
-    description: 'Agent architectures, custom inference kernels, and vector stores.',
+    category: 'Product Management',
+    description: 'User research, requirement documentation, prioritization frameworks, and sprint execution.',
     skills: [
       {
-        name: 'Multi-Agent Orchestration',
+        name: 'PRD & Feature Scoping',
         level: 0,
-        experience: '4+ Years',
-        description: 'Hierarchical planner and critic networks with consensus-driven decision loops.',
-        codeSnippet: `export async function resolveSwarmConsensus(nodes: AgentNode[]): Promise<DecisionMatrix> {
-  const votes = await Promise.all(nodes.map(n => n.evaluateHypothesis(context)));
-  return BFTConsensusEngine.verifyQuorum(votes, { threshold: 0.67 });
+        experience: 'Practical',
+        description: 'Writing functional specifications, user stories, acceptance criteria, and edge-case documentation.',
+        codeSnippet: `# Sample Feature Specification
+Feature: Multi-Currency Checkout Module
+Objective: Reduce payment abandonment on international storefronts.
+User Story: As an international shopper, I want prices displayed in my local currency so that I understand total costs before checkout.
+Acceptance Criteria:
+1. Auto-detect visitor location from IP header.
+2. Fallback to USD if local currency gateway is unavailable.`
+      },
+      {
+        name: 'Feature Prioritization (RICE)',
+        level: 0,
+        experience: 'Applied',
+        description: 'Evaluating feature backlogs using Reach, Impact, Confidence, and Effort scoring.',
+        codeSnippet: `// RICE Prioritization Calculation
+function calculateRICE(reach, impact, confidence, effort) {
+  // Reach: Users impacted per quarter
+  // Impact: 0.5 (minimal) to 3 (massive)
+  // Confidence: 50% to 100%
+  // Effort: Person-weeks
+  return (reach * impact * (confidence / 100)) / effort;
 }`
       },
       {
-        name: 'Fine-Tuning & Quantization',
+        name: 'QA Defect Triage',
         level: 0,
-        experience: '3+ Years',
-        description: 'LoRA, AWQ activation quantization, and custom Triton kernels.',
-        codeSnippet: `@triton.jit
-def fused_attention_kernel(Q, K, V, Out, sm_scale):
-    pid = tl.program_id(0)
-    ...`
-      },
-      {
-        name: 'Vector Indexes & HNSW',
-        level: 0,
-        experience: '4+ Years',
-        description: 'Distributed vector clustering, IVF-PQ indexing, and graph-based search.',
-        codeSnippet: `const index = new HNSWVectorIndex({ dimensions: 1536, metric: 'cosine' });
-index.buildGraphWithQuantization(embeddingsBuffer);`
+        experience: 'OnePlus Exposure',
+        description: 'Reproducing UI defects, mapping root causes, and categorizing bug severity for engineering sprints.',
+        codeSnippet: `Bug Report: [UI-204] Navigation Header Overlap on OS Build 14.2
+Severity: P2 (Major Usability)
+Steps to Reproduce:
+1. Open settings menu from notification drawer.
+2. Rotate screen to horizontal orientation.
+Expected: Header adjusts layout.
+Actual: Title overlaps back button.`
       }
     ]
   },
   {
-    category: 'Spatial & WebGL / WebGPU',
-    description: 'Compute shaders, 3D Gaussian splatting, and canvas rendering.',
+    category: 'Business Analytics',
+    description: 'Cohort analysis, funnel diagnostics, Power BI reporting, and Excel financial modeling.',
     skills: [
       {
-        name: 'WebGPU & WGSL Compute',
+        name: 'Cohort Retention Modeling',
         level: 0,
-        experience: '5+ Years',
-        description: 'GPU compute pipelines, volumetric raymarching, and particle systems.',
-        codeSnippet: `@compute @workgroup_size(64, 1, 1)
-fn cs_main(@builtin(global_invocation_id) id: vec3<u32>) {
-    let particle = particles[id.x];
-    particles[id.x].position += particle.velocity * u_time.delta;
-}`
+        experience: 'Applied',
+        description: 'Tracking customer repurchase rates and retention curves by acquisition month.',
+        codeSnippet: `// Cohort Retention Query Pattern
+SELECT 
+  DATE_TRUNC('month', first_order_date) AS cohort_month,
+  COUNT(DISTINCT customer_id) AS cohort_size,
+  COUNT(DISTINCT CASE WHEN order_month = 1 THEN customer_id END) * 100.0 / COUNT(DISTINCT customer_id) AS m1_retention,
+  COUNT(DISTINCT CASE WHEN order_month = 2 THEN customer_id END) * 100.0 / COUNT(DISTINCT customer_id) AS m2_retention
+FROM customer_orders
+GROUP BY 1;`
       },
       {
-        name: 'Three.js & R3F',
+        name: 'Funnel Drop-Off Diagnostics',
         level: 0,
-        experience: '6+ Years',
-        description: 'Scene graph optimization, instanced rendering, and custom PBR shaders.',
-        codeSnippet: `const mesh = new THREE.InstancedMesh(geometry, customShaderMaterial, 50000);
-mesh.setMatrixAt(i, dynamicTransformationMatrix);`
+        experience: 'Applied',
+        description: 'Analyzing conversion steps from product page view to successful payment confirmation.',
+        codeSnippet: `// Funnel Conversion Stages
+Stage 1: Product Detail Page Views (10,000 users)
+Stage 2: Add to Cart (2,400 users - 24% conversion)
+Stage 3: Initiate Checkout (1,200 users - 50% of carts)
+Stage 4: Payment Completed (840 orders - 70% of checkouts)
+Overall Funnel Conversion: 8.4%`
       },
       {
-        name: 'Physics & Motion',
+        name: 'Power BI & MIS Automation',
         level: 0,
-        experience: '6+ Years',
-        description: 'Spring dynamics, timeline sequencing, and smooth scroll integration.',
-        codeSnippet: `const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
-gsap.ticker.add((time) => lenis.raf(time * 1000));`
+        experience: 'Applied',
+        description: 'Building automated operational dashboards tracking revenue, order count, and AOV trends.',
+        codeSnippet: `// DAX Metric for Average Order Value (AOV)
+AOV = DIVIDE(
+    SUM(Sales[TotalRevenue]),
+    DISTINCTCOUNT(Sales[OrderID]),
+    0
+)`
       }
     ]
   },
   {
-    category: 'Distributed Systems',
-    description: 'Lock-free concurrency, kernel bypass, and Raft consensus.',
+    category: 'Strategy & Operations',
+    description: 'Market sizing, competitor benchmarking, franchise onboarding, and go-to-market planning.',
     skills: [
       {
-        name: 'Rust & WebAssembly',
+        name: 'Market Sizing & TAM Modeling',
         level: 0,
-        experience: '5+ Years',
-        description: 'SIMD vectorization, multithreading, and zero-overhead Wasm bridges.',
-        codeSnippet: `#[wasm_bindgen]
-pub fn compute_spatial_hash(points: &[f32]) -> Vec<u32> {
-    points.par_chunks_exact(3).map(|p| hash_coords(p[0], p[1], p[2])).collect()
-}`
+        experience: 'MBA Coursework',
+        description: 'Top-down and bottom-up market estimation for B2B software and retail product launches.',
+        codeSnippet: `// Market Sizing Model (TAM / SAM / SOM)
+TAM = Total Enterprise Businesses in Region * Average Annual ACV
+SAM = Addressable Segment with Cloud Infrastructure * ACV
+SOM = Target Market Share Capture (Year 1-3 Horizon)`
       },
       {
-        name: 'Lock-Free Queues & DPDK',
+        name: 'Franchise & Retail Operations',
         level: 0,
-        experience: '4+ Years',
-        description: 'Atomic memory ordering, ring buffers, and kernel bypass ingestion.',
-        codeSnippet: `std::atomic<size_t> head_{0}, tail_{0};
-void push(T item) {
-    auto current_tail = tail_.load(std::memory_order_relaxed);
-    ...
-}`
+        experience: 'Practical Exposure',
+        description: 'Standard operating procedures, inventory audit checklists, and store launch timelines.',
+        codeSnippet: `Checklist: Retail Outlet Onboarding
+[X] Lease agreement and municipal licensing completed
+[X] POS hardware and barcode scanner connectivity tested
+[X] Initial inventory intake and SKU audit reconciled
+[X] Store staff customer service guidelines briefed`
       },
       {
-        name: 'Distributed Consensus',
+        name: 'Competitor Benchmarking',
         level: 0,
-        experience: '5+ Years',
-        description: 'Leader election, log replication, snapshotting, and cluster reconfiguration.',
-        codeSnippet: `func (n *RaftNode) RequestVote(ctx context.Context, req *VoteRequest) (*VoteResponse, error) {
-    n.mu.Lock()
-    defer n.mu.Unlock()
-    return n.processVoteCandidate(req)
-}`
+        experience: 'Applied',
+        description: 'Comparing product feature parity, pricing tiers, customer reviews, and market positioning.',
+        codeSnippet: `Framework: Feature & Value Matrix
+Criteria Evaluated:
+- Pricing model (Subscription vs Tiered vs Pay-as-you-go)
+- Core feature parity and unique workflow advantages
+- Customer support response time and onboarding speed`
       }
     ]
   }

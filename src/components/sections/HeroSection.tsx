@@ -16,22 +16,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
           {/* Status Label */}
           <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs sm:text-sm font-mono text-slate-200">
             <span className="w-2 h-2 rounded-full bg-cyber-neon animate-pulse" />
-            <span className="font-medium">Available for staff roles and advisory</span>
+            <span className="font-medium">MBA Candidate (2027), Regional College of Management</span>
           </div>
 
           {/* Main Headline */}
-          <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] tracking-tight text-white leading-[0.96]">
-            I BUILD <br />
+          <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[6.2rem] tracking-tight text-white leading-[0.96]">
+            PRODUCT &amp; <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan via-white to-cyber-neon">
-              SYSTEMS
+              BUSINESS
             </span>
             <br />
-            THAT SHIP.
+            STRATEGY.
           </h1>
 
-          {/* Subtitle: Bigger, punchier font */}
+          {/* Subtitle: Direct, specific, one idea per sentence */}
           <p className="max-w-xl text-lg sm:text-xl md:text-2xl text-slate-300 font-sans leading-relaxed font-normal">
-            I'm <strong className="text-white font-semibold">Ayush Chatterjee</strong>. I build distributed backends, WebGPU shaders, and agent infrastructure in Rust, C++, and TypeScript.
+            I'm <strong className="text-white font-semibold">Ayush Chatterjee</strong>. I evaluate user friction, analyze retention funnels, and build product roadmaps backed by data.
           </p>
 
           {/* Action Buttons */}
@@ -43,7 +43,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
               data-cursor-text="WORK"
               className="px-7 py-3.5 rounded-xl bg-cyber-cyan text-black font-mono font-bold text-xs sm:text-sm tracking-wider uppercase hover:bg-cyber-neon transition-all duration-300 flex items-center gap-2 shadow-glow-cyan"
             >
-              <span>See My Work</span>
+              <span>View Case Studies</span>
               <ArrowDown className="w-4 h-4" />
             </a>
 
@@ -75,45 +75,45 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
           </div>
         </div>
 
-        {/* Right Column: Asymmetric Technical Spec Card */}
+        {/* Right Column: Asymmetric Core Competency Card */}
         <div className="lg:col-span-5 space-y-4">
           <div className="p-7 sm:p-8 rounded-2xl bg-[#090b10] border border-white/10 space-y-6 shadow-2xl">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <span className="font-mono text-xs sm:text-sm text-cyber-cyan uppercase font-bold tracking-wider">
-                CORE DISCIPLINES
+              <span className="font-mono text-xs sm:text-sm text-cyber-cyan font-bold tracking-wider">
+                CORE FOCUS AREAS
               </span>
-              <span className="font-mono text-xs text-slate-400 font-semibold">2025</span>
+              <span className="font-mono text-xs text-slate-400 font-semibold">MBA 2027</span>
             </div>
 
             <div className="space-y-3.5 font-mono text-xs sm:text-sm">
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-start justify-between">
                 <div>
-                  <span className="text-white font-bold block text-sm sm:text-base">Distributed Engines</span>
-                  <span className="text-slate-400 text-xs">Rust, DPDK, lock-free queues</span>
+                  <span className="text-white font-bold block text-sm sm:text-base">Product Management</span>
+                  <span className="text-slate-400 text-xs">PRDs, RICE scoring, QA bug triage</span>
                 </div>
-                <span className="text-cyber-cyan font-mono text-xs sm:text-sm font-bold">45K ops/s</span>
+                <span className="text-cyber-cyan font-mono text-xs sm:text-sm font-bold">20+ Bugs Evaluated</span>
               </div>
 
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-start justify-between">
                 <div>
-                  <span className="text-white font-bold block text-sm sm:text-base">WebGPU & 3D Shaders</span>
-                  <span className="text-slate-400 text-xs">WGSL, Gaussian splats, Three.js</span>
+                  <span className="text-white font-bold block text-sm sm:text-base">Business Analytics</span>
+                  <span className="text-slate-400 text-xs">Power BI, cohort retention, Excel models</span>
                 </div>
-                <span className="text-cyber-amber font-mono text-xs sm:text-sm font-bold">120 FPS</span>
+                <span className="text-cyber-amber font-mono text-xs sm:text-sm font-bold">-35% Report Time</span>
               </div>
 
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-start justify-between">
                 <div>
-                  <span className="text-white font-bold block text-sm sm:text-base">Security & Cryptography</span>
-                  <span className="text-slate-400 text-xs">Post-quantum ML-KEM, eBPF</span>
+                  <span className="text-white font-bold block text-sm sm:text-base">Operations &amp; Strategy</span>
+                  <span className="text-slate-400 text-xs">Franchise setup, market sizing, GTM</span>
                 </div>
-                <span className="text-cyber-neon font-mono text-xs sm:text-sm font-bold">NIST L5</span>
+                <span className="text-cyber-neon font-mono text-xs sm:text-sm font-bold">5 Stores Audited</span>
               </div>
             </div>
 
             <div className="pt-3 border-t border-white/5 flex items-center justify-between font-mono text-xs sm:text-sm text-slate-400">
-              <span className="font-medium">Experience: 8+ years</span>
-              <span className="text-slate-200 font-semibold">San Francisco, CA</span>
+              <span className="font-medium">Specialization: IT &amp; International Business</span>
+              <span className="text-slate-200 font-semibold">India</span>
             </div>
           </div>
         </div>

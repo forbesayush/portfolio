@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GitCommit, RefreshCw } from 'lucide-react';
 import { soundManager } from '../../audio/soundManager';
 
-export const TelemetrySection: React.FC = () => {
+export const ActivitySection: React.FC = () => {
   const [repoData, setRepoData] = useState<{ name: string; stars: number; language: string; updated: string }[]>([
     { name: 'portfolio', stars: 0, language: 'TypeScript', updated: 'Recently' },
   ]);
@@ -46,14 +46,14 @@ export const TelemetrySection: React.FC = () => {
   };
 
   return (
-    <section id="telemetry" className="py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto relative z-10 text-left">
+    <section id="activity" className="py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto relative z-10 text-left">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-white/10 pb-6">
         <div>
           <span className="font-mono text-xs sm:text-sm text-cyber-cyan tracking-wider uppercase block mb-1.5 font-bold">
-            OPEN SOURCE
+            Public repositories
           </span>
           <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
-            RECENT ACTIVITY
+            Recent activity
           </h2>
         </div>
         <div className="flex items-center gap-3 font-mono text-xs sm:text-sm text-slate-400">

@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="relative z-10 border-t border-white/10 bg-background-secondary/80 backdrop-blur-xl mt-24">
-      {/* Top Telemetry Ribbon */}
+      {/* Top Status Ribbon */}
       <div className="border-b border-white/5 py-3 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] text-slate-400">
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
@@ -76,7 +76,7 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-sm text-slate-400 font-sans max-w-md leading-relaxed">
-              I build distributed systems, WebGPU graphics, and AI agent infrastructure. When I'm not coding, I'm probably reading kernel source or tuning shaders.
+              MBA candidate focusing on product management, business analytics, and strategy. Interested in building products backed by customer research and data.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
@@ -118,7 +118,7 @@ export const Footer: React.FC = () => {
           {/* Timezones */}
           <div>
             <h4 className="font-mono text-xs text-cyber-cyan tracking-wider uppercase mb-3">
-              TIME ZONES
+              Time zones
             </h4>
             <div className="space-y-2 font-mono text-xs text-slate-300">
               <div className="flex justify-between py-1 border-b border-white/5">
@@ -144,11 +144,11 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col justify-between">
             <div>
               <h4 className="font-mono text-xs text-cyber-amber tracking-wider uppercase mb-3">
-                NAVIGATION
+                Navigation
               </h4>
               <ul className="space-y-1.5 font-mono text-xs text-slate-400">
-                <li><a href="#telemetry" className="hover:text-cyber-cyan transition-colors">Activity</a></li>
-                <li><a href="#projects" className="hover:text-cyber-cyan transition-colors">Projects</a></li>
+                <li><a href="#activity" className="hover:text-cyber-cyan transition-colors">Activity</a></li>
+                <li><a href="#projects" className="hover:text-cyber-cyan transition-colors">Case studies</a></li>
                 <li><a href="#skills" className="hover:text-cyber-cyan transition-colors">Skills</a></li>
                 <li><a href="#experience" className="hover:text-cyber-cyan transition-colors">Experience</a></li>
               </ul>
@@ -159,7 +159,7 @@ export const Footer: React.FC = () => {
               onMouseEnter={() => soundManager.playHover()}
               className="mt-6 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-cyber-cyan/10 border border-white/10 hover:border-cyber-cyan/40 text-xs font-mono text-slate-300 hover:text-cyber-cyan transition-all group"
             >
-              <span>RETURN TO TOP</span>
+              <span>Return to top</span>
               <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-1 transition-transform" />
             </button>
           </div>

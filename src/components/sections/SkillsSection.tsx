@@ -26,10 +26,10 @@ export const SkillsSection: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 border-b border-white/10 pb-6">
         <div>
           <span className="font-mono text-xs sm:text-sm text-cyber-neon tracking-wider uppercase block mb-1.5 font-bold">
-            STACK &amp; KERNELS
+            Capabilities
           </span>
           <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
-            WHAT I WORK WITH
+            Skills and frameworks
           </h2>
         </div>
 
@@ -98,7 +98,7 @@ export const SkillsSection: React.FC = () => {
           })}
         </div>
 
-        {/* Right: Code Sandbox Panel */}
+        {/* Right: Code / Document Sandbox Panel */}
         <div className="lg:col-span-7 rounded-2xl bg-[#090b10] border border-white/10 overflow-hidden shadow-2xl">
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/10">
@@ -122,15 +122,15 @@ export const SkillsSection: React.FC = () => {
 
           {/* Code Body */}
           <div className="p-6 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto bg-black/80">
-            <pre className="text-cyber-cyan/95 font-mono">
-              <code>{currentSkill.codeSnippet || '// No code snippet'}</code>
+            <pre className="text-cyber-cyan/95 font-mono whitespace-pre-wrap">
+              <code>{currentSkill.codeSnippet || '// No preview available'}</code>
             </pre>
           </div>
 
           {/* Footer */}
           <div className="px-6 py-3.5 bg-white/5 border-t border-white/5 font-mono text-xs text-slate-400 flex justify-between font-medium">
-            <span>Environment: Production Tested</span>
-            <span className="text-slate-300">TypeScript / Rust / WGSL</span>
+            <span>Framework: Practical Application</span>
+            <span className="text-slate-300">Product / Analytics / Strategy</span>
           </div>
         </div>
       </div>

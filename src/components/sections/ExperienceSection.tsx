@@ -17,14 +17,14 @@ export const ExperienceSection: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4 border-b border-white/10 pb-6">
         <div>
           <span className="font-mono text-xs sm:text-sm text-cyber-cyan tracking-wider uppercase block mb-1.5 font-bold">
-            CAREER HISTORY
+            Career history
           </span>
           <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
-            WHERE I'VE WORKED
+            Work experience
           </h2>
         </div>
         <div className="font-mono text-xs sm:text-sm text-slate-400 font-medium">
-          8+ years building production software
+          Product &bull; Analytics &bull; Operations
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export const ExperienceSection: React.FC = () => {
                   {/* Highlights */}
                   <div className="space-y-2.5">
                     <span className="font-mono text-xs sm:text-sm text-cyber-amber uppercase tracking-wider block font-bold">
-                      KEY DELIVERABLES
+                      Key deliverables
                     </span>
                     <ul className="space-y-2 font-sans text-sm sm:text-base text-slate-300">
                       {exp.achievements.map((ach, aIdx) => (

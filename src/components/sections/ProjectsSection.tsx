@@ -35,10 +35,10 @@ export const ProjectsSection: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b border-white/10 pb-6 text-left">
         <div>
           <span className="font-mono text-xs sm:text-sm text-cyber-amber tracking-wider uppercase block mb-1.5 font-bold">
-            SELECTED WORK
+            Case studies
           </span>
           <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
-            THINGS I'VE BUILT
+            Selected work
           </h2>
         </div>
 

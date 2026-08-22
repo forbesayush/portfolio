@@ -21,11 +21,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
   }, []);
 
   const navLinks = [
-    { label: 'ACTIVITY', href: '#telemetry' },
-    { label: 'PROJECTS', href: '#projects' },
-    { label: 'SKILLS', href: '#skills' },
-    { label: 'EXPERIENCE', href: '#experience' },
-    { label: 'CONTACT', href: '#contact' },
+    { label: 'Case studies', href: '#projects' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Activity', href: '#activity' },
+    { label: 'Contact', href: '#contact' },
   ];
 
   return (
@@ -54,7 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
               AYUSH CHATTERJEE
             </span>
             <span className="text-[11px] font-mono text-slate-400 font-medium tracking-wider">
-              SYSTEMS ENGINEER
+              MBA CANDIDATE &bull; PRODUCT &amp; STRATEGY
             </span>
           </div>
         </a>

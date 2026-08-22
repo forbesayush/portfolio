@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   tagline: string;
   description: string;
-  category: 'AI Systems' | 'Spatial & WebGL' | 'Distributed Systems' | 'Quantum & Security';
+  category: 'Product Management' | 'Business Analytics' | 'Operations & Strategy' | 'Strategy & Consulting';
   tags: string[];
   metrics: { label: string; value: string }[];
   architectureSummary: string;
@@ -20,7 +20,7 @@ export interface SkillCategory {
   description: string;
   skills: {
     name: string;
-    level: number; // 1-100
+    level: number;
     experience: string;
     description: string;
     codeSnippet?: string;
@@ -40,11 +40,7 @@ export interface ExperienceItem {
   architecturalImpact: string;
 }
 
-export interface TelemetryData {
+export interface ActivityData {
   timezones: { city: string; timezone: string; label: string }[];
-  uptime: string;
-  activeAgents: number;
-  memoryUsage: string;
-  latency: string;
-  coreVersion: string;
+  status: string;
 }

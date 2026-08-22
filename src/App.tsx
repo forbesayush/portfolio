@@ -5,7 +5,7 @@ import { CustomCursor } from './components/common/CustomCursor';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { HeroSection } from './components/sections/HeroSection';
-import { TelemetrySection } from './components/sections/TelemetrySection';
+import { ActivitySection } from './components/sections/ActivitySection';
 import { ProjectsSection } from './components/sections/ProjectsSection';
 import { SkillsSection } from './components/sections/SkillsSection';
 import { ExperienceSection } from './components/sections/ExperienceSection';
@@ -77,14 +77,14 @@ export function App() {
           onOpenAI={() => setIsAIOpen(true)}
           onOpenTerminal={() => setIsTerminalOpen(true)}
         />
-        <TelemetrySection />
+        <ActivitySection />
         <ProjectsSection />
         <SkillsSection />
         <ExperienceSection />
         <ContactSection />
       </main>
 
-      {/* Telemetry Footer */}
+      {/* Main Footer */}
       <Footer />
 
       {/* Interactive AI Persona Modal */}

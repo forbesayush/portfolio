@@ -249,29 +249,33 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
 function generateAIResponse(query: string): string {
   const q = query.toLowerCase();
 
-  if (q.includes('aegis') || q.includes('swarm') || q.includes('agent')) {
-    return "AEGIS is a distributed agent runtime I built in Rust and WebAssembly. It coordinates LLM agents using lock-free ring buffers with BFT consensus. The throughput sits around 45K ops/s in benchmarks.";
+  if (q.includes('oneplus') || q.includes('qa') || q.includes('bug') || q.includes('defect')) {
+    return "At OnePlus and Innovist, Ayush evaluated 4 OS builds and logged root causes for 20+ interface bugs. His reports helped reduce post-release defect recurrence by 22%.";
   }
 
-  if (q.includes('webgpu') || q.includes('nerf') || q.includes('3d') || q.includes('graphics')) {
-    return "I spend a lot of time on WebGPU and spatial rendering. The Chronos NeRF project does 6DoF volumetric rendering in the browser using custom WGSL compute shaders and 3D Gaussian splatting.";
+  if (q.includes('d2c') || q.includes('analytics') || q.includes('cohort') || q.includes('retention') || q.includes('power bi')) {
+    return "During his analytics internship, Ayush built cohort retention models across 5 online storefronts. He automated reporting workflows in Power BI, cutting weekly report prep time by 35%.";
   }
 
-  if (q.includes('hire') || q.includes('role') || q.includes('open') || q.includes('opportunity') || q.includes('salary')) {
-    return "I'm open to Staff and Principal Architect roles, especially anything involving agent infrastructure, spatial computing, or distributed systems. Best way to reach me is the contact form below or email ayushchatterjee.edu@gmail.com.";
+  if (q.includes('mba') || q.includes('education') || q.includes('college') || q.includes('degree')) {
+    return "Ayush is an MBA candidate at Regional College of Management, graduating in 2027. His dual specialization is Information Technology and International Business.";
+  }
+
+  if (q.includes('hire') || q.includes('role') || q.includes('open') || q.includes('opportunity') || q.includes('intern')) {
+    return "Ayush is looking for full-time Product Manager, Associate Product Manager, and Consulting Analyst roles, as well as MBA internships. You can reach him at ayushchatterjee.edu@gmail.com.";
   }
 
   if (q.includes('schedule') || q.includes('intro') || q.includes('call') || q.includes('interview')) {
-    return "Sure, check the Contact section at the bottom. Drop your details and I'll send over a booking link for a 30-minute chat.";
+    return "You can use the contact form at the bottom of the page or email ayushchatterjee.edu@gmail.com directly to schedule a conversation.";
   }
 
-  if (q.includes('skill') || q.includes('tech stack') || q.includes('rust') || q.includes('c++')) {
-    return "Main languages: Rust, C++23, TypeScript, WGSL, GLSL, Go, Python. On the AI side I work with multi-agent systems, AWQ quantization, HNSW vector indexes. Graphics-wise it's WebGPU, Three.js, R3F. Systems stuff includes lock-free queues, DPDK, Raft consensus.";
+  if (q.includes('skill') || q.includes('tool') || q.includes('framework') || q.includes('rice') || q.includes('prd')) {
+    return "Ayush works with PRDs, user stories, RICE feature scoring, and QA bug triage. For analytics, he uses Power BI, Excel cohort modeling, Google Analytics, and SQL basics.";
   }
 
-  if (q.includes('who') || q.includes('ayush') || q.includes('bio')) {
-    return "Ayush is a systems engineer with 8+ years of experience. He's worked on distributed infrastructure, won design awards for interactive web experiences, and currently focuses on edge AI and WebGPU rendering.";
+  if (q.includes('who') || q.includes('ayush') || q.includes('bio') || q.includes('about')) {
+    return "Ayush Chatterjee is an MBA candidate with hands-on experience in product usability analysis, e-commerce retention modeling, and retail operations.";
   }
 
-  return `Good question about "${query}". Ayush works on distributed architectures, browser-based 3D graphics, and autonomous agent systems. Check out the project cards above or reach out through the contact form.`;
+  return `Thanks for asking about "${query}". Ayush is an MBA candidate focused on product management, business analytics, and strategy. Check the case studies above or use the contact form to reach him.`;
 }
