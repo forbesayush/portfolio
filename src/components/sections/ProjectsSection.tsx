@@ -3,14 +3,15 @@ import { ExternalLink, Github, X } from 'lucide-react';
 import { projects } from '../../data/projects';
 import { Project } from '../../types';
 import { soundManager } from '../../audio/soundManager';
+import { CohortRetentionChart } from '../analytics/CohortRetentionChart';
 
 export const ProjectsSection: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('All Systems');
+  const [activeCategory, setActiveCategory] = useState<string>('ALL');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const categories = ['All Systems', 'AI Systems', 'Spatial & WebGL', 'Distributed Systems', 'Quantum & Security'];
+  const categories = ['ALL', 'Product Management', 'Business Analytics', 'Operations & Strategy', 'Strategy & Consulting'];
 
-  const filteredProjects = activeCategory === 'All Systems'
+  const filteredProjects = activeCategory === 'ALL'
     ? projects
     : projects.filter((p) => p.category === activeCategory);
 
@@ -133,14 +134,14 @@ export const ProjectsSection: React.FC = () => {
         })}
       </div>
 
-      {/* Blueprint Details Modal */}
+      {/* Project Detail Modal */}
       {selectedProject && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
           onClick={handleCloseModal}
         >
           <div
-            className="relative w-full max-w-2xl bg-[#090b10] border border-white/20 rounded-xl shadow-2xl p-6 sm:p-8 overflow-y-auto max-h-[90vh] animate-in zoom-in-95 duration-200 text-left"
+            className="relative w-full max-w-3xl bg-background-card border border-white/15 rounded-2xl shadow-2xl p-6 sm:p-8 overflow-y-auto max-h-[90vh] animate-in zoom-in-95 duration-200 text-left"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -156,52 +157,62 @@ export const ProjectsSection: React.FC = () => {
             {/* Modal Body */}
             <div className="space-y-6">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-cyber-cyan font-bold uppercase">
+                <span className="font-sans text-xs text-accent font-medium uppercase tracking-wider">
                   {selectedProject.category}
                 </span>
-                <span className="text-slate-600 font-mono text-xs">/</span>
-                <span className="font-mono text-xs text-slate-400">{selectedProject.year}</span>
+                <span className="text-slate-600 text-xs">&bull;</span>
+                <span className="font-sans text-xs text-slate-400">{selectedProject.year}</span>
               </div>
 
               <div>
-                <h2 className="font-display font-black text-3xl text-white mb-1">
+                <h2 className="font-serif font-medium text-3xl sm:text-4xl text-white mb-1.5">
                   {selectedProject.title}
                 </h2>
-                <p className="font-mono text-sm text-slate-300">
+                <p className="font-sans text-sm text-slate-300">
                   {selectedProject.tagline}
                 </p>
               </div>
 
-              <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                <span className="font-mono text-xs text-cyber-amber uppercase tracking-wider block mb-2 font-bold">
-                  HOW IT WORKS
+              <div className="p-5 rounded-xl bg-white/5 border border-white/10 space-y-2">
+                <span className="font-sans text-xs text-accent uppercase tracking-wider block font-medium">
+                  Summary and findings
                 </span>
-                <p className="text-sm text-slate-300 font-sans leading-relaxed">
+                <p className="text-sm text-slate-200 font-sans leading-relaxed font-normal">
                   {selectedProject.architectureSummary}
                 </p>
               </div>
 
+              {/* Embedded Interactive Chart Component for Cohort Retention */}
+              {selectedProject.id === 'd2c-cohort-analytics' && (
+                <div className="pt-2">
+                  <span className="font-sans text-xs text-accent uppercase tracking-wider block mb-3 font-medium">
+                    Interactive cohort retention analysis
+                  </span>
+                  <CohortRetentionChart />
+                </div>
+              )}
+
               <div>
-                <span className="font-mono text-xs text-slate-400 uppercase tracking-wider block mb-3 font-bold">
-                  KEY METRICS
+                <span className="font-sans text-xs text-slate-400 uppercase tracking-wider block mb-3 font-medium">
+                  Key deliverables &amp; metrics
                 </span>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {selectedProject.metrics.map((m, i) => (
-                    <div key={i} className="p-3 rounded-lg bg-white/5 border border-white/5">
-                      <span className="font-mono text-[10px] text-slate-400 block mb-0.5">{m.label}</span>
-                      <span className="font-display font-bold text-base text-white">{m.value}</span>
+                    <div key={i} className="p-3 rounded-xl bg-white/5 border border-white/5">
+                      <span className="font-sans text-xs text-slate-400 block mb-0.5">{m.label}</span>
+                      <span className="font-serif font-medium text-base sm:text-lg text-white">{m.value}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div>
-                <span className="font-mono text-xs text-slate-400 uppercase tracking-wider block mb-2 font-bold">
-                  STACK
+                <span className="font-sans text-xs text-slate-400 uppercase tracking-wider block mb-2 font-medium">
+                  Tools &amp; frameworks
                 </span>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {selectedProject.tags.map((t) => (
-                    <span key={t} className="px-2.5 py-1 rounded text-xs font-mono bg-white/5 border border-white/10 text-slate-200">
+                    <span key={t} className="px-2.5 py-1 rounded-md text-xs font-sans bg-white/5 border border-white/10 text-slate-300 font-normal">
                       {t}
                     </span>
                   ))}
@@ -216,10 +227,10 @@ export const ProjectsSection: React.FC = () => {
                   rel="noreferrer"
                   onMouseEnter={() => soundManager.playHover()}
                   onClick={() => soundManager.playClick()}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs transition-all border border-white/10"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-sans text-xs transition-all border border-white/10 font-medium"
                 >
                   <Github className="w-4 h-4" />
-                  <span>GitHub Repository</span>
+                  <span>GitHub repository</span>
                 </a>
               </div>
             </div>
