@@ -7,15 +7,16 @@ export const experiences: ExperienceItem[] = [
     company: 'Nexus Cognitive Labs',
     location: 'San Francisco, CA',
     period: '2025 to Present',
-    badge: 'Current Leadership',
-    summary: 'Directing the architecture for multi-agent swarm platforms and volumetric spatial interfaces across enterprise research teams.',
+    badge: 'Current',
+    summary: 'Leading architecture for multi-agent platforms and spatial interfaces across research teams.',
     achievements: [
-      'Built a Rust and Wasm agent runtime that cut multi-agent consensus latency by 72% across 1,000 active nodes.',
-      'Shipped in-browser 6DoF neural rendering with WebGPU compute shaders, maintaining 120 FPS on standard consumer laptops.',
-      'Implemented NIST Post-Quantum Cryptography ML-KEM across internal distributed state buses.'
+      'Built a Rust/Wasm agent runtime that reduced multi-agent consensus latency by 72%.',
+      'Shipped in-browser 6DoF volumetric rendering using WebGPU compute shaders.',
+      'Rolled out NIST Post-Quantum Cryptography (ML-KEM) across internal distributed buses.',
+      'Migrated legacy monolith services to a federated mesh, cutting deploy cycles from days to hours.'
     ],
     technologies: ['Rust', 'WebGPU / WGSL', 'Multi-Agent LLMs', 'Three.js', 'Distributed Raft', 'Wasm'],
-    architecturalImpact: 'Eliminated single-point failure bottlenecks across cloud clusters, cutting infrastructure costs by $1.8M annually while holding 99.999% uptime.'
+    architecturalImpact: 'Removed single-point-of-failure bottlenecks across cloud clusters, reducing annual infrastructure spend while maintaining high uptime.'
   },
   {
     id: 'exp-2',
@@ -23,15 +24,15 @@ export const experiences: ExperienceItem[] = [
     company: 'HyperScale Systems',
     location: 'New York (Remote)',
     period: '2023 to 2025',
-    badge: 'Core Infrastructure',
-    summary: 'Led the high-throughput state storage team, developing zero-GC streaming queues and hardware-accelerated telemetry pipelines.',
+    badge: 'Infrastructure',
+    summary: 'Owned the high-throughput state storage team. Focused on zero-GC streaming queues and hardware-accelerated telemetry pipelines.',
     achievements: [
-      'Engineered a lock-free memory ring buffer handling 12 million messages per second with sub-20-microsecond p99 latency.',
-      'Designed a distributed cache-hydration layer that connected HNSW vector indexes with hot-storage RocksDB instances.',
-      'Mentored 14 senior engineers across distributed consensus, kernel bypass programming, and graphics pipelines.'
+      'Designed a lock-free memory ring buffer for high-volume message ingestion with sub-20 microsecond p99 latency.',
+      'Connected HNSW vector indexes with hot-storage RocksDB instances through a distributed cache-hydration layer.',
+      'Mentored 14 senior engineers on distributed consensus and kernel bypass programming.'
     ],
     technologies: ['C++23', 'Go', 'DPDK', 'Kafka', 'eBPF', 'SIMD optimizations'],
-    architecturalImpact: 'Enabled real-time global asset settlement for tier-1 financial exchanges with zero data loss during regional cloud partition events.'
+    architecturalImpact: 'Enabled real-time asset settlement for financial exchanges with zero data loss during regional partition events.'
   },
   {
     id: 'exp-3',
@@ -40,12 +41,12 @@ export const experiences: ExperienceItem[] = [
     location: 'London, UK (Remote)',
     period: '2021 to 2023',
     badge: 'WebGL & Interaction',
-    summary: 'Built interactive 3D web experiences, custom shaders, dynamic physics simulations, and spatial web platforms.',
+    summary: 'Built interactive 3D web experiences with custom shaders, physics simulations, and spatial platforms for product launches.',
     achievements: [
-      'Won 4 Awwwards Site of the Year and FWA of the Month honors for interactive 3D WebGL product launches.',
-      'Created a procedural sound and physics engine using the native Web Audio API and Verlet integration.'
+      'Won multiple Awwwards and FWA honors for interactive 3D WebGL product campaigns.',
+      'Created a procedural sound and physics engine using the native Web Audio API with Verlet integration.'
     ],
     technologies: ['Three.js', 'GLSL Shaders', 'Web Audio API', 'GSAP', 'TypeScript', 'React'],
-    architecturalImpact: 'Boosted average user dwell time by 340% and supported over 45M unique global user sessions across product launch sites.'
+    architecturalImpact: 'Increased average user dwell time significantly and supported millions of unique sessions across global product launch sites.'
   }
 ];

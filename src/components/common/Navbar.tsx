@@ -21,9 +21,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
   }, []);
 
   const navLinks = [
-    { label: 'TELEMETRY', href: '#telemetry' },
+    { label: 'ACTIVITY', href: '#telemetry' },
     { label: 'PROJECTS', href: '#projects' },
-    { label: 'SKILLS MATRIX', href: '#skills' },
+    { label: 'SKILLS', href: '#skills' },
     { label: 'EXPERIENCE', href: '#experience' },
     { label: 'CONTACT', href: '#contact' },
   ];
@@ -54,7 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
               AYUSH CHATTERJEE
             </span>
             <span className="text-[10px] font-mono text-slate-400 tracking-tight">
-              SPATIAL &amp; AI ARCHITECT
+              SYSTEMS ENGINEER
             </span>
           </div>
         </a>
@@ -86,12 +86,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
               onOpenAI();
             }}
             onMouseEnter={() => soundManager.playHover()}
-            data-cursor-text="NEURAL"
+            data-cursor-text="ASK"
             className="group flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyber-cyan/10 hover:bg-cyber-cyan/20 border border-cyber-cyan/30 hover:border-cyber-cyan text-xs font-mono text-cyber-cyan transition-all duration-300 shadow-glow-cyan/10"
-            title="Open Neural Core AI Assistant"
+            title="Ask AI about me"
           >
             <Bot className="w-3.5 h-3.5 group-hover:rotate-12 transition-transform" />
-            <span className="hidden sm:inline">AI CORE</span>
+            <span className="hidden sm:inline">ASK AI</span>
             <Sparkles className="w-2.5 h-2.5 animate-pulse text-cyber-neon" />
           </button>
 
@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
               }}
               className="flex-1 py-2 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan font-mono text-xs flex items-center justify-center gap-1.5"
             >
-              <Bot className="w-3.5 h-3.5" /> Neural AI
+              <Bot className="w-3.5 h-3.5" /> Ask AI
             </button>
             <button
               onClick={() => {

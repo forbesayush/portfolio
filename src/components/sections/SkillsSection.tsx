@@ -27,10 +27,10 @@ export const SkillsSection: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 text-cyber-neon font-mono text-xs tracking-widest uppercase mb-2">
             <Cpu className="w-3.5 h-3.5 text-cyber-neon" />
-            <span>HOLOGRAPHIC SKILL MATRIX</span>
+            <span>SKILLS</span>
           </div>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-            CORE MASTERY &amp; SYSTEM KERNELS
+            WHAT I WORK WITH
           </h2>
         </div>
 
@@ -75,7 +75,7 @@ export const SkillsSection: React.FC = () => {
                   setSelectedSkillIndex(idx);
                 }}
                 onMouseEnter={() => soundManager.playHover()}
-                data-cursor-text="INSPECT"
+                data-cursor-text="VIEW"
                 className={`p-5 rounded-2xl border transition-all duration-300 cursor-pointer ${
                   isSelected
                     ? 'bg-surface-glass-hover border-cyber-neon/60 shadow-glow-neon/20 -translate-x-1'
@@ -86,9 +86,6 @@ export const SkillsSection: React.FC = () => {
                   <h4 className="font-display font-bold text-white text-base">
                     {skill.name}
                   </h4>
-                  <span className="font-mono text-xs text-cyber-neon font-bold">
-                    {skill.level}%
-                  </span>
                 </div>
 
                 <p className="font-sans text-xs text-slate-300 mb-3 leading-relaxed">
@@ -107,7 +104,7 @@ export const SkillsSection: React.FC = () => {
                   <span>EXPERIENCE: {skill.experience}</span>
                   <span className="text-cyber-cyan flex items-center gap-1">
                     <Code2 className="w-3 h-3" />
-                    {isSelected ? 'ACTIVE SANDBOX' : 'CLICK TO VIEW CODE'}
+                    {isSelected ? 'CODE PREVIEW' : 'CLICK TO VIEW CODE'}
                   </span>
                 </div>
               </div>
@@ -122,7 +119,7 @@ export const SkillsSection: React.FC = () => {
             <div className="flex items-center gap-3">
               <Terminal className="w-4 h-4 text-cyber-neon" />
               <span className="font-mono text-xs text-slate-300 font-bold">
-                {currentSkill.name} (Architecture Kernel)
+                {currentSkill.name} (Example)
               </span>
             </div>
 
@@ -146,8 +143,8 @@ export const SkillsSection: React.FC = () => {
 
           {/* Sandbox Info Footer */}
           <div className="px-5 py-3 bg-white/5 border-t border-white/5 font-mono text-[11px] text-slate-400 flex justify-between">
-            <span>RUNTIME: 2027 Edge Node V8 + SIMD Wasm</span>
-            <span className="text-cyber-neon">VERIFIED PRODUCTION COMPATIBLE</span>
+            <span>RUNTIME: Node.js / Browser</span>
+            <span className="text-cyber-neon">EXAMPLE SNIPPET</span>
           </div>
         </div>
       </div>

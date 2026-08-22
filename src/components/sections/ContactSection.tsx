@@ -7,7 +7,7 @@ export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    topic: 'Staff Architecture Opportunity',
+    topic: 'Job Opportunity',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,14 +55,14 @@ export const ContactSection: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 text-cyber-cyan font-mono text-xs tracking-widest uppercase mb-2">
             <Radio className="w-3.5 h-3.5 text-cyber-cyan animate-pulse" />
-            <span>QUANTUM CONTACT NODE</span>
+            <span>CONTACT</span>
           </div>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-            ESTABLISH SECURE TRANSMISSION
+            GET IN TOUCH
           </h2>
         </div>
         <div className="font-mono text-xs text-slate-400">
-          PGP ENCRYPTED (INSTANT DISPATCH)
+          I usually reply within a day
         </div>
       </div>
 
@@ -71,10 +71,10 @@ export const ContactSection: React.FC = () => {
         <div className="lg:col-span-5 space-y-6">
           <div className="p-7 rounded-2xl bg-surface-glass border border-white/10 backdrop-blur-xl shadow-spatial space-y-6">
             <h3 className="font-display font-bold text-xl text-white">
-              Direct Communication Channels
+              Reach Me
             </h3>
             <p className="font-sans text-sm text-slate-300 leading-relaxed">
-              Available for staff and principal architecture roles, strategic AI or spatial computing advisory, and technical masterclasses.
+              I'm open to staff and principal architecture roles, advisory work, and interesting collaborations.
             </p>
 
             <div className="space-y-4 font-mono text-xs">
@@ -112,26 +112,7 @@ export const ContactSection: React.FC = () => {
                 </div>
               </a>
 
-              {/* PGP Fingerprint */}
-              <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-slate-500 uppercase flex items-center gap-1.5">
-                    <Key className="w-3 h-3 text-cyber-neon" />
-                    PQC Fingerprint
-                  </span>
-                  <button
-                    onClick={handleCopyPgp}
-                    onMouseEnter={() => soundManager.playHover()}
-                    className="text-cyber-neon hover:underline text-[10px] flex items-center gap-1"
-                  >
-                    {pgpCopied ? <Check className="w-3 h-3" /> : null}
-                    {pgpCopied ? 'COPIED' : 'COPY KEY'}
-                  </button>
-                </div>
-                <div className="p-2 rounded bg-black/60 text-[10px] text-slate-300 font-mono select-all">
-                  8F32 99A1 C402 B889 00EA 2027 D301 77FE
-                </div>
-              </div>
+              {/* Calendar Sync End */}
             </div>
           </div>
         </div>
@@ -145,10 +126,10 @@ export const ContactSection: React.FC = () => {
                   <Sparkles className="w-8 h-8" />
                 </div>
                 <h3 className="font-display font-bold text-2xl text-white">
-                  TRANSMISSION RECEIVED &amp; QUEUED
+                  MESSAGE SENT
                 </h3>
                 <p className="font-sans text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-                  Your message has been authenticated and routed to Ayush Chatterjee&apos;s priority queue. I will follow up within 4 hours.
+                  Thanks for reaching out. I'll get back to you soon.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
@@ -186,7 +167,7 @@ export const ContactSection: React.FC = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       onKeyDown={() => soundManager.playTypeKey()}
-                      placeholder="s.chen@deepmind.com"
+                      placeholder="you@company.com"
                       className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyber-cyan transition-colors"
                     />
                   </div>
@@ -194,31 +175,31 @@ export const ContactSection: React.FC = () => {
 
                 <div className="space-y-1.5">
                   <label className="block font-mono text-xs text-slate-400 uppercase">
-                    INQUIRY TOPIC
+                    TOPIC
                   </label>
                   <select
                     value={formData.topic}
                     onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
                     className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyber-cyan transition-colors"
                   >
-                    <option value="Staff Architecture Opportunity" className="bg-background-secondary text-white">
-                      Staff / Principal Systems Architecture Role
+                    <option value="Job Opportunity" className="bg-background-secondary text-white">
+                      Job Opportunity
                     </option>
-                    <option value="Volumetric WebGPU Graphics" className="bg-background-secondary text-white">
-                      Volumetric WebGPU / Spatial Project Advisory
+                    <option value="Project Collaboration" className="bg-background-secondary text-white">
+                      Project Collaboration
                     </option>
-                    <option value="Multi-Agent Swarms" className="bg-background-secondary text-white">
-                      Autonomous Multi-Agent Swarms Consulting
+                    <option value="Consulting / Advisory" className="bg-background-secondary text-white">
+                      Consulting / Advisory
                     </option>
-                    <option value="Keynote Speaking" className="bg-background-secondary text-white">
-                      Keynote / Technical Masterclass
+                    <option value="Speaking / Workshop" className="bg-background-secondary text-white">
+                      Speaking / Workshop
                     </option>
                   </select>
                 </div>
 
                 <div className="space-y-1.5">
                   <label className="block font-mono text-xs text-slate-400 uppercase">
-                    MESSAGE DETAILS *
+                    YOUR MESSAGE *
                   </label>
                   <textarea
                     required
@@ -226,7 +207,7 @@ export const ContactSection: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     onKeyDown={() => soundManager.playTypeKey()}
-                    placeholder="Provide architecture requirements, team context, or project specifications..."
+                    placeholder="Tell me what you have in mind..."
                     className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-cyber-cyan transition-colors"
                   />
                 </div>
@@ -239,7 +220,7 @@ export const ContactSection: React.FC = () => {
                   className="w-full py-4 rounded-xl bg-cyber-cyan hover:bg-cyber-neon text-black font-mono font-bold text-sm tracking-wider uppercase transition-all duration-300 shadow-glow-cyan/30 flex items-center justify-center gap-2 group disabled:opacity-50"
                 >
                   <Send className={`w-4 h-4 ${isSubmitting ? 'animate-bounce' : 'group-hover:translate-x-1 transition-transform'}`} />
-                  <span>{isSubmitting ? 'ENCRYPTING & SENDING...' : 'TRANSMIT QUANTUM SIGNAL'}</span>
+                  <span>{isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}</span>
                 </button>
               </form>
             )}

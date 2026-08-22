@@ -9,8 +9,6 @@ export const Footer: React.FC = () => {
     tokyo: '',
     blr: '',
   });
-  const [latency, setLatency] = useState('14.2 ms');
-  const [isPinging, setIsPinging] = useState(false);
 
   useEffect(() => {
     const updateClocks = () => {
@@ -28,17 +26,6 @@ export const Footer: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleTestPing = () => {
-    soundManager.playClick();
-    setIsPinging(true);
-    setTimeout(() => {
-      const randomLat = (8 + Math.random() * 8).toFixed(1);
-      setLatency(`${randomLat} ms`);
-      setIsPinging(false);
-      soundManager.playSuccess();
-    }, 400);
-  };
-
   const scrollToTop = () => {
     soundManager.playClick();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -52,30 +39,25 @@ export const Footer: React.FC = () => {
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <span className="flex items-center gap-1.5 text-cyber-neon">
               <span className="w-2 h-2 rounded-full bg-cyber-neon animate-pulse" />
-              SYSTEM PROTOCOL 2027: ONLINE
+              PORTFOLIO: ONLINE
             </span>
             <span className="hidden md:inline text-slate-600">|</span>
             <span className="flex items-center gap-1 text-slate-300">
               <ShieldCheck className="w-3.5 h-3.5 text-cyber-cyan" />
-              PQC: ML-KEM-1024
+              BUILT WITH REACT + THREE.JS
             </span>
             <span className="hidden md:inline text-slate-600">|</span>
             <span className="flex items-center gap-1 text-slate-300">
               <Cpu className="w-3.5 h-3.5 text-cyber-amber" />
-              ENGINE: WebGPU + SIMD Wasm
+              TYPESCRIPT + TAILWIND
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <button
-              onClick={handleTestPing}
-              onMouseEnter={() => soundManager.playHover()}
-              className="flex items-center gap-1 px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-cyber-cyan transition-colors"
-              title="Measure WebRTC edge telemetry ping"
-            >
-              <Activity className={`w-3 h-3 ${isPinging ? 'animate-spin text-cyber-cyan' : 'text-cyber-neon'}`} />
-              <span>EDGE LATENCY: {latency}</span>
-            </button>
+            <span className="flex items-center gap-1 text-slate-300">
+              <Activity className="w-3 h-3 text-cyber-neon" />
+              <span>STATUS: LIVE</span>
+            </span>
           </div>
         </div>
       </div>
@@ -94,7 +76,7 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-sm text-slate-400 font-sans max-w-md leading-relaxed">
-              Spatial architect and distributed AI engineer. I build autonomous agent infrastructure, real-time WebGPU shaders, and post-quantum zero-trust networks for high-scale computing platforms.
+              I build distributed systems, WebGPU graphics, and AI agent infrastructure. When I'm not coding, I'm probably reading kernel source or tuning shaders.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
@@ -109,7 +91,7 @@ export const Footer: React.FC = () => {
                 <Github className="w-4 h-4" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://linkedin.com/in/forbesayush"
                 target="_blank"
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -120,7 +102,7 @@ export const Footer: React.FC = () => {
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://x.com/forbesayush"
                 target="_blank"
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
@@ -136,7 +118,7 @@ export const Footer: React.FC = () => {
           {/* Timezones */}
           <div>
             <h4 className="font-mono text-xs text-cyber-cyan tracking-wider uppercase mb-3">
-              GLOBAL SYNC NODES
+              TIME ZONES
             </h4>
             <div className="space-y-2 font-mono text-xs text-slate-300">
               <div className="flex justify-between py-1 border-b border-white/5">
@@ -162,13 +144,13 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col justify-between">
             <div>
               <h4 className="font-mono text-xs text-cyber-amber tracking-wider uppercase mb-3">
-                SYSTEM NAVIGATION
+                NAVIGATION
               </h4>
               <ul className="space-y-1.5 font-mono text-xs text-slate-400">
-                <li><a href="#telemetry" className="hover:text-cyber-cyan transition-colors">Telemetry</a></li>
-                <li><a href="#projects" className="hover:text-cyber-cyan transition-colors">Flagship Projects</a></li>
-                <li><a href="#skills" className="hover:text-cyber-cyan transition-colors">Skills Matrix</a></li>
-                <li><a href="#experience" className="hover:text-cyber-cyan transition-colors">Experience Log</a></li>
+                <li><a href="#telemetry" className="hover:text-cyber-cyan transition-colors">Activity</a></li>
+                <li><a href="#projects" className="hover:text-cyber-cyan transition-colors">Projects</a></li>
+                <li><a href="#skills" className="hover:text-cyber-cyan transition-colors">Skills</a></li>
+                <li><a href="#experience" className="hover:text-cyber-cyan transition-colors">Experience</a></li>
               </ul>
             </div>
 
@@ -185,11 +167,11 @@ export const Footer: React.FC = () => {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500">
-          <p>© 2027 AYUSH CHATTERJEE. ALL RIGHTS RESERVED.</p>
+          <p>© 2025 Ayush Chatterjee</p>
           <div className="flex items-center gap-4">
-            <span className="hover:text-slate-300 cursor-pointer">PRIVACY PROTOCOL</span>
+            <span className="hover:text-slate-300 cursor-pointer">Privacy</span>
             <span>•</span>
-            <span className="hover:text-slate-300 cursor-pointer">SECURITY DISCLOSURE</span>
+            <span className="hover:text-slate-300 cursor-pointer">Terms</span>
           </div>
         </div>
       </div>

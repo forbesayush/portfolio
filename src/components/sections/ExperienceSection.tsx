@@ -18,14 +18,14 @@ export const ExperienceSection: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 text-cyber-cyan font-mono text-xs tracking-widest uppercase mb-2">
             <Briefcase className="w-3.5 h-3.5 text-cyber-cyan" />
-            <span>ENGINEERING TIMELINE</span>
+            <span>EXPERIENCE</span>
           </div>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-            CAREER LOG &amp; ARCHITECTURAL IMPACT
+            WHERE I'VE WORKED
           </h2>
         </div>
         <div className="font-mono text-xs text-slate-400">
-          8+ YEARS OF TIER-1 SYSTEMS LEADERSHIP
+          8+ YEARS BUILDING SOFTWARE
         </div>
       </div>
 
@@ -49,7 +49,7 @@ export const ExperienceSection: React.FC = () => {
               <div className="p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center font-mono font-bold text-cyber-cyan text-sm flex-shrink-0 mt-1 md:mt-0">
-                    0{idx + 1}
+                    →
                   </div>
                   <div>
                     <div className="flex flex-wrap items-center gap-2 mb-1">
@@ -89,7 +89,7 @@ export const ExperienceSection: React.FC = () => {
                   <div>
                     <h4 className="font-mono text-xs text-cyber-amber uppercase tracking-wider mb-3 flex items-center gap-1.5">
                       <Award className="w-3.5 h-3.5 text-cyber-amber" />
-                      KEY DELIVERABLES
+                      HIGHLIGHTS
                     </h4>
                     <ul className="space-y-2 font-sans text-sm text-slate-300">
                       {exp.achievements.map((ach, aIdx) => (
@@ -106,7 +106,7 @@ export const ExperienceSection: React.FC = () => {
                     <TrendingUp className="w-5 h-5 text-cyber-neon flex-shrink-0 mt-0.5" />
                     <div>
                       <span className="font-mono text-[11px] text-cyber-neon uppercase font-bold block mb-1">
-                        Verified Business &amp; Engineering Impact:
+                        Impact:
                       </span>
                       <p className="font-sans text-xs text-slate-300 leading-relaxed">
                         {exp.architecturalImpact}

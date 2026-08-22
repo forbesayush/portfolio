@@ -22,22 +22,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
             <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-neon" />
           </span>
           <span className="font-mono text-xs text-slate-300 tracking-wider">
-            STATUS: ACTIVE (2027 INITIATIVES &amp; ARCHITECTURAL CONSULTING)
+            OPEN TO OPPORTUNITIES
           </span>
         </div>
 
         {/* Main Headline */}
         <div className="space-y-3">
           <h1 className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-white leading-[1.08] select-none">
-            ENGINEERING <br />
+            I BUILD <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan via-white to-cyber-neon">
-              AUTONOMOUS CORES
+              SYSTEMS
             </span>
             <br />
-            &amp; SPATIAL WORLDS.
+            THAT SHIP.
           </h1>
           <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-400 font-sans leading-relaxed pt-2">
-            I am <strong className="text-white font-medium">Ayush Chatterjee</strong>, a staff AI systems architect and distributed graphics engineer. I build low-latency autonomous swarms, real-time WebGPU shaders, and post-quantum zero-trust infrastructure.
+            I'm <strong className="text-white font-medium">Ayush Chatterjee</strong>. I work on distributed systems, 3D graphics for the web, and AI agent infrastructure. Most of my time goes into writing Rust, WebGPU shaders, and making things run faster.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
             data-cursor-text="EXPLORE"
             className="group relative px-7 py-3.5 rounded-xl bg-cyber-cyan text-black font-mono font-bold text-sm tracking-wide shadow-glow-cyan hover:bg-cyber-neon transition-all duration-300 flex items-center gap-2"
           >
-            <span>EXPLORE SYSTEMS</span>
+            <span>SEE MY WORK</span>
             <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
           </a>
 
@@ -64,7 +64,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
             className="px-6 py-3.5 rounded-xl bg-surface-glass hover:bg-surface-glass-hover border border-cyber-cyan/40 hover:border-cyber-cyan text-cyber-cyan font-mono text-sm tracking-wide transition-all duration-300 flex items-center gap-2 backdrop-blur-xl"
           >
             <Bot className="w-4 h-4 text-cyber-cyan" />
-            <span>NEURAL CORE</span>
+            <span>ASK AI</span>
             <Sparkles className="w-3.5 h-3.5 text-cyber-neon" />
           </button>
 
@@ -78,7 +78,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
             className="px-6 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyber-amber/50 text-slate-300 hover:text-cyber-amber font-mono text-sm tracking-wide transition-all duration-300 flex items-center gap-2 backdrop-blur-xl"
           >
             <Terminal className="w-4 h-4" />
-            <span>LAUNCH CLI</span>
+            <span>TERMINAL</span>
           </button>
         </div>
 
@@ -87,37 +87,37 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
           <div className="p-4 rounded-xl bg-surface-glass/60 border border-white/5 backdrop-blur-md hover:border-cyber-cyan/40 transition-colors">
             <div className="flex items-center gap-2 text-cyber-cyan mb-1">
               <Zap className="w-4 h-4" />
-              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Swarm Consensus</span>
+              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Distributed Systems</span>
             </div>
-            <div className="font-display font-bold text-2xl text-white">45,000</div>
-            <div className="font-mono text-[11px] text-slate-400">ops/s edge throughput</div>
+            <div className="font-display font-bold text-2xl text-white">High-Perf</div>
+            <div className="font-mono text-[11px] text-slate-400">low-latency Rust/Wasm</div>
           </div>
 
           <div className="p-4 rounded-xl bg-surface-glass/60 border border-white/5 backdrop-blur-md hover:border-cyber-amber/40 transition-colors">
             <div className="flex items-center gap-2 text-cyber-amber mb-1">
               <Cpu className="w-4 h-4" />
-              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Graphics Render</span>
+              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">3D & WebGPU</span>
             </div>
-            <div className="font-display font-bold text-2xl text-white">120 FPS</div>
-            <div className="font-mono text-[11px] text-slate-400">WebGPU Neural NeRF</div>
+            <div className="font-display font-bold text-2xl text-white">Real-Time</div>
+            <div className="font-mono text-[11px] text-slate-400">browser 3D rendering</div>
           </div>
 
           <div className="p-4 rounded-xl bg-surface-glass/60 border border-white/5 backdrop-blur-md hover:border-cyber-neon/40 transition-colors">
             <div className="flex items-center gap-2 text-cyber-neon mb-1">
               <Shield className="w-4 h-4" />
-              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Security Layer</span>
+              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Security</span>
             </div>
-            <div className="font-display font-bold text-2xl text-white">NIST L5</div>
-            <div className="font-mono text-[11px] text-slate-400">ML-KEM-1024 PQC Mesh</div>
+            <div className="font-display font-bold text-2xl text-white">PQC</div>
+            <div className="font-mono text-[11px] text-slate-400">post-quantum cryptography</div>
           </div>
 
           <div className="p-4 rounded-xl bg-surface-glass/60 border border-white/5 backdrop-blur-md hover:border-purple-400/40 transition-colors">
             <div className="flex items-center gap-2 text-purple-400 mb-1">
               <Sparkles className="w-4 h-4" />
-              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Experience</span>
+              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Background</span>
             </div>
             <div className="font-display font-bold text-2xl text-white">8+ Years</div>
-            <div className="font-mono text-[11px] text-slate-400">Distributed systems building</div>
+            <div className="font-mono text-[11px] text-slate-400">building production systems</div>
           </div>
         </div>
       </div>

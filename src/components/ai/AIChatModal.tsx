@@ -26,7 +26,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
     {
       id: '1',
       sender: 'ai',
-      text: "Hello! I am NEURAL CORE, Ayush Chatterjee's synthetic assistant. I know all about Ayush's architectural designs, WebGPU compute pipelines, distributed systems work, and current availability. What would you like to know?",
+      text: "Hey! I'm an AI assistant for Ayush's portfolio. Ask me anything about his work, projects, skills, or how to get in touch.",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -89,7 +89,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
       {
         id: '1',
         sender: 'ai',
-        text: 'Memory re-initialized. Ready for your next question.',
+        text: 'Chat cleared. Ask me anything.',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       },
     ]);
@@ -111,14 +111,14 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-display font-bold text-sm text-white tracking-wide">
-                  NEURAL CORE
+                  PORTFOLIO AI
                 </h3>
                 <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/40">
-                  AI COMPANION
+                  BETA
                 </span>
               </div>
               <p className="text-[11px] font-mono text-slate-400">
-                Direct assistant for Ayush Chatterjee portfolio
+                Ask me about Ayush's work
               </p>
             </div>
           </div>
@@ -168,7 +168,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
               >
                 <div className="flex items-center justify-between gap-4 mb-1">
                   <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-slate-400">
-                    {msg.sender === 'user' ? 'VISITOR' : 'NEURAL CORE'}
+                    {msg.sender === 'user' ? 'VISITOR' : 'AI'}
                   </span>
                   <span className="font-mono text-[10px] text-slate-500">{msg.timestamp}</span>
                 </div>
@@ -236,7 +236,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
             disabled={!input.trim() || isTyping}
             onMouseEnter={() => soundManager.playHover()}
             className="p-2.5 rounded-xl bg-cyber-cyan text-black font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-cyber-neon transition-all flex items-center justify-center shadow-glow-cyan/20"
-            aria-label="Transmit Prompt"
+            aria-label="Send"
           >
             <Send className="w-4 h-4" />
           </button>
@@ -250,28 +250,28 @@ function generateAIResponse(query: string): string {
   const q = query.toLowerCase();
 
   if (q.includes('aegis') || q.includes('swarm') || q.includes('agent')) {
-    return "AEGIS is Ayush's autonomous swarm operating system. It coordinates distributed language model agents using Rust and WebAssembly with lock-free ring buffers. Key highlights include:\n• Byzantine Fault Tolerant consensus with sub-2.4ms latency\n• Browser execution using WebWorkers and WebRTC data meshes\n• 45,000 ops/s verified benchmark throughput.";
+    return "AEGIS is a distributed agent runtime I built in Rust and WebAssembly. It coordinates LLM agents using lock-free ring buffers with BFT consensus. The throughput sits around 45K ops/s in benchmarks.";
   }
 
   if (q.includes('webgpu') || q.includes('nerf') || q.includes('3d') || q.includes('graphics')) {
-    return "Ayush specializes in spatial computing and WebGPU graphics. His Chronos NeRF engine achieves 120 FPS 6DoF neural volumetric rendering straight in the browser. He writes custom WGSL compute shaders, 3D Gaussian splatting pipelines, and particle physics engines.";
+    return "I spend a lot of time on WebGPU and spatial rendering. The Chronos NeRF project does 6DoF volumetric rendering in the browser using custom WGSL compute shaders and 3D Gaussian splatting.";
   }
 
   if (q.includes('hire') || q.includes('role') || q.includes('open') || q.includes('opportunity') || q.includes('salary')) {
-    return "Ayush is currently considering Staff and Principal Architect roles and founding engineer positions centered on autonomous agent infrastructure, spatial computing, and distributed core systems. You can connect through the contact form below or email ayushchatterjee.edu@gmail.com directly.";
+    return "I'm open to Staff and Principal Architect roles, especially anything involving agent infrastructure, spatial computing, or distributed systems. Best way to reach me is the contact form below or email ayushchatterjee.edu@gmail.com.";
   }
 
   if (q.includes('schedule') || q.includes('intro') || q.includes('call') || q.includes('interview')) {
-    return "You can book a 30-minute technical intro call. Jump to the Contact section at the bottom of the page or send a message with your team details. You will get a direct booking link.";
+    return "Sure, check the Contact section at the bottom. Drop your details and I'll send over a booking link for a 30-minute chat.";
   }
 
   if (q.includes('skill') || q.includes('tech stack') || q.includes('rust') || q.includes('c++')) {
-    return "Core Technical Mastery:\n• Languages: Rust, C++23, TypeScript, WGSL, GLSL, Go, Python\n• AI and Agents: Multi-Agent Swarms, AWQ Quantization, HNSW Vector Clustering, CUDA, Triton\n• Graphics: WebGPU, Three.js, React Three Fiber, 3D Gaussian Splats\n• Systems: Lock-Free Queues, DPDK Kernel Bypass, Raft Consensus, Post-Quantum Cryptography.";
+    return "Main languages: Rust, C++23, TypeScript, WGSL, GLSL, Go, Python. On the AI side I work with multi-agent systems, AWQ quantization, HNSW vector indexes. Graphics-wise it's WebGPU, Three.js, R3F. Systems stuff includes lock-free queues, DPDK, Raft consensus.";
   }
 
   if (q.includes('who') || q.includes('ayush') || q.includes('bio')) {
-    return "Ayush Chatterjee is a staff AI systems engineer and spatial architect with over 8 years of high-performance systems experience. He has built distributed systems saving millions in compute costs, won international graphics awards, and pushed the boundaries of edge AI and volumetric WebGPU rendering.";
+    return "Ayush is a systems engineer with 8+ years of experience. He's worked on distributed infrastructure, won design awards for interactive web experiences, and currently focuses on edge AI and WebGPU rendering.";
   }
 
-  return `I have recorded your question about "${query}". Ayush focuses on building high-performance software: sub-millisecond distributed architectures, WebGPU 3D spatial interfaces, and resilient autonomous swarms. Feel free to inspect the project blueprints or reach out directly through the contact form.`;
+  return `Good question about "${query}". Ayush works on distributed architectures, browser-based 3D graphics, and autonomous agent systems. Check out the project cards above or reach out through the contact form.`;
 }

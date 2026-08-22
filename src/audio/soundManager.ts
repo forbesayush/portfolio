@@ -12,7 +12,7 @@ class SoundEngine {
   constructor() {
     // Read initial preference if in browser
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('vance_audio_muted');
+      const saved = localStorage.getItem('ac_audio_muted');
       this.isMuted = saved === 'true';
     }
   }
@@ -37,7 +37,7 @@ class SoundEngine {
   public toggleMute(): boolean {
     this.isMuted = !this.isMuted;
     if (typeof window !== 'undefined') {
-      localStorage.setItem('vance_audio_muted', String(this.isMuted));
+      localStorage.setItem('ac_audio_muted', String(this.isMuted));
     }
     if (this.masterGain && this.ctx) {
       this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.15, this.ctx.currentTime);

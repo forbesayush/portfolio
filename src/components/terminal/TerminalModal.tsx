@@ -20,10 +20,10 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       command: 'systemctl status neural-core',
       output: (
         <div className="text-cyber-cyan">
-          ● neural-core.service: Ayush Chatterjee Autonomous Core<br />
+          ● portfolio.service: Ayush Chatterjee<br />
           &nbsp;&nbsp;Loaded: loaded (/etc/systemd/system/neural-core.service)<br />
-          &nbsp;&nbsp;Active: <span className="text-cyber-neon font-bold">active (running)</span> since 2027-01-01 00:00:00 UTC<br />
-          &nbsp;&nbsp;Tasks: 128 threads | Memory: 42.4M | Latency: 0.12ms<br />
+          &nbsp;&nbsp;Active: <span className="text-cyber-neon font-bold">active (running)</span> since boot<br />
+          &nbsp;&nbsp;Tasks: running | Memory: nominal<br />
           Type <span className="text-cyber-amber font-bold">'help'</span> to see available commands or <span className="text-cyber-amber font-bold">'exit'</span> to close.
         </div>
       ),
@@ -100,12 +100,12 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'whoami':
         outputNode = (
           <div className="space-y-2 text-slate-200">
-            <div className="text-cyber-cyan font-bold">AYUSH CHATTERJEE [Staff Spatial &amp; Distributed AI Architect]</div>
+            <div className="text-cyber-cyan font-bold">AYUSH CHATTERJEE [Systems Engineer]</div>
             <p>
-              I build low-latency distributed architectures, in-browser WebGPU 3D graphics, and decentralized multi-agent platforms. Over 8 years designing enterprise high-throughput infrastructure.
+              I work on distributed systems, browser 3D graphics, and multi-agent platforms. 8+ years of building production software.
             </p>
             <div className="font-mono text-xs text-slate-400">
-              Location: San Francisco, CA | Available: 2027 initiatives
+              Location: San Francisco, CA | Status: Open to work
             </div>
           </div>
         );
@@ -114,12 +114,12 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'projects':
         outputNode = (
           <div className="space-y-2 text-slate-200">
-            <div className="text-cyber-amber font-bold">FLAGSHIP PRODUCTION PLATFORMS:</div>
+            <div className="text-cyber-amber font-bold">PROJECTS:</div>
             <div className="space-y-1">
-              <div>• <span className="text-cyber-cyan font-bold">AEGIS Swarm OS</span>: Distributed multi-agent runtime (Rust/Wasm) [45k ops/s]</div>
-              <div>• <span className="text-cyber-amber font-bold">Chronos NeRF</span>: 120 FPS WebGPU neural radiance field volumetric engine</div>
-              <div>• <span className="text-cyber-neon font-bold">KyberShield Mesh</span>: NIST ML-KEM-1024 Post-Quantum Zero-Trust network</div>
-              <div>• <span className="text-purple-400 font-bold">HyperFlow State</span>: Zero-GC Lock-free DPDK event reactor [12M msgs/s]</div>
+              <div>• <span className="text-cyber-cyan font-bold">AEGIS Swarm OS</span>: Distributed multi-agent runtime (Rust/Wasm)</div>
+              <div>• <span className="text-cyber-amber font-bold">Chronos NeRF</span>: WebGPU volumetric rendering engine</div>
+              <div>• <span className="text-cyber-neon font-bold">KyberShield Mesh</span>: Post-quantum zero-trust network</div>
+              <div>• <span className="text-purple-400 font-bold">HyperFlow State</span>: Lock-free DPDK event streaming engine</div>
             </div>
           </div>
         );
@@ -128,11 +128,11 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'skills':
         outputNode = (
           <div className="space-y-2 text-slate-300 font-mono text-xs">
-            <div className="text-cyber-cyan font-bold">CORE PROFICIENCY:</div>
-            <div>[AI / Agents] Rust, Multi-Agent Swarms, AWQ/GGUF, Triton, HNSW Vector DB [98%]</div>
-            <div>[Graphics/WebGPU] WebGPU/WGSL, Three.js, Raymarching, Gaussian Splats [96%]</div>
-            <div>[Systems/Core] C++23, Go, DPDK Kernel Bypass, Lock-Free Queues, Raft Consensus [95%]</div>
-            <div>[Modern Web] React 19, TypeScript, Tailwind CSS, Lenis, Web Audio API [98%]</div>
+            <div className="text-cyber-cyan font-bold">SKILLS:</div>
+            <div>[AI / Agents] Rust, Multi-Agent Swarms, AWQ/GGUF, Triton, HNSW Vector DB</div>
+            <div>[Graphics/WebGPU] WebGPU/WGSL, Three.js, Raymarching, Gaussian Splats</div>
+            <div>[Systems/Core] C++23, Go, DPDK, Lock-Free Queues, Raft Consensus</div>
+            <div>[Modern Web] React 19, TypeScript, Tailwind CSS, Lenis, Web Audio API</div>
           </div>
         );
         break;
@@ -152,10 +152,10 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
           outputNode = (
             <div className="space-y-2 font-mono text-xs text-slate-300">
               <div className="text-cyber-cyan font-bold">================== RESUME.TXT ==================</div>
-              <div>NAME: Ayush Chatterjee | ROLE: Staff Spatial &amp; AI Systems Architect</div>
+              <div>NAME: Ayush Chatterjee | ROLE: Systems Engineer</div>
               <div>EMAIL: ayushchatterjee.edu@gmail.com | GITHUB: github.com/forbesayush</div>
-              <div>SUMMARY: Systems engineer building edge AI swarms, WebGPU compute, and distributed consensus.</div>
-              <div>KEY METRICS: $1.8M/yr cloud cost reduction, 12M msgs/sec ingestion, 120 FPS 4K browser spatial render.</div>
+              <div>SUMMARY: Systems engineer working on distributed infrastructure, WebGPU graphics, and AI agents.</div>
+              <div>FOCUS: Distributed systems, browser 3D, agent infrastructure.</div>
               <div className="text-cyber-cyan font-bold">================================================</div>
             </div>
           );
@@ -178,11 +178,11 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
         if (args.includes('hire')) {
           outputNode = (
             <div className="space-y-2 text-cyber-neon font-bold">
-              <div>[ACCESS GRANTED: PRIORITY STATUS]</div>
+              <div>[MESSAGE QUEUED]</div>
               <div className="text-slate-200 font-normal">
-                You have triggered the direct intro protocol. Sending notification to Ayush...
+                Your interest has been noted. Reach out directly to get started.
               </div>
-              <div className="text-cyber-cyan">Direct link: ayushchatterjee.edu@gmail.com | Subject: "Fast-Track Discussion"</div>
+              <div className="text-cyber-cyan">Email: ayushchatterjee.edu@gmail.com</div>
             </div>
           );
         } else {

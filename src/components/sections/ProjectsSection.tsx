@@ -36,10 +36,10 @@ export const ProjectsSection: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 text-cyber-amber font-mono text-xs tracking-widest uppercase mb-2">
             <Layers className="w-3.5 h-3.5 text-cyber-amber" />
-            <span>FLAGSHIP ARCHITECTURES</span>
+            <span>PROJECTS</span>
           </div>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-            ENGINEERED SYSTEMS &amp; PRODUCTION PLATFORMS
+            THINGS I'VE BUILT
           </h2>
         </div>
 
@@ -69,7 +69,7 @@ export const ProjectsSection: React.FC = () => {
             key={project.id}
             onMouseEnter={() => soundManager.playHover()}
             onClick={() => handleOpenModal(project)}
-            data-cursor-text="DEEP DIVE"
+            data-cursor-text="VIEW"
             className="group relative rounded-2xl bg-surface-glass border border-white/10 hover:border-cyber-cyan/50 backdrop-blur-xl p-7 transition-all duration-500 hover:shadow-spatial hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between overflow-hidden"
           >
             {/* Top accent line */}
@@ -139,7 +139,7 @@ export const ProjectsSection: React.FC = () => {
         ))}
       </div>
 
-      {/* Deep-Dive Architecture Blueprint Modal */}
+      {/* Architecture Details Modal */}
       {selectedProject && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg animate-in fade-in duration-200"
@@ -172,7 +172,7 @@ export const ProjectsSection: React.FC = () => {
                 >
                   {selectedProject.category}
                 </span>
-                <span className="font-mono text-xs text-slate-400">STATUS: PRODUCTION DEPLOYED ({selectedProject.year})</span>
+                <span className="font-mono text-xs text-slate-400">STATUS: DEPLOYED ({selectedProject.year})</span>
               </div>
 
               <div>
@@ -187,7 +187,7 @@ export const ProjectsSection: React.FC = () => {
               <div className="p-4 rounded-xl bg-black/40 border border-white/10">
                 <h4 className="font-mono text-xs text-cyber-amber uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <Activity className="w-3.5 h-3.5 text-cyber-amber" />
-                  ARCHITECTURAL SUMMARY
+                  HOW IT WORKS
                 </h4>
                 <p className="text-sm text-slate-300 font-sans leading-relaxed">
                   {selectedProject.architectureSummary}
@@ -197,7 +197,7 @@ export const ProjectsSection: React.FC = () => {
               {/* Verified Production Metrics */}
               <div>
                 <h4 className="font-mono text-xs text-slate-400 uppercase tracking-wider mb-3">
-                  VERIFIED TELEMETRY METRICS
+                  KEY METRICS
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {selectedProject.metrics.map((m, i) => (
@@ -212,7 +212,7 @@ export const ProjectsSection: React.FC = () => {
               {/* Technologies Applied */}
               <div>
                 <h4 className="font-mono text-xs text-slate-400 uppercase tracking-wider mb-2">
-                  APPLIED STACK &amp; SPECIFICATIONS
+                  TECH STACK
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedProject.tags.map((t) => (
@@ -245,7 +245,7 @@ export const ProjectsSection: React.FC = () => {
                   className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyber-cyan hover:bg-cyber-neon text-black font-mono font-bold text-xs transition-all shadow-glow-cyan/20"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  <span>LAUNCH DEMO SANDBOX</span>
+                  <span>VIEW DEMO</span>
                 </a>
               </div>
             </div>
