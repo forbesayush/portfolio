@@ -168,9 +168,8 @@ export const Footer: React.FC = () => {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500">
           <p>© 2025 Ayush Chatterjee</p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <span className="hover:text-slate-300 cursor-pointer">Privacy</span>
-            <span>•</span>
             <span className="hover:text-slate-300 cursor-pointer">Terms</span>
           </div>
         </div>

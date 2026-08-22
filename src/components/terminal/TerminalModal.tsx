@@ -116,10 +116,10 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
           <div className="space-y-2 text-slate-200">
             <div className="text-cyber-amber font-bold">PROJECTS:</div>
             <div className="space-y-1">
-              <div>• <span className="text-cyber-cyan font-bold">AEGIS Swarm OS</span>: Distributed multi-agent runtime (Rust/Wasm)</div>
-              <div>• <span className="text-cyber-amber font-bold">Chronos NeRF</span>: WebGPU volumetric rendering engine</div>
-              <div>• <span className="text-cyber-neon font-bold">KyberShield Mesh</span>: Post-quantum zero-trust network</div>
-              <div>• <span className="text-purple-400 font-bold">HyperFlow State</span>: Lock-free DPDK event streaming engine</div>
+              <div>&gt; <span className="text-cyber-cyan font-bold">AEGIS Swarm OS</span>: Distributed multi-agent runtime (Rust/Wasm)</div>
+              <div>&gt; <span className="text-cyber-amber font-bold">Chronos NeRF</span>: WebGPU volumetric rendering engine</div>
+              <div>&gt; <span className="text-cyber-neon font-bold">KyberShield Mesh</span>: Post-quantum zero-trust network</div>
+              <div>&gt; <span className="text-purple-400 font-bold">HyperFlow State</span>: Lock-free DPDK event streaming engine</div>
             </div>
           </div>
         );
@@ -168,8 +168,8 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
         outputNode = (
           <div className="space-y-1 text-slate-200">
             <div>Email: <span className="text-cyber-cyan font-bold">ayushchatterjee.edu@gmail.com</span></div>
-            <div>PGP Key Fingerprint: <span className="text-cyber-amber font-mono text-xs">8F32 99A1 C402 B889 00EA 2027 D301 77FE</span></div>
-            <div>Calendar Sync: <span className="text-cyber-neon font-bold">cal.com/ayushchatterjee/30min</span></div>
+            <div>GitHub: <span className="text-cyber-amber font-mono text-xs">github.com/forbesayush</span></div>
+            <div>Location: <span className="text-cyber-neon font-bold">San Francisco, CA</span></div>
           </div>
         );
         break;
@@ -329,7 +329,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
 
         {/* Footer Hint */}
         <div className="px-4 py-2 border-t border-white/5 bg-black/40 text-[10px] text-slate-500 flex justify-between font-mono">
-          <span>Shortcuts: Up/Down for history • 'help' for commands</span>
+          <span>Shortcuts: Up/Down for history, 'help' for commands</span>
           <span>Press ESC or Ctrl+K to close</span>
         </div>
       </div>

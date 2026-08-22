@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, Github, Layers, X, Activity } from 'lucide-react';
+import { ExternalLink, Github, X } from 'lucide-react';
 import { projects } from '../../data/projects';
 import { Project } from '../../types';
 import { soundManager } from '../../audio/soundManager';
@@ -30,15 +30,14 @@ export const ProjectsSection: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="py-24 px-4 sm:px-8 max-w-7xl mx-auto relative z-10">
+    <section id="projects" className="py-24 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto relative z-10">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b border-white/10 pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b border-white/10 pb-6 text-left">
         <div>
-          <div className="flex items-center gap-2 text-cyber-amber font-mono text-xs tracking-widest uppercase mb-2">
-            <Layers className="w-3.5 h-3.5 text-cyber-amber" />
-            <span>PROJECTS</span>
-          </div>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+          <span className="font-mono text-xs text-cyber-amber tracking-wider uppercase block mb-1">
+            SELECTED WORK
+          </span>
+          <h2 className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight">
             THINGS I'VE BUILT
           </h2>
         </div>
@@ -50,10 +49,10 @@ export const ProjectsSection: React.FC = () => {
               key={cat}
               onClick={() => handleCategoryChange(cat)}
               onMouseEnter={() => soundManager.playHover()}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all duration-300 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'bg-cyber-cyan text-black font-bold shadow-glow-cyan/30'
-                  : 'bg-surface-glass hover:bg-surface-glass-hover text-slate-400 hover:text-white border border-white/5'
+                  ? 'bg-cyber-cyan text-black font-bold'
+                  : 'bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/5'
               }`}
             >
               {cat}
@@ -62,161 +61,154 @@ export const ProjectsSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {filteredProjects.map((project) => (
-          <div
-            key={project.id}
-            onMouseEnter={() => soundManager.playHover()}
-            onClick={() => handleOpenModal(project)}
-            data-cursor-text="VIEW"
-            className="group relative rounded-2xl bg-surface-glass border border-white/10 hover:border-cyber-cyan/50 backdrop-blur-xl p-7 transition-all duration-500 hover:shadow-spatial hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between overflow-hidden"
-          >
-            {/* Top accent line */}
-            <div
-              className="absolute top-0 left-0 right-0 h-1 opacity-60 group-hover:opacity-100 transition-opacity"
-              style={{ backgroundColor: project.accentColor }}
-            />
+      {/* Asymmetric Projects Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {filteredProjects.map((project, idx) => {
+          // Asymmetric layout: 1st card takes 7 cols, 2nd card takes 5 cols, 3rd takes 5 cols, 4th takes 7 cols
+          const colSpan = idx % 3 === 0 ? 'lg:col-span-7' : idx % 3 === 1 ? 'lg:col-span-5' : 'lg:col-span-12';
 
-            <div>
-              {/* Header Info */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <span
-                    className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase font-bold tracking-wider"
-                    style={{
-                      backgroundColor: `${project.accentColor}20`,
-                      color: project.accentColor,
-                      borderColor: `${project.accentColor}50`,
-                      borderWidth: '1px',
-                    }}
-                  >
-                    {project.category}
-                  </span>
-                  <span className="font-mono text-xs text-slate-500">{project.year}</span>
+          return (
+            <div
+              key={project.id}
+              onClick={() => handleOpenModal(project)}
+              onMouseEnter={() => soundManager.playHover()}
+              data-cursor-text="VIEW"
+              className={`${colSpan} group rounded-xl bg-[#090b10] border border-white/10 hover:border-cyber-cyan/50 p-6 sm:p-7 transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden`}
+            >
+              {/* Subtle top accent */}
+              <div
+                className="absolute top-0 left-0 right-0 h-0.5 opacity-60 group-hover:opacity-100 transition-opacity"
+                style={{ backgroundColor: project.accentColor }}
+              />
+
+              <div className="space-y-4 text-left">
+                {/* Header Meta */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs text-cyber-cyan font-semibold">
+                      {project.category}
+                    </span>
+                    <span className="text-slate-600 font-mono text-xs">/</span>
+                    <span className="font-mono text-xs text-slate-400">{project.year}</span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-cyber-cyan font-mono text-xs transition-colors">
+                    <span>Details</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-slate-400 group-hover:text-cyber-cyan transition-colors">
-                  <span className="font-mono text-xs hidden sm:inline">BLUEPRINT</span>
-                  <ExternalLink className="w-4 h-4" />
+                {/* Title & Tagline */}
+                <div>
+                  <h3 className="font-display font-bold text-2xl text-white group-hover:text-cyber-cyan transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="font-mono text-xs text-slate-400 mt-1">
+                    {project.tagline}
+                  </p>
+                </div>
+
+                {/* Description */}
+                <p className="font-sans text-sm text-slate-300 leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Metrics */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+                  {project.metrics.map((m, mIdx) => (
+                    <div key={mIdx} className="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                      <span className="font-mono text-[10px] text-slate-400 uppercase block">{m.label}</span>
+                      <span className="font-display font-bold text-sm text-white">{m.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Title & Tagline */}
-              <h3 className="font-display font-bold text-2xl text-white group-hover:text-cyber-cyan transition-colors mb-2">
-                {project.title}
-              </h3>
-              <p className="font-mono text-xs text-slate-400 mb-4 leading-normal">
-                {project.tagline}
-              </p>
-              <p className="font-sans text-sm text-slate-300 mb-6 leading-relaxed">
-                {project.description}
-              </p>
-
-              {/* Metrics Highlights */}
-              <div className="grid grid-cols-2 gap-3 mb-6 p-3 rounded-xl bg-black/40 border border-white/5">
-                {project.metrics.slice(0, 2).map((m, idx) => (
-                  <div key={idx}>
-                    <span className="font-mono text-[10px] text-slate-500 uppercase block">{m.label}</span>
-                    <span className="font-display font-bold text-base text-white">{m.value}</span>
-                  </div>
+              {/* Tags Footer */}
+              <div className="flex flex-wrap gap-1.5 pt-5 mt-4 border-t border-white/5">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-0.5 rounded text-[11px] font-mono bg-white/5 text-slate-300 border border-white/5"
+                  >
+                    {tag}
+                  </span>
                 ))}
               </div>
             </div>
-
-            {/* Tags footer */}
-            <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/5">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-0.5 rounded text-[11px] font-mono bg-white/5 text-slate-300 border border-white/5"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Architecture Details Modal */}
+      {/* Blueprint Details Modal */}
       {selectedProject && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
           onClick={handleCloseModal}
         >
           <div
-            className="relative w-full max-w-3xl bg-background-secondary/95 border border-white/20 rounded-2xl shadow-spatial p-6 sm:p-8 overflow-y-auto max-h-[90vh] animate-in zoom-in-95 duration-200"
+            className="relative w-full max-w-2xl bg-[#090b10] border border-white/20 rounded-xl shadow-2xl p-6 sm:p-8 overflow-y-auto max-h-[90vh] animate-in zoom-in-95 duration-200 text-left"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Close Button */}
+            {/* Close Button */}
             <button
               onClick={handleCloseModal}
               onMouseEnter={() => soundManager.playHover()}
-              className="absolute top-5 right-5 p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+              className="absolute top-5 right-5 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+              aria-label="Close"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
 
-            {/* Modal Content */}
+            {/* Modal Body */}
             <div className="space-y-6">
               <div className="flex items-center gap-2">
-                <span
-                  className="px-3 py-1 rounded-full text-xs font-mono uppercase font-bold"
-                  style={{
-                    backgroundColor: `${selectedProject.accentColor}20`,
-                    color: selectedProject.accentColor,
-                    borderColor: `${selectedProject.accentColor}60`,
-                    borderWidth: '1px',
-                  }}
-                >
+                <span className="font-mono text-xs text-cyber-cyan font-bold uppercase">
                   {selectedProject.category}
                 </span>
-                <span className="font-mono text-xs text-slate-400">STATUS: DEPLOYED ({selectedProject.year})</span>
+                <span className="text-slate-600 font-mono text-xs">/</span>
+                <span className="font-mono text-xs text-slate-400">{selectedProject.year}</span>
               </div>
 
               <div>
                 <h2 className="font-display font-black text-3xl text-white mb-1">
                   {selectedProject.title}
                 </h2>
-                <p className="font-mono text-sm text-cyber-cyan">
+                <p className="font-mono text-sm text-slate-300">
                   {selectedProject.tagline}
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-black/40 border border-white/10">
-                <h4 className="font-mono text-xs text-cyber-amber uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Activity className="w-3.5 h-3.5 text-cyber-amber" />
+              <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                <span className="font-mono text-xs text-cyber-amber uppercase tracking-wider block mb-2 font-bold">
                   HOW IT WORKS
-                </h4>
+                </span>
                 <p className="text-sm text-slate-300 font-sans leading-relaxed">
                   {selectedProject.architectureSummary}
                 </p>
               </div>
 
-              {/* Verified Production Metrics */}
               <div>
-                <h4 className="font-mono text-xs text-slate-400 uppercase tracking-wider mb-3">
+                <span className="font-mono text-xs text-slate-400 uppercase tracking-wider block mb-3 font-bold">
                   KEY METRICS
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                </span>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {selectedProject.metrics.map((m, i) => (
-                    <div key={i} className="p-3.5 rounded-xl bg-surface-glass border border-white/10 text-center">
-                      <span className="font-mono text-[10px] text-slate-400 block mb-1">{m.label}</span>
-                      <span className="font-display font-bold text-lg text-white">{m.value}</span>
+                    <div key={i} className="p-3 rounded-lg bg-white/5 border border-white/5">
+                      <span className="font-mono text-[10px] text-slate-400 block mb-0.5">{m.label}</span>
+                      <span className="font-display font-bold text-base text-white">{m.value}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Technologies Applied */}
               <div>
-                <h4 className="font-mono text-xs text-slate-400 uppercase tracking-wider mb-2">
-                  TECH STACK
-                </h4>
-                <div className="flex flex-wrap gap-2">
+                <span className="font-mono text-xs text-slate-400 uppercase tracking-wider block mb-2 font-bold">
+                  STACK
+                </span>
+                <div className="flex flex-wrap gap-1.5">
                   {selectedProject.tags.map((t) => (
-                    <span key={t} className="px-3 py-1 rounded-lg text-xs font-mono bg-white/5 border border-white/10 text-slate-200">
+                    <span key={t} className="px-2.5 py-1 rounded text-xs font-mono bg-white/5 border border-white/10 text-slate-200">
                       {t}
                     </span>
                   ))}
@@ -224,28 +216,17 @@ export const ProjectsSection: React.FC = () => {
               </div>
 
               {/* Actions */}
-              <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-white/10">
+              <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-white/10">
                 <a
-                  href={selectedProject.githubUrl || 'https://github.com'}
+                  href={selectedProject.githubUrl || 'https://github.com/forbesayush'}
                   target="_blank"
                   rel="noreferrer"
                   onMouseEnter={() => soundManager.playHover()}
                   onClick={() => soundManager.playClick()}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs transition-all border border-white/10"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs transition-all border border-white/10"
                 >
                   <Github className="w-4 h-4" />
-                  <span>VIEW ON GITHUB</span>
-                </a>
-                <a
-                  href={selectedProject.liveUrl || 'https://github.com'}
-                  target="_blank"
-                  rel="noreferrer"
-                  onMouseEnter={() => soundManager.playHover()}
-                  onClick={() => soundManager.playClick()}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyber-cyan hover:bg-cyber-neon text-black font-mono font-bold text-xs transition-all shadow-glow-cyan/20"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  <span>VIEW DEMO</span>
+                  <span>GitHub Repository</span>
                 </a>
               </div>
             </div>

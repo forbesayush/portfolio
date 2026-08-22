@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Terminal, ArrowDown, Shield, Cpu, Zap, Bot } from 'lucide-react';
+import { Terminal, ArrowDown, Bot } from 'lucide-react';
 import { soundManager } from '../../audio/soundManager';
 
 interface HeroSectionProps {
@@ -9,26 +9,18 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTerminal }) => {
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-8 pt-28 pb-16 overflow-hidden">
-      {/* Ambient background glow points */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyber-cyan/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-cyber-amber/10 rounded-full blur-[120px] pointer-events-none" />
+    <section className="relative min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-28 pb-16 overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        {/* Left Column: Asymmetric Bold Typography */}
+        <div className="lg:col-span-7 space-y-6 text-left">
+          {/* Status Label */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-slate-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyber-neon animate-pulse" />
+            <span>Available for staff roles and advisory</span>
+          </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
-        {/* Availability Badge */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface-glass border border-cyber-cyan/30 backdrop-blur-xl shadow-glow-cyan/10">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-neon opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-neon" />
-          </span>
-          <span className="font-mono text-xs text-slate-300 tracking-wider">
-            OPEN TO OPPORTUNITIES
-          </span>
-        </div>
-
-        {/* Main Headline */}
-        <div className="space-y-3">
-          <h1 className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-white leading-[1.08] select-none">
+          {/* Main Headline */}
+          <h1 className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-white leading-[1.04]">
             I BUILD <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan via-white to-cyber-neon">
               SYSTEMS
@@ -36,88 +28,93 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
             <br />
             THAT SHIP.
           </h1>
-          <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-400 font-sans leading-relaxed pt-2">
-            I'm <strong className="text-white font-medium">Ayush Chatterjee</strong>. I work on distributed systems, 3D graphics for the web, and AI agent infrastructure. Most of my time goes into writing Rust, WebGPU shaders, and making things run faster.
+
+          {/* Subtitle: Direct, 16 words, human voice */}
+          <p className="max-w-xl text-base sm:text-lg text-slate-300 font-sans leading-relaxed">
+            I'm <strong className="text-white font-medium">Ayush Chatterjee</strong>. I build distributed backends, WebGPU shaders, and agent infrastructure in Rust, C++, and TypeScript.
           </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <a
+              href="#projects"
+              onMouseEnter={() => soundManager.playHover()}
+              onClick={() => soundManager.playClick()}
+              data-cursor-text="WORK"
+              className="px-6 py-3 rounded-lg bg-cyber-cyan text-black font-mono font-bold text-xs tracking-wider uppercase hover:bg-cyber-neon transition-all duration-300 flex items-center gap-2 shadow-glow-cyan"
+            >
+              <span>See My Work</span>
+              <ArrowDown className="w-3.5 h-3.5" />
+            </a>
+
+            <button
+              onClick={() => {
+                soundManager.playModalOpen();
+                onOpenAI();
+              }}
+              onMouseEnter={() => soundManager.playHover()}
+              data-cursor-text="ASK"
+              className="px-5 py-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyber-cyan/50 text-slate-200 hover:text-cyber-cyan font-mono text-xs tracking-wider uppercase transition-all duration-300 flex items-center gap-2"
+            >
+              <Bot className="w-3.5 h-3.5" />
+              <span>Ask AI</span>
+            </button>
+
+            <button
+              onClick={() => {
+                soundManager.playModalOpen();
+                onOpenTerminal();
+              }}
+              onMouseEnter={() => soundManager.playHover()}
+              data-cursor-text="CLI"
+              className="px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyber-amber/50 text-slate-300 hover:text-cyber-amber font-mono text-xs tracking-wider uppercase transition-all duration-300 flex items-center gap-2"
+            >
+              <Terminal className="w-3.5 h-3.5" />
+              <span>Terminal</span>
+            </button>
+          </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-          <a
-            href="#projects"
-            onMouseEnter={() => soundManager.playHover()}
-            onClick={() => soundManager.playClick()}
-            data-cursor-text="EXPLORE"
-            className="group relative px-7 py-3.5 rounded-xl bg-cyber-cyan text-black font-mono font-bold text-sm tracking-wide shadow-glow-cyan hover:bg-cyber-neon transition-all duration-300 flex items-center gap-2"
-          >
-            <span>SEE MY WORK</span>
-            <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-          </a>
-
-          <button
-            onClick={() => {
-              soundManager.playModalOpen();
-              onOpenAI();
-            }}
-            onMouseEnter={() => soundManager.playHover()}
-            data-cursor-text="SYNTHESIS"
-            className="px-6 py-3.5 rounded-xl bg-surface-glass hover:bg-surface-glass-hover border border-cyber-cyan/40 hover:border-cyber-cyan text-cyber-cyan font-mono text-sm tracking-wide transition-all duration-300 flex items-center gap-2 backdrop-blur-xl"
-          >
-            <Bot className="w-4 h-4 text-cyber-cyan" />
-            <span>ASK AI</span>
-            <Sparkles className="w-3.5 h-3.5 text-cyber-neon" />
-          </button>
-
-          <button
-            onClick={() => {
-              soundManager.playModalOpen();
-              onOpenTerminal();
-            }}
-            onMouseEnter={() => soundManager.playHover()}
-            data-cursor-text="TERMINAL"
-            className="px-6 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyber-amber/50 text-slate-300 hover:text-cyber-amber font-mono text-sm tracking-wide transition-all duration-300 flex items-center gap-2 backdrop-blur-xl"
-          >
-            <Terminal className="w-4 h-4" />
-            <span>TERMINAL</span>
-          </button>
-        </div>
-
-        {/* Key Telemetry Bar */}
-        <div className="pt-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
-          <div className="p-4 rounded-xl bg-surface-glass/60 border border-white/5 backdrop-blur-md hover:border-cyber-cyan/40 transition-colors">
-            <div className="flex items-center gap-2 text-cyber-cyan mb-1">
-              <Zap className="w-4 h-4" />
-              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Distributed Systems</span>
+        {/* Right Column: Asymmetric Technical Spec Card */}
+        <div className="lg:col-span-5 space-y-4">
+          <div className="p-6 rounded-xl bg-[#090b10] border border-white/10 space-y-5">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <span className="font-mono text-xs text-cyber-cyan uppercase font-bold tracking-wider">
+                CORE DISCIPLINES
+              </span>
+              <span className="font-mono text-[11px] text-slate-500">2025</span>
             </div>
-            <div className="font-display font-bold text-2xl text-white">High-Perf</div>
-            <div className="font-mono text-[11px] text-slate-400">low-latency Rust/Wasm</div>
-          </div>
 
-          <div className="p-4 rounded-xl bg-surface-glass/60 border border-white/5 backdrop-blur-md hover:border-cyber-amber/40 transition-colors">
-            <div className="flex items-center gap-2 text-cyber-amber mb-1">
-              <Cpu className="w-4 h-4" />
-              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">3D & WebGPU</span>
-            </div>
-            <div className="font-display font-bold text-2xl text-white">Real-Time</div>
-            <div className="font-mono text-[11px] text-slate-400">browser 3D rendering</div>
-          </div>
+            <div className="space-y-3 font-mono text-xs">
+              <div className="p-3 rounded-lg bg-white/5 border border-white/5 flex items-start justify-between">
+                <div>
+                  <span className="text-white font-bold block">Distributed Engines</span>
+                  <span className="text-slate-400 text-[11px]">Rust, DPDK, lock-free queues</span>
+                </div>
+                <span className="text-cyber-cyan font-mono text-[11px]">45K ops/s</span>
+              </div>
 
-          <div className="p-4 rounded-xl bg-surface-glass/60 border border-white/5 backdrop-blur-md hover:border-cyber-neon/40 transition-colors">
-            <div className="flex items-center gap-2 text-cyber-neon mb-1">
-              <Shield className="w-4 h-4" />
-              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Security</span>
-            </div>
-            <div className="font-display font-bold text-2xl text-white">PQC</div>
-            <div className="font-mono text-[11px] text-slate-400">post-quantum cryptography</div>
-          </div>
+              <div className="p-3 rounded-lg bg-white/5 border border-white/5 flex items-start justify-between">
+                <div>
+                  <span className="text-white font-bold block">WebGPU & 3D Shaders</span>
+                  <span className="text-slate-400 text-[11px]">WGSL, Gaussian splats, Three.js</span>
+                </div>
+                <span className="text-cyber-amber font-mono text-[11px]">120 FPS</span>
+              </div>
 
-          <div className="p-4 rounded-xl bg-surface-glass/60 border border-white/5 backdrop-blur-md hover:border-purple-400/40 transition-colors">
-            <div className="flex items-center gap-2 text-purple-400 mb-1">
-              <Sparkles className="w-4 h-4" />
-              <span className="font-mono text-[10px] tracking-wider uppercase text-slate-400">Background</span>
+              <div className="p-3 rounded-lg bg-white/5 border border-white/5 flex items-start justify-between">
+                <div>
+                  <span className="text-white font-bold block">Security & Cryptography</span>
+                  <span className="text-slate-400 text-[11px]">Post-quantum ML-KEM, eBPF</span>
+                </div>
+                <span className="text-cyber-neon font-mono text-[11px]">NIST L5</span>
+              </div>
             </div>
-            <div className="font-display font-bold text-2xl text-white">8+ Years</div>
-            <div className="font-mono text-[11px] text-slate-400">building production systems</div>
+
+            <div className="pt-2 border-t border-white/5 flex items-center justify-between font-mono text-[11px] text-slate-400">
+              <span>Experience: 8+ years</span>
+              <span className="text-slate-300">San Francisco, CA</span>
+            </div>
           </div>
         </div>
       </div>
