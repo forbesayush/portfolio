@@ -49,16 +49,16 @@ export const ActivitySection: React.FC = () => {
     <section id="activity" className="py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto relative z-10 text-left">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-white/10 pb-6">
         <div>
-          <span className="font-mono text-xs sm:text-sm text-cyber-cyan tracking-wider uppercase block mb-1.5 font-bold">
+          <span className="font-sans text-xs sm:text-sm text-accent tracking-wide uppercase block mb-1.5 font-medium">
             Public repositories
           </span>
-          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
+          <h2 className="font-serif font-normal text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
             Recent activity
           </h2>
         </div>
-        <div className="flex items-center gap-3 font-mono text-xs sm:text-sm text-slate-400">
-          <span className="flex items-center gap-2 text-cyber-neon font-medium">
-            <span className="w-2 h-2 rounded-full bg-cyber-neon animate-pulse" />
+        <div className="flex items-center gap-3 font-sans text-xs sm:text-sm text-slate-400">
+          <span className="flex items-center gap-2 text-accent font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             GitHub Feed
           </span>
           <button
@@ -82,26 +82,26 @@ export const ActivitySection: React.FC = () => {
             rel="noreferrer"
             onMouseEnter={() => soundManager.playHover()}
             onClick={() => soundManager.playClick()}
-            className="p-6 rounded-2xl bg-[#090b10] border border-white/10 hover:border-cyber-cyan/50 transition-all duration-200 block text-left shadow-lg hover:-translate-y-1"
+            className="p-6 rounded-2xl bg-background-card border border-white/10 hover:border-accent/40 transition-all duration-200 block text-left shadow-lg hover:-translate-y-1"
           >
             <div className="flex items-center gap-2.5 mb-3.5">
-              <GitCommit className="w-4 h-4 text-cyber-cyan flex-shrink-0" />
-              <span className="font-mono text-base font-bold text-white hover:text-cyber-cyan transition-colors truncate">
+              <GitCommit className="w-4 h-4 text-accent flex-shrink-0" />
+              <span className="font-serif text-base text-white hover:text-accent font-medium transition-colors truncate">
                 {repo.name}
               </span>
             </div>
-            <div className="space-y-2 font-mono text-xs sm:text-sm text-slate-400">
+            <div className="space-y-2 font-sans text-xs sm:text-sm text-slate-400">
               <div className="flex justify-between">
                 <span>Lang</span>
-                <span className="text-slate-200 font-semibold">{repo.language}</span>
+                <span className="text-slate-200 font-normal">{repo.language}</span>
               </div>
               <div className="flex justify-between">
                 <span>Stars</span>
-                <span className="text-cyber-amber font-semibold">{repo.stars}</span>
+                <span className="text-accent font-normal">{repo.stars}</span>
               </div>
               <div className="flex justify-between">
                 <span>Updated</span>
-                <span className="text-slate-300">{repo.updated}</span>
+                <span className="text-slate-300 font-normal">{repo.updated}</span>
               </div>
             </div>
           </a>

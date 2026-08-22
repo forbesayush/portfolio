@@ -62,7 +62,7 @@ export const CustomCursor: React.FC = () => {
     <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden mix-blend-difference hidden md:block">
       {/* Outer Spatial Ring */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full border border-cyber-cyan/80 flex items-center justify-center pointer-events-none"
+        className="fixed top-0 left-0 rounded-full border border-accent/60 flex items-center justify-center pointer-events-none"
         style={{
           x: smoothX,
           y: smoothY,
@@ -70,15 +70,15 @@ export const CustomCursor: React.FC = () => {
           translateY: '-50%',
         }}
         animate={{
-          width: cursorVariant === 'hover' ? (cursorText ? 84 : 52) : 28,
-          height: cursorVariant === 'hover' ? (cursorText ? 84 : 52) : 28,
-          backgroundColor: cursorVariant === 'hover' ? 'rgba(0, 240, 255, 0.15)' : 'rgba(0, 240, 255, 0)',
-          borderColor: cursorVariant === 'hover' ? '#00f0ff' : 'rgba(0, 240, 255, 0.5)',
+          width: cursorVariant === 'hover' ? (cursorText ? 84 : 48) : 24,
+          height: cursorVariant === 'hover' ? (cursorText ? 84 : 48) : 24,
+          backgroundColor: cursorVariant === 'hover' ? 'rgba(224, 122, 95, 0.12)' : 'rgba(224, 122, 95, 0)',
+          borderColor: cursorVariant === 'hover' ? '#e07a5f' : 'rgba(224, 122, 95, 0.4)',
         }}
         transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       >
         {cursorText && (
-          <span className="text-[10px] font-mono font-bold tracking-widest text-cyber-cyan uppercase select-none text-center px-1">
+          <span className="text-[10px] font-sans font-medium tracking-wide text-accent uppercase select-none text-center px-1">
             {cursorText}
           </span>
         )}
@@ -86,7 +86,7 @@ export const CustomCursor: React.FC = () => {
 
       {/* Center Precise Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-cyber-cyan pointer-events-none"
+        className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-accent pointer-events-none"
         style={{
           x: mouseX,
           y: mouseY,

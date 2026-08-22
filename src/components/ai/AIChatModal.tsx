@@ -98,27 +98,26 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-2xl bg-background-secondary/95 border border-cyber-cyan/30 rounded-2xl shadow-spatial overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-2xl bg-background-card border border-white/15 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-surface-glass">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-white/5">
           <div className="flex items-center gap-3">
-            <div className="relative w-8 h-8 rounded-lg bg-cyber-cyan/15 border border-cyber-cyan/50 flex items-center justify-center text-cyber-cyan shadow-glow-cyan/20">
+            <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent">
               <Bot className="w-4 h-4" />
-              <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-cyber-neon animate-pulse" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-display font-bold text-sm text-white tracking-wide">
-                  PORTFOLIO AI
+                <h3 className="font-serif font-medium text-base text-white tracking-wide">
+                  Portfolio AI
                 </h3>
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/40">
-                  BETA
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-sans bg-accent/10 text-accent border border-accent/30">
+                  Beta
                 </span>
               </div>
-              <p className="text-[11px] font-mono text-slate-400">
-                Ask me about Ayush's work
+              <p className="text-xs font-sans text-slate-400">
+                Ask me about Ayush's background
               </p>
             </div>
           </div>
@@ -138,7 +137,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
                 onClose();
               }}
               onMouseEnter={() => soundManager.playHover()}
-              className="p-1.5 rounded-lg bg-white/5 hover:bg-red-500/20 border border-white/10 hover:border-red-500/40 text-slate-400 hover:text-red-400 text-xs transition-colors"
+              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white text-xs transition-colors"
               aria-label="Close Modal"
             >
               <X className="w-4 h-4" />
@@ -154,7 +153,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
               className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.sender === 'ai' && (
-                <div className="w-7 h-7 rounded-lg bg-cyber-cyan/20 border border-cyber-cyan/40 flex items-center justify-center text-cyber-cyan flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent flex-shrink-0 mt-0.5">
                   <Bot className="w-3.5 h-3.5" />
                 </div>
               )}
@@ -162,15 +161,15 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
               <div
                 className={`max-w-[80%] rounded-2xl p-4 leading-relaxed ${
                   msg.sender === 'user'
-                    ? 'bg-cyber-cyan/15 border border-cyber-cyan/40 text-white rounded-tr-sm'
-                    : 'bg-surface-glass border border-white/10 text-slate-200 rounded-tl-sm backdrop-blur-md'
+                    ? 'bg-accent/15 border border-accent/40 text-white rounded-tr-sm'
+                    : 'bg-white/5 border border-white/10 text-slate-200 rounded-tl-sm'
                 }`}
               >
                 <div className="flex items-center justify-between gap-4 mb-1">
-                  <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-slate-400">
-                    {msg.sender === 'user' ? 'VISITOR' : 'AI'}
+                  <span className="font-sans text-[11px] uppercase font-medium tracking-wide text-slate-400">
+                    {msg.sender === 'user' ? 'Visitor' : 'AI'}
                   </span>
-                  <span className="font-mono text-[10px] text-slate-500">{msg.timestamp}</span>
+                  <span className="font-sans text-[10px] text-slate-500">{msg.timestamp}</span>
                 </div>
                 <div className="whitespace-pre-wrap">{msg.text}</div>
               </div>
@@ -184,15 +183,14 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
           ))}
 
           {isTyping && (
-            <div className="flex gap-3 justify-start">
-              <div className="w-7 h-7 rounded-lg bg-cyber-cyan/20 border border-cyber-cyan/40 flex items-center justify-center text-cyber-cyan flex-shrink-0">
-                <Bot className="w-3.5 h-3.5 animate-spin" />
+            <div className="flex gap-3 justify-start items-center text-slate-400 text-xs font-sans">
+              <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent">
+                <Bot className="w-3.5 h-3.5 animate-pulse" />
               </div>
-              <div className="bg-surface-glass border border-white/10 rounded-2xl p-3 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyber-cyan animate-bounce" />
-                <span className="w-1.5 h-1.5 rounded-full bg-cyber-cyan animate-bounce delay-100" />
-                <span className="w-1.5 h-1.5 rounded-full bg-cyber-cyan animate-bounce delay-200" />
-                <span className="font-mono text-xs text-cyber-cyan ml-2">TYPING...</span>
+              <div className="flex items-center gap-1 bg-white/5 border border-white/10 px-3.5 py-2 rounded-xl">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce" />
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce [animation-delay:0.2s]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce [animation-delay:0.4s]" />
               </div>
             </div>
           )}
@@ -207,7 +205,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
               key={i}
               onClick={() => handleSend(sug)}
               onMouseEnter={() => soundManager.playHover()}
-              className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-white/5 hover:bg-cyber-cyan/15 border border-white/10 hover:border-cyber-cyan/40 text-slate-300 hover:text-cyber-cyan transition-all"
+              className="text-xs font-sans px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all"
             >
               {sug}
             </button>
@@ -220,22 +218,21 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
             e.preventDefault();
             handleSend();
           }}
-          className="p-4 border-t border-white/10 bg-surface-glass flex items-center gap-3"
+          className="p-4 border-t border-white/10 bg-white/5 flex items-center gap-3"
         >
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={() => soundManager.playTypeKey()}
-            placeholder="Ask anything about systems, graphics, projects, or background..."
-            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyber-cyan transition-colors font-sans"
+            placeholder="Ask about Ayush's MBA background, projects, skills..."
+            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-accent transition-colors font-sans"
             autoFocus
           />
           <button
             type="submit"
             disabled={!input.trim() || isTyping}
             onMouseEnter={() => soundManager.playHover()}
-            className="p-2.5 rounded-xl bg-cyber-cyan text-black font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-cyber-neon transition-all flex items-center justify-center shadow-glow-cyan/20"
+            className="p-2.5 rounded-xl bg-accent text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-hover transition-all flex items-center justify-center shadow-accent"
             aria-label="Send"
           >
             <Send className="w-4 h-4" />

@@ -44,17 +44,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
           onClick={() => soundManager.playClick()}
           className="flex items-center gap-3 group"
         >
-          <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan/20 to-cyber-neon/10 border border-cyber-cyan/40 flex items-center justify-center group-hover:border-cyber-cyan transition-all duration-300 shadow-glow-cyan/20">
-            <span className="font-mono font-bold text-cyber-cyan text-sm">AC</span>
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-cyber-neon animate-ping" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-cyber-neon" />
+          <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center group-hover:border-accent transition-colors">
+            <span className="font-serif font-medium text-accent text-sm">AC</span>
           </div>
-          <div className="flex flex-col">
-            <span className="font-display font-black text-sm sm:text-base tracking-wider text-white group-hover:text-cyber-cyan transition-colors">
-              AYUSH CHATTERJEE
+          <div className="flex flex-col text-left">
+            <span className="font-serif font-medium text-base text-white group-hover:text-accent transition-colors">
+              Ayush Chatterjee
             </span>
-            <span className="text-[11px] font-mono text-slate-400 font-medium tracking-wider">
-              MBA CANDIDATE &bull; PRODUCT &amp; STRATEGY
+            <span className="text-[11px] font-sans text-slate-400 font-normal">
+              MBA Candidate &bull; Product &amp; Strategy
             </span>
           </div>
         </a>
@@ -67,10 +65,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
               href={link.href}
               onMouseEnter={() => soundManager.playHover()}
               onClick={() => soundManager.playClick()}
-              className="text-xs sm:text-sm font-mono text-slate-300 hover:text-cyber-cyan transition-colors tracking-wider py-1 relative group font-medium"
+              className="text-sm font-sans text-slate-300 hover:text-white transition-colors py-1 relative group font-medium"
             >
               {link.label}
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-cyber-cyan transition-all duration-300 group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-200 group-hover:w-full" />
             </a>
           ))}
         </div>
@@ -87,12 +85,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
             }}
             onMouseEnter={() => soundManager.playHover()}
             data-cursor-text="ASK"
-            className="group flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyber-cyan/10 hover:bg-cyber-cyan/20 border border-cyber-cyan/30 hover:border-cyber-cyan text-xs font-mono text-cyber-cyan transition-all duration-300 shadow-glow-cyan/10"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-sans text-slate-300 hover:text-white transition-colors"
             title="Ask AI about me"
           >
-            <Bot className="w-3.5 h-3.5 group-hover:rotate-12 transition-transform" />
-            <span className="hidden sm:inline">ASK AI</span>
-            <Sparkles className="w-2.5 h-2.5 animate-pulse text-cyber-neon" />
+            <Bot className="w-3.5 h-3.5 text-accent" />
+            <span className="hidden sm:inline">Ask AI</span>
           </button>
 
           {/* Terminal Launcher */}
@@ -103,26 +100,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
             }}
             onMouseEnter={() => soundManager.playHover()}
             data-cursor-text="CLI"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-glass hover:bg-surface-glass-hover border border-white/10 hover:border-cyber-amber/50 text-xs font-mono text-slate-300 hover:text-cyber-amber transition-all duration-300"
-            title="Open CLI Terminal (Ctrl+K)"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-sans text-slate-300 hover:text-white transition-colors"
+            title="Toggle Interactive CLI Terminal"
           >
-            <Terminal className="w-3.5 h-3.5" />
+            <Terminal className="w-3.5 h-3.5 text-slate-400" />
             <span className="hidden sm:inline">CLI</span>
-            <kbd className="hidden xl:inline text-[9px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 text-slate-400">
-              ^K
-            </kbd>
           </button>
 
-          {/* Mobile Hamburger Toggle */}
+          {/* Mobile Menu Button */}
           <button
-            onClick={() => {
-              soundManager.playClick();
-              setMobileMenuOpen(!mobileMenuOpen);
-            }}
-            className="lg:hidden p-2 rounded-lg bg-surface-glass border border-white/10 text-slate-300 hover:text-white"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className="lg:hidden p-2 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white"
             aria-label="Toggle Navigation Menu"
           >
-            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </nav>

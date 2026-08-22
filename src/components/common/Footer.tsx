@@ -35,27 +35,27 @@ export const Footer: React.FC = () => {
     <footer className="relative z-10 border-t border-white/10 bg-background-secondary/80 backdrop-blur-xl mt-24">
       {/* Top Status Ribbon */}
       <div className="border-b border-white/5 py-3 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] text-slate-400">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-sans text-xs text-slate-400">
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-            <span className="flex items-center gap-1.5 text-cyber-neon">
-              <span className="w-2 h-2 rounded-full bg-cyber-neon animate-pulse" />
+            <span className="flex items-center gap-1.5 text-accent font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
               PORTFOLIO: ONLINE
             </span>
             <span className="hidden md:inline text-slate-600">|</span>
             <span className="flex items-center gap-1 text-slate-300">
-              <ShieldCheck className="w-3.5 h-3.5 text-cyber-cyan" />
+              <ShieldCheck className="w-3.5 h-3.5 text-accent" />
               BUILT WITH REACT + THREE.JS
             </span>
             <span className="hidden md:inline text-slate-600">|</span>
             <span className="flex items-center gap-1 text-slate-300">
-              <Cpu className="w-3.5 h-3.5 text-cyber-amber" />
+              <Cpu className="w-3.5 h-3.5 text-slate-400" />
               TYPESCRIPT + TAILWIND
             </span>
           </div>
 
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1 text-slate-300">
-              <Activity className="w-3 h-3 text-cyber-neon" />
+              <Activity className="w-3 h-3 text-accent" />
               <span>STATUS: LIVE</span>
             </span>
           </div>
@@ -68,11 +68,11 @@ export const Footer: React.FC = () => {
           {/* Brand Col */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-7 h-7 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/40 flex items-center justify-center font-mono font-bold text-cyber-cyan text-xs">
+              <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center font-serif font-medium text-accent text-xs">
                 AC
               </div>
-              <span className="font-display font-bold text-lg text-white tracking-wide">
-                AYUSH CHATTERJEE
+              <span className="font-serif font-medium text-lg text-white tracking-wide">
+                Ayush Chatterjee
               </span>
             </div>
             <p className="text-sm text-slate-400 font-sans max-w-md leading-relaxed">
@@ -85,7 +85,7 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="p-2 rounded-lg bg-white/5 hover:bg-cyber-cyan/10 border border-white/10 hover:border-cyber-cyan/40 text-slate-400 hover:text-cyber-cyan transition-all"
+                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all"
                 aria-label="GitHub Profile"
               >
                 <Github className="w-4 h-4" />
@@ -96,7 +96,7 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="p-2 rounded-lg bg-white/5 hover:bg-cyber-cyan/10 border border-white/10 hover:border-cyber-cyan/40 text-slate-400 hover:text-cyber-cyan transition-all"
+                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-4 h-4" />
@@ -107,7 +107,7 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
-                className="p-2 rounded-lg bg-white/5 hover:bg-cyber-cyan/10 border border-white/10 hover:border-cyber-cyan/40 text-slate-400 hover:text-cyber-cyan transition-all"
+                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all"
                 aria-label="Twitter / X Profile"
               >
                 <Twitter className="w-4 h-4" />
@@ -117,10 +117,10 @@ export const Footer: React.FC = () => {
 
           {/* Timezones */}
           <div>
-            <h4 className="font-mono text-xs text-cyber-cyan tracking-wider uppercase mb-3">
+            <h4 className="font-sans text-xs text-accent tracking-wide uppercase mb-3 font-medium">
               Time zones
             </h4>
-            <div className="space-y-2 font-mono text-xs text-slate-300">
+            <div className="space-y-2 font-sans text-xs text-slate-300">
               <div className="flex justify-between py-1 border-b border-white/5">
                 <span className="text-slate-500">San Francisco:</span>
                 <span>{times.sf || '04:14:00 SFO'}</span>
@@ -135,7 +135,7 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex justify-between py-1">
                 <span className="text-slate-500">Universal UTC:</span>
-                <span className="text-cyber-neon">{times.utc || '11:14:00 UTC'}</span>
+                <span className="text-accent">{times.utc || '11:14:00 UTC'}</span>
               </div>
             </div>
           </div>
@@ -143,22 +143,22 @@ export const Footer: React.FC = () => {
           {/* Quick Navigation */}
           <div className="flex flex-col justify-between">
             <div>
-              <h4 className="font-mono text-xs text-cyber-amber tracking-wider uppercase mb-3">
+              <h4 className="font-sans text-xs text-accent tracking-wide uppercase mb-3 font-medium">
                 Navigation
               </h4>
-              <ul className="space-y-1.5 font-mono text-xs text-slate-400">
-                <li><a href="#projects" className="hover:text-cyber-cyan transition-colors">Case studies</a></li>
-                <li><a href="#skills" className="hover:text-cyber-cyan transition-colors">Skills</a></li>
-                <li><a href="#experience" className="hover:text-cyber-cyan transition-colors">Experience</a></li>
-                <li><a href="#diagnostics" className="hover:text-cyber-cyan transition-colors">Diagnostics</a></li>
-                <li><a href="#contact" className="hover:text-cyber-cyan transition-colors">Contact</a></li>
+              <ul className="space-y-1.5 font-sans text-xs text-slate-400">
+                <li><a href="#projects" className="hover:text-white transition-colors">Case studies</a></li>
+                <li><a href="#skills" className="hover:text-white transition-colors">Skills</a></li>
+                <li><a href="#experience" className="hover:text-white transition-colors">Experience</a></li>
+                <li><a href="#diagnostics" className="hover:text-white transition-colors">Diagnostics</a></li>
+                <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
               </ul>
             </div>
 
             <button
               onClick={scrollToTop}
               onMouseEnter={() => soundManager.playHover()}
-              className="mt-6 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-cyber-cyan/10 border border-white/10 hover:border-cyber-cyan/40 text-xs font-mono text-slate-300 hover:text-cyber-cyan transition-all group"
+              className="mt-6 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-sans text-slate-300 hover:text-white transition-all group"
             >
               <span>Return to top</span>
               <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-1 transition-transform" />
@@ -167,7 +167,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom */}
-        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500">
+        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-xs text-slate-500">
           <p>© 2025 Ayush Chatterjee</p>
           <div className="flex items-center gap-6">
             <span className="hover:text-slate-300 cursor-pointer">Privacy</span>

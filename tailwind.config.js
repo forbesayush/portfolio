@@ -9,35 +9,40 @@ export default {
     extend: {
       colors: {
         background: {
-          DEFAULT: '#06070a',
-          secondary: '#0c0e14',
-          tertiary: '#131722',
+          DEFAULT: '#0e1014',
+          secondary: '#15181f',
+          card: '#12151b',
+        },
+        accent: {
+          DEFAULT: '#e07a5f',
+          hover: '#d46b50',
+          light: '#f4a261',
+          muted: 'rgba(224, 122, 95, 0.12)',
         },
         cyber: {
-          cyan: '#00f0ff',
-          neon: '#00ffaa',
-          amber: '#ffaa00',
-          violet: '#8a2be2',
-          pink: '#ff007f',
-          red: '#ff3366',
+          cyan: '#e07a5f',
+          neon: '#e07a5f',
+          amber: '#f4a261',
+          violet: '#9ca3af',
+          pink: '#e07a5f',
+          red: '#e07a5f',
         },
         surface: {
-          glass: 'rgba(18, 22, 34, 0.65)',
-          'glass-hover': 'rgba(28, 34, 52, 0.8)',
+          glass: 'rgba(18, 21, 27, 0.75)',
+          'glass-hover': 'rgba(26, 30, 39, 0.85)',
           border: 'rgba(255, 255, 255, 0.08)',
-          'border-active': 'rgba(0, 240, 255, 0.4)',
+          'border-active': 'rgba(224, 122, 95, 0.4)',
         }
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', '"Space Grotesk"', 'system-ui', 'sans-serif'],
-        display: ['"Syne"', '"Plus Jakarta Sans"', 'sans-serif'],
+        serif: ['"Newsreader"', '"Playfair Display"', 'Georgia', 'serif'],
+        display: ['"Newsreader"', '"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['"Inter"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       boxShadow: {
-        'glow-cyan': '0 0 30px -5px rgba(0, 240, 255, 0.3)',
-        'glow-amber': '0 0 30px -5px rgba(255, 170, 0, 0.3)',
-        'glow-neon': '0 0 30px -5px rgba(0, 255, 170, 0.3)',
-        'spatial': '0 20px 50px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(255, 255, 255, 0.08)',
+        'accent': '0 4px 20px -2px rgba(224, 122, 95, 0.25)',
+        'subtle': '0 10px 30px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.06)',
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',

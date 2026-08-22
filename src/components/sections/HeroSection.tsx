@@ -9,39 +9,36 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTerminal }) => {
   return (
-    <section className="relative min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-28 pb-16 overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-        {/* Left Column: Asymmetric Bold Typography */}
-        <div className="lg:col-span-7 space-y-7 text-left">
-          {/* Status Label */}
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs sm:text-sm font-mono text-slate-200">
-            <span className="w-2 h-2 rounded-full bg-cyber-neon animate-pulse" />
-            <span className="font-medium">MBA Candidate (2027), Regional College of Management</span>
+    <section className="relative min-h-[90vh] flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-28 pb-16">
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        {/* Left Column: Editorial Serif & Humanist Text */}
+        <div className="lg:col-span-7 space-y-6 text-left">
+          {/* Subtle Context Tag */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-sans text-slate-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+            <span>MBA Candidate (2027), Regional College of Management</span>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[6.2rem] tracking-tight text-white leading-[0.96]">
-            PRODUCT &amp; <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan via-white to-cyber-neon">
-              BUSINESS
-            </span>
-            <br />
-            STRATEGY.
+          {/* Main Headline in Distinctive Serif */}
+          <h1 className="font-serif font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight text-white leading-[1.05]">
+            Product &amp; <br />
+            <span className="italic text-accent">business strategy</span> <br />
+            for growth.
           </h1>
 
-          {/* Subtitle: Direct, specific, one idea per sentence */}
-          <p className="max-w-xl text-lg sm:text-xl md:text-2xl text-slate-300 font-sans leading-relaxed font-normal">
-            I'm <strong className="text-white font-semibold">Ayush Chatterjee</strong>. I evaluate user friction, analyze retention funnels, and build product roadmaps backed by data.
+          {/* Subtitle in Clean Humanist Sans */}
+          <p className="max-w-xl text-lg sm:text-xl text-slate-300 font-sans leading-relaxed font-normal">
+            I'm <strong className="text-white font-medium">Ayush Chatterjee</strong>. I evaluate user friction, analyze retention funnels, and build product roadmaps backed by data.
           </p>
 
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-3.5 pt-3">
+          {/* Action Buttons: 1 deliberate accent moment */}
+          <div className="flex flex-wrap items-center gap-3 pt-2">
             <a
               href="#projects"
               onMouseEnter={() => soundManager.playHover()}
               onClick={() => soundManager.playClick()}
               data-cursor-text="WORK"
-              className="px-7 py-3.5 rounded-xl bg-cyber-cyan text-black font-mono font-bold text-xs sm:text-sm tracking-wider uppercase hover:bg-cyber-neon transition-all duration-300 flex items-center gap-2 shadow-glow-cyan"
+              className="px-6 py-3 rounded-xl bg-accent text-white font-sans font-medium text-sm hover:bg-accent-hover transition-all duration-200 flex items-center gap-2 shadow-accent"
             >
               <span>View Case Studies</span>
               <ArrowDown className="w-4 h-4" />
@@ -54,9 +51,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
               }}
               onMouseEnter={() => soundManager.playHover()}
               data-cursor-text="ASK"
-              className="px-6 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyber-cyan/50 text-slate-200 hover:text-cyber-cyan font-mono text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 flex items-center gap-2"
+              className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 hover:text-white font-sans text-sm font-medium transition-all duration-200 flex items-center gap-2"
             >
-              <Bot className="w-4 h-4" />
+              <Bot className="w-4 h-4 text-slate-400" />
               <span>Ask AI</span>
             </button>
 
@@ -67,53 +64,36 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
               }}
               onMouseEnter={() => soundManager.playHover()}
               data-cursor-text="CLI"
-              className="px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyber-amber/50 text-slate-300 hover:text-cyber-amber font-mono text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 flex items-center gap-2"
+              className="px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white font-sans text-sm font-medium transition-all duration-200 flex items-center gap-2"
             >
-              <Terminal className="w-4 h-4" />
+              <Terminal className="w-4 h-4 text-slate-400" />
               <span>Terminal</span>
             </button>
           </div>
         </div>
 
-        {/* Right Column: Asymmetric Core Competency Card */}
-        <div className="lg:col-span-5 space-y-4">
-          <div className="p-7 sm:p-8 rounded-2xl bg-[#090b10] border border-white/10 space-y-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <span className="font-mono text-xs sm:text-sm text-cyber-cyan font-bold tracking-wider">
-                CORE FOCUS AREAS
-              </span>
-              <span className="font-mono text-xs text-slate-400 font-semibold">MBA 2027</span>
+        {/* Right Column: Authentic Personal Photo & Key Focus Card */}
+        <div className="lg:col-span-5 flex flex-col items-center lg:items-end">
+          <div className="w-full max-w-sm rounded-2xl bg-background-card border border-white/10 p-5 space-y-5 shadow-2xl">
+            {/* Authentic Portrait Photo */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <img
+                src="/ayush-chatterjee.png"
+                alt="Ayush Chatterjee"
+                className="w-full h-full object-cover object-top"
+                loading="eager"
+              />
             </div>
 
-            <div className="space-y-3.5 font-mono text-xs sm:text-sm">
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-start justify-between">
-                <div>
-                  <span className="text-white font-bold block text-sm sm:text-base">Product Management</span>
-                  <span className="text-slate-400 text-xs">PRDs, RICE scoring, QA bug triage</span>
-                </div>
-                <span className="text-cyber-cyan font-mono text-xs sm:text-sm font-bold">20+ Bugs Evaluated</span>
+            {/* Quick Context */}
+            <div className="space-y-2 text-left pt-1">
+              <div className="flex items-center justify-between">
+                <span className="font-serif text-lg text-white font-medium">Ayush Chatterjee</span>
+                <span className="text-xs text-accent font-sans font-medium">MBA &bull; IT &amp; IB</span>
               </div>
-
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-start justify-between">
-                <div>
-                  <span className="text-white font-bold block text-sm sm:text-base">Business Analytics</span>
-                  <span className="text-slate-400 text-xs">Power BI, cohort retention, Excel models</span>
-                </div>
-                <span className="text-cyber-amber font-mono text-xs sm:text-sm font-bold">-35% Report Time</span>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-start justify-between">
-                <div>
-                  <span className="text-white font-bold block text-sm sm:text-base">Operations &amp; Strategy</span>
-                  <span className="text-slate-400 text-xs">Franchise setup, market sizing, GTM</span>
-                </div>
-                <span className="text-cyber-neon font-mono text-xs sm:text-sm font-bold">5 Stores Audited</span>
-              </div>
-            </div>
-
-            <div className="pt-3 border-t border-white/5 flex items-center justify-between font-mono text-xs sm:text-sm text-slate-400">
-              <span className="font-medium">Specialization: IT &amp; International Business</span>
-              <span className="text-slate-200 font-semibold">India</span>
+              <p className="font-sans text-xs text-slate-400 leading-relaxed">
+                Specializing in Information Technology &amp; International Business. Practical exposure across mobile QA, e-commerce retention, and retail operations.
+              </p>
             </div>
           </div>
         </div>

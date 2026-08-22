@@ -34,24 +34,24 @@ export const ProjectsSection: React.FC = () => {
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b border-white/10 pb-6 text-left">
         <div>
-          <span className="font-mono text-xs sm:text-sm text-cyber-amber tracking-wider uppercase block mb-1.5 font-bold">
+          <span className="font-sans text-xs sm:text-sm text-accent tracking-wide uppercase block mb-1.5 font-medium">
             Case studies
           </span>
-          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
+          <h2 className="font-serif font-normal text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
             Selected work
           </h2>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex flex-wrap gap-2">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
               onMouseEnter={() => soundManager.playHover()}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all duration-200 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'bg-cyber-cyan text-black font-bold shadow-glow-cyan/30'
+                  ? 'bg-accent text-white shadow-accent'
                   : 'bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/5'
               }`}
             >
@@ -72,37 +72,31 @@ export const ProjectsSection: React.FC = () => {
               onClick={() => handleOpenModal(project)}
               onMouseEnter={() => soundManager.playHover()}
               data-cursor-text="VIEW"
-              className={`${colSpan} group rounded-2xl bg-[#090b10] border border-white/10 hover:border-cyber-cyan/50 p-7 sm:p-8 transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden shadow-xl`}
+              className={`${colSpan} group rounded-2xl bg-background-card border border-white/10 hover:border-accent/40 p-7 sm:p-8 transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden shadow-xl`}
             >
-              {/* Subtle top accent */}
-              <div
-                className="absolute top-0 left-0 right-0 h-1 opacity-60 group-hover:opacity-100 transition-opacity"
-                style={{ backgroundColor: project.accentColor }}
-              />
-
               <div className="space-y-4 text-left">
                 {/* Header Meta */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <span className="font-mono text-xs sm:text-sm text-cyber-cyan font-bold uppercase tracking-wider">
+                    <span className="font-sans text-xs font-medium text-accent uppercase tracking-wider">
                       {project.category}
                     </span>
-                    <span className="text-slate-600 font-mono text-xs">/</span>
-                    <span className="font-mono text-xs sm:text-sm text-slate-400 font-medium">{project.year}</span>
+                    <span className="text-slate-600 text-xs">&bull;</span>
+                    <span className="font-sans text-xs text-slate-400 font-medium">{project.year}</span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-cyber-cyan font-mono text-xs sm:text-sm font-semibold transition-colors">
-                    <span>Details</span>
-                    <ExternalLink className="w-4 h-4" />
+                  <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-accent font-sans text-xs font-medium transition-colors">
+                    <span>Read case</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
                   </div>
                 </div>
 
-                {/* Title & Tagline */}
+                {/* Title & Tagline in Serif */}
                 <div>
-                  <h3 className="font-display font-black text-2xl sm:text-3xl text-white group-hover:text-cyber-cyan transition-colors">
+                  <h3 className="font-serif font-medium text-2xl sm:text-3xl text-white group-hover:text-accent transition-colors">
                     {project.title}
                   </h3>
-                  <p className="font-mono text-xs sm:text-sm text-slate-400 mt-1.5 font-medium">
+                  <p className="font-sans text-xs sm:text-sm text-slate-400 mt-1.5 font-normal">
                     {project.tagline}
                   </p>
                 </div>
@@ -112,12 +106,12 @@ export const ProjectsSection: React.FC = () => {
                   {project.description}
                 </p>
 
-                {/* Metrics */}
+                {/* Clean Quantitative Results */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
                   {project.metrics.map((m, mIdx) => (
                     <div key={mIdx} className="p-3 rounded-xl bg-white/5 border border-white/5">
-                      <span className="font-mono text-[11px] text-slate-400 uppercase font-semibold block">{m.label}</span>
-                      <span className="font-display font-bold text-base sm:text-lg text-white">{m.value}</span>
+                      <span className="font-sans text-xs text-slate-400 font-normal block mb-0.5">{m.label}</span>
+                      <span className="font-serif font-medium text-base sm:text-lg text-white">{m.value}</span>
                     </div>
                   ))}
                 </div>
@@ -128,7 +122,7 @@ export const ProjectsSection: React.FC = () => {
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-white/5 text-slate-300 border border-white/5"
+                    className="px-2.5 py-1 rounded-md text-xs font-sans text-slate-300 bg-white/5 border border-white/5 font-normal"
                   >
                     {tag}
                   </span>
