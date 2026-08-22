@@ -124,6 +124,56 @@ export const ExperienceSection: React.FC = () => {
           );
         })}
       </div>
+
+      {/* Education Block */}
+      <div className="mt-16 pt-12 border-t border-white/10">
+        <div className="mb-8">
+          <span className="font-mono text-xs sm:text-sm text-cyber-amber tracking-wider uppercase block mb-1.5 font-bold">
+            Academic foundation
+          </span>
+          <h3 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight">
+            Education
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-6 sm:p-7 rounded-2xl bg-[#090b10] border border-white/10 space-y-3 shadow-xl">
+            <div className="flex items-center justify-between">
+              <span className="px-3 py-1 rounded-lg text-xs font-mono bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 font-medium">
+                2025 to 2027
+              </span>
+              <span className="font-mono text-xs text-slate-400 font-medium">Full-Time</span>
+            </div>
+            <h4 className="font-display font-bold text-lg sm:text-xl text-white">
+              Master of Business Administration (MBA)
+            </h4>
+            <p className="text-sm font-mono text-cyber-cyan font-semibold">
+              Regional College of Management, Bhubaneswar
+            </p>
+            <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+              Specialization in Information Technology and International Business. Coursework in technology management, business strategy, and enterprise information systems.
+            </p>
+          </div>
+
+          <div className="p-6 sm:p-7 rounded-2xl bg-[#090b10] border border-white/10 space-y-3 shadow-xl">
+            <div className="flex items-center justify-between">
+              <span className="px-3 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10 font-medium">
+                2022 to 2025
+              </span>
+              <span className="font-mono text-xs text-slate-400 font-medium">Graduated</span>
+            </div>
+            <h4 className="font-display font-bold text-lg sm:text-xl text-white">
+              Bachelor of Business Administration (BBA)
+            </h4>
+            <p className="text-sm font-mono text-slate-300 font-semibold">
+              Regional College of Management, Bhubaneswar
+            </p>
+            <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+              Focus on business administration, quantitative business statistics, marketing management, and financial accounting fundamentals.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

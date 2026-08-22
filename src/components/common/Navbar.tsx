@@ -24,7 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenAI }) => {
     { label: 'Case studies', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     { label: 'Experience', href: '#experience' },
-    { label: 'Activity', href: '#activity' },
+    { label: 'Diagnostics', href: '#diagnostics' },
     { label: 'Contact', href: '#contact' },
   ];
 

@@ -5,10 +5,11 @@ import { CustomCursor } from './components/common/CustomCursor';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { HeroSection } from './components/sections/HeroSection';
-import { ActivitySection } from './components/sections/ActivitySection';
 import { ProjectsSection } from './components/sections/ProjectsSection';
 import { SkillsSection } from './components/sections/SkillsSection';
 import { ExperienceSection } from './components/sections/ExperienceSection';
+import { NetworkDiagnosticsSection } from './components/sections/NetworkDiagnosticsSection';
+import { ActivitySection } from './components/sections/ActivitySection';
 import { ContactSection } from './components/sections/ContactSection';
 import { AIChatModal } from './components/ai/AIChatModal';
 import { TerminalModal } from './components/terminal/TerminalModal';
@@ -77,10 +78,11 @@ export function App() {
           onOpenAI={() => setIsAIOpen(true)}
           onOpenTerminal={() => setIsTerminalOpen(true)}
         />
-        <ActivitySection />
         <ProjectsSection />
         <SkillsSection />
         <ExperienceSection />
+        <NetworkDiagnosticsSection />
+        <ActivitySection />
         <ContactSection />
       </main>
 

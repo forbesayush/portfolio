@@ -147,10 +147,11 @@ export const Footer: React.FC = () => {
                 Navigation
               </h4>
               <ul className="space-y-1.5 font-mono text-xs text-slate-400">
-                <li><a href="#activity" className="hover:text-cyber-cyan transition-colors">Activity</a></li>
                 <li><a href="#projects" className="hover:text-cyber-cyan transition-colors">Case studies</a></li>
                 <li><a href="#skills" className="hover:text-cyber-cyan transition-colors">Skills</a></li>
                 <li><a href="#experience" className="hover:text-cyber-cyan transition-colors">Experience</a></li>
+                <li><a href="#diagnostics" className="hover:text-cyber-cyan transition-colors">Diagnostics</a></li>
+                <li><a href="#contact" className="hover:text-cyber-cyan transition-colors">Contact</a></li>
               </ul>
             </div>
 
