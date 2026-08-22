@@ -19,7 +19,7 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/forbesayush',
     role: 'Product Lead / Builder',
     featured: true,
-    year: '2024 - 2025',
+    year: '2026',
     accentColor: '#00f0ff',
     glslPreset: 'particles'
   },
