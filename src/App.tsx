@@ -71,7 +71,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-background text-slate-100 font-sans selection:bg-cyber-cyan selection:text-black overflow-x-hidden bg-noise">
+    <div className="relative min-h-screen bg-background text-gray-900 font-sans selection:bg-accent selection:text-white overflow-x-hidden bg-noise">
       {/* Dynamic Magnetic Cursor */}
       <CustomCursor />
 

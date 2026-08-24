@@ -22,29 +22,29 @@ export const SoundToggle: React.FC = () => {
       onClick={handleToggle}
       onMouseEnter={() => soundManager.playHover()}
       aria-label={isMuted ? 'Unmute Audio Engine' : 'Mute Audio Engine'}
-      className="group relative flex items-center justify-center gap-2 px-3 py-2 min-w-[44px] min-h-[44px] rounded-xl bg-white/5 border border-white/10 hover:border-accent/50 hover:bg-white/10 transition-all duration-200 text-xs font-sans active:scale-95"
+      className="group relative flex items-center justify-center gap-2 px-3 py-2 min-w-[44px] min-h-[44px] rounded-xl bg-gray-100 border border-gray-200 hover:border-indigo-300 hover:bg-gray-200 transition-all duration-200 text-xs font-sans active:scale-95"
     >
       <div className="flex items-center gap-0.5 h-3">
         {!isMuted ? (
           <>
-            <span className="w-0.5 h-2.5 bg-cyber-cyan rounded-full animate-pulse" />
-            <span className="w-0.5 h-4 bg-cyber-cyan rounded-full animate-pulse delay-75" />
-            <span className="w-0.5 h-1.5 bg-cyber-cyan rounded-full animate-pulse delay-150" />
-            <span className="w-0.5 h-3 bg-cyber-cyan rounded-full animate-pulse delay-100" />
+            <span className="w-0.5 h-2.5 bg-indigo-500 rounded-full animate-pulse" />
+            <span className="w-0.5 h-4 bg-indigo-500 rounded-full animate-pulse delay-75" />
+            <span className="w-0.5 h-1.5 bg-indigo-500 rounded-full animate-pulse delay-150" />
+            <span className="w-0.5 h-3 bg-indigo-500 rounded-full animate-pulse delay-100" />
           </>
         ) : (
-          <span className="w-0.5 h-2 bg-slate-500 rounded-full" />
+          <span className="w-0.5 h-2 bg-gray-400 rounded-full" />
         )}
       </div>
 
-      <span className="hidden sm:inline text-slate-300 group-hover:text-cyber-cyan transition-colors">
+      <span className="hidden sm:inline text-gray-600 group-hover:text-indigo-600 transition-colors">
         {isMuted ? 'AUDIO: OFF' : 'AUDIO: ON'}
       </span>
 
       {isMuted ? (
-        <VolumeX className="w-3.5 h-3.5 text-slate-500 group-hover:text-slate-300" />
+        <VolumeX className="w-3.5 h-3.5 text-gray-400 group-hover:text-gray-600" />
       ) : (
-        <Volume2 className="w-3.5 h-3.5 text-cyber-cyan" />
+        <Volume2 className="w-3.5 h-3.5 text-indigo-500" />
       )}
     </button>
   );

@@ -257,9 +257,9 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm animate-in fade-in duration-200">
       <div
-        className={`relative bg-background-card border border-white/15 rounded-2xl shadow-2xl overflow-hidden flex flex-col font-mono text-sm transition-all duration-300 ${
+        className={`relative bg-[#1a1b26] border border-gray-300 rounded-2xl shadow-2xl overflow-hidden flex flex-col font-mono text-sm transition-all duration-300 ${
           isFullScreen ? 'w-full h-full max-h-none' : 'w-full max-w-3xl h-[650px] max-h-[85vh]'
         }`}
         onClick={(e) => {

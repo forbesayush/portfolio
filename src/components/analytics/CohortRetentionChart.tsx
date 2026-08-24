@@ -43,19 +43,19 @@ export const CohortRetentionChart: React.FC = () => {
 
   // Calculate Heatmap Color
   const getCellColor = (rate: number | undefined) => {
-    if (rate === undefined) return 'bg-transparent text-slate-600';
-    if (rate >= 90) return 'bg-accent text-white font-medium';
-    if (rate >= 28) return 'bg-accent/70 text-white';
-    if (rate >= 18) return 'bg-accent/40 text-slate-100';
-    if (rate >= 13) return 'bg-accent/25 text-slate-200';
-    return 'bg-accent/15 text-slate-300';
+    if (rate === undefined) return 'bg-transparent text-gray-600';
+    if (rate >= 90) return 'bg-indigo-500 text-white font-medium';
+    if (rate >= 28) return 'bg-indigo-400 text-white';
+    if (rate >= 18) return 'bg-indigo-300 text-gray-900';
+    if (rate >= 13) return 'bg-indigo-200 text-gray-900';
+    return 'bg-indigo-100 text-gray-800';
   };
 
   return (
-    <div className="rounded-2xl bg-background-card border border-white/10 p-6 sm:p-7 space-y-6 shadow-xl text-left">
+    <div className="rounded-2xl bg-white border border-gray-200 p-6 sm:p-7 space-y-6 shadow-card text-left">
       {/* Required One-Sentence Disclaimer / Caption */}
-      <div className="border-b border-white/10 pb-4">
-        <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+      <div className="border-b border-gray-200 pb-4">
+        <p className="font-sans text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
           Interactive cohort retention analysis using anonymized sample data structured to illustrate customer repurchase decay across monthly acquisition cohorts.
         </p>
       </div>
@@ -64,19 +64,19 @@ export const CohortRetentionChart: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         {/* Cohort Selector */}
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-accent flex-shrink-0" />
-          <span className="font-sans text-xs text-slate-400 font-medium">Cohort:</span>
+          <Filter className="w-4 h-4 text-indigo-600 flex-shrink-0" />
+          <span className="font-sans text-xs text-gray-500 font-medium">Cohort:</span>
           <select
             value={selectedCohort}
             onChange={(e) => {
               soundManager.playClick();
               setSelectedCohort(e.target.value);
             }}
-            className="px-3 py-2 min-h-[44px] rounded-xl bg-white/5 border border-white/10 text-base sm:text-xs font-sans text-white focus:border-accent outline-none"
+            className="px-3 py-2 min-h-[44px] rounded-xl bg-gray-50 border border-gray-200 text-base sm:text-xs font-sans text-gray-900 focus:border-indigo-500 outline-none"
           >
-            <option value="ALL" className="bg-[#0f172a]">All Cohorts (Aggregated)</option>
+            <option value="ALL" className="bg-white">All Cohorts (Aggregated)</option>
             {SAMPLE_COHORTS.map((c) => (
-              <option key={c.cohort} value={c.cohort} className="bg-[#0f172a]">
+              <option key={c.cohort} value={c.cohort} className="bg-white">
                 {c.cohort} ({c.customers.toLocaleString()} users)
               </option>
             ))}
@@ -84,14 +84,14 @@ export const CohortRetentionChart: React.FC = () => {
         </div>
 
         {/* View Mode Toggle */}
-        <div className="flex items-center rounded-xl bg-white/5 p-1 border border-white/10">
+        <div className="flex items-center rounded-xl bg-gray-100 p-1 border border-gray-200">
           <button
             onClick={() => {
               soundManager.playClick();
               setViewMode('chart');
             }}
             className={`flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg text-xs font-sans font-medium transition-all ${
-              viewMode === 'chart' ? 'bg-accent text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              viewMode === 'chart' ? 'bg-indigo-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900'
             }`}
           >
             <BarChart3 className="w-3.5 h-3.5" />
@@ -103,7 +103,7 @@ export const CohortRetentionChart: React.FC = () => {
               setViewMode('matrix');
             }}
             className={`flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg text-xs font-sans font-medium transition-all ${
-              viewMode === 'matrix' ? 'bg-accent text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              viewMode === 'matrix' ? 'bg-indigo-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900'
             }`}
           >
             <Grid3X3 className="w-3.5 h-3.5" />
@@ -113,33 +113,33 @@ export const CohortRetentionChart: React.FC = () => {
       </div>
 
       {/* Metric Callouts */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-white/5">
-        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-gray-200">
+        <div className="p-3.5 rounded-xl bg-white border border-gray-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="w-4 h-4 text-accent" />
-            <span className="font-sans text-xs text-slate-400">Total Cohort Users</span>
+            <Users className="w-4 h-4 text-indigo-600" />
+            <span className="font-sans text-xs text-gray-500">Total Cohort Users</span>
           </div>
-          <span className="font-serif font-medium text-lg text-white">
+          <span className="font-serif font-medium text-lg text-gray-900">
             {totalCustomers.toLocaleString()}
           </span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
+        <div className="p-3.5 rounded-xl bg-white border border-gray-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <TrendingDown className="w-4 h-4 text-accent" />
-            <span className="font-sans text-xs text-slate-400">Month 1 Retention</span>
+            <TrendingDown className="w-4 h-4 text-indigo-600" />
+            <span className="font-sans text-xs text-gray-500">Month 1 Retention</span>
           </div>
-          <span className="font-serif font-medium text-lg text-white">
+          <span className="font-serif font-medium text-lg text-gray-900">
             {aggregatedRates[1] || 0}%
           </span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
+        <div className="p-3.5 rounded-xl bg-white border border-gray-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-accent" />
-            <span className="font-sans text-xs text-slate-400">Month 5 Retention</span>
+            <Clock className="w-4 h-4 text-indigo-600" />
+            <span className="font-sans text-xs text-gray-500">Month 5 Retention</span>
           </div>
-          <span className="font-serif font-medium text-lg text-white">
+          <span className="font-serif font-medium text-lg text-gray-900">
             ~10.8%
           </span>
         </div>
@@ -148,16 +148,16 @@ export const CohortRetentionChart: React.FC = () => {
       {/* Chart View */}
       {viewMode === 'chart' ? (
         <div className="space-y-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-sans text-slate-400 gap-1">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-sans text-gray-500 gap-1">
             <span>Customer Retention Rate (%) over 6 Months</span>
-            <span className="text-accent font-medium">Repurchase Plateau: Month 4+</span>
+            <span className="text-indigo-600 font-medium">Repurchase Plateau: Month 4+</span>
           </div>
 
           {/* SVG Line / Bar Retention Visualization */}
-          <div className="h-48 w-full bg-black/40 rounded-xl p-4 border border-white/5 flex items-end justify-between gap-2 sm:gap-4 relative">
+          <div className="h-48 w-full bg-gray-50 rounded-xl p-4 border border-gray-200 flex items-end justify-between gap-2 sm:gap-4 relative">
             {/* Grid Guidelines */}
-            <div className="absolute inset-x-4 top-4 border-b border-white/5 text-[10px] text-slate-500">100%</div>
-            <div className="absolute inset-x-4 top-1/2 border-b border-white/5 text-[10px] text-slate-500">50%</div>
+            <div className="absolute inset-x-4 top-4 border-b border-gray-200 text-[10px] text-gray-400">100%</div>
+            <div className="absolute inset-x-4 top-1/2 border-b border-gray-200 text-[10px] text-gray-400">50%</div>
 
             {aggregatedRates.map((rate, idx) => {
               const heightPercent = Math.max(8, rate);
@@ -179,7 +179,7 @@ export const CohortRetentionChart: React.FC = () => {
                 >
                   {/* Tooltip on touch / hover */}
                   {isHovered && (
-                    <div className="absolute -top-10 px-2.5 py-1 rounded-md bg-accent text-white font-sans text-xs shadow-lg whitespace-nowrap animate-in fade-in zoom-in-95 duration-150 z-20">
+                    <div className="absolute -top-10 px-2.5 py-1 rounded-md bg-indigo-600 text-white font-sans text-xs shadow-lg whitespace-nowrap animate-in fade-in zoom-in-95 duration-150 z-20">
                       {months[idx]}: {rate}% retained
                     </div>
                   )}
@@ -189,16 +189,16 @@ export const CohortRetentionChart: React.FC = () => {
                     style={{ height: `${heightPercent}%` }}
                     className={`w-full max-w-[48px] rounded-t-md transition-all duration-300 ${
                       idx === 0 
-                        ? 'bg-white/20' 
+                        ? 'bg-indigo-100' 
                         : isHovered 
-                        ? 'bg-accent' 
-                        : 'bg-accent/80 group-hover:bg-accent'
+                        ? 'bg-indigo-500' 
+                        : 'bg-indigo-400 group-hover:bg-indigo-500'
                     }`}
                   />
 
                   {/* Label */}
                   <span className={`font-sans text-[11px] transition-colors ${
-                    isHovered ? 'text-white font-medium' : 'text-slate-400'
+                    isHovered ? 'text-gray-900 font-medium' : 'text-gray-500'
                   }`}>
                     M{idx}
                   </span>
@@ -212,7 +212,7 @@ export const CohortRetentionChart: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-xs font-sans border-collapse">
             <thead>
-              <tr className="border-b border-white/10 text-slate-400 text-left">
+              <tr className="border-b border-gray-200 text-gray-500 text-left">
                 <th className="py-2.5 px-3 font-medium">Cohort</th>
                 <th className="py-2.5 px-3 font-medium">Users</th>
                 <th className="py-2.5 px-3 font-medium text-center">M0</th>
@@ -224,11 +224,11 @@ export const CohortRetentionChart: React.FC = () => {
                 <th className="py-2.5 px-3 font-medium text-center">M6</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 font-sans">
+            <tbody className="divide-y divide-gray-200 font-sans">
               {activeCohorts.map((c) => (
-                <tr key={c.cohort} className="hover:bg-white/5 transition-colors">
-                  <td className="py-2 px-3 font-medium text-white">{c.cohort}</td>
-                  <td className="py-2 px-3 text-slate-400">{c.customers.toLocaleString()}</td>
+                <tr key={c.cohort} className="hover:bg-gray-50 transition-colors">
+                  <td className="py-2 px-3 font-medium text-gray-900">{c.cohort}</td>
+                  <td className="py-2 px-3 text-gray-500">{c.customers.toLocaleString()}</td>
                   {[0, 1, 2, 3, 4, 5, 6].map((mIdx) => {
                     const rate = c.rates[mIdx];
                     return (

@@ -44,7 +44,7 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
 
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-    renderer.setClearColor(0x0a0f1d, 1);
+    renderer.setClearColor(0xFAFAF7, 1);
     container.appendChild(renderer.domElement);
 
     // 1. Subtle, elegant ambient glowing particles
@@ -54,9 +54,9 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
     const colors = new Float32Array(particleCount * 3);
     const scales = new Float32Array(particleCount);
 
-    const terracottaColor = new THREE.Color(0xe07a5f);
-    const softBlueColor = new THREE.Color(0x38bdf8);
-    const slateColor = new THREE.Color(0x64748b);
+    const indigoColor = new THREE.Color(0x6366F1);
+    const pinkColor = new THREE.Color(0xEC4899);
+    const amberColor = new THREE.Color(0xF59E0B);
 
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
@@ -71,11 +71,11 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
       const rand = Math.random();
       let col: THREE.Color;
       if (rand < 0.2) {
-        col = terracottaColor.clone().multiplyScalar(0.7);
+        col = indigoColor.clone().multiplyScalar(0.7);
       } else if (rand < 0.6) {
-        col = softBlueColor.clone().multiplyScalar(0.6);
+        col = pinkColor.clone().multiplyScalar(0.6);
       } else {
-        col = slateColor.clone().multiplyScalar(0.5);
+        col = amberColor.clone().multiplyScalar(0.5);
       }
 
       colors[i3] = col.r;
@@ -88,11 +88,11 @@ export const HeroScene: React.FC<HeroSceneProps> = ({ scrollProgress = 0 }) => {
 
     const particleTexture = createGlowTexture();
     const particleMaterial = new THREE.PointsMaterial({
-      size: 0.45,
+      size: 0.35,
       vertexColors: true,
       map: particleTexture,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.4,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
@@ -189,8 +189,8 @@ function createGlowTexture(): THREE.Texture {
 
   const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
   gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-  gradient.addColorStop(0.2, 'rgba(224, 122, 95, 0.8)');
-  gradient.addColorStop(0.5, 'rgba(56, 189, 248, 0.3)');
+  gradient.addColorStop(0.2, 'rgba(99, 102, 241, 0.8)');
+  gradient.addColorStop(0.5, 'rgba(236, 72, 153, 0.3)');
   gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
   ctx.fillStyle = gradient;

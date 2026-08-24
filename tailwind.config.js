@@ -4,34 +4,33 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         background: {
-          DEFAULT: '#0a0f1d',
-          secondary: '#0f172a',
-          card: '#111c35',
+          DEFAULT: '#FAFAF7',
+          secondary: '#F0EFEB',
+          card: '#FFFFFF',
         },
         accent: {
-          DEFAULT: '#e07a5f',
-          hover: '#d46b50',
-          light: '#f4a261',
-          muted: 'rgba(224, 122, 95, 0.12)',
+          DEFAULT: '#6366F1',
+          hover: '#4F46E5',
+          light: '#818CF8',
+          muted: 'rgba(99, 102, 241, 0.08)',
         },
         cyber: {
-          cyan: '#38bdf8',
-          neon: '#38bdf8',
-          amber: '#f59e0b',
-          violet: '#818cf8',
-          pink: '#e07a5f',
-          red: '#e07a5f',
+          cyan: '#EC4899',
+          neon: '#10B981',
+          amber: '#F59E0B',
+          violet: '#8B5CF6',
+          pink: '#EC4899',
+          red: '#EF4444',
         },
         surface: {
-          glass: 'rgba(15, 23, 42, 0.8)',
-          'glass-hover': 'rgba(23, 37, 68, 0.9)',
-          border: 'rgba(255, 255, 255, 0.08)',
-          'border-active': 'rgba(56, 189, 248, 0.4)',
+          glass: 'rgba(255, 255, 255, 0.85)',
+          'glass-hover': 'rgba(255, 255, 255, 0.95)',
+          border: 'rgba(0, 0, 0, 0.06)',
+          'border-active': 'rgba(99, 102, 241, 0.4)',
         }
       },
       fontFamily: {
@@ -41,8 +40,11 @@ export default {
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       boxShadow: {
-        'accent': '0 4px 20px -2px rgba(224, 122, 95, 0.25)',
-        'subtle': '0 10px 30px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.06)',
+        'accent': '0 4px 20px -2px rgba(99, 102, 241, 0.25)',
+        'subtle': '0 10px 40px rgba(0, 0, 0, 0.06), 0 0 1px 1px rgba(0, 0, 0, 0.04)',
+        'card': '0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.06)',
+        'card-hover': '0 4px 24px rgba(99, 102, 241, 0.12), 0 8px 32px rgba(0, 0, 0, 0.08)',
+        'gradient': '0 4px 20px -2px rgba(99, 102, 241, 0.3), 0 4px 20px -2px rgba(236, 72, 153, 0.15)',
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',

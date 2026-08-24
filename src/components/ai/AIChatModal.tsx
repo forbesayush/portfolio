@@ -198,25 +198,25 @@ RULES:
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/30 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl bg-background-card border-t sm:border border-white/15 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[92dvh] sm:h-auto sm:max-h-[85dvh] animate-in slide-in-from-bottom-5 sm:zoom-in-95 duration-200 pb-[env(safe-area-inset-bottom)]"
+        className="relative w-full max-w-2xl bg-white border-t sm:border border-gray-200 rounded-t-2xl sm:rounded-2xl shadow-card-hover overflow-hidden flex flex-col h-[92dvh] sm:h-auto sm:max-h-[85dvh] animate-in slide-in-from-bottom-5 sm:zoom-in-95 duration-200 pb-[env(safe-area-inset-bottom)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 border-b border-white/10 bg-white/5 flex-shrink-0">
+        <div className="flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 border-b border-gray-200 bg-gray-50 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent flex-shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200 flex items-center justify-center text-indigo-600 flex-shrink-0">
               <Bot className="w-4 h-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-serif font-medium text-base text-white tracking-wide">
+                <h3 className="font-serif font-medium text-base text-gray-900 tracking-wide">
                   AVA &bull; Strategy &amp; PM AI
                 </h3>
               </div>
-              <p className="text-xs font-sans text-slate-400">
+              <p className="text-xs font-sans text-gray-500">
                 Ask about Ayush or ask business, PM &amp; consulting questions
               </p>
             </div>
@@ -226,7 +226,7 @@ RULES:
             <button
               onClick={handleClear}
               onMouseEnter={() => soundManager.playHover()}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-slate-200 transition-colors"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-500 hover:text-gray-900 transition-colors"
               title="Clear Memory"
               aria-label="Clear Memory"
             >
@@ -238,7 +238,7 @@ RULES:
                 onClose();
               }}
               onMouseEnter={() => soundManager.playHover()}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-colors"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-500 hover:text-gray-900 transition-colors"
               aria-label="Close Modal"
             >
               <X className="w-4 h-4" />
@@ -255,7 +255,7 @@ RULES:
               }`}
             >
               {msg.sender === 'ai' && (
-                <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200 flex items-center justify-center text-indigo-600 flex-shrink-0 mt-0.5">
                   <Bot className="w-3.5 h-3.5" />
                 </div>
               )}
@@ -263,15 +263,15 @@ RULES:
               <div
                 className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
                   msg.sender === 'user'
-                    ? 'bg-accent text-white rounded-tr-none'
-                    : 'bg-white/5 border border-white/10 text-slate-100 rounded-tl-none'
+                    ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-tr-none'
+                    : 'bg-gray-50 border border-gray-200 text-gray-800 rounded-tl-none'
                 }`}
               >
-                <div className="flex items-center justify-between gap-4 mb-1 border-b border-white/10 pb-1">
-                  <span className="text-[10px] font-sans font-medium uppercase tracking-wider text-slate-300">
+                <div className="flex items-center justify-between gap-4 mb-1 border-b border-gray-200 pb-1">
+                  <span className="text-[10px] font-sans font-medium uppercase tracking-wider text-gray-500">
                     {msg.sender === 'user' ? 'Visitor' : 'AVA (AI)'}
                   </span>
-                  <span className="text-[10px] text-slate-400 font-sans">{msg.timestamp}</span>
+                  <span className="text-[10px] text-gray-400 font-sans">{msg.timestamp}</span>
                 </div>
                 <div className="whitespace-pre-wrap font-sans text-xs sm:text-sm font-normal">
                   {msg.text}
@@ -279,7 +279,7 @@ RULES:
               </div>
 
               {msg.sender === 'user' && (
-                <div className="w-7 h-7 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-slate-300 flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-600 flex-shrink-0 mt-0.5">
                   <User className="w-3.5 h-3.5" />
                 </div>
               )}
@@ -288,11 +288,11 @@ RULES:
 
           {isTyping && (
             <div className="flex items-center gap-3 text-left">
-              <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent flex-shrink-0">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200 flex items-center justify-center text-indigo-600 flex-shrink-0">
                 <Bot className="w-3.5 h-3.5" />
               </div>
-              <div className="px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-slate-400 text-xs flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-accent animate-spin" />
+              <div className="px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-500 text-xs flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-spin" />
                 <span>Thinking...</span>
               </div>
             </div>
@@ -300,13 +300,13 @@ RULES:
           <div ref={chatEndRef} />
         </div>
 
-        <div className="px-4 sm:px-5 py-2 border-t border-white/5 bg-black/20 flex flex-wrap gap-2 flex-shrink-0">
+        <div className="px-4 sm:px-5 py-2 border-t border-gray-200 bg-gray-50 flex flex-wrap gap-2 flex-shrink-0">
           {INITIAL_SUGGESTIONS.map((sug, i) => (
             <button
               key={i}
               onClick={() => handleSend(sug)}
               onMouseEnter={() => soundManager.playHover()}
-              className="text-xs font-sans px-3 py-1.5 min-h-[36px] rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all active:scale-95"
+              className="text-xs font-sans px-3 py-1.5 min-h-[36px] rounded-lg bg-gray-100 hover:bg-indigo-50 border border-gray-200 text-gray-600 hover:text-indigo-700 transition-all active:scale-95"
             >
               {sug}
             </button>
@@ -318,20 +318,20 @@ RULES:
             e.preventDefault();
             handleSend();
           }}
-          className="p-3 sm:p-4 border-t border-white/10 bg-white/5 flex items-center gap-2 sm:gap-3 flex-shrink-0"
+          className="p-3 sm:p-4 border-t border-gray-200 bg-gray-50 flex items-center gap-2 sm:gap-3 flex-shrink-0"
         >
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about Ayush or ask any business/PM question..."
-            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-accent transition-colors font-sans min-h-[44px]"
+            className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 transition-colors font-sans min-h-[44px]"
           />
           <button
             type="submit"
             disabled={!input.trim() || isTyping}
             onMouseEnter={() => soundManager.playHover()}
-            className="min-w-[44px] min-h-[44px] p-3 rounded-xl bg-accent text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-hover transition-all flex items-center justify-center shadow-accent flex-shrink-0"
+            className="min-w-[44px] min-h-[44px] p-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-accent flex-shrink-0"
             aria-label="Send"
           >
             <Send className="w-4 h-4" />
