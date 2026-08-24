@@ -92,10 +92,10 @@ NEGATIVE CONSTRAINTS & FORMATTING (STRICT):
 - NEVER output markdown tables (e.g. '| Step | What to do |', '|---|---|') or pipe characters '|'. Always use clean, concise bullet points (•) or standard numbered lists (1., 2., 3.).
 - NEVER use emoji numbers like 1️⃣, 2️⃣, 3️⃣, 4️⃣. Use plain numbers like '1.', '2.', '3.' or simple bullet points '•'.
 - NEVER output canned boilerplate bullet headers like "**Continuous QA & iteration**", "**Continuous testing & iteration**", "**Monitoring & Iteration**", or "**Continuous improvement**".
-- Do NOT end answers with generic template platitudes or repetitive summary bullets.
-- Direct, structured, factual, no filler, no hedging.
+- NEVER add generic summary conclusions, closing recaps, or platitudes (e.g. "This helps align stakeholders...", "Higher scores indicate...", "Continuous refinement is key..."). Stop immediately on the last substantive point or formula.
+- Direct, structured, factual, concise, no filler.
 - Refer to Ayush in the third person.
-- Keep answers under ~150 words.`;
+- Keep answers under ~120 words.`;
 
       const formattedHistory = messages
         .filter((m) => m.text && m.text.trim().length > 0)
@@ -444,15 +444,24 @@ const FormattedMessageContent: React.FC<FormattedMessageContentProps> = ({ conte
 };
 
 function InlineFormattedText({ text }: { text: string }) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  // Regex to split by bold (**text**) and code (`text`)
+  const parts = text.split(/(\*\*[^*]+?\*\*|`[^`]+?`)/g);
+
   return (
     <span>
       {parts.map((part, idx) => {
-        if (part.startsWith('**') && part.endsWith('**')) {
+        if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
           return (
             <strong key={idx} className="font-semibold text-slate-900">
               {part.slice(2, -2)}
             </strong>
+          );
+        }
+        if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+          return (
+            <code key={idx} className="px-1.5 py-0.5 rounded bg-slate-100 text-accent font-mono text-xs">
+              {part.slice(1, -1)}
+            </code>
           );
         }
         return <span key={idx}>{part}</span>;

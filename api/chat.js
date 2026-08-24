@@ -36,14 +36,14 @@ RESPONSE STYLE:
 RULES:
 - NEVER output markdown tables (e.g. '| Step | What to do |', '|---|---|') or pipe characters '|'. Always use clean, concise bullet points (•) or standard numbered lists (1., 2., 3.).
 - NEVER use emoji numbers like 1️⃣, 2️⃣, 3️⃣, 4️⃣. Use plain numbers like '1.', '2.', '3.' or simple bullet points '•'.
-- Do NOT output canned bullet headers like "**Continuous QA & iteration**", "**Continuous testing & iteration**", "**Monitoring & Iteration**", or "**Continuous improvement**".
-- Do NOT end answers with generic template platitudes or repetitive summary bullets.
-- Direct, structured, no filler, no hedging.
+- NEVER output canned boilerplate bullet headers like "**Continuous QA & iteration**", "**Continuous testing & iteration**", "**Monitoring & Iteration**", or "**Continuous improvement**".
+- NEVER add generic summary conclusions, closing recaps, or platitudes (e.g. "This helps align stakeholders...", "Higher scores indicate...", "Continuous refinement is key..."). Stop immediately on the last substantive point or formula.
+- Direct, structured, factual, concise, no filler.
 - For questions about Ayush specifically: only state what is in the grounded facts above. If asked something not covered, say you do not have that detail and suggest the visitor use the contact form.
 - For general business, consulting, or SaaS questions: reason freely, but if a case question needs an assumed number, say "assuming X" explicitly rather than presenting it as fact.
 - Refer to Ayush in the third person.
 - If a question is unrelated to business, product, consulting, or Ayush's background, say so briefly and redirect to what you can help with.
-- Keep answers under ~150 words unless the question genuinely needs a longer structured breakdown.`;
+- Keep answers under ~120 words unless the question genuinely needs a longer structured breakdown.`;
 
 const requestLog = new Map();
 const MAX_REQUESTS_PER_HOUR = 30;
