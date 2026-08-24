@@ -1,17 +1,14 @@
-import React, { useState, useRef } from 'react';
-import { Terminal, ArrowDown, Bot, Mail, Linkedin, MapPin } from 'lucide-react';
-import { soundManager } from '../../audio/soundManager';
+import React, { useRef, useState } from 'react';
+import { ArrowDown, Bot, Mail, Linkedin, MapPin, Sparkles, ArrowUpRight } from 'lucide-react';
 import { AnimatedCounter } from '../common/AnimatedCounter';
 
 interface HeroSectionProps {
   onOpenAI: () => void;
-  onOpenTerminal: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTerminal }) => {
-  // Signature Interaction: Interactive 3D Perspective Tilt on portrait card
+export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0, glareX: 50, glareY: 50, opacity: 0 });
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -20,166 +17,174 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenAI, onOpenTermin
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -7;
-    const rotateY = ((x - centerX) / centerX) * 7;
-
     setTilt({
-      x: rotateX,
-      y: rotateY,
-      glareX: (x / rect.width) * 100,
-      glareY: (y / rect.height) * 100,
-      opacity: 0.15,
+      x: ((y - centerY) / centerY) * -5,
+      y: ((x - centerX) / centerX) * 5,
     });
   };
 
   const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0, glareX: 50, glareY: 50, opacity: 0 });
+    setTilt({ x: 0, y: 0 });
   };
 
   return (
-    <section className="relative min-h-[90dvh] flex flex-col justify-center px-4 sm:px-8 lg:px-12 pt-28 pb-12 sm:pb-16 overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        {/* Left Column: Core Positioning & Concrete Proof */}
-        <div className="lg:col-span-7 space-y-6 text-left">
-          {/* Status Tag with gentle entrance */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-indigo-50 border border-indigo-200 text-xs font-sans text-indigo-700 animate-in fade-in slide-in-from-bottom-2 duration-500">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse flex-shrink-0" />
-            <span className="leading-tight">Targeting: Product Management (APM/PM), Product Analytics, Strategy Consulting</span>
+    <section className="relative pt-6 sm:pt-10 pb-8 sm:pb-12 text-left">
+      {/* Top Bento Row: Headline & Executive Portrait */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch mb-8">
+        {/* Main Headline & Positioning Card */}
+        <div className="lg:col-span-8 p-6 sm:p-10 rounded-3xl bg-white border border-slate-200/80 shadow-[0_2px_16px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-6">
+          <div className="space-y-4">
+            {/* Live Availability Pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-sans font-medium text-emerald-800">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Available for Product Management (APM/PM) &amp; Strategy Roles</span>
+            </div>
+
+            {/* Editorial Headline */}
+            <h1 className="font-serif font-medium text-3xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.12]">
+              Turning product &amp; operational data into <span className="italic text-accent underline decoration-accent/30 underline-offset-4">scalable growth.</span>
+            </h1>
+
+            {/* Crisp Executive Bio */}
+            <p className="max-w-2xl text-sm sm:text-base text-slate-600 font-sans leading-relaxed font-normal">
+              MBA Candidate (2027) at Regional College of Management, Bhubaneswar. Experienced in building operational fraud platforms, cutting mobile OS defect recurrence by <strong className="text-slate-900 font-semibold"><AnimatedCounter value={22} suffix="%" /></strong>, and automating D2C retention modeling to save <strong className="text-slate-900 font-semibold"><AnimatedCounter value={35} suffix="%" /></strong> in weekly reporting.
+            </p>
           </div>
 
-          {/* Kinetic Display Headline */}
-          <h1 className="font-serif font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] tracking-tight bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent leading-[1.08] sm:leading-[1.05]">
-            <span className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-500 [animation-delay:100ms] fill-mode-backwards">
-              Product &amp;
-            </span>{' '}
-            <br />
-            <span className="italic inline-block animate-in fade-in slide-in-from-bottom-4 duration-500 [animation-delay:200ms] fill-mode-backwards">
-              business strategy
-            </span>{' '}
-            <br />
-            <span className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-500 [animation-delay:300ms] fill-mode-backwards">
-              backed by data.
-            </span>
-          </h1>
+          {/* Quick Contact & Action Buttons */}
+          <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="#projects"
+                className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-sans text-xs sm:text-sm font-medium transition-all flex items-center gap-2 shadow-sm active:scale-95"
+              >
+                <span>Explore Case Studies</span>
+                <ArrowDown className="w-3.5 h-3.5" />
+              </a>
 
-          {/* Core Subtitle with Alive Metric Counters */}
-          <p className="max-w-xl text-sm sm:text-lg text-gray-600 font-sans leading-relaxed font-normal animate-in fade-in slide-in-from-bottom-3 duration-500 [animation-delay:350ms] fill-mode-backwards">
-            I'm <strong className="text-gray-900 font-medium">Ayush Chatterjee</strong>, an MBA candidate (2027) at Regional College of Management, Bhubaneswar. I cut post-release defect recurrence by <strong className="text-gray-900 font-medium"><AnimatedCounter value={22} suffix="%" /></strong> across <strong className="text-gray-900 font-medium"><AnimatedCounter value={4} /></strong> mobile OS builds, reduced weekly reporting time by <strong className="text-gray-900 font-medium"><AnimatedCounter value={35} suffix="%" /></strong> across <strong className="text-gray-900 font-medium"><AnimatedCounter value={5} /></strong> D2C storefronts, and built standardized retail launch playbooks.
-          </p>
+              <button
+                onClick={onOpenAI}
+                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-800 font-sans text-xs sm:text-sm font-medium transition-all flex items-center gap-1.5 active:scale-95"
+              >
+                <Bot className="w-4 h-4 text-accent" />
+                <span>Ask AVA (AI Assistant)</span>
+              </button>
+            </div>
 
-          {/* Direct Contact & Location Bar: 0 clicks needed */}
-          <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs font-sans text-gray-600 py-1 animate-in fade-in duration-500 [animation-delay:400ms] fill-mode-backwards">
-            <a
-              href="mailto:ayushchatterjee.edu@gmail.com"
-              className="flex items-center gap-1.5 text-gray-600 hover:text-indigo-600 transition-colors min-h-[44px] py-1 break-all"
-            >
-              <Mail className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-              <span>ayushchatterjee.edu@gmail.com</span>
-            </a>
-            <span className="text-gray-300 hidden sm:inline">&bull;</span>
-            <a
-              href="https://linkedin.com/in/ayushmba"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 text-gray-600 hover:text-indigo-600 transition-colors min-h-[44px] py-1"
-            >
-              <Linkedin className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-              <span>linkedin.com/in/ayushmba</span>
-            </a>
-            <span className="text-gray-300 hidden sm:inline">&bull;</span>
-            <span className="flex items-center gap-1.5 text-gray-500 min-h-[44px] py-1">
-              <MapPin className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
-              <span>Bhubaneswar &bull; Open to relocation</span>
-            </span>
-          </div>
-
-          {/* Action Buttons: 44px+ touch targets */}
-          <div className="flex flex-wrap items-center gap-3 pt-1 animate-in fade-in duration-500 [animation-delay:450ms] fill-mode-backwards">
-            <a
-              href="#projects"
-              onMouseEnter={() => soundManager.playHover()}
-              onClick={() => soundManager.playClick()}
-              data-cursor-text="WORK"
-              className="px-6 py-3 min-h-[44px] rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white shadow-gradient font-sans font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-lg active:scale-95 group"
-            >
-              <span>Case studies</span>
-              <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-            </a>
-
-            <button
-              onClick={() => {
-                soundManager.playModalOpen();
-                onOpenAI();
-              }}
-              onMouseEnter={() => soundManager.playHover()}
-              data-cursor-text="ASK"
-              className="px-5 py-3 min-h-[44px] rounded-xl bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-700 hover:text-gray-900 font-sans text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
-            >
-              <Bot className="w-4 h-4 text-accent" />
-              <span>Ask AVA</span>
-            </button>
-
-            <button
-              onClick={() => {
-                soundManager.playModalOpen();
-                onOpenTerminal();
-              }}
-              onMouseEnter={() => soundManager.playHover()}
-              data-cursor-text="CLI"
-              className="px-4 py-3 min-h-[44px] rounded-xl bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-700 hover:text-gray-900 font-sans text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
-            >
-              <Terminal className="w-4 h-4 text-gray-500" />
-              <span>Terminal</span>
-            </button>
+            {/* Direct Links */}
+            <div className="flex items-center gap-3 text-xs text-slate-500 font-sans">
+              <a
+                href="mailto:ayushchatterjee.edu@gmail.com"
+                className="flex items-center gap-1 hover:text-slate-900 transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5 text-accent" />
+                <span className="hidden sm:inline">ayushchatterjee.edu@gmail.com</span>
+              </a>
+              <span className="hidden sm:inline text-slate-300">&bull;</span>
+              <a
+                href="https://linkedin.com/in/ayushmba"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1 hover:text-slate-900 transition-colors"
+              >
+                <Linkedin className="w-3.5 h-3.5 text-accent" />
+                <span>LinkedIn</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Right Column: Signature 3D Perspective Photo Card */}
-        <div className="lg:col-span-5 flex flex-col items-center lg:items-end animate-in fade-in slide-in-from-right-4 duration-600 [animation-delay:250ms] fill-mode-backwards">
-          <div
-            ref={cardRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{
-              transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-              transition: 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)',
-            }}
-            className="w-full max-w-sm rounded-2xl bg-white border border-gray-200 p-5 space-y-4 shadow-card hover:shadow-card-hover relative overflow-hidden group cursor-pointer"
-          >
-            {/* Dynamic Ambient Light Sheen */}
-            <div
-              className="pointer-events-none absolute inset-0 transition-opacity duration-300"
-              style={{
-                background: `radial-gradient(circle at ${tilt.glareX}% ${tilt.glareY}%, rgba(99, 102, 241, 0.15) 0%, transparent 60%)`,
-                opacity: tilt.opacity,
-              }}
+        {/* Right Portrait & Persona Card */}
+        <div
+          ref={cardRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+            transition: 'transform 0.2s ease-out',
+          }}
+          className="lg:col-span-4 p-6 rounded-3xl bg-white border border-slate-200/80 shadow-[0_2px_16px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-4"
+        >
+          {/* Portrait Image */}
+          <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200/60">
+            <img
+              src="/ayush-chatterjee.png"
+              alt="Ayush Chatterjee"
+              width={384}
+              height={384}
+              className="w-full h-full object-cover object-top"
+              loading="eager"
             />
+          </div>
 
-            {/* Portrait */}
-            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gray-100 border border-gray-200">
-              <img
-                src="/ayush-chatterjee.png"
-                alt="Ayush Chatterjee"
-                width={384}
-                height={384}
-                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                loading="eager"
-                decoding="async"
-              />
+          {/* Persona Details */}
+          <div className="space-y-1 text-left">
+            <div className="flex items-center justify-between">
+              <h2 className="font-serif font-semibold text-lg text-slate-900">Ayush Chatterjee</h2>
+              <span className="text-[11px] font-sans font-medium px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
+                MBA 2027
+              </span>
             </div>
-
-            {/* Quick Context & Proof Points */}
-            <div className="space-y-2 text-left pt-1">
-              <div className="flex items-center justify-between">
-                <span className="font-serif text-lg text-gray-900 font-medium">Ayush Chatterjee</span>
-                <span className="text-xs text-indigo-600 font-sans font-medium">MBA &bull; IT &amp; IB</span>
-              </div>
-              <p className="font-sans text-xs text-gray-600 leading-relaxed font-normal">
-                Regional College of Management, Bhubaneswar (2025 to 2027). Hands-on exposure in mobile OS QA, D2C funnel retention modeling, and retail product strategy.
-              </p>
+            <p className="text-xs text-slate-500 font-sans">
+              Specialization in IT &amp; International Business &bull; RCM Bhubaneswar
+            </p>
+            <div className="flex items-center gap-1.5 text-xs text-slate-500 pt-1">
+              <MapPin className="w-3.5 h-3.5 text-slate-400" />
+              <span>Bhubaneswar, India &bull; Open to Relocation</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Bottom Bento Metric Highlight Row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-1">
+          <span className="text-[11px] sm:text-xs font-sans text-slate-500 uppercase tracking-wider block font-medium">
+            Cashback MIS Repeat Rate
+          </span>
+          <div className="font-serif font-semibold text-2xl sm:text-3xl text-slate-900">
+            <AnimatedCounter value={33} suffix="%" />
+          </div>
+          <p className="text-[11px] sm:text-xs text-slate-500 font-sans">
+            Deals.Seller fraud &amp; ops platform
+          </p>
+        </div>
+
+        <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-1">
+          <span className="text-[11px] sm:text-xs font-sans text-slate-500 uppercase tracking-wider block font-medium">
+            Defect Recurrence Drop
+          </span>
+          <div className="font-serif font-semibold text-2xl sm:text-3xl text-emerald-600">
+            -<AnimatedCounter value={22} suffix="%" />
+          </div>
+          <p className="text-[11px] sm:text-xs text-slate-500 font-sans">
+            Across 4 mobile OS test builds
+          </p>
+        </div>
+
+        <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-1">
+          <span className="text-[11px] sm:text-xs font-sans text-slate-500 uppercase tracking-wider block font-medium">
+            Weekly Report Time Saved
+          </span>
+          <div className="font-serif font-semibold text-2xl sm:text-3xl text-slate-900">
+            -<AnimatedCounter value={35} suffix="%" />
+          </div>
+          <p className="text-[11px] sm:text-xs text-slate-500 font-sans">
+            Automated Power BI workflows
+          </p>
+        </div>
+
+        <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-1">
+          <span className="text-[11px] sm:text-xs font-sans text-slate-500 uppercase tracking-wider block font-medium">
+            Diamond Franchise Rollout
+          </span>
+          <div className="font-serif font-semibold text-2xl sm:text-3xl text-accent">
+            0 Gap
+          </div>
+          <p className="text-[11px] sm:text-xs text-slate-500 font-sans">
+            4Cs inventory intake SOPs
+          </p>
         </div>
       </div>
     </section>

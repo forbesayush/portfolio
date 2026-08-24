@@ -1,68 +1,67 @@
 import React from 'react';
-import { TrendingUp, Briefcase } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import { experiences } from '../../data/experience';
 
 export const ExperienceSection: React.FC = () => {
   return (
-    <section id="experience" className="py-24 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto relative z-10 text-left">
+    <section id="experience" className="space-y-8 text-left scroll-mt-24">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 border-b border-gray-200 pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/80 pb-6">
         <div>
-          <span className="font-sans text-xs sm:text-sm text-accent tracking-wide uppercase block mb-1.5 font-medium">
-            Career history
+          <span className="font-sans text-xs text-accent tracking-wide uppercase block mb-1 font-semibold">
+            Track Record
           </span>
-          <h2 className="font-serif font-normal text-4xl sm:text-5xl md:text-6xl text-gray-900 tracking-tight">
-            Work experience
+          <h2 className="font-serif font-medium text-3xl sm:text-4xl text-slate-900 tracking-tight">
+            Work Experience
           </h2>
         </div>
-        <div className="font-sans text-xs sm:text-sm text-gray-500 font-normal">
+        <div className="font-sans text-xs text-slate-500 font-normal">
           Product Management &bull; Product Analytics &bull; Strategy
         </div>
       </div>
 
-      {/* Experience List: All details visible directly without accordion */}
+      {/* Experience Bento Cards */}
       <div className="space-y-6">
-        {experiences.map((exp, eIdx) => (
+        {experiences.map((exp) => (
           <div
             key={exp.id}
-            style={{ animationDelay: `${eIdx * 80}ms` }}
-            className="rounded-2xl bg-white border border-gray-200 hover:border-indigo-300 p-6 sm:p-8 space-y-5 transition-all duration-200 shadow-card hover:shadow-card-hover animate-in fade-in slide-in-from-bottom-3 duration-500 fill-mode-backwards"
+            className="rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-8 space-y-5 transition-all hover:border-slate-300 shadow-[0_2px_16px_rgba(0,0,0,0.03)]"
           >
             {/* Card Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-gray-100 pb-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-100 pb-4">
               <div className="space-y-1">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <h3 className="font-serif font-medium text-xl sm:text-2xl text-gray-900">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-serif font-semibold text-xl sm:text-2xl text-slate-900">
                     {exp.role}
                   </h3>
-                  <span className="text-indigo-600 font-sans text-sm sm:text-base font-normal">
+                  <span className="text-accent font-sans text-sm sm:text-base font-medium">
                     at {exp.company}
                   </span>
                 </div>
-                <p className="font-sans text-xs sm:text-sm text-gray-500">
-                  <span>{exp.location}</span> &bull; <span className="text-gray-600 font-normal">{exp.period}</span>
+                <p className="font-sans text-xs text-slate-500">
+                  <span>{exp.location}</span> &bull; <span className="text-slate-700 font-medium">{exp.period}</span>
                 </p>
               </div>
 
-              <span className="px-3 py-1 rounded-lg text-xs font-sans bg-indigo-50 border border-indigo-100 text-indigo-700 font-normal self-start md:self-center">
+              <span className="px-3 py-1 rounded-full text-xs font-sans bg-slate-100 border border-slate-200/80 text-slate-700 font-medium self-start md:self-center">
                 {exp.badge}
               </span>
             </div>
 
             {/* Summary */}
-            <p className="font-sans text-sm sm:text-base text-gray-700 leading-relaxed font-normal">
+            <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
               {exp.summary}
             </p>
 
             {/* Key Deliverables */}
             <div className="space-y-2">
-              <span className="font-sans text-xs text-indigo-600 uppercase tracking-wider block font-medium">
-                Key deliverables
+              <span className="font-sans text-xs text-slate-700 uppercase tracking-wider block font-semibold">
+                Key Deliverables
               </span>
-              <ul className="space-y-1.5 font-sans text-xs sm:text-sm text-gray-600">
+              <ul className="space-y-1.5 font-sans text-xs sm:text-sm text-slate-600">
                 {exp.achievements.map((ach, aIdx) => (
-                  <li key={aIdx} className="flex items-start gap-2.5">
-                    <span className="text-indigo-600 text-xs mt-1">▹</span>
+                  <li key={aIdx} className="flex items-start gap-2">
+                    <span className="text-accent font-bold mt-0.5">•</span>
                     <span>{ach}</span>
                   </li>
                 ))}
@@ -70,24 +69,24 @@ export const ExperienceSection: React.FC = () => {
             </div>
 
             {/* Impact Box */}
-            <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-100 flex items-start gap-3.5">
-              <TrendingUp className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
+            <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100 flex items-start gap-3">
+              <TrendingUp className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
               <div>
-                <span className="font-sans text-xs text-indigo-600 uppercase font-medium block mb-0.5">
-                  Outcome
+                <span className="font-sans text-xs text-accent uppercase font-semibold block mb-0.5">
+                  Business &amp; Product Impact
                 </span>
-                <p className="font-sans text-xs sm:text-sm text-gray-700 leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-slate-700 leading-relaxed">
                   {exp.architecturalImpact}
                 </p>
               </div>
             </div>
 
             {/* Technologies */}
-            <div className="flex flex-wrap gap-2 pt-1">
+            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
               {exp.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-1 rounded-md text-xs font-sans font-normal bg-gray-100 border border-gray-200 text-gray-600"
+                  className="px-2.5 py-1 rounded-md text-xs font-sans font-normal bg-slate-100 text-slate-600"
                 >
                   {tech}
                 </span>
@@ -98,50 +97,50 @@ export const ExperienceSection: React.FC = () => {
       </div>
 
       {/* Education Block */}
-      <div className="mt-16 pt-12 border-t border-gray-200">
-        <div className="mb-8">
-          <span className="font-sans text-xs sm:text-sm text-accent tracking-wide uppercase block mb-1.5 font-medium">
-            Academic foundation
+      <div className="pt-8 border-t border-slate-200/80">
+        <div className="mb-6">
+          <span className="font-sans text-xs text-accent tracking-wide uppercase block mb-1 font-semibold">
+            Academic Background
           </span>
-          <h3 className="font-serif font-normal text-3xl sm:text-4xl text-gray-900 tracking-tight">
+          <h3 className="font-serif font-medium text-2xl sm:text-3xl text-slate-900 tracking-tight">
             Education
           </h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 sm:p-7 rounded-2xl bg-white border border-gray-200 space-y-3 shadow-card hover:shadow-card-hover transition-all duration-200">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/80 space-y-3 shadow-[0_2px_16px_rgba(0,0,0,0.03)]">
             <div className="flex items-center justify-between">
-              <span className="px-3 py-1 rounded-lg text-xs font-sans bg-indigo-50 text-indigo-600 border border-indigo-200 font-medium">
-                2025 to 2027
+              <span className="px-3 py-1 rounded-full text-xs font-sans bg-blue-50 text-accent border border-blue-200/60 font-semibold">
+                2025 – 2027
               </span>
-              <span className="font-sans text-xs text-gray-500 font-normal">Full-Time</span>
+              <span className="font-sans text-xs text-slate-500 font-medium">Full-Time</span>
             </div>
-            <h4 className="font-serif font-medium text-xl text-gray-900">
+            <h4 className="font-serif font-semibold text-xl text-slate-900">
               Master of Business Administration (MBA)
             </h4>
-            <p className="text-sm font-sans text-gray-600 font-normal">
+            <p className="text-sm font-sans text-slate-600 font-medium">
               Regional College of Management, Bhubaneswar
             </p>
-            <p className="font-sans text-xs sm:text-sm text-gray-500 leading-relaxed font-normal">
-              Specialization in IT and International Business. Coursework in technology management, business strategy, and enterprise information systems.
+            <p className="font-sans text-xs text-slate-500 leading-relaxed font-normal">
+              Specialization in IT and International Business. Focused on digital transformation, technology strategy, operations, and enterprise analytics.
             </p>
           </div>
 
-          <div className="p-6 sm:p-7 rounded-2xl bg-white border border-gray-200 space-y-3 shadow-card hover:shadow-card-hover transition-all duration-200">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/80 space-y-3 shadow-[0_2px_16px_rgba(0,0,0,0.03)]">
             <div className="flex items-center justify-between">
-              <span className="px-3 py-1 rounded-lg text-xs font-sans bg-gray-100 text-gray-600 border border-gray-200 font-normal">
-                2022 to 2025
+              <span className="px-3 py-1 rounded-full text-xs font-sans bg-slate-100 text-slate-700 border border-slate-200 font-medium">
+                2022 – 2025
               </span>
-              <span className="font-sans text-xs text-gray-500 font-normal">Graduated</span>
+              <span className="font-sans text-xs text-slate-500 font-medium">Graduated</span>
             </div>
-            <h4 className="font-serif font-medium text-xl text-gray-900">
+            <h4 className="font-serif font-semibold text-xl text-slate-900">
               Bachelor of Business Administration (BBA)
             </h4>
-            <p className="text-sm font-sans text-gray-600 font-normal">
+            <p className="text-sm font-sans text-slate-600 font-medium">
               Regional College of Management, Bhubaneswar
             </p>
-            <p className="font-sans text-xs sm:text-sm text-gray-500 leading-relaxed font-normal">
-              Business statistics, marketing management, and financial accounting fundamentals.
+            <p className="font-sans text-xs text-slate-500 leading-relaxed font-normal">
+              Core foundation in business statistics, quantitative techniques, financial accounting, and organizational marketing.
             </p>
           </div>
         </div>

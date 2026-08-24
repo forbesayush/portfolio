@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Users, TrendingDown, Clock, BarChart3, Grid3X3, Filter } from 'lucide-react';
-import { soundManager } from '../../audio/soundManager';
 
 interface CohortData {
   cohort: string;
@@ -24,7 +23,6 @@ export const CohortRetentionChart: React.FC = () => {
   const [viewMode, setViewMode] = useState<'chart' | 'matrix'>('chart');
   const [hoveredMonth, setHoveredMonth] = useState<number | null>(null);
 
-  // Compute aggregated averages
   const activeCohorts = selectedCohort === 'ALL' 
     ? SAMPLE_COHORTS 
     : SAMPLE_COHORTS.filter((c) => c.cohort === selectedCohort);
@@ -41,42 +39,36 @@ export const CohortRetentionChart: React.FC = () => {
   const aggregatedRates = [0, 1, 2, 3, 4, 5, 6].map(getAggregatedRate);
   const totalCustomers = activeCohorts.reduce((acc, c) => acc + c.customers, 0);
 
-  // Calculate Heatmap Color
   const getCellColor = (rate: number | undefined) => {
-    if (rate === undefined) return 'bg-transparent text-gray-600';
-    if (rate >= 90) return 'bg-indigo-500 text-white font-medium';
-    if (rate >= 28) return 'bg-indigo-400 text-white';
-    if (rate >= 18) return 'bg-indigo-300 text-gray-900';
-    if (rate >= 13) return 'bg-indigo-200 text-gray-900';
-    return 'bg-indigo-100 text-gray-800';
+    if (rate === undefined) return 'bg-transparent text-slate-400';
+    if (rate >= 90) return 'bg-accent text-white font-medium';
+    if (rate >= 28) return 'bg-blue-500 text-white';
+    if (rate >= 18) return 'bg-blue-200 text-blue-950 font-medium';
+    if (rate >= 13) return 'bg-blue-100 text-blue-900';
+    return 'bg-slate-100 text-slate-700';
   };
 
   return (
-    <div className="rounded-2xl bg-white border border-gray-200 p-6 sm:p-7 space-y-6 shadow-card text-left">
-      {/* Required One-Sentence Disclaimer / Caption */}
-      <div className="border-b border-gray-200 pb-4">
-        <p className="font-sans text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
-          Interactive cohort retention analysis using anonymized sample data structured to illustrate customer repurchase decay across monthly acquisition cohorts.
+    <div className="rounded-2xl bg-white border border-slate-200/80 p-5 sm:p-6 space-y-5 shadow-sm text-left">
+      <div className="border-b border-slate-100 pb-3">
+        <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+          Interactive cohort retention model illustrating customer repurchase decay across monthly acquisition cohorts.
         </p>
       </div>
 
       {/* Control Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        {/* Cohort Selector */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-indigo-600 flex-shrink-0" />
-          <span className="font-sans text-xs text-gray-500 font-medium">Cohort:</span>
+          <Filter className="w-3.5 h-3.5 text-accent flex-shrink-0" />
+          <span className="font-sans text-xs text-slate-600 font-medium">Cohort:</span>
           <select
             value={selectedCohort}
-            onChange={(e) => {
-              soundManager.playClick();
-              setSelectedCohort(e.target.value);
-            }}
-            className="px-3 py-2 min-h-[44px] rounded-xl bg-gray-50 border border-gray-200 text-base sm:text-xs font-sans text-gray-900 focus:border-indigo-500 outline-none"
+            onChange={(e) => setSelectedCohort(e.target.value)}
+            className="px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-sans text-slate-900 focus:border-accent outline-none"
           >
-            <option value="ALL" className="bg-white">All Cohorts (Aggregated)</option>
+            <option value="ALL">All Cohorts (Aggregated)</option>
             {SAMPLE_COHORTS.map((c) => (
-              <option key={c.cohort} value={c.cohort} className="bg-white">
+              <option key={c.cohort} value={c.cohort}>
                 {c.cohort} ({c.customers.toLocaleString()} users)
               </option>
             ))}
@@ -84,26 +76,20 @@ export const CohortRetentionChart: React.FC = () => {
         </div>
 
         {/* View Mode Toggle */}
-        <div className="flex items-center rounded-xl bg-gray-100 p-1 border border-gray-200">
+        <div className="flex items-center rounded-lg bg-slate-100 p-1 border border-slate-200">
           <button
-            onClick={() => {
-              soundManager.playClick();
-              setViewMode('chart');
-            }}
-            className={`flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg text-xs font-sans font-medium transition-all ${
-              viewMode === 'chart' ? 'bg-indigo-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900'
+            onClick={() => setViewMode('chart')}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-sans font-medium transition-all ${
+              viewMode === 'chart' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <BarChart3 className="w-3.5 h-3.5" />
             <span>Retention Curve</span>
           </button>
           <button
-            onClick={() => {
-              soundManager.playClick();
-              setViewMode('matrix');
-            }}
-            className={`flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg text-xs font-sans font-medium transition-all ${
-              viewMode === 'matrix' ? 'bg-indigo-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900'
+            onClick={() => setViewMode('matrix')}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-sans font-medium transition-all ${
+              viewMode === 'matrix' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <Grid3X3 className="w-3.5 h-3.5" />
@@ -113,33 +99,33 @@ export const CohortRetentionChart: React.FC = () => {
       </div>
 
       {/* Metric Callouts */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-gray-200">
-        <div className="p-3.5 rounded-xl bg-white border border-gray-200 flex items-center justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-100">
+        <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="w-4 h-4 text-indigo-600" />
-            <span className="font-sans text-xs text-gray-500">Total Cohort Users</span>
+            <Users className="w-4 h-4 text-accent" />
+            <span className="font-sans text-xs text-slate-500">Total Cohort Users</span>
           </div>
-          <span className="font-serif font-medium text-lg text-gray-900">
+          <span className="font-serif font-semibold text-base text-slate-900">
             {totalCustomers.toLocaleString()}
           </span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-white border border-gray-200 flex items-center justify-between">
+        <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <TrendingDown className="w-4 h-4 text-indigo-600" />
-            <span className="font-sans text-xs text-gray-500">Month 1 Retention</span>
+            <TrendingDown className="w-4 h-4 text-accent" />
+            <span className="font-sans text-xs text-slate-500">Month 1 Retention</span>
           </div>
-          <span className="font-serif font-medium text-lg text-gray-900">
+          <span className="font-serif font-semibold text-base text-slate-900">
             {aggregatedRates[1] || 0}%
           </span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-white border border-gray-200 flex items-center justify-between">
+        <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-indigo-600" />
-            <span className="font-sans text-xs text-gray-500">Month 5 Retention</span>
+            <Clock className="w-4 h-4 text-accent" />
+            <span className="font-sans text-xs text-slate-500">Month 5 Retention</span>
           </div>
-          <span className="font-serif font-medium text-lg text-gray-900">
+          <span className="font-serif font-semibold text-base text-slate-900">
             ~10.8%
           </span>
         </div>
@@ -147,17 +133,15 @@ export const CohortRetentionChart: React.FC = () => {
 
       {/* Chart View */}
       {viewMode === 'chart' ? (
-        <div className="space-y-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-sans text-gray-500 gap-1">
+        <div className="space-y-2 pt-1">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-sans text-slate-500 gap-1">
             <span>Customer Retention Rate (%) over 6 Months</span>
-            <span className="text-indigo-600 font-medium">Repurchase Plateau: Month 4+</span>
+            <span className="text-accent font-medium">Repurchase Plateau: Month 4+</span>
           </div>
 
-          {/* SVG Line / Bar Retention Visualization */}
-          <div className="h-48 w-full bg-gray-50 rounded-xl p-4 border border-gray-200 flex items-end justify-between gap-2 sm:gap-4 relative">
-            {/* Grid Guidelines */}
-            <div className="absolute inset-x-4 top-4 border-b border-gray-200 text-[10px] text-gray-400">100%</div>
-            <div className="absolute inset-x-4 top-1/2 border-b border-gray-200 text-[10px] text-gray-400">50%</div>
+          <div className="h-44 w-full bg-slate-50 rounded-xl p-4 border border-slate-100 flex items-end justify-between gap-2 sm:gap-4 relative">
+            <div className="absolute inset-x-4 top-4 border-b border-slate-200 text-[10px] text-slate-400">100%</div>
+            <div className="absolute inset-x-4 top-1/2 border-b border-slate-200 text-[10px] text-slate-400">50%</div>
 
             {aggregatedRates.map((rate, idx) => {
               const heightPercent = Math.max(8, rate);
@@ -166,39 +150,30 @@ export const CohortRetentionChart: React.FC = () => {
               return (
                 <div
                   key={idx}
-                  onMouseEnter={() => {
-                    soundManager.playHover();
-                    setHoveredMonth(idx);
-                  }}
+                  onMouseEnter={() => setHoveredMonth(idx)}
                   onMouseLeave={() => setHoveredMonth(null)}
-                  onClick={() => {
-                    soundManager.playClick();
-                    setHoveredMonth(hoveredMonth === idx ? null : idx);
-                  }}
+                  onClick={() => setHoveredMonth(hoveredMonth === idx ? null : idx)}
                   className="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer relative z-10 select-none min-h-[44px]"
                 >
-                  {/* Tooltip on touch / hover */}
                   {isHovered && (
-                    <div className="absolute -top-10 px-2.5 py-1 rounded-md bg-indigo-600 text-white font-sans text-xs shadow-lg whitespace-nowrap animate-in fade-in zoom-in-95 duration-150 z-20">
+                    <div className="absolute -top-10 px-2 py-1 rounded-md bg-slate-900 text-white font-sans text-xs shadow-md whitespace-nowrap z-20">
                       {months[idx]}: {rate}% retained
                     </div>
                   )}
 
-                  {/* Bar */}
                   <div
                     style={{ height: `${heightPercent}%` }}
-                    className={`w-full max-w-[48px] rounded-t-md transition-all duration-300 ${
+                    className={`w-full max-w-[44px] rounded-t-md transition-all duration-200 ${
                       idx === 0 
-                        ? 'bg-indigo-100' 
+                        ? 'bg-blue-100' 
                         : isHovered 
-                        ? 'bg-indigo-500' 
-                        : 'bg-indigo-400 group-hover:bg-indigo-500'
+                        ? 'bg-accent' 
+                        : 'bg-blue-500 group-hover:bg-accent'
                     }`}
                   />
 
-                  {/* Label */}
                   <span className={`font-sans text-[11px] transition-colors ${
-                    isHovered ? 'text-gray-900 font-medium' : 'text-gray-500'
+                    isHovered ? 'text-slate-900 font-semibold' : 'text-slate-500'
                   }`}>
                     M{idx}
                   </span>
@@ -209,31 +184,31 @@ export const CohortRetentionChart: React.FC = () => {
         </div>
       ) : (
         /* Matrix Heatmap Table View */
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto pt-1">
           <table className="w-full text-xs font-sans border-collapse">
             <thead>
-              <tr className="border-b border-gray-200 text-gray-500 text-left">
-                <th className="py-2.5 px-3 font-medium">Cohort</th>
-                <th className="py-2.5 px-3 font-medium">Users</th>
-                <th className="py-2.5 px-3 font-medium text-center">M0</th>
-                <th className="py-2.5 px-3 font-medium text-center">M1</th>
-                <th className="py-2.5 px-3 font-medium text-center">M2</th>
-                <th className="py-2.5 px-3 font-medium text-center">M3</th>
-                <th className="py-2.5 px-3 font-medium text-center">M4</th>
-                <th className="py-2.5 px-3 font-medium text-center">M5</th>
-                <th className="py-2.5 px-3 font-medium text-center">M6</th>
+              <tr className="border-b border-slate-200 text-slate-500 text-left">
+                <th className="py-2 px-2.5 font-medium">Cohort</th>
+                <th className="py-2 px-2.5 font-medium">Users</th>
+                <th className="py-2 px-2 font-medium text-center">M0</th>
+                <th className="py-2 px-2 font-medium text-center">M1</th>
+                <th className="py-2 px-2 font-medium text-center">M2</th>
+                <th className="py-2 px-2 font-medium text-center">M3</th>
+                <th className="py-2 px-2 font-medium text-center">M4</th>
+                <th className="py-2 px-2 font-medium text-center">M5</th>
+                <th className="py-2 px-2 font-medium text-center">M6</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 font-sans">
+            <tbody className="divide-y divide-slate-100 font-sans">
               {activeCohorts.map((c) => (
-                <tr key={c.cohort} className="hover:bg-gray-50 transition-colors">
-                  <td className="py-2 px-3 font-medium text-gray-900">{c.cohort}</td>
-                  <td className="py-2 px-3 text-gray-500">{c.customers.toLocaleString()}</td>
+                <tr key={c.cohort} className="hover:bg-slate-50 transition-colors">
+                  <td className="py-2 px-2.5 font-medium text-slate-900">{c.cohort}</td>
+                  <td className="py-2 px-2.5 text-slate-500">{c.customers.toLocaleString()}</td>
                   {[0, 1, 2, 3, 4, 5, 6].map((mIdx) => {
                     const rate = c.rates[mIdx];
                     return (
-                      <td key={mIdx} className="py-1 px-1.5 text-center">
-                        <div className={`py-1 rounded-md text-[11px] ${getCellColor(rate)}`}>
+                      <td key={mIdx} className="py-1 px-1 text-center">
+                        <div className={`py-1 rounded text-[11px] ${getCellColor(rate)}`}>
                           {rate !== undefined ? `${rate}%` : '-'}
                         </div>
                       </td>

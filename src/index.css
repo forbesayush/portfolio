@@ -3,16 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --color-cyan: 236, 72, 153;
-    --color-amber: 245, 158, 11;
-    --color-neon: 16, 185, 129;
-  }
-
   html {
     scroll-behavior: smooth;
-    background-color: #FAFAF7;
-    color: #1B1B1F;
+    background-color: #F8F9FA;
+    color: #0F172A;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
@@ -23,46 +17,42 @@
     touch-action: manipulation;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
+    background-color: #F8F9FA;
+    color: #0F172A;
   }
 
-  /* Custom Scrollbar */
+  /* Custom Clean Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #F0EFEB;
+    background: #F1F3F5;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(99, 102, 241, 0.3);
+    background: #CBD5E1;
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(99, 102, 241, 0.6);
+    background: #94A3B8;
   }
 }
 
-/* Subtle Dot Grid Texture */
-.bg-noise {
-  background-image: radial-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 0);
-  background-size: 24px 24px;
+/* Subtle Editorial Background Grid */
+.bg-editorial-grid {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-/* Scanline Matrix Overlay */
-.scanlines {
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0),
-    rgba(0,0,0,0) 50%,
-    rgba(0, 0, 0, 0.02) 50%,
-    rgba(0, 0, 0, 0.02)
-  );
-  background-size: 100% 4px;
+/* Clean Editorial Card */
+.editorial-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease-in-out;
 }
 
-/* Glassmorphism helpers */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+.editorial-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.07), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
 }

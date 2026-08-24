@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GitCommit, RefreshCw } from 'lucide-react';
-import { soundManager } from '../../audio/soundManager';
+import { GitCommit, RefreshCw, ArrowUpRight } from 'lucide-react';
 
 export const ActivitySection: React.FC = () => {
   const [repoData, setRepoData] = useState<{ name: string; stars: number; language: string; updated: string }[]>([
@@ -26,7 +25,6 @@ export const ActivitySection: React.FC = () => {
   }, []);
 
   const handleRefresh = () => {
-    soundManager.playClick();
     fetch('https://api.github.com/users/forbesayush/repos?sort=updated&per_page=4')
       .then((res) => res.json())
       .then((data) => {
@@ -40,68 +38,67 @@ export const ActivitySection: React.FC = () => {
             }))
           );
         }
-        soundManager.playSuccess();
       })
       .catch(() => {});
   };
 
   return (
-    <section id="activity" className="py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto relative z-10 text-left">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-gray-200 pb-6">
+    <section id="activity" className="space-y-8 text-left scroll-mt-24">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/80 pb-6">
         <div>
-          <span className="font-sans text-xs sm:text-sm text-indigo-600 tracking-wide uppercase block mb-1.5 font-medium">
-            Public repositories
+          <span className="font-sans text-xs text-accent tracking-wide uppercase block mb-1 font-semibold">
+            Open Source &amp; Research
           </span>
-          <h2 className="font-serif font-normal text-4xl sm:text-5xl md:text-6xl text-gray-900 tracking-tight">
-            Recent activity
+          <h2 className="font-serif font-medium text-3xl sm:text-4xl text-slate-900 tracking-tight">
+            Recent Repositories
           </h2>
         </div>
-        <div className="flex items-center gap-3 font-sans text-xs sm:text-sm text-gray-500">
-          <span className="flex items-center gap-2 text-indigo-600 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
+        <div className="flex items-center gap-3 font-sans text-xs sm:text-sm text-slate-500">
+          <span className="flex items-center gap-1.5 text-accent font-medium">
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             GitHub Feed
           </span>
           <button
             onClick={handleRefresh}
-            onMouseEnter={() => soundManager.playHover()}
-            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-700 hover:text-gray-900 transition-colors active:scale-95"
-            title="Refresh"
+            className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 active:scale-95 transition-colors"
+            title="Refresh feed"
             aria-label="Refresh Repositories"
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {repoData.map((repo, idx) => (
           <a
             key={idx}
             href={`https://github.com/forbesayush/${repo.name}`}
             target="_blank"
             rel="noreferrer"
-            onMouseEnter={() => soundManager.playHover()}
-            onClick={() => soundManager.playClick()}
-            className="p-6 rounded-2xl bg-white border border-gray-200 hover:border-indigo-300 transition-all duration-200 block text-left shadow-card hover:-translate-y-1"
+            className="p-5 rounded-3xl bg-white border border-slate-200/80 hover:border-slate-300 transition-all block text-left shadow-[0_2px_16px_rgba(0,0,0,0.03)] group"
           >
-            <div className="flex items-center gap-2.5 mb-3.5">
-              <GitCommit className="w-4 h-4 text-indigo-600 flex-shrink-0" />
-              <span className="font-serif text-base text-gray-900 hover:text-indigo-600 font-medium transition-colors truncate">
-                {repo.name}
-              </span>
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="flex items-center gap-2 truncate">
+                <GitCommit className="w-4 h-4 text-accent flex-shrink-0" />
+                <span className="font-serif font-semibold text-base text-slate-900 group-hover:text-accent transition-colors truncate">
+                  {repo.name}
+                </span>
+              </div>
+              <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-900 transition-colors flex-shrink-0" />
             </div>
-            <div className="space-y-2 font-sans text-xs sm:text-sm text-gray-500">
+            <div className="space-y-1.5 font-sans text-xs text-slate-500">
               <div className="flex justify-between">
-                <span>Lang</span>
-                <span className="text-gray-700 font-normal">{repo.language}</span>
+                <span>Stack</span>
+                <span className="text-slate-700 font-medium">{repo.language}</span>
               </div>
               <div className="flex justify-between">
                 <span>Stars</span>
-                <span className="text-indigo-600 font-normal">{repo.stars}</span>
+                <span className="text-amber-600 font-medium">{repo.stars}</span>
               </div>
               <div className="flex justify-between">
                 <span>Updated</span>
-                <span className="text-gray-600 font-normal">{repo.updated}</span>
+                <span className="text-slate-600 font-normal">{repo.updated}</span>
               </div>
             </div>
           </a>

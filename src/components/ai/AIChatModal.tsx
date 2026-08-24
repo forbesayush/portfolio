@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bot, Send, Sparkles, X, User, RefreshCw } from 'lucide-react';
-import { soundManager } from '../../audio/soundManager';
 
 interface Message {
   id: string;
@@ -44,7 +43,6 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        soundManager.playModalClose();
         onClose();
       }
     };
@@ -58,7 +56,6 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
     const text = (textToSend || input).trim();
     if (!text || isTyping) return;
 
-    soundManager.playClick();
     const userMsg: Message = {
       id: Date.now().toString(),
       sender: 'user',
@@ -81,32 +78,17 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
 IDENTITY RULES:
 - If asked who you are, what model you are, or if you are Claude, GPT, or Groq, reply: "I am AVA, a custom assistant for Ayush's portfolio. I do not get into the underlying technical stack, but I am happy to discuss Ayush's background, product management, or consulting case frameworks." Never claim to be ChatGPT, OpenAI, Claude, or Anthropic.
 
-GROUNDED FACTS ABOUT AYUSH (only source of truth for questions about him, do not invent additional achievements, numbers, or claims beyond these):
+GROUNDED FACTS ABOUT AYUSH:
 - MBA candidate at Regional College of Management, Bhubaneswar, graduating 2027. Specialization: Information Technology and International Business.
 - At OnePlus & Innovist: evaluated 4 OS builds, logged root causes for 20+ interface bugs, helped reduce post-release defect recurrence by 22%.
 - Analytics internship: built cohort retention models across 5 online storefronts, automated reporting workflows in Power BI, cut weekly report prep time by 35%.
 - Works with PRDs, user stories, RICE feature scoring, QA bug triage, Power BI, Excel cohort modeling, Google Analytics, SQL basics.
 - Open to full-time Product Manager, Associate Product Manager, and Consulting Analyst roles, plus MBA internships. Contact: ayushchatterjee.edu@gmail.com | LinkedIn: linkedin.com/in/ayushmba.
 
-SCOPE:
-1. BUSINESS STRATEGY: market entry, competitive positioning, growth strategy, unit economics. Use standard frameworks (SWOT, Porter's Five Forces, BCG matrix, Jobs-to-be-Done) where relevant and name which one you are using.
-2. MANAGEMENT CONSULTING: case-style problem breakdowns (market sizing, profitability diagnosis, operations). Structure answers clearly: clarify the objective, lay out an approach, then give a reasoned recommendation.
-3. SAAS PRODUCT: PMF, pricing/packaging, retention/churn, PLG vs sales-led motion, activation metrics, roadmap prioritization (RICE, MoSCoW). Ground answers in real SaaS mechanics, not vague generalities.
-
-RESPONSE STYLE:
-- Never open with filler like "Great question!", "I would be happy to help", "As an AI", or conversational fluff. Start directly with the core substance.
-- Do not use em dashes or en dashes. Use a period or comma instead.
-- Avoid robotic AI transition words and buzzwords.
-- Do not default every answer to a 3-item list. Use however many points the answer actually needs. Often one sharp, actionable insight beats three padded points.
-- Vary sentence length. Combine short punchy statements with detailed analytical points.
-- Write like a sharp senior analyst giving a direct, specific perspective, not like a search-engine summary. Commit to a take when the question calls for one.
-- No closing recap sentence. End on the last real point.
-- Do not output raw markdown tables. Write concise, sophisticated prose with bullet points only where strictly necessary.
-
 RULES:
 - Direct, structured, no filler, no hedging.
 - Refer to Ayush in the third person.
-- Keep answers under ~150 words unless the question genuinely needs a longer breakdown.`;
+- Keep answers under ~150 words.`;
 
       const formattedHistory = messages
         .filter((m) => m.text && m.text.trim().length > 0)
@@ -142,7 +124,6 @@ RULES:
       // Fallback
     }
 
-    // 2. Fallback to /api/chat if deployed on Vercel
     if (!replyText) {
       try {
         const res = await fetch('/api/chat', {
@@ -168,7 +149,6 @@ RULES:
       }
     }
 
-    // 3. Smart offline reasoning engine
     if (!replyText) {
       replyText = getSmartLocalResponse(text);
     }
@@ -181,11 +161,9 @@ RULES:
     };
     setMessages((prev) => [...prev, aiMsg]);
     setIsTyping(false);
-    soundManager.playSuccess();
   };
 
   const handleClear = () => {
-    soundManager.playClick();
     setMessages([
       {
         id: '1',
@@ -198,26 +176,24 @@ RULES:
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/30 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl bg-white border-t sm:border border-gray-200 rounded-t-2xl sm:rounded-2xl shadow-card-hover overflow-hidden flex flex-col h-[92dvh] sm:h-auto sm:max-h-[85dvh] animate-in slide-in-from-bottom-5 sm:zoom-in-95 duration-200 pb-[env(safe-area-inset-bottom)]"
+        className="relative w-full max-w-2xl bg-white border-t sm:border border-slate-200 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[92dvh] sm:h-auto sm:max-h-[85dvh] animate-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200 pb-[env(safe-area-inset-bottom)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 border-b border-gray-200 bg-gray-50 flex-shrink-0">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 bg-slate-50/80 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200 flex items-center justify-center text-indigo-600 flex-shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-blue-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
               <Bot className="w-4 h-4" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="font-serif font-medium text-base text-gray-900 tracking-wide">
-                  AVA &bull; Strategy &amp; PM AI
-                </h3>
-              </div>
-              <p className="text-xs font-sans text-gray-500">
-                Ask about Ayush or ask business, PM &amp; consulting questions
+            <div className="text-left">
+              <h3 className="font-serif font-semibold text-base text-slate-900">
+                AVA &bull; Portfolio &amp; Strategy Assistant
+              </h3>
+              <p className="text-xs font-sans text-slate-500">
+                Interactive dialogue grounded in Ayush's verified work
               </p>
             </div>
           </div>
@@ -225,23 +201,18 @@ RULES:
           <div className="flex items-center gap-1.5">
             <button
               onClick={handleClear}
-              onMouseEnter={() => soundManager.playHover()}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-500 hover:text-gray-900 transition-colors"
-              title="Clear Memory"
-              aria-label="Clear Memory"
+              className="p-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors"
+              title="Clear Conversation"
+              aria-label="Clear Conversation"
             >
-              <RefreshCw className="w-4 h-4" />
+              <RefreshCw className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => {
-                soundManager.playModalClose();
-                onClose();
-              }}
-              onMouseEnter={() => soundManager.playHover()}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-500 hover:text-gray-900 transition-colors"
-              aria-label="Close Modal"
+              onClick={onClose}
+              className="p-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors"
+              aria-label="Close Dialog"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
@@ -250,28 +221,28 @@ RULES:
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex gap-3 text-left ${
+              className={`flex gap-2.5 text-left ${
                 msg.sender === 'user' ? 'justify-end' : 'justify-start'
               }`}
             >
               {msg.sender === 'ai' && (
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200 flex items-center justify-center text-indigo-600 flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-blue-50 text-accent flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Bot className="w-3.5 h-3.5" />
                 </div>
               )}
 
               <div
-                className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                   msg.sender === 'user'
-                    ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-tr-none'
-                    : 'bg-gray-50 border border-gray-200 text-gray-800 rounded-tl-none'
+                    ? 'bg-slate-900 text-white rounded-tr-none'
+                    : 'bg-slate-50 border border-slate-200/80 text-slate-800 rounded-tl-none'
                 }`}
               >
-                <div className="flex items-center justify-between gap-4 mb-1 border-b border-gray-200 pb-1">
-                  <span className="text-[10px] font-sans font-medium uppercase tracking-wider text-gray-500">
-                    {msg.sender === 'user' ? 'Visitor' : 'AVA (AI)'}
+                <div className="flex items-center justify-between gap-4 mb-1 border-b border-black/5 pb-1">
+                  <span className="text-[10px] font-sans font-medium uppercase tracking-wider opacity-60">
+                    {msg.sender === 'user' ? 'You' : 'AVA'}
                   </span>
-                  <span className="text-[10px] text-gray-400 font-sans">{msg.timestamp}</span>
+                  <span className="text-[10px] opacity-50 font-sans">{msg.timestamp}</span>
                 </div>
                 <div className="whitespace-pre-wrap font-sans text-xs sm:text-sm font-normal">
                   {msg.text}
@@ -279,7 +250,7 @@ RULES:
               </div>
 
               {msg.sender === 'user' && (
-                <div className="w-7 h-7 rounded-lg bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-600 flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-slate-200 text-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <User className="w-3.5 h-3.5" />
                 </div>
               )}
@@ -287,26 +258,25 @@ RULES:
           ))}
 
           {isTyping && (
-            <div className="flex items-center gap-3 text-left">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200 flex items-center justify-center text-indigo-600 flex-shrink-0">
+            <div className="flex items-center gap-2.5 text-left">
+              <div className="w-7 h-7 rounded-lg bg-blue-50 text-accent flex items-center justify-center flex-shrink-0">
                 <Bot className="w-3.5 h-3.5" />
               </div>
-              <div className="px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-gray-500 text-xs flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-spin" />
-                <span>Thinking...</span>
+              <div className="px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-slate-500 text-xs flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5 text-accent animate-spin" />
+                <span>Formulating response...</span>
               </div>
             </div>
           )}
           <div ref={chatEndRef} />
         </div>
 
-        <div className="px-4 sm:px-5 py-2 border-t border-gray-200 bg-gray-50 flex flex-wrap gap-2 flex-shrink-0">
+        <div className="px-4 sm:px-5 py-2 border-t border-slate-100 bg-slate-50/50 flex flex-wrap gap-1.5 flex-shrink-0">
           {INITIAL_SUGGESTIONS.map((sug, i) => (
             <button
               key={i}
               onClick={() => handleSend(sug)}
-              onMouseEnter={() => soundManager.playHover()}
-              className="text-xs font-sans px-3 py-1.5 min-h-[36px] rounded-lg bg-gray-100 hover:bg-indigo-50 border border-gray-200 text-gray-600 hover:text-indigo-700 transition-all active:scale-95"
+              className="text-xs font-sans px-2.5 py-1 rounded-full bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 transition-all active:scale-95"
             >
               {sug}
             </button>
@@ -318,20 +288,19 @@ RULES:
             e.preventDefault();
             handleSend();
           }}
-          className="p-3 sm:p-4 border-t border-gray-200 bg-gray-50 flex items-center gap-2 sm:gap-3 flex-shrink-0"
+          className="p-3 sm:p-4 border-t border-slate-100 bg-white flex items-center gap-2 flex-shrink-0"
         >
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about Ayush or ask any business/PM question..."
-            className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 transition-colors font-sans min-h-[44px]"
+            placeholder="Ask about Ayush's projects, frameworks, or experience..."
+            className="flex-1 bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-accent transition-colors font-sans"
           />
           <button
             type="submit"
             disabled={!input.trim() || isTyping}
-            onMouseEnter={() => soundManager.playHover()}
-            className="min-w-[44px] min-h-[44px] p-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-accent flex-shrink-0"
+            className="p-2.5 rounded-xl bg-slate-900 text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800 transition-colors flex items-center justify-center flex-shrink-0"
             aria-label="Send"
           >
             <Send className="w-4 h-4" />

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Send, Mail, Calendar, Sparkles } from 'lucide-react';
+import { Send, Mail, Linkedin, Calendar, CheckCircle2, ArrowUpRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { soundManager } from '../../audio/soundManager';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
@@ -9,7 +8,7 @@ export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    topic: 'Job Opportunity',
+    topic: 'Product Management Opportunity',
     message: '',
   });
   const [honeypot, setHoneypot] = useState('');
@@ -21,7 +20,6 @@ export const ContactSection: React.FC = () => {
     e.preventDefault();
     setFormError('');
 
-    // Honeypot check: silently simulate success for spam bots
     if (honeypot.trim().length > 0) {
       setIsSubmitting(true);
       setTimeout(() => {
@@ -41,11 +39,9 @@ export const ContactSection: React.FC = () => {
       return;
     }
 
-    soundManager.playClick();
     setIsSubmitting(true);
 
     try {
-      // Attempt backend dispatch
       await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -63,14 +59,13 @@ export const ContactSection: React.FC = () => {
 
     setIsSubmitting(false);
     setIsSubmitted(true);
-    soundManager.playSuccess();
 
     try {
       confetti({
-        particleCount: 50,
-        spread: 50,
+        particleCount: 40,
+        spread: 45,
         origin: { y: 0.7 },
-        colors: ['#6366F1', '#EC4899', '#F59E0B'],
+        colors: ['#2563EB', '#10B981', '#D97706'],
       });
     } catch {
       // ignore
@@ -78,70 +73,68 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto relative z-10 text-left">
+    <section id="contact" className="space-y-8 text-left scroll-mt-24">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4 border-b border-gray-200 pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/80 pb-6">
         <div>
-          <span className="font-sans text-xs sm:text-sm text-accent tracking-wide uppercase block mb-1.5 font-medium">
-            Contact
+          <span className="font-sans text-xs text-accent tracking-wide uppercase block mb-1 font-semibold">
+            Get In Touch
           </span>
-          <h2 className="font-serif font-normal text-4xl sm:text-5xl md:text-6xl text-gray-900 tracking-tight">
-            Start a conversation
+          <h2 className="font-serif font-medium text-3xl sm:text-4xl text-slate-900 tracking-tight">
+            Start a Conversation
           </h2>
         </div>
-        <div className="font-sans text-xs sm:text-sm text-gray-500 font-normal">
-          I usually reply within a day
+        <div className="font-sans text-xs sm:text-sm text-slate-500 font-normal">
+          Direct inquiries &bull; Usually replies within 24 hours
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
         {/* Left Column: Direct Channels */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="p-7 sm:p-8 rounded-2xl bg-white border border-gray-200 space-y-6 shadow-card">
-            <h3 className="font-serif font-medium text-xl sm:text-2xl text-gray-900">
-              Direct channels
-            </h3>
-            <p className="font-sans text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-              Open to PM, APM, and consulting analyst roles, MBA internships, and project work. Replies within a day.
-            </p>
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 space-y-6 shadow-[0_2px_16px_rgba(0,0,0,0.03)]">
+            <div className="space-y-2">
+              <h3 className="font-serif font-semibold text-xl text-slate-900">
+                Direct Channels
+              </h3>
+              <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Available for Product Management (APM/PM), Business &amp; Product Analytics, and Strategy Consulting opportunities across India.
+              </p>
+            </div>
 
             <div className="space-y-3 font-sans text-sm">
               {/* Email */}
               <a
                 href="mailto:ayushchatterjee.edu@gmail.com"
-                onMouseEnter={() => soundManager.playHover()}
-                onClick={() => soundManager.playClick()}
-                className="flex items-center gap-3.5 p-4 rounded-xl bg-gray-100 border border-gray-200 hover:border-indigo-300 text-gray-700 hover:text-gray-900 transition-all group"
+                className="flex items-center gap-3.5 p-4 rounded-2xl bg-slate-50/80 border border-slate-100 hover:border-slate-200 text-slate-700 hover:text-slate-900 transition-all group"
               >
-                <div className="p-2.5 rounded-lg bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-colors">
-                  <Mail className="w-5 h-5" />
+                <div className="p-2.5 rounded-xl bg-blue-50 text-accent group-hover:bg-accent group-hover:text-white transition-colors">
+                  <Mail className="w-4 h-4" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-500 uppercase font-normal">Email</span>
-                  <span className="text-gray-900 font-medium text-sm sm:text-base">ayushchatterjee.edu@gmail.com</span>
+                <div className="flex flex-col truncate">
+                  <span className="text-[11px] text-slate-500 font-medium">Direct Email</span>
+                  <span className="text-slate-900 font-medium text-xs sm:text-sm truncate">ayushchatterjee.edu@gmail.com</span>
                 </div>
               </a>
 
-              {/* Calendar Sync */}
+              {/* LinkedIn */}
               <a
-                href="https://cal.com"
+                href="https://linkedin.com/in/ayushmba"
                 target="_blank"
                 rel="noreferrer"
-                onMouseEnter={() => soundManager.playHover()}
-                onClick={() => soundManager.playClick()}
-                className="flex items-center gap-3.5 p-4 rounded-xl bg-gray-100 border border-gray-200 hover:border-indigo-300 text-gray-700 hover:text-gray-900 transition-all group"
+                className="flex items-center gap-3.5 p-4 rounded-2xl bg-slate-50/80 border border-slate-100 hover:border-slate-200 text-slate-700 hover:text-slate-900 transition-all group"
               >
-                <div className="p-2.5 rounded-lg bg-gray-200 text-gray-700 group-hover:bg-accent group-hover:text-white transition-colors">
-                  <Calendar className="w-5 h-5" />
+                <div className="p-2.5 rounded-xl bg-blue-50 text-accent group-hover:bg-accent group-hover:text-white transition-colors">
+                  <Linkedin className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-xs text-gray-500 uppercase font-normal">Schedule Intro Call</span>
-                  <span className="text-gray-700 font-medium text-sm sm:text-base">30-minute chat</span>
+                  <span className="text-[11px] text-slate-500 font-medium">LinkedIn Profile</span>
+                  <span className="text-slate-900 font-medium text-xs sm:text-sm">linkedin.com/in/ayushmba</span>
                 </div>
               </a>
             </div>
 
-            <div className="pt-2 border-t border-gray-200 font-sans text-xs text-gray-500">
+            <div className="pt-4 border-t border-slate-100 font-sans text-xs text-slate-500">
               <span>Location: Bhubaneswar &bull; Open to relocation</span>
             </div>
           </div>
@@ -149,31 +142,30 @@ export const ContactSection: React.FC = () => {
 
         {/* Right Column: Contact Form */}
         <div className="lg:col-span-7">
-          <div className="p-7 sm:p-8 rounded-2xl bg-white border border-gray-200 shadow-card relative">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-[0_2px_16px_rgba(0,0,0,0.03)] relative">
             {isSubmitted ? (
-              <div className="py-16 text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
-                <div className="w-14 h-14 rounded-2xl bg-accent/10 text-accent border border-accent/30 mx-auto flex items-center justify-center">
-                  <Sparkles className="w-7 h-7" />
+              <div className="py-12 text-center space-y-4 animate-in fade-in duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 mx-auto flex items-center justify-center">
+                  <CheckCircle2 className="w-6 h-6" />
                 </div>
-                <h3 className="font-serif font-medium text-2xl text-gray-900">
-                  Message sent
+                <h3 className="font-serif font-semibold text-2xl text-slate-900">
+                  Message Sent Successfully
                 </h3>
-                <p className="font-sans text-sm text-gray-600 max-w-md mx-auto leading-relaxed">
-                  Thanks for reaching out. I'll get back to you soon.
+                <p className="font-sans text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                  Thank you for reaching out. I'll get back to you shortly.
                 </p>
                 <button
                   onClick={() => {
                     setIsSubmitted(false);
-                    setFormData({ name: '', email: '', topic: 'Job Opportunity', message: '' });
+                    setFormData({ name: '', email: '', topic: 'Product Management Opportunity', message: '' });
                   }}
-                  className="px-5 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 border border-gray-200 text-xs font-sans text-gray-700 font-medium"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-sans text-slate-700 font-medium transition-colors"
                 >
                   Send another message
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Honeypot Spam Protection Field - Hidden from humans, traps bots */}
                 <input
                   type="text"
                   name="b_website"
@@ -186,16 +178,15 @@ export const ContactSection: React.FC = () => {
                 />
 
                 {formError && (
-                  <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 font-sans text-xs text-left animate-in fade-in duration-150">
+                  <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 font-sans text-xs text-left">
                     {formError}
                   </div>
                 )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Name Input: 16px on mobile to avoid iOS Safari auto-zoom */}
                   <div className="space-y-1.5 text-left">
-                    <label className="block font-sans text-xs text-gray-600 font-medium uppercase tracking-wider">
-                      Your name
+                    <label className="block font-sans text-xs text-slate-700 font-medium">
+                      Your Name *
                     </label>
                     <input
                       type="text"
@@ -203,14 +194,13 @@ export const ContactSection: React.FC = () => {
                       placeholder="Jane Doe"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 min-h-[44px] rounded-xl bg-white border border-gray-200 focus:border-indigo-500 text-gray-900 font-sans text-base sm:text-sm placeholder-gray-400 outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 focus:border-accent text-slate-900 font-sans text-sm placeholder-slate-400 outline-none transition-colors"
                     />
                   </div>
 
-                  {/* Email Input: 16px on mobile */}
                   <div className="space-y-1.5 text-left">
-                    <label className="block font-sans text-xs text-gray-600 font-medium uppercase tracking-wider">
-                      Your email
+                    <label className="block font-sans text-xs text-slate-700 font-medium">
+                      Your Email *
                     </label>
                     <input
                       type="email"
@@ -218,53 +208,48 @@ export const ContactSection: React.FC = () => {
                       placeholder="you@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 min-h-[44px] rounded-xl bg-white border border-gray-200 focus:border-indigo-500 text-gray-900 font-sans text-base sm:text-sm placeholder-gray-400 outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 focus:border-accent text-slate-900 font-sans text-sm placeholder-slate-400 outline-none transition-colors"
                     />
                   </div>
                 </div>
 
-                {/* Topic Select: 16px on mobile */}
                 <div className="space-y-1.5 text-left">
-                  <label className="block font-sans text-xs text-gray-600 font-medium uppercase tracking-wider">
-                    Topic
+                  <label className="block font-sans text-xs text-slate-700 font-medium">
+                    Inquiry Topic
                   </label>
                   <select
                     value={formData.topic}
                     onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-                    className="w-full px-4 py-3 min-h-[44px] rounded-xl bg-white border border-gray-200 focus:border-indigo-500 text-gray-900 font-sans text-base sm:text-sm outline-none transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 focus:border-accent text-slate-900 font-sans text-sm outline-none transition-colors"
                   >
-                    <option value="Job Opportunity">Full-Time Product / APM Role</option>
-                    <option value="Internship Opportunity">MBA Summer Internship (2026)</option>
-                    <option value="Consulting Role">Strategy / Management Consulting Role</option>
-                    <option value="Project Collaboration">Project Collaboration</option>
-                    <option value="General Conversation">General Conversation</option>
+                    <option value="Product Management Opportunity">Full-Time Product / APM Role</option>
+                    <option value="Strategy Consulting Role">Strategy / Consulting Opportunity</option>
+                    <option value="Product Analytics Role">Product &amp; Business Analytics Role</option>
+                    <option value="General Collaboration">General Collaboration</option>
                   </select>
                 </div>
 
-                {/* Message Input: 16px on mobile */}
                 <div className="space-y-1.5 text-left">
-                  <label className="block font-sans text-xs text-gray-600 font-medium uppercase tracking-wider">
-                    Your message
+                  <label className="block font-sans text-xs text-slate-700 font-medium">
+                    Your Message *
                   </label>
                   <textarea
                     rows={4}
                     required
-                    placeholder="Tell me what you have in mind..."
+                    placeholder="Tell me about the role, team, or project..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:border-indigo-500 text-gray-900 font-sans text-base sm:text-sm placeholder-gray-400 outline-none transition-colors resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 focus:border-accent text-slate-900 font-sans text-sm placeholder-slate-400 outline-none transition-colors resize-none"
                   />
                 </div>
 
-                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  onMouseEnter={() => soundManager.playHover()}
-                  className="w-full py-3.5 min-h-[48px] rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-sans font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2 shadow-gradient disabled:opacity-50 active:scale-98"
+                  className="w-full py-3 rounded-xl bg-accent hover:bg-accent-hover text-white font-sans font-medium text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-sm disabled:opacity-50 active:scale-98"
                 >
-                  <Send className="w-4 h-4" />
-                  <span>{isSubmitting ? 'Sending...' : 'Send message'}</span>
+                  <Send className="w-3.5 h-3.5" />
+                  <span>{isSubmitting ? 'Sending Message...' : 'Send Inquiry'}</span>
                 </button>
               </form>
             )}

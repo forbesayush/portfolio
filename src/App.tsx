@@ -1,99 +1,28 @@
-import { useEffect, useState } from 'react';
-import Lenis from 'lenis';
-import { HeroScene } from './components/3d/HeroScene';
-import { CustomCursor } from './components/common/CustomCursor';
+import { useState } from 'react';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { HeroSection } from './components/sections/HeroSection';
 import { ProjectsSection } from './components/sections/ProjectsSection';
 import { SkillsSection } from './components/sections/SkillsSection';
 import { ExperienceSection } from './components/sections/ExperienceSection';
-import { NetworkDiagnosticsSection } from './components/sections/NetworkDiagnosticsSection';
 import { ActivitySection } from './components/sections/ActivitySection';
 import { ContactSection } from './components/sections/ContactSection';
 import { AIChatModal } from './components/ai/AIChatModal';
-import { TerminalModal } from './components/terminal/TerminalModal';
 
 export function App() {
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isAIOpen, setIsAIOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  // Fast, responsive smooth scroll without input delay
-  useEffect(() => {
-    // If mobile/touch, rely on native 120Hz smooth scroll for zero lag
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      const handleScroll = () => {
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        setScrollProgress(total > 0 ? window.scrollY / total : 0);
-      };
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
-
-    const lenis = new Lenis({
-      duration: 0.6,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.1,
-      touchMultiplier: 1.0,
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    const animId = requestAnimationFrame(raf);
-
-    lenis.on('scroll', (e: { progress: number }) => {
-      setScrollProgress(e.progress);
-    });
-
-    return () => {
-      cancelAnimationFrame(animId);
-      lenis.destroy();
-    };
-  }, []);
-
-  // Global keyboard shortcuts
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        setIsTerminalOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
 
   return (
-    <div className="relative min-h-screen bg-background text-gray-900 font-sans selection:bg-accent selection:text-white overflow-x-hidden bg-noise">
-      {/* Dynamic Magnetic Cursor */}
-      <CustomCursor />
+    <div className="min-h-screen bg-background text-slate-900 font-sans selection:bg-accent selection:text-white overflow-x-hidden bg-editorial-grid">
+      {/* Editorial Navigation Bar */}
+      <Navbar onOpenAI={() => setIsAIOpen(true)} />
 
-      {/* 3D WebGL Scene Background Layer */}
-      <HeroScene scrollProgress={scrollProgress} />
-
-      {/* Navigation Bar */}
-      <Navbar
-        onOpenTerminal={() => setIsTerminalOpen(true)}
-        onOpenAI={() => setIsAIOpen(true)}
-      />
-
-      {/* Main Content Sections */}
-      <main className="relative z-10">
-        <HeroSection
-          onOpenAI={() => setIsAIOpen(true)}
-          onOpenTerminal={() => setIsTerminalOpen(true)}
-        />
+      {/* Main Content Flow */}
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 sm:space-y-28 py-8 sm:py-12">
+        <HeroSection onOpenAI={() => setIsAIOpen(true)} />
         <ProjectsSection />
         <SkillsSection />
         <ExperienceSection />
-        <NetworkDiagnosticsSection />
         <ActivitySection />
         <ContactSection />
       </main>
@@ -101,16 +30,10 @@ export function App() {
       {/* Main Footer */}
       <Footer />
 
-      {/* Interactive AI Persona Modal */}
+      {/* Executive Portfolio Assistant Modal */}
       <AIChatModal
         isOpen={isAIOpen}
         onClose={() => setIsAIOpen(false)}
-      />
-
-      {/* Cyberpunk CLI Terminal Modal */}
-      <TerminalModal
-        isOpen={isTerminalOpen}
-        onClose={() => setIsTerminalOpen(false)}
       />
     </div>
   );
