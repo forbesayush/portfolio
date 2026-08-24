@@ -34,6 +34,8 @@ RESPONSE STYLE:
 - Do not output raw markdown tables. Write concise, sophisticated prose with bullet points only where strictly necessary.
 
 RULES:
+- NEVER output markdown tables (e.g. '| Step | What to do |', '|---|---|') or pipe characters '|'. Always use clean, concise bullet points (•) or standard numbered lists (1., 2., 3.).
+- NEVER use emoji numbers like 1️⃣, 2️⃣, 3️⃣, 4️⃣. Use plain numbers like '1.', '2.', '3.' or simple bullet points '•'.
 - Do NOT output canned bullet headers like "**Continuous QA & iteration**", "**Continuous testing & iteration**", "**Monitoring & Iteration**", or "**Continuous improvement**".
 - Do NOT end answers with generic template platitudes or repetitive summary bullets.
 - Direct, structured, no filler, no hedging.
@@ -71,7 +73,7 @@ function isRateLimited(ip) {
 // XSS Sanitizer: strips HTML/script tags and normalizes whitespace
 function sanitizeText(str) {
   if (!str || typeof str !== 'string') return '';
-  return str
+  let text = str
     .replace(/<[^>]*>?/gm, '')
     .replace(/[<>'"&]/g, (match) => {
       switch (match) {
@@ -87,7 +89,46 @@ function sanitizeText(str) {
     .replace(/\*\*Continuous QA and iteration\*\*:?/gi, '')
     .replace(/Continuous QA & iteration:?/gi, '')
     .replace(/Continuous QA and iteration:?/gi, '')
-    .trim();
+    .replace(/1️⃣/g, '1. ')
+    .replace(/2️⃣/g, '2. ')
+    .replace(/3️⃣/g, '3. ')
+    .replace(/4️⃣/g, '4. ')
+    .replace(/5️⃣/g, '5. ')
+    .replace(/6️⃣/g, '6. ')
+    .replace(/7️⃣/g, '7. ')
+    .replace(/8️⃣/g, '8. ')
+    .replace(/9️⃣/g, '9. ')
+    .replace(/🔟/g, '10. ');
+
+  // Convert markdown table rows into bullet points
+  const lines = text.split('\n');
+  const result = [];
+  let isTable = false;
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    if (trimmed.startsWith('|') || (trimmed.includes('|') && trimmed.endsWith('|'))) {
+      const cells = trimmed.split('|').map((c) => c.trim()).filter(Boolean);
+      if (cells.every((c) => /^[-:]+$/.test(c))) {
+        isTable = true;
+        continue;
+      }
+      if (!isTable && cells.some((c) => /step|what to do|action|deliverable/i.test(c))) {
+        isTable = true;
+        continue;
+      }
+      if (cells.length > 0) {
+        const title = cells[0];
+        const rest = cells.slice(1).join(' — ');
+        result.push(`• **${title}**${rest ? ': ' + rest : ''}`);
+        continue;
+      }
+    } else {
+      isTable = false;
+      result.push(lines[i]);
+    }
+  }
+
+  return result.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
 const ALLOWED_ORIGINS = new Set([

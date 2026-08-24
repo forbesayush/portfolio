@@ -88,8 +88,10 @@ GROUNDED FACTS ABOUT AYUSH:
 - Works with PRDs, user stories, RICE feature scoring, QA bug triage, Power BI, Excel cohort modeling, Google Analytics, SQL basics.
 - Open to full-time Product Manager, Associate Product Manager, and Consulting Analyst roles, plus MBA internships. Contact: ayushchatterjee.edu@gmail.com | LinkedIn: linkedin.com/in/ayushmba.
 
-NEGATIVE CONSTRAINTS (STRICT):
-- Do NOT output canned bullet headers like "**Continuous QA & iteration**", "**Continuous testing & iteration**", "**Monitoring & Iteration**", or "**Continuous improvement**".
+NEGATIVE CONSTRAINTS & FORMATTING (STRICT):
+- NEVER output markdown tables (e.g. '| Step | What to do |', '|---|---|') or pipe characters '|'. Always use clean, concise bullet points (•) or standard numbered lists (1., 2., 3.).
+- NEVER use emoji numbers like 1️⃣, 2️⃣, 3️⃣, 4️⃣. Use plain numbers like '1.', '2.', '3.' or simple bullet points '•'.
+- NEVER output canned boilerplate bullet headers like "**Continuous QA & iteration**", "**Continuous testing & iteration**", "**Monitoring & Iteration**", or "**Continuous improvement**".
 - Do NOT end answers with generic template platitudes or repetitive summary bullets.
 - Direct, structured, factual, no filler, no hedging.
 - Refer to Ayush in the third person.
@@ -158,13 +160,7 @@ NEGATIVE CONSTRAINTS (STRICT):
       replyText = getSmartLocalResponse(text);
     }
 
-    // Clean any unwanted generic headers
-    replyText = replyText
-      .replace(/\*\*Continuous QA & iteration\*\*:?/gi, '')
-      .replace(/\*\*Continuous QA and iteration\*\*:?/gi, '')
-      .replace(/Continuous QA & iteration:?/gi, '')
-      .replace(/Continuous QA and iteration:?/gi, '')
-      .trim();
+    replyText = cleanAndFormatBotResponse(replyText);
 
     const aiMsg: Message = {
       id: (Date.now() + 1).toString(),
@@ -196,9 +192,10 @@ NEGATIVE CONSTRAINTS (STRICT):
         className="relative w-full max-w-2xl bg-white border-t sm:border border-slate-200 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[92dvh] sm:h-auto sm:max-h-[85dvh] animate-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200 pb-[env(safe-area-inset-bottom)]"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 bg-slate-50/80 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-blue-50 text-accent flex items-center justify-center flex-shrink-0">
               <Bot className="w-4 h-4" />
             </div>
             <div className="text-left">
@@ -230,6 +227,7 @@ NEGATIVE CONSTRAINTS (STRICT):
           </div>
         </div>
 
+        {/* Message Stream */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 font-sans text-sm overscroll-contain">
           {messages.map((msg) => (
             <div
@@ -251,14 +249,14 @@ NEGATIVE CONSTRAINTS (STRICT):
                     : 'bg-slate-50 border border-slate-200/80 text-slate-800 rounded-tl-none'
                 }`}
               >
-                <div className="flex items-center justify-between gap-4 mb-1 border-b border-black/5 pb-1">
+                <div className="flex items-center justify-between gap-4 mb-1.5 border-b border-black/5 pb-1">
                   <span className="text-[10px] font-sans font-medium uppercase tracking-wider opacity-60">
                     {msg.sender === 'user' ? 'You' : 'AVA'}
                   </span>
                   <span className="text-[10px] opacity-50 font-sans">{msg.timestamp}</span>
                 </div>
-                <div className="whitespace-pre-wrap font-sans text-xs sm:text-sm font-normal">
-                  {msg.text}
+                <div className="font-sans text-xs sm:text-sm font-normal">
+                  <FormattedMessageContent content={msg.text} isUser={msg.sender === 'user'} />
                 </div>
               </div>
 
@@ -323,6 +321,145 @@ NEGATIVE CONSTRAINTS (STRICT):
     </div>
   );
 };
+
+function cleanAndFormatBotResponse(raw: string): string {
+  if (!raw) return '';
+  let text = raw;
+
+  // 1. Remove generic concluding headers & platitudes
+  text = text
+    .replace(/\*\*Continuous QA & iteration\*\*:?/gi, '')
+    .replace(/\*\*Continuous QA and iteration\*\*:?/gi, '')
+    .replace(/Continuous QA & iteration:?/gi, '')
+    .replace(/Continuous QA and iteration:?/gi, '')
+    .replace(/\*\*Continuous monitoring & iteration\*\*:?/gi, '')
+    .replace(/\*\*Ongoing iteration & QA\*\*:?/gi, '');
+
+  // 2. Convert emoji number boxes (1️⃣, 2️⃣, etc.) into clean standard numerals
+  text = text
+    .replace(/1️⃣/g, '1. ')
+    .replace(/2️⃣/g, '2. ')
+    .replace(/3️⃣/g, '3. ')
+    .replace(/4️⃣/g, '4. ')
+    .replace(/5️⃣/g, '5. ')
+    .replace(/6️⃣/g, '6. ')
+    .replace(/7️⃣/g, '7. ')
+    .replace(/8️⃣/g, '8. ')
+    .replace(/9️⃣/g, '9. ')
+    .replace(/🔟/g, '10. ');
+
+  // 3. Convert broken markdown tables (| Step | What to do | ... |) into elegant structured bullet points
+  const lines = text.split('\n');
+  const result: string[] = [];
+  let isTable = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    if (trimmed.startsWith('|') || (trimmed.includes('|') && trimmed.endsWith('|'))) {
+      const cells = trimmed.split('|').map((c) => c.trim()).filter(Boolean);
+      // Skip divider row (e.g. |---|---|)
+      if (cells.every((c) => /^[-:]+$/.test(c))) {
+        isTable = true;
+        continue;
+      }
+      // Skip generic table header row
+      if (!isTable && cells.some((c) => /step|what to do|action|deliverable|parameter/i.test(c))) {
+        isTable = true;
+        continue;
+      }
+
+      if (cells.length > 0) {
+        const title = cells[0];
+        const rest = cells.slice(1).join(' — ');
+        result.push(`• **${title}**${rest ? ': ' + rest : ''}`);
+        continue;
+      }
+    } else {
+      isTable = false;
+      result.push(lines[i]);
+    }
+  }
+
+  return result.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+interface FormattedMessageContentProps {
+  content: string;
+  isUser: boolean;
+}
+
+const FormattedMessageContent: React.FC<FormattedMessageContentProps> = ({ content, isUser }) => {
+  if (isUser) {
+    return <span>{content}</span>;
+  }
+
+  const paragraphs = content.split('\n\n');
+
+  return (
+    <div className="space-y-2.5 leading-relaxed text-left">
+      {paragraphs.map((para, pIdx) => {
+        const lines = para.split('\n').filter((l) => l.trim().length > 0);
+
+        return (
+          <div key={pIdx} className="space-y-1.5">
+            {lines.map((line, lIdx) => {
+              const trimmed = line.trim();
+              const isBullet = trimmed.startsWith('•') || trimmed.startsWith('-') || trimmed.startsWith('*');
+              const isNumbered = /^\d+\.\s/.test(trimmed);
+
+              const cleanLine = isBullet
+                ? trimmed.replace(/^[•\-*]\s*/, '')
+                : isNumbered
+                ? trimmed.replace(/^\d+\.\s*/, '')
+                : trimmed;
+
+              const numberMatch = isNumbered ? trimmed.match(/^(\d+)\.\s*/)?.[1] : null;
+
+              return (
+                <div
+                  key={lIdx}
+                  className={`flex items-start gap-2 ${
+                    isBullet || isNumbered ? 'pl-0.5' : ''
+                  }`}
+                >
+                  {isBullet && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0" />
+                  )}
+                  {isNumbered && numberMatch && (
+                    <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-900 font-semibold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {numberMatch}
+                    </span>
+                  )}
+                  <div className="flex-1">
+                    <InlineFormattedText text={cleanLine} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+function InlineFormattedText({ text }: { text: string }) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return (
+    <span>
+      {parts.map((part, idx) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          return (
+            <strong key={idx} className="font-semibold text-slate-900">
+              {part.slice(2, -2)}
+            </strong>
+          );
+        }
+        return <span key={idx}>{part}</span>;
+      })}
+    </span>
+  );
+}
 
 function getSmartLocalResponse(query: string): string {
   const q = query.toLowerCase();
