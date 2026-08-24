@@ -82,11 +82,16 @@ GROUNDED FACTS ABOUT AYUSH:
 - MBA candidate at Regional College of Management, Bhubaneswar, graduating 2027. Specialization: Information Technology and International Business.
 - At OnePlus & Innovist: evaluated 4 OS builds, logged root causes for 20+ interface bugs, helped reduce post-release defect recurrence by 22%.
 - Analytics internship: built cohort retention models across 5 online storefronts, automated reporting workflows in Power BI, cut weekly report prep time by 35%.
+- Swash Consulting Limited (2026, 2 months): Media Intern focused on SEO, backlink strategies, and Google Analytics / Search Console analysis.
+- D-Dzire Jewels: Product Strategy Intern managing lab-grown diamond franchise launch workflows, 4Cs grading audits, and customer pricing perception.
+- Deals.Seller: Product Lead / Builder for marketplace operations MIS and fraud intelligence command center (velocity scoring, duplicate claim triage, instant UPI payouts).
 - Works with PRDs, user stories, RICE feature scoring, QA bug triage, Power BI, Excel cohort modeling, Google Analytics, SQL basics.
 - Open to full-time Product Manager, Associate Product Manager, and Consulting Analyst roles, plus MBA internships. Contact: ayushchatterjee.edu@gmail.com | LinkedIn: linkedin.com/in/ayushmba.
 
-RULES:
-- Direct, structured, no filler, no hedging.
+NEGATIVE CONSTRAINTS (STRICT):
+- Do NOT output canned bullet headers like "**Continuous QA & iteration**", "**Continuous testing & iteration**", "**Monitoring & Iteration**", or "**Continuous improvement**".
+- Do NOT end answers with generic template platitudes or repetitive summary bullets.
+- Direct, structured, factual, no filler, no hedging.
 - Refer to Ayush in the third person.
 - Keep answers under ~150 words.`;
 
@@ -152,6 +157,14 @@ RULES:
     if (!replyText) {
       replyText = getSmartLocalResponse(text);
     }
+
+    // Clean any unwanted generic headers
+    replyText = replyText
+      .replace(/\*\*Continuous QA & iteration\*\*:?/gi, '')
+      .replace(/\*\*Continuous QA and iteration\*\*:?/gi, '')
+      .replace(/Continuous QA & iteration:?/gi, '')
+      .replace(/Continuous QA and iteration:?/gi, '')
+      .trim();
 
     const aiMsg: Message = {
       id: (Date.now() + 1).toString(),

@@ -34,6 +34,8 @@ RESPONSE STYLE:
 - Do not output raw markdown tables. Write concise, sophisticated prose with bullet points only where strictly necessary.
 
 RULES:
+- Do NOT output canned bullet headers like "**Continuous QA & iteration**", "**Continuous testing & iteration**", "**Monitoring & Iteration**", or "**Continuous improvement**".
+- Do NOT end answers with generic template platitudes or repetitive summary bullets.
 - Direct, structured, no filler, no hedging.
 - For questions about Ayush specifically: only state what is in the grounded facts above. If asked something not covered, say you do not have that detail and suggest the visitor use the contact form.
 - For general business, consulting, or SaaS questions: reason freely, but if a case question needs an assumed number, say "assuming X" explicitly rather than presenting it as fact.
@@ -81,6 +83,10 @@ function sanitizeText(str) {
         default: return match;
       }
     })
+    .replace(/\*\*Continuous QA & iteration\*\*:?/gi, '')
+    .replace(/\*\*Continuous QA and iteration\*\*:?/gi, '')
+    .replace(/Continuous QA & iteration:?/gi, '')
+    .replace(/Continuous QA and iteration:?/gi, '')
     .trim();
 }
 
