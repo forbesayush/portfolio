@@ -66,7 +66,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-obsidian-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-blue-600/20 selection:text-blue-900 dark:selection:bg-accent/30 dark:selection:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#08090A] text-zinc-900 dark:text-zinc-100 flex flex-col selection:bg-linear-brand/20 selection:text-linear-brand dark:selection:bg-linear-brand/30 dark:selection:text-white transition-colors duration-300 font-sans">
       {/* Sticky Navigation Header */}
       <Navbar 
         isDark={isDark} 

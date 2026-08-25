@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { X, ArrowRight, CheckCircle2, ShieldCheck, Layers, FileText, BarChart3, Target, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, ArrowRight, CheckCircle2, ShieldCheck, Layers, FileText, BarChart3, Target, Check, Sparkles } from 'lucide-react';
 
 export default function CaseStudyModal({ caseStudy, onClose }) {
   const [activeTab, setActiveTab] = useState('all');
@@ -26,44 +27,48 @@ export default function CaseStudyModal({ caseStudy, onClose }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 dark:bg-obsidian-950/80 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md">
       
       {/* Modal Container */}
-      <div 
-        className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-white/15 rounded-3xl shadow-2xl overflow-y-auto flex flex-col"
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.96, y: 12 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: 12 }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#0E1015] border border-black/[0.08] dark:border-white/[0.08] rounded-2xl shadow-dock-light dark:shadow-dock-dark overflow-y-auto flex flex-col linear-card"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Modal Sticky Header */}
-        <div className="sticky top-0 z-20 bg-white/95 dark:bg-obsidian-900/95 backdrop-blur-md px-6 sm:px-8 py-5 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
-          <div className="space-y-1">
-            <span className="text-xs font-mono text-accent dark:text-accent-dark uppercase tracking-widest font-bold">
+        <div className="sticky top-0 z-20 bg-white/95 dark:bg-[#0E1015]/95 backdrop-blur-xl px-6 py-4 border-b border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between">
+          <div className="space-y-0.5 text-left">
+            <span className="text-[10px] font-mono text-linear-brand dark:text-linear-accent uppercase tracking-widest font-semibold">
               {caseStudy.badge}
             </span>
-            <h2 className="text-xl sm:text-2xl font-display font-extrabold text-slate-950 dark:text-white uppercase tracking-tight">
+            <h2 className="text-lg sm:text-xl font-display font-bold text-zinc-950 dark:text-white uppercase tracking-tight">
               {caseStudy.title}
             </h2>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-lg bg-slate-100 dark:bg-obsidian-800 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none"
+            className="p-1.5 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors focus:outline-none"
             aria-label="Close modal"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Tab Navigation Filter Bar */}
-        <div className="px-6 sm:px-8 pt-4 pb-2 bg-slate-50/80 dark:bg-obsidian-850/80 border-b border-slate-200 dark:border-white/5 flex items-center gap-2 overflow-x-auto">
+        <div className="px-6 pt-3 pb-2 bg-black/[0.01] dark:bg-white/[0.01] border-b border-black/[0.06] dark:border-white/[0.08] flex items-center gap-1.5 overflow-x-auto">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold whitespace-nowrap transition-all ${
+              className={`px-3 py-1 rounded-md text-xs font-mono font-medium whitespace-nowrap transition-all ${
                 activeTab === tab.id
-                  ? 'bg-accent text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200/60 dark:hover:bg-white/5'
+                  ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950'
+                  : 'text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/[0.04]'
               }`}
             >
               {tab.label}
@@ -72,24 +77,24 @@ export default function CaseStudyModal({ caseStudy, onClose }) {
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-8 space-y-8">
+        <div className="p-6 space-y-6 text-left">
           
           {/* Executive Overview & Key Stats */}
           {(activeTab === 'all' || activeTab === 'impact') && (
-            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/[0.08]">
-              <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 font-semibold">
+            <div className="p-5 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08]">
+              <div className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider mb-1.5 font-medium">
                 Executive Brief
               </div>
-              <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed font-normal mb-6">
+              <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed font-normal mb-4">
                 {caseStudy.summary}
               </p>
 
               {caseStudy.keyStats && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-4 border-t border-slate-200 dark:border-white/[0.06]">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-3.5 border-t border-black/[0.06] dark:border-white/[0.08]">
                   {caseStudy.keyStats.map((stat, i) => (
-                    <div key={i} className="p-3 rounded-xl bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/5 shadow-sm">
-                      <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase font-semibold">{stat.label}</div>
-                      <div className="text-xl font-display font-bold text-slate-950 dark:text-white mt-0.5">{stat.value}</div>
+                    <div key={i} className="p-2.5 rounded-lg bg-white dark:bg-[#08090A] border border-black/[0.06] dark:border-white/[0.08]">
+                      <div className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 uppercase font-medium">{stat.label}</div>
+                      <div className="text-lg font-display font-bold text-zinc-950 dark:text-white mt-0.5">{stat.value}</div>
                     </div>
                   ))}
                 </div>
@@ -98,16 +103,16 @@ export default function CaseStudyModal({ caseStudy, onClose }) {
           )}
 
           {/* Structured Case Study Sections */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             
             {/* The Problem */}
             {(activeTab === 'all' || activeTab === 'problem') && (
-              <div className="space-y-2 animate-fade-in">
-                <div className="flex items-center gap-2 text-xs font-mono text-red-600 dark:text-red-400 uppercase font-bold">
-                  <span className="w-2 h-2 rounded-full bg-red-600 dark:bg-red-400"></span>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 uppercase font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
                   01. Problem & Context
                 </div>
-                <div className="p-4 rounded-xl bg-red-50/50 dark:bg-obsidian-850/60 border border-red-200/60 dark:border-white/5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <div className="p-3.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
                   {caseStudy.problem}
                 </div>
               </div>
@@ -115,12 +120,12 @@ export default function CaseStudyModal({ caseStudy, onClose }) {
 
             {/* Approach */}
             {(activeTab === 'all' || activeTab === 'approach') && (
-              <div className="space-y-2 animate-fade-in">
-                <div className="flex items-center gap-2 text-xs font-mono text-blue-600 dark:text-sky-400 uppercase font-bold">
-                  <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-sky-400"></span>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 uppercase font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-linear-brand"></span>
                   02. Approach & Method
                 </div>
-                <div className="p-4 rounded-xl bg-blue-50/50 dark:bg-obsidian-850/60 border border-blue-200/60 dark:border-white/5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <div className="p-3.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
                   {caseStudy.approach}
                 </div>
               </div>
@@ -128,12 +133,12 @@ export default function CaseStudyModal({ caseStudy, onClose }) {
 
             {/* Analysis & Diagnostics */}
             {(activeTab === 'all' || activeTab === 'approach') && (
-              <div className="space-y-2 animate-fade-in">
-                <div className="flex items-center gap-2 text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase font-bold">
-                  <span className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 uppercase font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
                   03. Analysis & Diagnostics
                 </div>
-                <div className="p-4 rounded-xl bg-indigo-50/50 dark:bg-obsidian-850/60 border border-indigo-200/60 dark:border-white/5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <div className="p-3.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
                   {caseStudy.analysis}
                 </div>
               </div>
@@ -141,12 +146,12 @@ export default function CaseStudyModal({ caseStudy, onClose }) {
 
             {/* Product & Strategic Impact */}
             {(activeTab === 'all' || activeTab === 'impact') && (
-              <div className="space-y-2 animate-fade-in">
-                <div className="flex items-center gap-2 text-xs font-mono text-amber-700 dark:text-amber-400 uppercase font-bold">
-                  <span className="w-2 h-2 rounded-full bg-amber-600 dark:bg-amber-400"></span>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 uppercase font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                   04. Product & Strategic Impact
                 </div>
-                <div className="p-4 rounded-xl bg-amber-50/50 dark:bg-obsidian-850/60 border border-amber-200/60 dark:border-white/5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <div className="p-3.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
                   {caseStudy.productImpact}
                 </div>
               </div>
@@ -154,12 +159,12 @@ export default function CaseStudyModal({ caseStudy, onClose }) {
 
             {/* Verified Results */}
             {(activeTab === 'all' || activeTab === 'impact') && (
-              <div className="space-y-2 animate-fade-in">
-                <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 dark:text-emerald-400 uppercase font-bold">
-                  <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400"></span>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 uppercase font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                   05. Measurable Results
                 </div>
-                <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 font-semibold leading-relaxed">
+                <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-900 dark:text-emerald-300 font-medium leading-relaxed">
                   {caseStudy.result}
                 </div>
               </div>
@@ -168,12 +173,12 @@ export default function CaseStudyModal({ caseStudy, onClose }) {
           </div>
 
           {/* Applied Tags */}
-          <div className="pt-4 border-t border-slate-200 dark:border-white/10 flex flex-wrap items-center gap-2">
-            <span className="text-xs font-mono text-slate-500 uppercase mr-2 font-semibold">Tags:</span>
+          <div className="pt-3.5 border-t border-black/[0.06] dark:border-white/[0.08] flex flex-wrap items-center gap-1.5">
+            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 uppercase mr-1">Tags:</span>
             {caseStudy.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-xs font-mono text-slate-700 dark:text-slate-300 font-medium"
+                className="px-2 py-0.5 rounded bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] text-[10px] font-mono text-zinc-700 dark:text-zinc-300"
               >
                 {tag}
               </span>
@@ -183,19 +188,19 @@ export default function CaseStudyModal({ caseStudy, onClose }) {
         </div>
 
         {/* Modal Footer */}
-        <div className="bg-slate-50 dark:bg-obsidian-850 px-6 sm:px-8 py-4 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
-          <span className="text-xs font-mono text-slate-500">
+        <div className="bg-white dark:bg-[#0E1015] px-6 py-3.5 border-t border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between">
+          <span className="text-xs font-mono text-zinc-500">
             Ayush Chatterjee &bull; Case Studies
           </span>
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 font-bold text-xs uppercase tracking-wider hover:bg-accent dark:hover:bg-accent dark:hover:text-white transition-colors shadow-sm"
+            className="px-3.5 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.06] dark:border-white/[0.08] text-zinc-700 dark:text-zinc-300 font-medium text-xs uppercase tracking-wider hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-colors"
           >
             Close Summary
           </button>
         </div>
 
-      </div>
+      </motion.div>
     </div>
   );
 }
