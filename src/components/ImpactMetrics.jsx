@@ -74,17 +74,17 @@ export default function ImpactMetrics() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6 text-left">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
-              <span className="w-2 h-[2px] bg-rose-500"></span>
-              <span>Section 03 &bull; Marketing ROI & Performance</span>
+            <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
+              <span className="w-2 h-[2px] bg-linear-brand"></span>
+              <span>Section 03 &bull; Verified Impact</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight">
-              Verified Marketing Outcomes.
+              Defensible Metrics & Outcomes.
             </h2>
           </div>
-          <div className="text-xs font-mono text-zinc-600 dark:text-zinc-400 flex items-center gap-2 bg-rose-500/10 px-3.5 py-2 rounded-xl border border-rose-500/20 shrink-0 font-medium">
-            <ShieldCheck className="w-4 h-4 text-rose-500" />
-            <span className="text-rose-600 dark:text-rose-400 font-semibold">Verified Marketing & D2C Telemetry</span>
+          <div className="text-xs font-mono text-zinc-600 dark:text-zinc-400 flex items-center gap-2 bg-black/[0.03] dark:bg-white/[0.04] px-3.5 py-2 rounded-xl border border-black/[0.06] dark:border-white/[0.08] shrink-0 font-medium">
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span>Verified Telemetry & Data</span>
           </div>
         </div>
 

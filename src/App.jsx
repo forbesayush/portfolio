@@ -5,7 +5,6 @@ import About from './components/About';
 import ExperienceTimeline from './components/ExperienceTimeline';
 import ImpactMetrics from './components/ImpactMetrics';
 import PillarCards from './components/PillarCards';
-import FunnelVisualizer from './components/FunnelVisualizer';
 import CaseStudies from './components/CaseStudies';
 import ProductFramework from './components/ProductFramework';
 import StrategyFramework from './components/StrategyFramework';
@@ -19,14 +18,10 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ExecutiveBriefModal from './components/ExecutiveBriefModal';
 import QuickActionsDock from './components/QuickActionsDock';
-import FigmaMultiplayerLayer from './components/FigmaMultiplayerLayer';
-import FigmaHUD from './components/FigmaHUD';
 import { trackVisitor } from './utils/telegramTracker';
 
 export default function App() {
   const [isBriefOpen, setIsBriefOpen] = useState(false);
-  const [showCursors, setShowCursors] = useState(true);
-  const [isDesignMode, setIsDesignMode] = useState(true);
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
       try {
@@ -38,7 +33,7 @@ export default function App() {
         console.warn('Storage unavailable:', e);
       }
     }
-    return false; // Default to Light Mode
+    return false; // Default to Light Mode as requested
   });
 
   useEffect(() => {
@@ -70,32 +65,8 @@ export default function App() {
     setIsDark(prev => !prev);
   };
 
-  const toggleCursors = () => {
-    setShowCursors(prev => !prev);
-  };
-
-  const toggleDesignMode = () => {
-    setIsDesignMode(prev => !prev);
-  };
-
   return (
-    <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#08090A] text-zinc-900 dark:text-zinc-100 flex flex-col selection:bg-rose-500/20 selection:text-rose-500 dark:selection:bg-rose-500/30 dark:selection:text-white transition-colors duration-300 font-sans figma-canvas-grid relative">
-      
-      {/* Figma Multiplayer Collaborative Cursors & Comment Pins */}
-      <FigmaMultiplayerLayer 
-        showCursors={showCursors} 
-        isDesignMode={isDesignMode} 
-      />
-
-      {/* Floating Figma Canvas Top Toolbar */}
-      <FigmaHUD
-        showCursors={showCursors}
-        onToggleCursors={toggleCursors}
-        isDesignMode={isDesignMode}
-        onToggleDesignMode={toggleDesignMode}
-        onOpenBrief={() => setIsBriefOpen(true)}
-      />
-
+    <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#08090A] text-zinc-900 dark:text-zinc-100 flex flex-col selection:bg-linear-brand/20 selection:text-linear-brand dark:selection:bg-linear-brand/30 dark:selection:text-white transition-colors duration-300 font-sans">
       {/* Sticky Navigation Header */}
       <Navbar 
         isDark={isDark} 
@@ -117,43 +88,40 @@ export default function App() {
         {/* Section 02: Verified Career Journey Timeline */}
         <ExperienceTimeline />
 
-        {/* Section 03: Marketing Performance Telemetry */}
+        {/* Section 03: Impact Numbers & Animated Counters */}
         <ImpactMetrics />
 
-        {/* Section 04: The Modern Growth Stack (4 Pillars) */}
+        {/* Section 04: What I Work On (3 Pillars) */}
         <PillarCards />
 
-        {/* Section 05: Marketing & Growth Campaign Casebooks */}
+        {/* Section 05: Editorial Case Studies */}
         <CaseStudies />
 
-        {/* Section 06: Interactive Growth & Funnel Simulator */}
-        <FunnelVisualizer />
-
-        {/* Section 07: Go-To-Market Lifecycle Framework */}
+        {/* Section 06: Product Thinking Framework */}
         <ProductFramework />
 
-        {/* Section 08: Strategic Problem Solving & Advisory Framework */}
+        {/* Section 07: Consulting & Problem Solving Framework */}
         <StrategyFramework />
 
-        {/* Section 09: Academic Foundation & Credentials */}
+        {/* Section 08: Education Timeline */}
         <Education />
 
-        {/* Section 10: Marketing & Growth Stack Toolkit */}
+        {/* Section 09: Technical & Professional Toolkit */}
         <SkillsMatrix />
 
-        {/* Section 11: International Growth & Global Roadmap */}
+        {/* Section 10: Building For A Global Career */}
         <GlobalCareer />
 
-        {/* Section 12: Dual-Track Marketing Career Trajectory */}
+        {/* Section 11: Dual-Track Career Direction */}
         <CareerPath />
 
-        {/* Section 13: Stakeholder & Leadership Endorsements */}
+        {/* Stakeholder & Leadership Endorsements */}
         <Testimonials />
 
-        {/* Section 14: High-Impact Marketing Brand Statement */}
+        {/* Section 12: High-Impact Brand Statement */}
         <BrandStatement />
 
-        {/* Section 15: Contact & Growth Inquiry Hub */}
+        {/* Section 13: Contact & Direct Message Hub */}
         <Contact />
       </main>
 

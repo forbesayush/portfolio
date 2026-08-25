@@ -13,18 +13,18 @@ export default function GlobalCareer() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14 text-left">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-rose-500"></span>
-            <span>Section 11 &bull; Global Growth Practice</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-linear-brand"></span>
+            <span>Section 10 &bull; International Ambition</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
-            Building For Global Brand Scale.
+            Building For A Global Career.
           </h2>
-          <blockquote className="text-sm sm:text-base text-zinc-800 dark:text-zinc-200 font-normal italic border-l-2 border-rose-500 pl-3 mb-3">
-            "Building globally transferable brand and growth leadership."
+          <blockquote className="text-sm sm:text-base text-zinc-800 dark:text-zinc-200 font-normal italic border-l-2 border-linear-brand pl-3 mb-3">
+            "Building a globally transferable career."
           </blockquote>
           <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
-            A methodical, value-driven progression engineered to build rigorous execution foundations in India, manage multi-country D2C storefronts, and lead international growth marketing.
+            A methodical, value-driven progression engineered to build rigorous execution foundations in India, scale cross-border collaboration, and transition into international product strategy leadership.
           </p>
         </div>
 

@@ -13,15 +13,15 @@ export default function CareerPath() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-rose-500"></span>
-            <span>Section 12 &bull; Career Trajectory</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-linear-brand"></span>
+            <span>Section 11 &bull; Career Trajectory</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
-            Dual-Track Marketing Trajectory.
+            Dual-Track Career Direction.
           </h2>
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
-            Calibrated for high-velocity Growth & Product Marketing (PMM) teams while maintaining rigorous brand strategy and consulting capabilities.
+            Calibrated for high-velocity product organizations while maintaining deep executive problem-solving rigor for management consulting.
           </p>
         </div>
 

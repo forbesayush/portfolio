@@ -24,8 +24,8 @@ export default function Footer() {
               <div className="font-display font-bold text-xs tracking-wider text-zinc-950 dark:text-white uppercase">
                 {personalInfo.name}
               </div>
-              <div className="text-[10px] font-mono text-rose-500">
-                MBA &bull; Growth Marketing & Brand Strategy
+              <div className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400">
+                MBA &bull; Product Management & Strategy
               </div>
             </div>
           </div>
@@ -36,11 +36,13 @@ export default function Footer() {
             <span className="text-zinc-300 dark:text-zinc-700">&bull;</span>
             <a href="#experience" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">EXPERIENCE</a>
             <span className="text-zinc-300 dark:text-zinc-700">&bull;</span>
-            <a href="#funnel" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">FUNNEL</a>
+            <a href="#case-studies" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">CASE STUDIES</a>
             <span className="text-zinc-300 dark:text-zinc-700">&bull;</span>
-            <a href="#case-studies" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">CASEBOOKS</a>
+            <a href="#strategy" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">STRATEGY</a>
             <span className="text-zinc-300 dark:text-zinc-700">&bull;</span>
-            <a href="#skills" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">MARKETING STACK</a>
+            <a href="#product" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">PRODUCT</a>
+            <span className="text-zinc-300 dark:text-zinc-700">&bull;</span>
+            <a href="#global" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">GLOBAL</a>
             <span className="text-zinc-300 dark:text-zinc-700">&bull;</span>
             <a href="#contact" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">CONTACT</a>
           </div>

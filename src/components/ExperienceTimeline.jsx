@@ -15,15 +15,15 @@ export default function ExperienceTimeline() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14 text-left">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-rose-500"></span>
-            <span>Section 02 &bull; Career & Campaign Track Record</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-linear-brand"></span>
+            <span>Section 02 &bull; Career Journey</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
-            Verified Marketing Experience.
+            Verified Experience.
           </h2>
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
-            Real-world D2C storefront audits, cross-border retention modeling, user journey conversion optimization, and high-ticket consultative marketing.
+            Real-world product diagnostics, cross-border analytics, and frontline business operations with verified metrics and defensible impact.
           </p>
         </div>
 

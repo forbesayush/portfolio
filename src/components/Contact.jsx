@@ -51,15 +51,15 @@ export default function Contact() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-rose-500"></span>
-            <span>Section 15 &bull; Get In Touch</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-linear-brand"></span>
+            <span>Section 13 &bull; Get In Touch</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
-            Let's Scale Something Meaningful.
+            Let's Build Something Meaningful.
           </h2>
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
-            Whether you represent a high-growth D2C brand, consumer tech venture, digital marketing agency, or global enterprise, I welcome conversations on high-impact growth opportunities.
+            Whether you represent a product organization, management consulting practice, or global technology venture, I welcome conversations on high-impact opportunities.
           </p>
         </div>
 
@@ -242,13 +242,12 @@ export default function Contact() {
                     name="topic"
                     value={formData.topic}
                     onChange={handleInputChange}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.08] dark:border-white/[0.08] text-zinc-900 dark:text-white text-xs focus:outline-none focus:border-rose-500 transition-colors font-mono"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.08] dark:border-white/[0.08] text-zinc-900 dark:text-white text-xs focus:outline-none focus:border-linear-brand transition-colors font-mono"
                   >
-                    <option value="Growth & Marketing Strategy">Growth & Marketing Strategy</option>
-                    <option value="D2C Storefront & CRO Audit">D2C Storefront & CRO Audit</option>
-                    <option value="Brand Architecture & Positioning">Brand Architecture & Positioning</option>
-                    <option value="Performance Marketing & Paid Acquisition">Performance Marketing & Paid Acquisition</option>
-                    <option value="Full-Time Growth Marketing Role">Full-Time Growth Marketing Role</option>
+                    <option value="Product Management Strategy">Product Management Strategy</option>
+                    <option value="Management Consulting Engagement">Management Consulting Engagement</option>
+                    <option value="Global Ecosystem Advisory">Global Ecosystem Advisory</option>
+                    <option value="Full-Time Executive Hiring">Full-Time Executive Hiring</option>
                     <option value="General Professional Inquiry">General Professional Inquiry</option>
                   </select>
                 </div>

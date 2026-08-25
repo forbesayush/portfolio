@@ -43,14 +43,16 @@ export default {
           subtle: '#2E335B',
         },
         accent: {
-          DEFAULT: '#FF5B37', // Marketing Coral default
-          coral: '#FF5B37',
-          rose: '#F43F5E',
-          purple: '#8B5CF6',
+          DEFAULT: '#5E6AD2', // Linear indigo default
+          dark: '#828FFF',   // Clean bright indigo for dark mode
+          hover: '#6875E8',
+          blue: '#3B82F6',
           indigo: '#5E6AD2',
+          violet: '#8B5CF6',
           cyan: '#06B6D4',
           emerald: '#10B981',
-          amber: '#F59E0B'
+          amber: '#F59E0B',
+          rose: '#F43F5E'
         }
       },
       fontFamily: {
@@ -69,10 +71,8 @@ export default {
         'card-light': '0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04)',
         'card-hover': '0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)',
         'card-dark': '0 0 0 1px rgba(255, 255, 255, 0.06), 0 12px 32px -4px rgba(0, 0, 0, 0.6)',
-        'glow-coral': '0 0 30px -5px rgba(255, 91, 55, 0.35)',
-        'glow-violet': '0 0 30px -5px rgba(139, 92, 246, 0.35)',
-        'glow-emerald': '0 0 30px -5px rgba(16, 185, 129, 0.35)',
-        'glow-cyan': '0 0 30px -5px rgba(6, 182, 212, 0.35)',
+        'spotlight': '0 0 80px -10px rgba(94, 106, 210, 0.18)',
+        'linear-glow': '0 0 30px -5px rgba(94, 106, 210, 0.25)',
         'inner-bevel': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.08)',
         'inner-bevel-light': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.9)'
       },
