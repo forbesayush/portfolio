@@ -108,9 +108,9 @@ export default function App() {
       {/* 5. Front Portrait Cutout (z-20, sits above marquee, pointer-events none) */}
       <div className="absolute inset-0 z-20 flex items-end justify-center pointer-events-none anim-rise-in overflow-hidden">
         <img
-          src="/ayush-portrait.jpg"
+          src="/ayush-cutout.png"
           alt="Ayush Chatterjee"
-          className="h-[78vh] sm:h-[86vh] w-auto max-w-none object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.85)]"
+          className="h-[80vh] sm:h-[88vh] w-auto max-w-full object-contain object-bottom drop-shadow-[0_25px_60px_rgba(0,0,0,0.9)]"
         />
       </div>
 
@@ -269,7 +269,7 @@ export default function App() {
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-2xl overflow-hidden border border-white/20 shrink-0 bg-zinc-900 shadow-md">
-                  <img src="/ayush-portrait.jpg" alt="Ayush Chatterjee" className="w-full h-full object-cover object-top" />
+                  <img src="/ayush-cutout.png" alt="Ayush Chatterjee" className="w-full h-full object-cover object-top" />
                 </div>
                 <div>
                   <span className="block uppercase tracking-[0.2em] text-cream/50 text-xs mb-1">
