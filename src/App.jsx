@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, ArrowUpRight, X, Mail, Linkedin, FileText, Download } from 'lucide-react';
-import Navbar from './components/Navbar';
 import About from './components/About';
 import ExperienceTimeline from './components/ExperienceTimeline';
 import ImpactMetrics from './components/ImpactMetrics';
@@ -28,7 +27,6 @@ export default function App() {
   const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
-    // Default to Dark Mode for the editorial black/cream look
     document.documentElement.classList.add('dark');
     trackVisitor();
   }, []);
@@ -48,6 +46,7 @@ export default function App() {
   const navLinks = [
     { label: 'Story', href: '#about' },
     { label: 'Experience', href: '#experience' },
+    { label: 'Metrics', href: '#impact-metrics' },
     { label: 'Funnel', href: '#funnel' },
     { label: 'Casebooks', href: '#case-studies' },
     { label: 'Stack', href: '#skills' },
@@ -70,10 +69,7 @@ export default function App() {
         />
 
         {/* Layer 2: Giant Marquee Name Track (z-10) */}
-        <div 
-          className="absolute inset-x-0 top-[16vh] sm:top-[14vh] z-10 overflow-hidden anim-fade-up pointer-events-none"
-          style={{ animationDelay: '500ms' }}
-        >
+        <div className="absolute inset-x-0 top-[16vh] sm:top-[14vh] z-10 overflow-hidden anim-fade-up pointer-events-none">
           <div className="marquee flex w-max whitespace-nowrap font-hn text-[16vh] sm:text-[26vh] leading-none text-cream">
             <span className="pr-[6vw]">Ayush &mdash; Chatterjee&nbsp;</span>
             <span className="pr-[6vw]">Ayush &mdash; Chatterjee&nbsp;</span>
@@ -81,17 +77,11 @@ export default function App() {
         </div>
 
         {/* Layer 3: Horizontal Cream Rule (z-10) */}
-        <div 
-          className="absolute inset-x-6 sm:inset-x-10 bottom-[5.5rem] sm:bottom-28 z-10 h-0.5 bg-cream anim-line"
-          style={{ animationDelay: '1200ms' }}
-        />
+        <div className="absolute inset-x-6 sm:inset-x-10 bottom-[5.5rem] sm:bottom-28 z-10 h-0.5 bg-cream anim-line" />
 
         {/* Layer 4: Desktop & Mobile Footer (z-30 mobile, sm:z-10 desktop) */}
         <footer className="absolute inset-x-0 bottom-0 z-30 sm:z-10 flex items-end justify-between px-6 pb-5 sm:px-10 sm:pb-8 text-xs sm:text-sm leading-relaxed font-hn text-cream pointer-events-auto">
-          <div 
-            className="anim-fade-up text-left"
-            style={{ animationDelay: '1400ms' }}
-          >
+          <div className="anim-fade-up text-left">
             <div>Growth & Marketing Strategist</div>
             <div>MBA &bull; IT & International Business</div>
             <div>D2C & Product Strategy</div>
@@ -106,10 +96,7 @@ export default function App() {
             <ChevronDown className="w-4 h-4 animate-bounce group-hover:translate-y-1 transition-transform" />
           </a>
 
-          <div 
-            className="anim-fade-up text-right"
-            style={{ animationDelay: '1550ms' }}
-          >
+          <div className="anim-fade-up text-right">
             <div>India &rarr; Global Practice</div>
             <div>{personalInfo.portfolioDomain}</div>
           </div>
@@ -130,7 +117,6 @@ export default function App() {
           <a 
             href="#home" 
             className="font-hn text-lg tracking-wide text-cream anim-fade-up hover:opacity-60 transition-opacity duration-300"
-            style={{ animationDelay: '800ms' }}
           >
             Ayush
           </a>
@@ -138,21 +124,17 @@ export default function App() {
           {/* Desktop Cluster (Year, Nav, Social) */}
           <div className="hidden sm:flex items-start gap-12 lg:gap-20">
             {/* Year */}
-            <span 
-              className="font-hn text-sm text-cream anim-fade-up"
-              style={{ animationDelay: '900ms' }}
-            >
+            <span className="font-hn text-sm text-cream anim-fade-up">
               2026
             </span>
 
             {/* Nav Stack */}
             <nav className="flex flex-col gap-0.5 text-sm font-hn text-left">
-              {navLinks.map((item, idx) => (
+              {navLinks.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
                   className="text-cream anim-fade-up hover:opacity-60 transition-opacity duration-300 inline-block"
-                  style={{ animationDelay: `${1000 + idx * 70}ms` }}
                 >
                   {item.label}
                 </a>
@@ -166,21 +148,18 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cream anim-fade-up hover:opacity-60 transition-opacity duration-300 inline-block"
-                style={{ animationDelay: '1150ms' }}
               >
                 LinkedIn
               </a>
               <a
                 href={`mailto:${personalInfo.email}`}
                 className="text-cream anim-fade-up hover:opacity-60 transition-opacity duration-300 inline-block"
-                style={{ animationDelay: '1230ms' }}
               >
                 Email
               </a>
               <button
                 onClick={() => setIsBriefOpen(true)}
                 className="text-cream anim-fade-up hover:opacity-60 transition-opacity duration-300 text-left focus:outline-none"
-                style={{ animationDelay: '1310ms' }}
               >
                 1P Brief
               </button>
@@ -192,7 +171,6 @@ export default function App() {
         <button
           onClick={() => setIsDrawerOpen(prev => !prev)}
           className="sm:hidden fixed top-6 right-6 z-50 h-10 w-10 flex items-center justify-center anim-fade-up cursor-pointer focus:outline-none"
-          style={{ animationDelay: '900ms' }}
           aria-label={isDrawerOpen ? "Close menu" : "Open menu"}
         >
           <div className="relative h-4 w-6 flex flex-col justify-between items-end">
@@ -271,7 +249,9 @@ export default function App() {
         <ExperienceTimeline />
 
         {/* Section 03: Marketing Telemetry & Performance Metrics */}
-        <ImpactMetrics />
+        <div id="impact-metrics">
+          <ImpactMetrics />
+        </div>
 
         {/* Section 04: The 4 Modern Growth Pillars */}
         <PillarCards />

@@ -13,12 +13,13 @@
   
   html {
     scroll-behavior: smooth;
+    background-color: #000000;
   }
 
   body {
     background-color: #000000;
     color: #efeee9;
-    font-family: 'Helvetica Neue ME', Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue ME', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -56,7 +57,7 @@
 @keyframes riseIn {
   0% {
     opacity: 0;
-    transform: translateY(4vh) scale(1.03);
+    transform: translateY(3vh) scale(1.02);
   }
   100% {
     opacity: 1;
@@ -67,7 +68,7 @@
 @keyframes fadeUp {
   0% {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;
@@ -95,26 +96,26 @@
 
 /* Animation Classes */
 .anim-fade-in {
-  animation: fadeIn 1.2s ease-out both;
+  animation: fadeIn 0.8s ease-out both;
 }
 
 .anim-rise-in {
-  animation: riseIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 300ms;
+  animation: riseIn 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 200ms;
 }
 
 .anim-fade-up {
-  animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .anim-line {
-  animation: scaleLine 1.1s cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation: scaleLine 0.9s cubic-bezier(0.76, 0, 0.24, 1) both;
   transform-origin: left;
-  animation-delay: 1200ms;
+  animation-delay: 600ms;
 }
 
 .marquee {
-  animation: marqueeScroll 30s linear infinite;
+  animation: marqueeScroll 28s linear infinite;
   will-change: transform;
 }
 

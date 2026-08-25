@@ -144,11 +144,14 @@ export default function CaseStudies() {
         </motion.div>
 
         {/* Deep Dive Modal */}
-        <CaseStudyModal
-          study={selectedCase}
-          isOpen={!!selectedCase}
-          onClose={() => setSelectedCase(null)}
-        />
+        <AnimatePresence>
+          {selectedCase && (
+            <CaseStudyModal
+              caseStudy={selectedCase}
+              onClose={() => setSelectedCase(null)}
+            />
+          )}
+        </AnimatePresence>
 
       </div>
     </section>
