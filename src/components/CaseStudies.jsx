@@ -30,9 +30,14 @@ export default function CaseStudies() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 text-left">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
-              <span className="w-2 h-[2px] bg-rose-500"></span>
-              <span>Section 05 &bull; Campaign Casebooks</span>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="figma-frame-tag">
+                # CAMPAIGN_CASEBOOKS [Variants: 4 &bull; Auto-Layout]
+              </span>
+              <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase font-semibold">
+                <span className="w-2 h-[2px] bg-rose-500"></span>
+                <span>Section 05 &bull; Campaign Casebooks</span>
+              </div>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
               Marketing & Growth Casebooks.

@@ -19,10 +19,14 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ExecutiveBriefModal from './components/ExecutiveBriefModal';
 import QuickActionsDock from './components/QuickActionsDock';
+import FigmaMultiplayerLayer from './components/FigmaMultiplayerLayer';
+import FigmaHUD from './components/FigmaHUD';
 import { trackVisitor } from './utils/telegramTracker';
 
 export default function App() {
   const [isBriefOpen, setIsBriefOpen] = useState(false);
+  const [showCursors, setShowCursors] = useState(true);
+  const [isDesignMode, setIsDesignMode] = useState(true);
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
       try {
@@ -66,8 +70,32 @@ export default function App() {
     setIsDark(prev => !prev);
   };
 
+  const toggleCursors = () => {
+    setShowCursors(prev => !prev);
+  };
+
+  const toggleDesignMode = () => {
+    setIsDesignMode(prev => !prev);
+  };
+
   return (
-    <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#08090A] text-zinc-900 dark:text-zinc-100 flex flex-col selection:bg-rose-500/20 selection:text-rose-500 dark:selection:bg-rose-500/30 dark:selection:text-white transition-colors duration-300 font-sans">
+    <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#08090A] text-zinc-900 dark:text-zinc-100 flex flex-col selection:bg-rose-500/20 selection:text-rose-500 dark:selection:bg-rose-500/30 dark:selection:text-white transition-colors duration-300 font-sans figma-canvas-grid relative">
+      
+      {/* Figma Multiplayer Collaborative Cursors & Comment Pins */}
+      <FigmaMultiplayerLayer 
+        showCursors={showCursors} 
+        isDesignMode={isDesignMode} 
+      />
+
+      {/* Floating Figma Canvas Top Toolbar */}
+      <FigmaHUD
+        showCursors={showCursors}
+        onToggleCursors={toggleCursors}
+        isDesignMode={isDesignMode}
+        onToggleDesignMode={toggleDesignMode}
+        onOpenBrief={() => setIsBriefOpen(true)}
+      />
+
       {/* Sticky Navigation Header */}
       <Navbar 
         isDark={isDark} 

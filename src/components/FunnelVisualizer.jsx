@@ -17,9 +17,14 @@ export default function FunnelVisualizer() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-rose-500"></span>
-            <span>Section 06 &bull; Growth Engineering</span>
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="figma-frame-tag figma-component-tag">
+              ❖ FUNNEL_SIMULATOR [Component: Full-Funnel Engine]
+            </span>
+            <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase font-semibold">
+              <span className="w-2 h-[2px] bg-rose-500"></span>
+              <span>Section 06 &bull; Growth Engineering</span>
+            </div>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
             Interactive Growth & Funnel Simulator.

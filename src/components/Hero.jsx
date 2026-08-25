@@ -46,8 +46,11 @@ export default function Hero({ onOpenBrief }) {
           {/* Left Column: Marketing Positioning & Headline (7 Cols) */}
           <div className="lg:col-span-7 text-left space-y-6">
             
-            {/* Top Marketing Pill Badges */}
+            {/* Top Figma Frame Tag & Pill Badges */}
             <motion.div variants={itemVariants} className="inline-flex flex-wrap items-center gap-2">
+              <span className="figma-frame-tag">
+                # HERO_FRAME [1440 &times; 900 &bull; Auto-Layout]
+              </span>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs font-mono tracking-wide shadow-2xs font-semibold">
                 <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
                 <span>{personalInfo.educationBadge}</span>
@@ -151,6 +154,13 @@ export default function Hero({ onOpenBrief }) {
               
               {/* Main Framed Matte Card */}
               <div className="relative rounded-2xl bg-white dark:bg-[#0E1015] p-3 border border-black/[0.08] dark:border-white/[0.08] shadow-card-light dark:shadow-card-dark linear-card">
+                
+                {/* Figma Frame Badge */}
+                <div className="absolute -top-3 left-4 z-20">
+                  <span className="figma-frame-tag figma-component-tag">
+                    ❖ PORTRAIT_CARD [Variant: Lead]
+                  </span>
+                </div>
                 
                 {/* Portrait Image Container */}
                 <div className="relative rounded-xl overflow-hidden aspect-[4/5] bg-zinc-950">
