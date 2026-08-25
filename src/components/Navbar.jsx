@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight, Globe, Sparkles, FileText, Download } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import ThemeToggle from './ThemeToggle';
@@ -51,35 +50,28 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
   return (
     <>
       {/* VIP Recruiter Personalized Welcome Bar */}
-      <AnimatePresence>
-        {vipVisitor && showVipBanner && (
-          <motion.div
-            initial={{ y: -40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -40, opacity: 0 }}
-            className="fixed top-0 inset-x-0 z-50 bg-[#12141A] text-zinc-200 text-xs font-mono py-2 px-4 flex items-center justify-between border-b border-white/10 shadow-md"
+      {vipVisitor && showVipBanner && (
+        <div className="fixed top-0 inset-x-0 z-50 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white text-xs font-mono py-1.5 px-4 flex items-center justify-between shadow-md">
+          <div className="flex items-center gap-2 max-w-7xl mx-auto truncate">
+            <Sparkles className="w-3.5 h-3.5 text-amber-300 shrink-0 animate-pulse" />
+            <span className="truncate">
+              Welcome, <strong className="font-bold text-amber-200">{vipVisitor.name || 'VIP Guest'}</strong>
+              {vipVisitor.company ? ` (${vipVisitor.company})` : ''} &bull; Viewing Ayush Chatterjee's Executive Portfolio
+            </span>
+          </div>
+          <button 
+            onClick={() => setShowVipBanner(false)}
+            className="p-1 hover:bg-white/20 rounded text-white/80 hover:text-white transition-colors"
+            title="Dismiss"
           >
-            <div className="flex items-center gap-2 max-w-7xl mx-auto truncate">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="truncate">
-                VIP Recruiter: <strong className="font-semibold text-white">{vipVisitor.name || 'Executive Guest'}</strong>
-                {vipVisitor.company ? ` from ${vipVisitor.company}` : ''} &bull; Verified Session
-              </span>
-            </div>
-            <button 
-              onClick={() => setShowVipBanner(false)}
-              className="p-1 hover:bg-white/10 rounded-full text-zinc-400 hover:text-white transition-colors"
-              title="Dismiss"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <X className="w-3 h-3" />
+          </button>
+        </div>
+      )}
 
-      <header className={`fixed ${vipVisitor && showVipBanner ? 'top-9' : 'top-0'} left-0 right-0 z-40 transition-all duration-300 ${
+      <header className={`fixed ${vipVisitor && showVipBanner ? 'top-8' : 'top-0'} left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/90 dark:bg-[#08090A]/90 backdrop-blur-xl border-b border-black/[0.06] dark:border-white/[0.08] py-3' 
+          ? 'bg-white/90 dark:bg-obsidian-950/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.08] shadow-sm dark:shadow-card-dark py-3.5' 
           : 'bg-transparent py-5'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,41 +83,34 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
               className="flex items-center gap-3 group focus:outline-none"
               aria-label="Ayush Chatterjee Home"
             >
-              <div className="relative w-9 h-9 rounded-xl bg-zinc-900 dark:bg-[#14171F] border border-black/10 dark:border-white/[0.12] flex items-center justify-center font-display font-bold text-xs tracking-wider text-white shadow-sm transition-all duration-300">
-                <span className="text-zinc-100">AC</span>
+              <div className="w-9 h-9 rounded-lg bg-slate-900 dark:bg-obsidian-800 border border-slate-800 dark:border-white/10 flex items-center justify-center font-display font-bold text-sm tracking-wider text-white dark:text-slate-100 group-hover:bg-accent dark:group-hover:text-accent transition-all shadow-sm">
+                AC
               </div>
-              <div className="flex flex-col text-left">
-                <span className="font-display font-bold text-sm tracking-tight text-zinc-900 dark:text-zinc-100 uppercase">
+              <div className="flex flex-col">
+                <span className="font-display font-bold text-sm tracking-wider text-slate-900 dark:text-slate-100 group-hover:text-accent dark:group-hover:text-white transition-colors uppercase">
                   Ayush Chatterjee
                 </span>
-                <span className="text-[10px] tracking-widest text-zinc-500 dark:text-zinc-400 font-mono flex items-center gap-1.5 uppercase font-medium">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span className="text-[10px] tracking-wider text-slate-500 dark:text-slate-400 font-mono flex items-center gap-1.5">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 dark:emerald-400 animate-pulse"></span>
                   PRODUCT &bull; STRATEGY
                 </span>
               </div>
             </a>
 
-            {/* Desktop Navigation Links (Linear Minimal Pill) */}
-            <nav className="hidden xl:flex items-center gap-0.5 bg-black/[0.03] dark:bg-white/[0.04] backdrop-blur-xl px-2 py-1 rounded-full border border-black/[0.06] dark:border-white/[0.08]">
+            {/* Desktop Navigation Links */}
+            <nav className="hidden xl:flex items-center gap-1 bg-white/70 dark:bg-obsidian-900/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-200/80 dark:border-white/10 shadow-2xs">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.substring(1);
                 return (
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`relative px-3.5 py-1 rounded-full text-xs font-mono tracking-wider transition-colors duration-150 ${
+                    className={`px-3 py-1 rounded-full text-xs font-mono tracking-wider transition-all duration-200 ${
                       isActive
-                        ? 'text-zinc-950 dark:text-white font-semibold'
-                        : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
+                        ? 'bg-slate-900 dark:bg-white text-white dark:text-obsidian-950 font-bold shadow-2xs'
+                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06]'
                     }`}
                   >
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeNavTab"
-                        className="absolute inset-0 bg-white dark:bg-white/[0.12] rounded-full shadow-sm border border-black/5 dark:border-white/10 -z-10"
-                        transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-                      />
-                    )}
                     {link.name}
                   </a>
                 );
@@ -138,32 +123,32 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
               {/* 1-Page Brief Modal Trigger */}
               <button
                 onClick={onOpenBrief}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.08] dark:border-white/[0.08] text-zinc-700 dark:text-zinc-300 text-xs font-mono font-medium hover:bg-black/[0.07] dark:hover:bg-white/[0.09] transition-all shadow-xs"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-50 dark:bg-accent-dark/10 border border-blue-200 dark:border-accent-dark/20 text-accent dark:text-accent-dark text-xs font-mono font-bold hover:bg-blue-100 dark:hover:bg-accent-dark/20 transition-all shadow-2xs"
                 title="View ATS & Recruiter 1-Page Brief"
               >
-                <FileText className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
+                <FileText className="w-3.5 h-3.5" />
                 <span>1P BRIEF</span>
               </button>
 
-              {/* Resume / CV Download Button */}
+              {/* Resume / CV Download Button beside Connect */}
               <a
                 href="/Ayush_Chatterjee_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.08] dark:border-white/[0.08] text-zinc-700 dark:text-zinc-300 text-xs font-mono font-medium hover:bg-black/[0.07] dark:hover:bg-white/[0.09] transition-all shadow-xs"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 text-xs font-mono font-bold hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-950 dark:hover:text-white transition-all duration-200 shadow-2xs group"
                 title="Download / View Official CV"
               >
-                <Download className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
+                <Download className="w-3.5 h-3.5 text-accent dark:text-accent-dark group-hover:translate-y-0.5 transition-transform" />
                 <span>RESUME</span>
               </a>
 
               {/* Theme Toggle Button */}
               <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
 
-              {/* Connect CTA (Linear style primary button) */}
+              {/* Connect CTA */}
               <a
                 href="#contact"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg linear-btn-primary text-xs font-mono font-semibold tracking-wide"
+                className="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 text-xs font-mono font-bold tracking-wider hover:bg-accent dark:hover:bg-accent dark:hover:text-white transition-all duration-200 shadow-sm"
               >
                 <span>CONNECT</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -176,7 +161,7 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
               
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white focus:outline-none"
+                className="p-2 rounded-lg bg-slate-100 dark:bg-obsidian-850 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white focus:outline-none"
                 aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -187,63 +172,56 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
         </div>
 
         {/* Mobile Dropdown Drawer */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="sm:hidden px-4 pt-3 pb-6 bg-white/95 dark:bg-[#08090A]/95 backdrop-blur-2xl border-b border-black/[0.08] dark:border-white/[0.08] shadow-xl overflow-hidden"
-            >
-              <div className="flex flex-col space-y-1 mb-4">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-2 rounded-lg text-xs font-mono tracking-wider ${
-                      activeSection === link.href.substring(1)
-                        ? 'bg-black/[0.06] dark:bg-white/[0.1] text-zinc-950 dark:text-white font-semibold'
-                        : 'text-zinc-600 dark:text-zinc-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.04]'
-                    }`}
-                  >
-                    {link.name}
-                  </a>
-                ))}
-              </div>
-
-              <div className="pt-3 border-t border-black/[0.06] dark:border-white/[0.08] space-y-2">
+        {mobileMenuOpen && (
+          <div className="sm:hidden px-4 pt-3 pb-6 bg-white/95 dark:bg-obsidian-950/95 backdrop-blur-2xl border-b border-slate-200 dark:border-white/10 animate-fade-in shadow-xl">
+            <div className="flex flex-col space-y-1 mb-4">
+              {navLinks.map((link) => (
                 <a
-                  href="/Ayush_Chatterjee_CV.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  key={link.name}
+                  href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 px-4 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.08] text-zinc-800 dark:text-zinc-200 font-mono font-medium text-xs flex items-center justify-center gap-2"
+                  className={`px-4 py-2.5 rounded-lg text-xs font-mono tracking-wider ${
+                    activeSection === link.href.substring(1)
+                      ? 'bg-accent/10 text-accent dark:text-accent-dark font-bold'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-obsidian-850'
+                  }`}
                 >
-                  <Download className="w-4 h-4 text-zinc-500" />
-                  <span>DOWNLOAD OFFICIAL CV</span>
+                  {link.name}
                 </a>
+              ))}
+            </div>
 
-                <button
-                  onClick={() => { setMobileMenuOpen(false); onOpenBrief(); }}
-                  className="w-full py-2.5 px-4 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.08] text-zinc-800 dark:text-zinc-200 font-mono font-medium text-xs flex items-center justify-center gap-2"
-                >
-                  <FileText className="w-4 h-4 text-zinc-500" />
-                  <span>OPEN 1-PAGE EXECUTIVE BRIEF</span>
-                </button>
+            <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-2">
+              <a
+                href="/Ayush_Chatterjee_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 px-4 rounded-lg bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 font-mono font-bold text-xs flex items-center justify-center gap-2 shadow-2xs"
+              >
+                <Download className="w-4 h-4 text-accent dark:text-accent-dark" />
+                <span>DOWNLOAD OFFICIAL CV / RESUME</span>
+              </a>
 
-                <a
-                  href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 px-4 rounded-lg linear-btn-primary font-mono font-semibold text-xs tracking-wider uppercase flex items-center justify-center gap-2"
-                >
-                  <span>GET IN TOUCH</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <button
+                onClick={() => { setMobileMenuOpen(false); onOpenBrief(); }}
+                className="w-full py-2.5 px-4 rounded-lg bg-blue-50 dark:bg-accent-dark/10 border border-blue-200 dark:border-accent-dark/20 text-accent dark:text-accent-dark font-mono font-bold text-xs flex items-center justify-center gap-2"
+              >
+                <FileText className="w-4 h-4" />
+                <span>OPEN 1-PAGE EXECUTIVE BRIEF</span>
+              </button>
+
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 font-mono font-bold text-xs tracking-wider uppercase flex items-center justify-center gap-2"
+              >
+                <span>GET IN TOUCH</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        )}
       </header>
     </>
   );

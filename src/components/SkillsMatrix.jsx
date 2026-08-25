@@ -1,93 +1,71 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Box, Database, Cpu, Briefcase, Check, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Box, Database, Cpu, Briefcase, Check } from 'lucide-react';
 import { skillsData } from '../data/portfolioData';
 
 const categories = [
-  { 
-    key: 'product', 
-    label: 'PRODUCT MANAGEMENT', 
-    icon: Box, 
-  },
-  { 
-    key: 'data', 
-    label: 'DATA & ANALYTICS', 
-    icon: Database, 
-  },
-  { 
-    key: 'technology', 
-    label: 'SOFTWARE & TECH', 
-    icon: Cpu, 
-  },
-  { 
-    key: 'business', 
-    label: 'BUSINESS & STRATEGY', 
-    icon: Briefcase, 
-  },
+  { key: 'product', label: 'PRODUCT', icon: Box, color: 'text-blue-600 dark:text-sky-400', border: 'border-blue-200 dark:border-sky-500/20', bg: 'bg-blue-50 dark:bg-sky-500/10' },
+  { key: 'data', label: 'DATA & ANALYTICS', icon: Database, color: 'text-emerald-600 dark:text-emerald-400', border: 'border-emerald-200 dark:border-emerald-500/20', bg: 'bg-emerald-50 dark:bg-emerald-500/10' },
+  { key: 'technology', label: 'TECHNOLOGY', icon: Cpu, color: 'text-indigo-600 dark:text-indigo-400', border: 'border-indigo-200 dark:border-indigo-500/20', bg: 'bg-indigo-50 dark:bg-indigo-500/10' },
+  { key: 'business', label: 'BUSINESS & STRATEGY', icon: Briefcase, color: 'text-amber-600 dark:text-amber-400', border: 'border-amber-200 dark:border-amber-500/20', bg: 'bg-amber-50 dark:bg-amber-500/10' },
 ];
 
 export default function SkillsMatrix() {
   return (
-    <section className="py-24 relative bg-white dark:bg-[#08090A] border-t border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-300 overflow-hidden">
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section className="py-24 relative bg-white dark:bg-obsidian-900/60 border-t border-b border-slate-200 dark:border-white/[0.08] transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-14 text-left">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-linear-brand"></span>
-            <span>Section 09 &bull; Competency Architecture</span>
+        <div className="max-w-3xl mb-16">
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-accent dark:text-accent-dark uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-accent dark:bg-accent-dark"></span>
+            Section 09 &bull; Competency Architecture
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-950 dark:text-white tracking-tight uppercase leading-tight mb-6">
             Technical & Professional Toolkit.
           </h2>
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
             A calibrated blend of product methodologies, quantitative analytics, software technologies, and enterprise business strategy.
           </p>
         </div>
 
         {/* 4 Category Matrix Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
-          {categories.map((cat, idx) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {categories.map((cat) => {
             const Icon = cat.icon;
             const skills = skillsData[cat.key] || [];
             return (
-              <motion.div
+              <div
                 key={cat.key}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: idx * 0.06 }}
-                className="p-6 rounded-2xl bg-white dark:bg-[#0E1015] border border-black/[0.08] dark:border-white/[0.08] transition-all duration-150 shadow-xs flex flex-col justify-between group linear-card"
+                className="p-6 rounded-2xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 transition-all duration-300 shadow-sm hover:shadow-card-light dark:hover:shadow-card-dark flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-2.5 mb-5 pb-3.5 border-b border-black/[0.06] dark:border-white/[0.08]">
-                    <div className="w-8 h-8 rounded-lg bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-center text-zinc-800 dark:text-zinc-200">
-                      <Icon className="w-4 h-4" />
+                  <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200 dark:border-white/[0.06]">
+                    <div className={`w-9 h-9 rounded-lg ${cat.bg} border ${cat.border} flex items-center justify-center`}>
+                      <Icon className={`w-4 h-4 ${cat.color}`} />
                     </div>
-                    <h3 className="text-xs font-mono font-bold text-zinc-900 dark:text-white uppercase tracking-wider">
+                    <h3 className="text-sm font-display font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                       {cat.label}
                     </h3>
                   </div>
 
-                  <div className="space-y-2">
-                    {skills.map((skill, sIdx) => (
+                  <div className="space-y-2.5">
+                    {skills.map((skill, idx) => (
                       <div
-                        key={sIdx}
-                        className="flex items-center gap-2 p-2.5 rounded-lg bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05] text-xs text-zinc-700 dark:text-zinc-300 font-normal"
+                        key={idx}
+                        className="flex items-center gap-2.5 p-2.5 rounded-lg bg-white dark:bg-obsidian-950/40 border border-slate-200 dark:border-white/[0.03] text-xs text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/15 transition-all shadow-2xs font-medium"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-linear-brand/80 dark:bg-linear-accent/80 shrink-0"></span>
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent dark:bg-accent-dark shrink-0"></div>
                         <span className="leading-snug">{skill}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-3.5 mt-5 border-t border-black/[0.04] dark:border-white/[0.06] text-[10px] font-mono text-zinc-400 dark:text-zinc-500 uppercase flex items-center justify-between font-medium">
+                <div className="pt-4 mt-6 border-t border-slate-200 dark:border-white/[0.05] text-[10px] font-mono text-slate-500 uppercase flex items-center justify-between font-semibold">
                   <span>Zero Fluff</span>
-                  <span className="text-linear-brand dark:text-linear-accent">Applied Capability</span>
+                  <span>Applied Capability</span>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

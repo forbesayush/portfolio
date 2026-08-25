@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, FileText, Code2, BarChart3, RefreshCw, ArrowRight, CheckCircle2, Sparkles, Layers, Check } from 'lucide-react';
+import { Search, FileText, Code2, BarChart3, RefreshCw, ArrowRight, CheckCircle2, Sparkles, Layers } from 'lucide-react';
 import { productThinkingFramework } from '../data/portfolioData';
 
 const stepIcons = [Search, FileText, Code2, BarChart3, RefreshCw];
@@ -58,65 +57,69 @@ export default function ProductFramework() {
   const activeDeepDive = stageDeepDives[selectedStep] || stageDeepDives['01'];
 
   return (
-    <section id="product" className="py-24 relative bg-[#FAFAFA] dark:bg-[#08090A] transition-colors duration-300 overflow-hidden">
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section id="product" className="py-24 relative bg-slate-50 dark:bg-obsidian-950 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-14 text-left">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-linear-brand"></span>
-            <span>Section 06 &bull; Product Thinking</span>
+        <div className="max-w-3xl mb-16">
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-accent dark:text-accent-dark uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-accent dark:bg-accent-dark"></span>
+            Section 06 &bull; Product Thinking
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-950 dark:text-white tracking-tight uppercase leading-tight mb-6">
             How I Think About Products.
           </h2>
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
             My objective is to develop into a Product Manager capable of connecting ambiguous customer problems with business viability and precision technology execution.
           </p>
         </div>
 
         {/* 5-Step Product Framework Pipeline */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-3.5 relative mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative mb-6">
           {productThinkingFramework.map((step, idx) => {
             const Icon = stepIcons[idx] || Search;
+            const isLast = idx === productThinkingFramework.length - 1;
             const isSelected = selectedStep === step.step;
 
             return (
               <button
                 key={step.step}
                 onClick={() => setSelectedStep(step.step)}
-                className={`text-left p-5 rounded-2xl border transition-all duration-150 group flex flex-col justify-between relative overflow-hidden ${
+                className={`text-left p-6 rounded-2xl border transition-all duration-300 group flex flex-col justify-between relative ${
                   isSelected
-                    ? 'bg-white dark:bg-[#0E1015] border-black/20 dark:border-white/20 shadow-xs text-zinc-950 dark:text-white linear-card'
-                    : 'bg-white/70 dark:bg-[#0E1015]/60 border-black/[0.06] dark:border-white/[0.06] hover:bg-white dark:hover:bg-[#0E1015]'
+                    ? 'bg-white dark:bg-obsidian-850 border-accent dark:border-accent-dark shadow-card-hover ring-2 ring-accent dark:ring-accent-dark'
+                    : 'bg-white/80 dark:bg-obsidian-900 border-slate-200 dark:border-white/[0.08] hover:border-accent/40 shadow-card-light'
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-mono font-medium text-linear-brand dark:text-linear-accent">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-mono font-bold text-accent dark:text-accent-dark">
                       STAGE {step.step}
                     </span>
-                    <div className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.05] flex items-center justify-center text-zinc-700 dark:text-zinc-300">
-                      <Icon className="w-3.5 h-3.5" />
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                      isSelected
+                        ? 'bg-accent text-white'
+                        : 'bg-slate-100 dark:bg-obsidian-950 text-slate-600 dark:text-slate-400 group-hover:bg-accent group-hover:text-white'
+                    }`}>
+                      <Icon className="w-4 h-4" />
                     </div>
                   </div>
 
-                  <h3 className="text-base font-display font-bold text-zinc-950 dark:text-white uppercase tracking-tight mb-0.5">
+                  <h3 className="text-lg font-display font-bold text-slate-950 dark:text-white uppercase tracking-tight mb-1">
                     {step.title}
                   </h3>
-                  <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 mb-3 tracking-tight">
+                  <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4 tracking-tight font-medium">
                     {step.sub}
                   </div>
 
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                     {step.detail}
                   </p>
                 </div>
 
-                <div className="pt-3 mt-3 border-t border-black/[0.04] dark:border-white/[0.06] text-[10px] font-mono text-zinc-500 dark:text-zinc-400 font-medium flex items-center gap-1">
-                  <span>{isSelected ? 'Active Deep Dive' : 'Explore'}</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                <div className="pt-4 mt-4 border-t border-slate-100 dark:border-white/5 text-[10px] font-mono text-accent font-semibold flex items-center gap-1">
+                  <span>{isSelected ? 'Active Deep Dive' : 'Click to Explore'}</span>
+                  <ArrowRight className="w-3 h-3" />
                 </div>
               </button>
             );
@@ -124,52 +127,43 @@ export default function ProductFramework() {
         </div>
 
         {/* Active Stage Deep-Dive Card */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedStep}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="mb-8 p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#0E1015] border border-black/[0.08] dark:border-white/[0.08] shadow-xs text-left linear-card"
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 mb-4 border-b border-black/[0.06] dark:border-white/[0.08]">
-              <div>
-                <span className="text-[10px] font-mono text-linear-brand dark:text-linear-accent uppercase font-medium">
-                  Stage {selectedStep} Operational Blueprint
-                </span>
-                <h4 className="text-base sm:text-lg font-display font-bold text-zinc-950 dark:text-white uppercase mt-0.5">
-                  {activeDeepDive.title}
-                </h4>
-              </div>
-              <span className="text-xs font-mono text-zinc-600 dark:text-zinc-300 bg-black/[0.03] dark:bg-white/[0.04] px-3 py-1 rounded-lg border border-black/[0.06] dark:border-white/[0.08] font-medium self-start sm:self-auto">
-                Deliverable: {activeDeepDive.deliverable}
+        <div className="mb-12 p-6 sm:p-8 rounded-3xl bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 shadow-card-light animate-fade-in">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-200 dark:border-white/5">
+            <div>
+              <span className="text-xs font-mono text-accent uppercase font-bold">
+                Stage {selectedStep} Operational Blueprint
               </span>
+              <h4 className="text-lg sm:text-xl font-display font-bold text-slate-950 dark:text-white uppercase mt-0.5">
+                {activeDeepDive.title}
+              </h4>
             </div>
+            <span className="text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-obsidian-950 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/5 font-semibold self-start sm:self-auto">
+              Deliverable: {activeDeepDive.deliverable}
+            </span>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {activeDeepDive.bullets.map((bullet, i) => (
-                <div key={i} className="flex items-start gap-2.5 p-3.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.05] dark:border-white/[0.06] text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-linear-brand/80 dark:bg-linear-accent/80 shrink-0 mt-1.5"></span>
-                  <span>{bullet}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {activeDeepDive.bullets.map((bullet, i) => (
+              <div key={i} className="flex items-start gap-2.5 p-3.5 rounded-xl bg-slate-50 dark:bg-obsidian-950/60 border border-slate-200 dark:border-white/5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                <span>{bullet}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Product Positioning Summary Quote */}
-        <div className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#0E1015] border border-black/[0.08] dark:border-white/[0.08] shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-5 text-left linear-card">
+        <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 shadow-card-light dark:shadow-card-dark flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-1 max-w-3xl">
-            <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-semibold">
+            <span className="text-xs font-mono text-accent dark:text-accent-dark uppercase tracking-wider font-bold">
               The Product Management Commitment
             </span>
-            <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-200 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed font-normal">
               "Great product management is neither pure code nor pure marketing; it is the discipline of creating defensible business value by solving real human friction with software that works flawlessly."
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-xs font-mono text-zinc-600 dark:text-zinc-300 bg-black/[0.03] dark:bg-white/[0.04] px-3.5 py-1.5 rounded-lg border border-black/[0.06] dark:border-white/[0.08] font-medium">
+            <span className="text-xs font-mono text-slate-700 dark:text-slate-400 bg-slate-100 dark:bg-obsidian-950 px-3 py-2 rounded-lg border border-slate-200 dark:border-white/5 font-medium">
               Pragmatic &bull; User-Centric &bull; Data-Backed
             </span>
           </div>

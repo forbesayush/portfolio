@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Target, GitMerge, TrendingUp, CheckCircle, ArrowRight, ShieldCheck, Compass, BarChart, CheckCircle2, Sparkles } from 'lucide-react';
+import { Target, GitMerge, TrendingUp, CheckCircle, ArrowRight, ShieldCheck, Compass, BarChart, CheckCircle2 } from 'lucide-react';
 import { consultingFramework } from '../data/portfolioData';
 
 const capabilities = [
@@ -46,51 +45,50 @@ export default function StrategyFramework() {
   const activeDeepDive = consultingDeepDives[selectedStep] || consultingDeepDives['01'];
 
   return (
-    <section id="strategy" className="py-24 relative bg-white dark:bg-[#08090A] border-t border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-300 overflow-hidden">
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section id="strategy" className="py-24 relative bg-white dark:bg-obsidian-900/60 border-t border-b border-slate-200 dark:border-white/[0.08] transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-14 text-left">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-linear-brand"></span>
-            <span>Section 07 &bull; Strategy & Consulting</span>
+        <div className="max-w-3xl mb-16">
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-accent dark:text-accent-dark uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-accent dark:bg-accent-dark"></span>
+            Section 07 &bull; Strategy & Consulting
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-950 dark:text-white tracking-tight uppercase leading-tight mb-6">
             How I Approach Business Problems.
           </h2>
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
             Applying structured management consulting methodologies to deconstruct complex commercial challenges, evaluate market trade-offs, and deliver defensible recommendations.
           </p>
         </div>
 
         {/* 6-Stage Consulting Framework */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-4 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-6">
           {consultingFramework.map((stage) => {
             const isSelected = selectedStep === stage.step;
             return (
               <button
                 key={stage.step}
                 onClick={() => setSelectedStep(stage.step)}
-                className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-150 group flex flex-col justify-between overflow-hidden relative ${
+                className={`text-left p-5 rounded-2xl border transition-all duration-300 group flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-white dark:bg-[#0E1015] border-black/20 dark:border-white/20 shadow-xs text-zinc-950 dark:text-white linear-card'
-                    : 'bg-white/70 dark:bg-[#0E1015]/60 border-black/[0.06] dark:border-white/[0.06] hover:bg-white dark:hover:bg-[#0E1015]'
+                    ? 'bg-indigo-50/80 dark:bg-indigo-950/40 border-indigo-500 shadow-md ring-2 ring-indigo-500'
+                    : 'bg-slate-50 dark:bg-obsidian-850 border-slate-200 dark:border-white/[0.08] hover:border-indigo-400'
                 }`}
               >
                 <div>
-                  <div className="text-[10px] font-mono font-semibold text-linear-brand dark:text-linear-accent mb-2">
+                  <div className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 mb-3">
                     STEP {stage.step}
                   </div>
-                  <h3 className="text-sm font-display font-bold text-zinc-950 dark:text-white uppercase tracking-tight mb-1.5">
+                  <h3 className="text-sm font-display font-bold text-slate-900 dark:text-white uppercase tracking-tight mb-2">
                     {stage.name}
                   </h3>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
                     {stage.desc}
                   </p>
                 </div>
 
-                <div className="pt-3 mt-3 border-t border-black/[0.04] dark:border-white/[0.06] text-[10px] font-mono text-zinc-400 dark:text-zinc-500 font-medium">
+                <div className="pt-3 text-[10px] font-mono text-indigo-600 dark:text-indigo-400 font-semibold">
                   {isSelected ? '● Active' : 'Explore'}
                 </div>
               </button>
@@ -99,52 +97,43 @@ export default function StrategyFramework() {
         </div>
 
         {/* Active Stage Deep Dive */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedStep}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="mb-8 p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#0E1015] border border-black/[0.08] dark:border-white/[0.08] shadow-xs text-left linear-card"
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-3 border-b border-black/[0.06] dark:border-white/[0.08]">
-              <h4 className="text-sm sm:text-base font-display font-bold text-zinc-950 dark:text-white uppercase">
-                {activeDeepDive.title}
-              </h4>
-              <span className="text-xs font-mono text-zinc-600 dark:text-zinc-300 font-medium bg-black/[0.03] dark:bg-white/[0.04] px-3 py-1 rounded-lg border border-black/[0.06] dark:border-white/[0.08]">
-                Management Consulting Practice
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
-              {activeDeepDive.detail}
-            </p>
-          </motion.div>
-        </AnimatePresence>
+        <div className="mb-12 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 shadow-sm animate-fade-in">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-200 dark:border-white/5">
+            <h4 className="text-base sm:text-lg font-display font-bold text-slate-950 dark:text-white uppercase">
+              {activeDeepDive.title}
+            </h4>
+            <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-semibold">
+              Management Consulting Practice
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+            {activeDeepDive.detail}
+          </p>
+        </div>
 
         {/* Strategic Capabilities Matrix */}
-        <div className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#0E1015] border border-black/[0.08] dark:border-white/[0.08] shadow-xs text-left linear-card">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5 pb-5 border-b border-black/[0.06] dark:border-white/[0.08]">
+        <div className="p-8 rounded-2xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-card-dark">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200 dark:border-white/[0.08]">
             <div>
-              <h3 className="text-base font-display font-bold text-zinc-950 dark:text-white uppercase tracking-tight">
+              <h3 className="text-lg font-display font-bold text-slate-950 dark:text-white uppercase tracking-tight">
                 Consulting & Strategic Advisory Toolkit
               </h3>
-              <p className="text-xs font-mono text-zinc-500 dark:text-zinc-400 mt-0.5">
+              <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
                 Rigorous frameworks applied to live business engagements.
               </p>
             </div>
-            <span className="text-xs font-mono text-zinc-600 dark:text-zinc-300 bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] px-3 py-1 rounded-lg self-start md:self-auto font-medium">
+            <span className="text-xs font-mono text-indigo-700 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 px-3 py-1.5 rounded-lg self-start md:self-auto font-semibold">
               Management Consulting Ready
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {capabilities.map((cap, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2 p-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.05] dark:border-white/[0.06] text-xs text-zinc-700 dark:text-zinc-300 font-normal"
+                className="flex items-center gap-2.5 p-3 rounded-xl bg-white dark:bg-obsidian-950/60 border border-slate-200 dark:border-white/[0.05] text-xs text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/20 transition-all shadow-sm font-medium"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-linear-brand/80 dark:bg-linear-accent/80 shrink-0"></span>
+                <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
                 <span>{cap}</span>
               </div>
             ))}

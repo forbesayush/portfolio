@@ -1,208 +1,177 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, ShieldCheck, MapPin, Sparkles, CheckCircle2, Award, Globe2, FileText, Download, Zap, ChevronRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, ShieldCheck, MapPin, Sparkles, CheckCircle2, Award, Globe2, FileText, Download } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function Hero({ onOpenBrief }) {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.05
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.16, 1, 0.3, 1]
-      }
-    }
-  };
-
   return (
-    <section id="home" className="relative min-h-[92vh] flex items-center justify-center pt-32 pb-24 overflow-hidden bg-[#FAFAFA] dark:bg-[#08090A] transition-colors duration-300">
+    <section id="home" className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-24 overflow-hidden bg-slate-50 dark:bg-obsidian-950 transition-colors duration-300">
       
-      {/* Linear-style Spotlight Cone */}
-      <div className="spotlight-top"></div>
+      {/* Background Subtle Grid & Radial Glow */}
       <div className="absolute inset-0 bg-grid-subtle opacity-60 pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-blue-500/8 dark:bg-accent-dark/8 rounded-full blur-[140px] pointer-events-none"></div>
+      <div className="absolute top-1/3 right-10 w-[450px] h-[300px] bg-indigo-500/6 dark:bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+      
+      {/* Top Hairline Accent */}
+      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-slate-300 dark:via-white/10 to-transparent"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
-        <motion.div 
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Column: Editorial Positioning & Content (7 Cols) */}
-          <div className="lg:col-span-7 text-left space-y-6">
+          <div className="lg:col-span-7 text-left">
             
-            {/* Top Linear Pill Badge */}
-            <motion.div variants={itemVariants} className="inline-flex flex-wrap items-center gap-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.08] dark:border-white/[0.08] text-zinc-700 dark:text-zinc-300 text-xs font-mono tracking-wide shadow-2xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>{personalInfo.educationBadge}</span>
+            {/* Subtle Visual Indicators / Badges */}
+            <div className="inline-flex flex-wrap items-center gap-2 sm:gap-3 mb-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-xs font-mono tracking-wide shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent dark:bg-accent-dark animate-pulse"></span>
+                {personalInfo.educationBadge}
               </div>
-              <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.08] dark:border-white/[0.08] text-zinc-600 dark:text-zinc-400 text-xs font-mono tracking-wide shadow-2xs">
-                <span>{personalInfo.focusBadge}</span>
+              <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 text-xs font-mono tracking-wide shadow-2xs">
+                {personalInfo.focusBadge}
               </div>
-            </motion.div>
+            </div>
 
-            {/* Main Editorial Header */}
-            <motion.div variants={itemVariants} className="space-y-1">
-              <div className="text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase font-semibold">
-                Executive Portfolio
-              </div>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-bold tracking-tight text-zinc-950 dark:text-white uppercase leading-[1.05]">
+            {/* Large Confident Editorial Name */}
+            <div className="mb-3">
+              <span className="text-xs sm:text-sm font-mono tracking-ultra text-slate-500 dark:text-slate-400 uppercase mb-2 font-semibold block">
+                Executive Portfolio &bull; Ayush Chatterjee
+              </span>
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-extrabold tracking-tight text-slate-950 dark:text-white uppercase transition-colors">
                 {personalInfo.name}
               </h1>
-            </motion.div>
+            </div>
 
             {/* Main Headline */}
-            <motion.div variants={itemVariants}>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-semibold text-gradient-primary tracking-tight">
-                {personalInfo.title}
-              </h2>
-            </motion.div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-gradient-primary tracking-tight mb-5 uppercase">
+              {personalInfo.title}
+            </h2>
 
             {/* Supporting Headline */}
-            <motion.p variants={itemVariants} className="text-base sm:text-lg md:text-xl font-normal text-zinc-600 dark:text-zinc-300 tracking-tight max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl font-normal text-slate-700 dark:text-slate-300 tracking-tight max-w-2xl mb-6 leading-relaxed">
               {personalInfo.supportingHeadline}
-            </motion.p>
+            </p>
 
-            {/* Short Editorial Quote */}
-            <motion.div variants={itemVariants} className="max-w-2xl">
-              <blockquote className="relative text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed font-normal bg-black/[0.02] dark:bg-white/[0.03] border-l-2 border-linear-brand pl-4 pr-4 py-3 rounded-r-xl border-y border-r border-black/[0.06] dark:border-white/[0.06]">
+            {/* Short Editorial Introduction */}
+            <div className="max-w-2xl mb-8">
+              <blockquote className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-normal bg-white dark:bg-obsidian-900/50 border-l-4 border-accent dark:border-accent-dark pl-4 py-3 rounded-r-lg shadow-2xs border border-slate-200/80 dark:border-white/5">
                 "{personalInfo.bio}"
               </blockquote>
-            </motion.div>
+            </div>
 
-            {/* CTAs */}
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2.5 pt-2">
+            {/* CTAs with Resume / CV Button beside Connect */}
+            <div className="flex flex-wrap items-center gap-3 mb-8">
               <a
                 href="#case-studies"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg linear-btn-primary font-mono font-semibold text-xs tracking-wider uppercase"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 font-bold text-xs tracking-widest uppercase hover:bg-accent dark:hover:bg-accent dark:hover:text-white transition-all duration-300 shadow-md hover:shadow-glow-blue group"
               >
-                <span>VIEW CASE STUDIES</span>
-                <ArrowDown className="w-3.5 h-3.5" />
+                <span>VIEW MY WORK</span>
+                <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
               </a>
 
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-black/[0.05] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-zinc-900 dark:text-zinc-100 border border-black/[0.08] dark:border-white/[0.1] font-mono font-semibold text-xs tracking-wider uppercase transition-all shadow-xs"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 font-bold text-xs tracking-widest uppercase hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-950 dark:hover:text-white transition-all duration-300 shadow-2xs group"
               >
                 <span>LET'S CONNECT</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
 
               <a
                 href="/Ayush_Chatterjee_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] text-zinc-700 dark:text-zinc-300 border border-black/[0.06] dark:border-white/[0.08] font-mono font-medium text-xs tracking-wider uppercase transition-all"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 font-bold text-xs tracking-widest uppercase hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-950 dark:hover:text-white transition-all duration-300 shadow-2xs group"
                 title="Download Official CV"
               >
-                <Download className="w-3.5 h-3.5 text-zinc-400" />
-                <span>CV</span>
+                <Download className="w-4 h-4 text-accent dark:text-accent-dark group-hover:translate-y-0.5 transition-transform" />
+                <span>CV / RESUME</span>
               </a>
 
               <button
                 onClick={onOpenBrief}
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] text-zinc-700 dark:text-zinc-300 border border-black/[0.06] dark:border-white/[0.08] font-mono font-medium text-xs tracking-wider uppercase transition-all"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-blue-50 dark:bg-accent-dark/10 border border-blue-200 dark:border-accent-dark/20 text-accent dark:text-accent-dark font-bold text-xs tracking-widest uppercase hover:bg-blue-100 dark:hover:bg-accent-dark/20 transition-all shadow-2xs group"
               >
-                <FileText className="w-3.5 h-3.5 text-zinc-400" />
+                <FileText className="w-4 h-4" />
                 <span>1P BRIEF</span>
               </button>
-            </motion.div>
+            </div>
 
-            {/* Core Positioning Architecture */}
-            <motion.div variants={itemVariants} className="pt-6 border-t border-black/[0.06] dark:border-white/[0.08] max-w-2xl">
-              <div className="text-[10px] font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-2 font-medium">
-                Core Positioning Architecture
+            {/* Core Positioning Bar */}
+            <div className="pt-6 border-t border-slate-200 dark:border-white/[0.08] max-w-2xl">
+              <div className="text-[10px] font-mono tracking-widest text-slate-500 uppercase mb-2 font-semibold">
+                Core Career Positioning
               </div>
-              <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono text-zinc-700 dark:text-zinc-300">
-                <span className="px-2.5 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08]">PRODUCT</span>
-                <span className="text-zinc-400">&times;</span>
-                <span className="px-2.5 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08]">STRATEGY</span>
-                <span className="text-zinc-400">&times;</span>
-                <span className="px-2.5 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08]">TECHNOLOGY</span>
-                <span className="text-zinc-400">&times;</span>
-                <span className="px-2.5 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08]">DATA</span>
-                <span className="text-zinc-400">&times;</span>
-                <span className="px-2.5 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08]">GLOBAL BUSINESS</span>
+              <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono font-bold text-slate-800 dark:text-slate-300">
+                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">PRODUCT</span>
+                <span className="text-accent dark:text-accent-dark">×</span>
+                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">STRATEGY</span>
+                <span className="text-accent dark:text-accent-dark">×</span>
+                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">TECHNOLOGY</span>
+                <span className="text-accent dark:text-accent-dark">×</span>
+                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">DATA</span>
+                <span className="text-accent dark:text-accent-dark">×</span>
+                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">GLOBAL</span>
               </div>
-            </motion.div>
+            </div>
 
           </div>
 
           {/* Right Column: Executive Framed Portrait Card (5 Cols) */}
-          <motion.div 
-            variants={itemVariants}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-sm sm:max-w-md">
               
-              {/* Main Framed Matte Card */}
-              <div className="relative rounded-2xl bg-white dark:bg-[#0E1015] p-3 border border-black/[0.08] dark:border-white/[0.08] shadow-card-light dark:shadow-card-dark linear-card">
+              {/* Decorative background aura */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition duration-1000"></div>
+
+              {/* Main Framed Card */}
+              <div className="relative rounded-3xl bg-white dark:bg-obsidian-850 p-3.5 border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden">
                 
                 {/* Portrait Image Container */}
-                <div className="relative rounded-xl overflow-hidden aspect-[4/5] bg-zinc-950">
+                <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-slate-900">
                   <img
                     src="/ayush-chatterjee.png"
                     alt="Ayush Chatterjee - MBA, Product & Strategy Professional"
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
                     loading="eager"
                   />
                   
-                  {/* Bottom Vignette */}
-                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+                  {/* Subtle Gradient Vignette at Bottom */}
+                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent"></div>
 
                   {/* Overlaid Bottom Details */}
-                  <div className="absolute inset-x-0 bottom-0 p-4 text-left space-y-1">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-zinc-200 text-[11px] font-mono tracking-wide mb-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <div className="absolute inset-x-0 bottom-0 p-4 text-left">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/90 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono tracking-wide mb-1 shadow-sm">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                       <span>Open to Product & Strategy Roles</span>
                     </div>
-                    <div className="text-white font-display font-bold text-lg leading-tight uppercase tracking-tight">
+                    <div className="text-white font-display font-bold text-lg leading-tight uppercase">
                       Ayush Chatterjee
                     </div>
-                    <div className="text-zinc-400 text-xs font-mono">
+                    <div className="text-slate-300 text-xs font-mono">
                       MBA &bull; IT & International Business
                     </div>
                   </div>
                 </div>
 
                 {/* Card Footer Quick Highlights */}
-                <div className="pt-3 pb-1 px-1 grid grid-cols-2 gap-2 text-left text-xs font-mono">
-                  <div className="p-2.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.06]">
-                    <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase font-medium">
-                      Location Scope
-                    </div>
-                    <div className="font-semibold text-zinc-900 dark:text-zinc-100 truncate text-xs mt-0.5">India &rarr; Global</div>
+                <div className="pt-3.5 pb-1 px-1 grid grid-cols-2 gap-2 text-left text-xs font-mono">
+                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-white/5">
+                    <div className="text-[10px] text-slate-500 uppercase font-semibold">Location Scope</div>
+                    <div className="font-bold text-slate-900 dark:text-white truncate">India &rarr; Global</div>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.06]">
-                    <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase font-medium">
-                      Primary Track
-                    </div>
-                    <div className="font-semibold text-linear-brand dark:text-linear-accent truncate text-xs mt-0.5">Product Strategy</div>
+                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-white/5">
+                    <div className="text-[10px] text-slate-500 uppercase font-semibold">Primary Track</div>
+                    <div className="font-bold text-accent dark:text-accent-dark truncate">Product Strategy</div>
                   </div>
                 </div>
 
               </div>
 
             </div>
-          </motion.div>
+          </div>
 
-        </motion.div>
+        </div>
 
       </div>
     </section>
