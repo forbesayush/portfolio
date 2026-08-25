@@ -106,11 +106,13 @@ export default function App() {
       </footer>
 
       {/* 5. Front Portrait Cutout (z-20, sits above marquee, pointer-events none) */}
-      <img
-        src="https://stone-expand-60400629.figma.site/_assets/v11/8da570354e86aa0d44ac3e4aa335a72c8e750d68.png"
-        alt="Portrait"
-        className="absolute inset-0 z-20 h-full w-full object-cover pointer-events-none anim-rise-in"
-      />
+      <div className="absolute inset-0 z-20 flex items-end justify-center pointer-events-none anim-rise-in overflow-hidden">
+        <img
+          src="/ayush-portrait.jpg"
+          alt="Ayush Chatterjee"
+          className="h-[78vh] sm:h-[86vh] w-auto max-w-none object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.85)]"
+        />
+      </div>
 
       {/* 6. Header (z-30) */}
       <header className="absolute inset-x-0 top-0 z-30 flex items-start justify-between px-6 pt-6 sm:px-10 sm:pt-8 text-cream pointer-events-auto">
@@ -265,16 +267,21 @@ export default function App() {
           {/* STORY VIEW */}
           {activeDrawer === 'story' && (
             <div className="space-y-6">
-              <div>
-                <span className="block uppercase tracking-[0.2em] text-cream/50 text-xs mb-2">
-                  01 &bull; Narrative & Bio
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-hn font-bold text-cream uppercase">
-                  Ayush Chatterjee
-                </h2>
-                <p className="text-sm text-cream/70 mt-1 font-mono">
-                  {personalInfo.educationBadge}
-                </p>
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-2xl overflow-hidden border border-white/20 shrink-0 bg-zinc-900 shadow-md">
+                  <img src="/ayush-portrait.jpg" alt="Ayush Chatterjee" className="w-full h-full object-cover object-top" />
+                </div>
+                <div>
+                  <span className="block uppercase tracking-[0.2em] text-cream/50 text-xs mb-1">
+                    01 &bull; Narrative & Bio
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-hn font-bold text-cream uppercase">
+                    Ayush Chatterjee
+                  </h2>
+                  <p className="text-xs text-cream/70 mt-0.5 font-mono">
+                    {personalInfo.educationBadge}
+                  </p>
+                </div>
               </div>
 
               <blockquote className="text-base sm:text-lg italic text-cream/90 border-l-2 border-cream pl-4 py-1 leading-relaxed">
