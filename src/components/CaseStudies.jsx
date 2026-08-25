@@ -8,18 +8,17 @@ export default function CaseStudies() {
   const [selectedCase, setSelectedCase] = useState(null);
   const [filter, setFilter] = useState('ALL');
 
-  const categories = ['ALL', 'Product & UX', 'Global Strategy', 'Data & Analytics', 'Strategy & Consulting', 'Product & Tech'];
+  const categories = ['ALL', 'D2C & Growth', 'Brand & Positioning', 'UX & Conversion', 'Strategy & Moats'];
 
   const filteredCases = filter === 'ALL'
     ? caseStudies
     : caseStudies.filter(cs => {
         const badge = cs.badge || '';
         const tags = cs.tags || [];
-        if (filter === 'Product & UX') return badge.includes('PRODUCT') || badge.includes('UX');
-        if (filter === 'Global Strategy') return badge.includes('GLOBAL') || tags.includes('Global Strategy');
-        if (filter === 'Data & Analytics') return badge.includes('ANALYTICS') || tags.includes('Business Analytics');
-        if (filter === 'Strategy & Consulting') return badge.includes('STRATEGY') || tags.includes('SWOT Analysis');
-        if (filter === 'Product & Tech') return badge.includes('TECHNOLOGY') || tags.includes('React 18');
+        if (filter === 'D2C & Growth') return badge.includes('D2C') || badge.includes('GROWTH') || tags.includes('D2C Marketing');
+        if (filter === 'Brand & Positioning') return badge.includes('BRAND') || tags.includes('Brand Positioning');
+        if (filter === 'UX & Conversion') return badge.includes('UX') || tags.includes('CRO');
+        if (filter === 'Strategy & Moats') return badge.includes('STRATEGY') || tags.includes('Brand Strategy');
         return true;
       });
 
@@ -31,15 +30,15 @@ export default function CaseStudies() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 text-left">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
-              <span className="w-2 h-[2px] bg-linear-brand"></span>
-              <span>Section 05 &bull; Case Studies</span>
+            <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
+              <span className="w-2 h-[2px] bg-rose-500"></span>
+              <span>Section 05 &bull; Campaign Casebooks</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
-              Strategic Case Studies.
+              Marketing & Growth Casebooks.
             </h2>
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
-              Structured breakdowns demonstrating problem identification, analytical rigor, technical diagnostics, and measurable business and product impact.
+              Empirical breakdowns demonstrating audience segmentation, full-funnel CRO, D2C unit economics, and verified commercial revenue impact.
             </p>
           </div>
         </div>

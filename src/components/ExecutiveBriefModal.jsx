@@ -24,11 +24,11 @@ export default function ExecutiveBriefModal({ isOpen, onClose }) {
 
   const copyBriefText = () => {
     const text = `
-AYUSH CHATTERJEE - EXECUTIVE SUMMARY
-Product Strategy • Management Consulting • Technology
+AYUSH CHATTERJEE - MARKETING & GROWTH STRATEGIST
+Growth Marketing • Brand Architecture • D2C Full-Funnel Economics
 
 CORE POSITIONING:
-Product × Strategy × Technology × Data × Global Business
+Growth Marketing × Brand Architecture × D2C Strategy × Consumer Psychology
 
 CONTACT:
 Email: ${personalInfo.email}
@@ -37,20 +37,20 @@ Portfolio: ${personalInfo.portfolioDomain}
 
 EDUCATION:
 - MBA: Information Technology & International Business, Regional College of Management (2027)
-- BBA: Business Administration, Regional College of Management (2025)
+- BBA: Business Administration & Marketing, Regional College of Management (2025)
 
-VERIFIED IMPACT METRICS:
-- 22% Reduction in post-release software defect recurrence (OnePlus & Innovist)
-- 15% Improvement in customer task-flow delivery efficiency
-- 20+ Interface bugs evaluated across 4 OS builds
+VERIFIED MARKETING IMPACT METRICS:
 - 35% Improvement in cross-border reporting efficiency (D2C Skincare)
-- 66% Internal stakeholder adoption of strategic growth recommendations
-- 5 Global storefronts analysed & 8 digital storefront modules audited
+- 66% Internal stakeholder adoption of strategic GTM recommendations
+- 17% Repeat-purchase deficit addressed across 5 global storefronts
+- 22% Reduction in UX friction & defect recurrence (OnePlus & Innovist)
+- 15% Improvement in customer task-flow delivery efficiency
+- 20+ Usability and consumer journey audits across 4 OS builds
 
 PRIMARY CAREER TRACK:
-Product Management (Product Strategy, PRDs, UX Diagnostics, GTM, Scrum)
+Growth Marketing & Product Marketing (PMM) (Full-Funnel Acquisition, CRO, CAC:LTV, GTM)
 SECONDARY CAREER TRACK:
-Management Consulting & Strategy (Market Entry, Competitive Moats, Growth)
+Brand Management & Marketing Strategy Consulting (Brand Architecture, STP, Retail Expansion)
     `.trim();
 
     navigator.clipboard.writeText(text);
@@ -117,8 +117,8 @@ Management Consulting & Strategy (Market Entry, Competitive Moats, Growth)
                 <h3 className="text-base font-display font-bold text-zinc-950 dark:text-white uppercase tracking-tight">
                   Ayush Chatterjee
                 </h3>
-                <div className="text-xs font-mono text-linear-brand dark:text-linear-accent font-medium">
-                  MBA (IT & International Business) &bull; Product & Strategy
+                <div className="text-xs font-mono text-rose-500 font-medium">
+                  MBA (IT & International Business) &bull; Growth & Marketing
                 </div>
                 <div className="text-[11px] text-zinc-500 mt-0.5">
                   India &rarr; Global Markets (Germany, Ireland, Netherlands, Australia)

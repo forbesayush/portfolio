@@ -13,15 +13,15 @@ export default function About() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14 text-left">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-linear-brand"></span>
-            <span>Section 01 &bull; About & Trajectory</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-rose-500"></span>
+            <span>Section 01 &bull; Growth & Marketing Trajectory</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
-            A Business Mind With A Product Perspective.
+            A Strategic Mind With A Growth Perspective.
           </h2>
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
-            My career interests sit directly at the convergence of <strong className="text-zinc-950 dark:text-white font-semibold">business model viability</strong>, <strong className="text-zinc-950 dark:text-white font-semibold">technology execution</strong>, <strong className="text-zinc-950 dark:text-white font-semibold">frictionless user experience</strong>, and <strong className="text-zinc-950 dark:text-white font-semibold">product strategy</strong>. Rather than viewing these as separate silos, I connect ground-level consumer realities with data architectures and strategic roadmaps.
+            My career sits directly at the convergence of <strong className="text-zinc-950 dark:text-white font-semibold">consumer buying psychology</strong>, <strong className="text-zinc-950 dark:text-white font-semibold">performance marketing economics</strong>, <strong className="text-zinc-950 dark:text-white font-semibold">frictionless D2C conversion (CRO)</strong>, and <strong className="text-zinc-950 dark:text-white font-semibold">global brand strategy</strong>. Rather than treating creative brand storytelling and quantitative analytics as separate silos, I engineer full-funnel growth engines.
           </p>
         </div>
 

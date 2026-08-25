@@ -5,6 +5,7 @@ import About from './components/About';
 import ExperienceTimeline from './components/ExperienceTimeline';
 import ImpactMetrics from './components/ImpactMetrics';
 import PillarCards from './components/PillarCards';
+import FunnelVisualizer from './components/FunnelVisualizer';
 import CaseStudies from './components/CaseStudies';
 import ProductFramework from './components/ProductFramework';
 import StrategyFramework from './components/StrategyFramework';
@@ -33,7 +34,7 @@ export default function App() {
         console.warn('Storage unavailable:', e);
       }
     }
-    return false; // Default to Light Mode as requested
+    return false; // Default to Light Mode
   });
 
   useEffect(() => {
@@ -66,7 +67,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#08090A] text-zinc-900 dark:text-zinc-100 flex flex-col selection:bg-linear-brand/20 selection:text-linear-brand dark:selection:bg-linear-brand/30 dark:selection:text-white transition-colors duration-300 font-sans">
+    <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#08090A] text-zinc-900 dark:text-zinc-100 flex flex-col selection:bg-rose-500/20 selection:text-rose-500 dark:selection:bg-rose-500/30 dark:selection:text-white transition-colors duration-300 font-sans">
       {/* Sticky Navigation Header */}
       <Navbar 
         isDark={isDark} 
@@ -88,40 +89,43 @@ export default function App() {
         {/* Section 02: Verified Career Journey Timeline */}
         <ExperienceTimeline />
 
-        {/* Section 03: Impact Numbers & Animated Counters */}
+        {/* Section 03: Marketing Performance Telemetry */}
         <ImpactMetrics />
 
-        {/* Section 04: What I Work On (3 Pillars) */}
+        {/* Section 04: The Modern Growth Stack (4 Pillars) */}
         <PillarCards />
 
-        {/* Section 05: Editorial Case Studies */}
+        {/* Section 05: Marketing & Growth Campaign Casebooks */}
         <CaseStudies />
 
-        {/* Section 06: Product Thinking Framework */}
+        {/* Section 06: Interactive Growth & Funnel Simulator */}
+        <FunnelVisualizer />
+
+        {/* Section 07: Go-To-Market Lifecycle Framework */}
         <ProductFramework />
 
-        {/* Section 07: Consulting & Problem Solving Framework */}
+        {/* Section 08: Strategic Problem Solving & Advisory Framework */}
         <StrategyFramework />
 
-        {/* Section 08: Education Timeline */}
+        {/* Section 09: Academic Foundation & Credentials */}
         <Education />
 
-        {/* Section 09: Technical & Professional Toolkit */}
+        {/* Section 10: Marketing & Growth Stack Toolkit */}
         <SkillsMatrix />
 
-        {/* Section 10: Building For A Global Career */}
+        {/* Section 11: International Growth & Global Roadmap */}
         <GlobalCareer />
 
-        {/* Section 11: Dual-Track Career Direction */}
+        {/* Section 12: Dual-Track Marketing Career Trajectory */}
         <CareerPath />
 
-        {/* Stakeholder & Leadership Endorsements */}
+        {/* Section 13: Stakeholder & Leadership Endorsements */}
         <Testimonials />
 
-        {/* Section 12: High-Impact Brand Statement */}
+        {/* Section 14: High-Impact Marketing Brand Statement */}
         <BrandStatement />
 
-        {/* Section 13: Contact & Direct Message Hub */}
+        {/* Section 15: Contact & Growth Inquiry Hub */}
         <Contact />
       </main>
 

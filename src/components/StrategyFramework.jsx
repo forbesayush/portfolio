@@ -52,15 +52,15 @@ export default function StrategyFramework() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14 text-left">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-linear-brand"></span>
-            <span>Section 07 &bull; Strategy & Consulting</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-rose-500"></span>
+            <span>Section 08 &bull; Brand & Growth Consulting</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
-            How I Approach Business Problems.
+            How I Solve Strategic Growth Problems.
           </h2>
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
-            Applying structured management consulting methodologies to deconstruct complex commercial challenges, evaluate market trade-offs, and deliver defensible recommendations.
+            A structured consulting methodology combining classic business frameworks with modern performance marketing data to unlock defensible market differentiation.
           </p>
         </div>
 

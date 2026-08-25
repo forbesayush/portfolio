@@ -1,55 +1,55 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, FileText, Code2, BarChart3, RefreshCw, ArrowRight, CheckCircle2, Sparkles, Layers, Check } from 'lucide-react';
-import { productThinkingFramework } from '../data/portfolioData';
+import { Search, Sparkles, Filter, RefreshCw, BarChart3, ArrowRight, Target, TrendingUp } from 'lucide-react';
+import { marketingFramework } from '../data/portfolioData';
 
-const stepIcons = [Search, FileText, Code2, BarChart3, RefreshCw];
+const stepIcons = [Search, Sparkles, Filter, RefreshCw, BarChart3];
 
 const stageDeepDives = {
   '01': {
-    title: 'DISCOVER — Root-Cause Problem Identification',
+    title: 'RESEARCH & STP — Consumer Insights & Positioning',
     bullets: [
       'Customer telemetry & cohort drop-off mapping across live digital interfaces.',
-      'Qualitative usability interviews to distinguish surface complaints from systemic friction.',
-      'Competitive landscape tearing down to spot differentiation opportunities.'
+      'Qualitative usability interviews to uncover deep consumer pain points and cognitive biases.',
+      'Competitive landscape tearing down to carve defensible brand moats and pricing power.'
     ],
-    deliverable: 'Problem Brief & Value Proposition Canvas'
+    deliverable: 'Audience Persona & Positioning Blueprint'
   },
   '02': {
-    title: 'DEFINE — Requirements Engineering & Prioritization',
+    title: 'HOOK & CREATIVE — Narrative & Creative Matrix',
     bullets: [
-      'Drafting exhaustive Product Requirement Documents (PRDs) with user stories and edge cases.',
-      'RICE scoring (Reach, Impact, Confidence, Effort) to prevent feature bloat.',
-      'Aligning cross-functional stakeholders on Acceptance Criteria.'
+      'Engineering high-converting video and static creative angles with pattern-interrupt hooks.',
+      'Developing emotional value propositions tailored to customer awareness stages (AIDA).',
+      'Systematic creative testing matrices to identify high-ROAS campaign assets.'
     ],
-    deliverable: 'PRD, Acceptance Criteria & Sprint Roadmap'
+    deliverable: 'High-Converting Creative Playbook'
   },
   '03': {
-    title: 'BUILD — Agile Delivery & Technical Diagnostics',
+    title: 'FUNNEL CRO — Conversion Optimization & Bundling',
     bullets: [
-      'Collaborating in bi-weekly sprints with frontend, backend, and QA teams.',
-      'Structured operating system build diagnostics to catch regressions early.',
-      'Iterative prototype validation and usability benchmark tracking.'
+      'Building mobile-first landing pages with zero checkout latency.',
+      'Engineering dynamic tiered volume discounts (Buy 2 Get 1) to elevate Average Order Value (AOV).',
+      'Eliminating checkout friction and integrating 1-click express payments.'
     ],
-    deliverable: 'Tested Release Builds & QA Defect Logs'
+    deliverable: 'High-Converting Storefront & Cart Architecture'
   },
   '04': {
-    title: 'MEASURE — Telemetry & Behavioral Analytics',
+    title: 'LIFECYCLE & LTV — Automated Retention & Loyalty',
     bullets: [
-      'Monitoring North Star metrics, task-flow completion speed, and defect recurrence rates.',
-      'Tracking conversion funnel velocity and Average Order Value (AOV).',
-      'Automated MIS reporting pipelines for real-time stakeholder visibility.'
+      'Deploying automated Klaviyo email flows (Welcome, Abandoned Cart, Win-Back).',
+      'Engineering predictive replenishment notifications timed to consumer consumption cycles.',
+      'Building VIP customer loyalty tiers to maximize long-term Customer Lifetime Value (LTV).'
     ],
-    deliverable: 'Power BI Performance Dashboards & Funnel Audits'
+    deliverable: 'Automated CRM Retention Workflows'
   },
   '05': {
-    title: 'IMPROVE — Continuous Data-Driven Optimization',
+    title: 'ANALYZE & SCALE — Attribution & Scaling Economics',
     bullets: [
-      'A/B experimentation to validate micro-copy, CTA placement, and checkout flows.',
-      'Systematic bug remediation cycles reducing post-release defect recurrence.',
-      'Translating user feedback into the next strategic product iteration.'
+      'Tracking blended Customer Acquisition Cost (CAC) and Marketing Efficiency Ratio (MER).',
+      'Cohort retention curve modeling to substantiate marketing budget scaling.',
+      'Automated Power BI and Google Analytics 4 dashboards for executive visibility.'
     ],
-    deliverable: 'Optimization Backlog & Feature Enhancements'
+    deliverable: 'Full-Funnel Growth Dashboards & Unit Economics Model'
   }
 };
 
@@ -64,21 +64,21 @@ export default function ProductFramework() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14 text-left">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-linear-brand"></span>
-            <span>Section 06 &bull; Product Thinking</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-3 font-semibold">
+            <span className="w-2 h-[2px] bg-rose-500"></span>
+            <span>Section 07 &bull; Go-To-Market Lifecycle</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-zinc-950 dark:text-white tracking-tight uppercase leading-tight mb-4">
-            How I Think About Products.
+            The Growth & Marketing Engine.
           </h2>
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
-            My objective is to develop into a Product Manager capable of connecting ambiguous customer problems with business viability and precision technology execution.
+            A systematic 5-stage framework designed to take new campaigns from initial customer discovery to scalable, repeatable, high-margin revenue.
           </p>
         </div>
 
-        {/* 5-Step Product Framework Pipeline */}
+        {/* 5-Step Marketing Lifecycle Pipeline */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-3.5 relative mb-4">
-          {productThinkingFramework.map((step, idx) => {
+          {marketingFramework.map((step, idx) => {
             const Icon = stepIcons[idx] || Search;
             const isSelected = selectedStep === step.step;
 
@@ -88,13 +88,13 @@ export default function ProductFramework() {
                 onClick={() => setSelectedStep(step.step)}
                 className={`text-left p-5 rounded-2xl border transition-all duration-150 group flex flex-col justify-between relative overflow-hidden ${
                   isSelected
-                    ? 'bg-white dark:bg-[#0E1015] border-black/20 dark:border-white/20 shadow-xs text-zinc-950 dark:text-white linear-card'
+                    ? 'bg-white dark:bg-[#0E1015] border-rose-500/40 shadow-xs text-zinc-950 dark:text-white linear-card'
                     : 'bg-white/70 dark:bg-[#0E1015]/60 border-black/[0.06] dark:border-white/[0.06] hover:bg-white dark:hover:bg-[#0E1015]'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-mono font-medium text-linear-brand dark:text-linear-accent">
+                    <span className="text-[10px] font-mono font-medium text-rose-500">
                       STAGE {step.step}
                     </span>
                     <div className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.05] flex items-center justify-center text-zinc-700 dark:text-zinc-300">
@@ -115,7 +115,7 @@ export default function ProductFramework() {
                 </div>
 
                 <div className="pt-3 mt-3 border-t border-black/[0.04] dark:border-white/[0.06] text-[10px] font-mono text-zinc-500 dark:text-zinc-400 font-medium flex items-center gap-1">
-                  <span>{isSelected ? 'Active Deep Dive' : 'Explore'}</span>
+                  <span>{isSelected ? 'Active Playbook' : 'Explore'}</span>
                   <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </button>
@@ -135,8 +135,8 @@ export default function ProductFramework() {
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 mb-4 border-b border-black/[0.06] dark:border-white/[0.08]">
               <div>
-                <span className="text-[10px] font-mono text-linear-brand dark:text-linear-accent uppercase font-medium">
-                  Stage {selectedStep} Operational Blueprint
+                <span className="text-[10px] font-mono text-rose-500 uppercase font-medium">
+                  Stage {selectedStep} Growth Blueprint
                 </span>
                 <h4 className="text-base sm:text-lg font-display font-bold text-zinc-950 dark:text-white uppercase mt-0.5">
                   {activeDeepDive.title}
@@ -150,7 +150,7 @@ export default function ProductFramework() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {activeDeepDive.bullets.map((bullet, i) => (
                 <div key={i} className="flex items-start gap-2.5 p-3.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.05] dark:border-white/[0.06] text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-linear-brand/80 dark:bg-linear-accent/80 shrink-0 mt-1.5"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0 mt-1.5"></span>
                   <span>{bullet}</span>
                 </div>
               ))}
@@ -158,19 +158,19 @@ export default function ProductFramework() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Product Positioning Summary Quote */}
+        {/* Growth Philosophy Quote */}
         <div className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#0E1015] border border-black/[0.08] dark:border-white/[0.08] shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-5 text-left linear-card">
           <div className="space-y-1 max-w-3xl">
             <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-semibold">
-              The Product Management Commitment
+              The Marketing & Growth Commitment
             </span>
             <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-200 leading-relaxed font-normal">
-              "Great product management is neither pure code nor pure marketing; it is the discipline of creating defensible business value by solving real human friction with software that works flawlessly."
+              "Great marketing is not vanity metrics; it is the science of understanding human psychology, engineering viral growth loops, and maximizing Customer Lifetime Value (LTV)."
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-xs font-mono text-zinc-600 dark:text-zinc-300 bg-black/[0.03] dark:bg-white/[0.04] px-3.5 py-1.5 rounded-lg border border-black/[0.06] dark:border-white/[0.08] font-medium">
-              Pragmatic &bull; User-Centric &bull; Data-Backed
+            <span className="text-xs font-mono text-rose-600 dark:text-rose-400 bg-rose-500/10 px-3.5 py-1.5 rounded-lg border border-rose-500/20 font-medium">
+              Data-Backed &bull; Creative &bull; ROI-Driven
             </span>
           </div>
         </div>

@@ -16,9 +16,10 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
     { name: 'HOME', href: '#home' },
     { name: 'ABOUT', href: '#about' },
     { name: 'EXPERIENCE', href: '#experience' },
-    { name: 'CASE STUDIES', href: '#case-studies' },
+    { name: 'FUNNEL', href: '#funnel' },
+    { name: 'CASEBOOKS', href: '#case-studies' },
+    { name: 'MARKETING STACK', href: '#skills' },
     { name: 'STRATEGY', href: '#strategy' },
-    { name: 'PRODUCT', href: '#product' },
     { name: 'GLOBAL', href: '#global' },
     { name: 'CONTACT', href: '#contact' },
   ];
@@ -60,9 +61,9 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
             className="fixed top-0 inset-x-0 z-50 bg-[#12141A] text-zinc-200 text-xs font-mono py-2 px-4 flex items-center justify-between border-b border-white/10 shadow-md"
           >
             <div className="flex items-center gap-2 max-w-7xl mx-auto truncate">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
               <span className="truncate">
-                VIP Recruiter: <strong className="font-semibold text-white">{vipVisitor.name || 'Executive Guest'}</strong>
+                Marketing Recruiter: <strong className="font-semibold text-white">{vipVisitor.name || 'Executive Guest'}</strong>
                 {vipVisitor.company ? ` from ${vipVisitor.company}` : ''} &bull; Verified Session
               </span>
             </div>
@@ -99,13 +100,13 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
                   Ayush Chatterjee
                 </span>
                 <span className="text-[10px] tracking-widest text-zinc-500 dark:text-zinc-400 font-mono flex items-center gap-1.5 uppercase font-medium">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  PRODUCT &bull; STRATEGY
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                  GROWTH &bull; MARKETING &bull; D2C
                 </span>
               </div>
             </a>
 
-            {/* Desktop Navigation Links (Linear Minimal Pill) */}
+            {/* Desktop Navigation Links */}
             <nav className="hidden xl:flex items-center gap-0.5 bg-black/[0.03] dark:bg-white/[0.04] backdrop-blur-xl px-2 py-1 rounded-full border border-black/[0.06] dark:border-white/[0.08]">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.substring(1);
@@ -113,7 +114,7 @@ export default function Navbar({ isDark, onToggleTheme, onOpenBrief }) {
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`relative px-3.5 py-1 rounded-full text-xs font-mono tracking-wider transition-colors duration-150 ${
+                    className={`relative px-3 py-1 rounded-full text-xs font-mono tracking-wider transition-colors duration-150 ${
                       isActive
                         ? 'text-zinc-950 dark:text-white font-semibold'
                         : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'

@@ -14,10 +14,10 @@ export default function BrandStatement() {
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-zinc-500 dark:text-zinc-400 uppercase mb-6 font-semibold"
+          className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-rose-500 uppercase mb-6 font-semibold"
         >
-          <span className="w-2 h-[2px] bg-linear-brand"></span>
-          <span>Section 12 &bull; Core Philosophy</span>
+          <span className="w-2 h-[2px] bg-rose-500"></span>
+          <span>Section 14 &bull; Growth Philosophy</span>
         </motion.div>
 
         {/* Large Typography Statement */}
@@ -55,8 +55,8 @@ export default function BrandStatement() {
               <div className="text-sm font-display font-bold text-zinc-950 dark:text-white uppercase tracking-tight">
                 Ayush Chatterjee
               </div>
-              <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 font-normal">
-                MBA (IT & International Business) &bull; Product & Strategy
+              <div className="text-xs font-mono text-rose-500 font-normal">
+                MBA (IT & International Business) &bull; Growth & Marketing
               </div>
             </div>
           </div>
