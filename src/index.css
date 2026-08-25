@@ -11,15 +11,35 @@
     padding: 0;
   }
   
-  html, body {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
     background-color: #000000;
     color: #efeee9;
     font-family: 'Helvetica Neue ME', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Custom subtle dark scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(239, 238, 233, 0.2);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(239, 238, 233, 0.4);
   }
 }
 
