@@ -7,15 +7,33 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ExecutiveBriefModal from './components/ExecutiveBriefModal';
+import OmnirouteHub from './components/OmnirouteHub';
 import { trackVisitor } from './utils/telegramTracker';
 
 export default function App() {
   const [isBriefOpen, setIsBriefOpen] = useState(false);
+  const [viewMode, setViewMode] = useState('portfolio'); // 'portfolio' | 'omniroute'
 
   useEffect(() => {
     document.documentElement.classList.add('dark');
     trackVisitor();
+
+    // Check hash for /#omniroute
+    if (window.location.hash === '#omniroute') {
+      setViewMode('omniroute');
+    }
   }, []);
+
+  if (viewMode === 'omniroute') {
+    return (
+      <OmnirouteHub 
+        onBackToPortfolio={() => {
+          window.location.hash = '';
+          setViewMode('portfolio');
+        }}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#090A0F] text-[#F8FAFC] flex flex-col font-sans selection:bg-orange-500/20 selection:text-orange-200 antialiased relative">
@@ -23,6 +41,10 @@ export default function App() {
       {/* Refined Minimalist Navbar */}
       <Navbar 
         onOpenBrief={() => setIsBriefOpen(true)}
+        onOpenOmniroute={() => {
+          window.location.hash = 'omniroute';
+          setViewMode('omniroute');
+        }}
       />
 
       {/* Main Content Modules */}

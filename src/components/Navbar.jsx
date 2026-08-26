@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Download, FileText, ArrowUpRight, Menu, X } from 'lucide-react';
+import { Download, FileText, ArrowUpRight, Menu, X, Cpu } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export default function Navbar({ onOpenBrief }) {
+export default function Navbar({ onOpenBrief, onOpenOmniroute }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -46,6 +46,16 @@ export default function Navbar({ onOpenBrief }) {
               {link.label}
             </a>
           ))}
+
+          {/* Omniroute Studio Trigger */}
+          <button
+            onClick={onOpenOmniroute}
+            className="text-xs font-medium text-orange-400 hover:text-orange-300 transition-colors flex items-center gap-1.5"
+            title="Open Omniroute Multi-Model Developer Studio"
+          >
+            <Cpu className="w-3.5 h-3.5" />
+            <span>Omniroute Hub</span>
+          </button>
         </nav>
 
         {/* Right Actions */}
@@ -103,6 +113,13 @@ export default function Navbar({ onOpenBrief }) {
                 {link.label}
               </a>
             ))}
+            <button
+              onClick={() => { setMobileMenuOpen(false); onOpenOmniroute(); }}
+              className="text-xs font-medium text-orange-400 py-1.5 text-left flex items-center gap-1.5"
+            >
+              <Cpu className="w-3.5 h-3.5" />
+              <span>Omniroute Developer Studio</span>
+            </button>
           </nav>
           <div className="pt-3 border-t border-white/[0.06] flex flex-wrap gap-2">
             <button
