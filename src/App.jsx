@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import ExecutiveDashboard from './components/ExecutiveDashboard';
 import CaseStudies from './components/CaseStudies';
 import ExperienceTimeline from './components/ExperienceTimeline';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ExecutiveBriefModal from './components/ExecutiveBriefModal';
-import QuickActionsDock from './components/QuickActionsDock';
 import { trackVisitor } from './utils/telegramTracker';
 
 export default function App() {
   const [isBriefOpen, setIsBriefOpen] = useState(false);
 
   useEffect(() => {
-    // Remove dark class for luxury light theme
-    document.documentElement.classList.remove('dark');
-    // Track visitor arrival via encrypted Telegram bot telemetry
+    document.documentElement.classList.add('dark');
     trackVisitor();
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAFAF8] text-[#111318] flex flex-col font-sans selection:bg-[#C5A880]/30 selection:text-[#5B4323] antialiased relative">
+    <div className="min-h-screen bg-[#090A0F] text-[#F8FAFC] flex flex-col font-sans selection:bg-orange-500/20 selection:text-orange-200 antialiased relative">
       
-      {/* Luxury Navigation Bar */}
+      {/* Refined Minimalist Navbar */}
       <Navbar 
         onOpenBrief={() => setIsBriefOpen(true)}
       />
@@ -32,35 +28,27 @@ export default function App() {
       {/* Main Content Modules */}
       <main className="flex-grow">
         
-        {/* Module 00: Editorial Luxury Hero */}
+        {/* Module 01: Hero & Strategic Positioning */}
         <Hero 
           onOpenBrief={() => setIsBriefOpen(true)}
         />
 
-        {/* Module 01: Interactive Executive Growth Dashboard & Panels */}
-        <ExecutiveDashboard />
-
-        {/* Module 02: STAR Method Project Casebooks (Situation, Task, Action, Result) */}
+        {/* Module 02: STAR Method Project Case Studies */}
         <CaseStudies />
 
-        {/* Module 03: Commercial Experience Ledger */}
+        {/* Module 03: Work Experience & Career Ledger */}
         <ExperienceTimeline />
 
-        {/* Module 04: Executive Bio & 4 Core Pillars */}
+        {/* Module 04: Profile, Philosophy & Academic Foundation */}
         <About />
 
-        {/* Module 05: Private Mandate & Communication Terminal */}
+        {/* Module 05: Direct Contact Inquiry */}
         <Contact />
 
       </main>
 
-      {/* Luxury Footer */}
+      {/* Global Clean Footer */}
       <Footer />
-
-      {/* Floating System Action Dock */}
-      <QuickActionsDock 
-        onOpenBrief={() => setIsBriefOpen(true)}
-      />
 
       {/* 1-Page Executive ATS Brief Modal */}
       <ExecutiveBriefModal

@@ -11,119 +11,97 @@
   
   html {
     scroll-behavior: smooth;
-    color-scheme: light;
-    background-color: #FAFAF8;
+    color-scheme: dark;
+    background-color: #090A0F;
   }
 
   body {
-    background-color: #FAFAF8;
-    color: #111318;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #090A0F;
+    color: #F8FAFC;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    line-height: 1.6;
   }
 
-  /* Luxury Gold Scrollbar */
+  /* Minimal Dark Scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #FAFAF8;
+    background: #090A0F;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(179, 143, 91, 0.3);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #B38F5B;
+    background: rgba(249, 115, 22, 0.4);
   }
 }
 
-/* Luxury Silk Mesh Background */
-.luxury-silk-bg {
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(244, 239, 230, 0.8) 0px, transparent 60%),
-    radial-gradient(at 100% 0%, rgba(197, 168, 128, 0.15) 0px, transparent 60%),
-    radial-gradient(at 50% 100%, rgba(236, 231, 221, 0.7) 0px, transparent 60%);
+/* Linear-Style Surface Cards */
+.clean-card {
+  background: #0F1118;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.luxury-grid-lines {
-  background-size: 48px 48px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+.clean-card:hover {
+  border-color: rgba(249, 115, 22, 0.3);
 }
 
-/* Marquee Animation */
-@keyframes marqueeLeft {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+/* Subtle Section Divider */
+.section-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.animate-luxury-marquee {
-  animation: marqueeLeft 30s linear infinite;
-  will-change: transform;
-}
-
-/* Luxury Card & Button Utilities */
-.luxury-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  box-shadow: 0 15px 40px -15px rgba(0, 0, 0, 0.04);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.luxury-card:hover {
-  border-color: rgba(179, 143, 91, 0.35);
-  box-shadow: 0 25px 60px -18px rgba(179, 143, 91, 0.15);
-  transform: translateY(-2px);
-}
-
-.btn-luxury-gold {
-  background: linear-gradient(135deg, #C5A880 0%, #B38F5B 100%);
+/* Restrained Primary Button */
+.btn-primary {
+  background: #F97316;
   color: #FFFFFF;
-  font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 6px 20px rgba(179, 143, 91, 0.25);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-luxury-gold:hover {
-  background: linear-gradient(135deg, #D4AF37 0%, #B38F5B 100%);
-  box-shadow: 0 8px 28px rgba(179, 143, 91, 0.4);
-  transform: translateY(-1px);
-}
-
-.btn-luxury-dark {
-  background: #111318;
-  color: #FFFFFF;
-  font-weight: 600;
+  font-weight: 500;
+  border-radius: 0.5rem;
   transition: all 0.2s ease;
 }
 
-.btn-luxury-dark:hover {
-  background: #222630;
-  color: #FFFFFF;
-  transform: translateY(-1px);
+.btn-primary:hover {
+  background: #EA580C;
 }
 
-.btn-luxury-outline {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: #111318;
+/* Secondary Outline Button */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #E2E8F0;
+  border-radius: 0.5rem;
   transition: all 0.2s ease;
 }
 
-.btn-luxury-outline:hover {
-  border-color: #B38F5B;
-  background: #FAFAF8;
-  color: #8A6B3D;
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+/* Clean Input Fields */
+.clean-input {
+  width: 100%;
+  background: #090A0F;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #F8FAFC;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.clean-input:focus {
+  outline: none;
+  border-color: #F97316;
 }

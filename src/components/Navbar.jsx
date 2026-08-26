@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Download, FileText, Menu, X, Sparkles } from 'lucide-react';
+import { Download, FileText, ArrowUpRight, Menu, X } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function Navbar({ onOpenBrief }) {
@@ -14,143 +13,117 @@ export default function Navbar({ onOpenBrief }) {
   }, []);
 
   const navLinks = [
-    { label: 'Overview', href: '#home' },
-    { label: 'Dashboard', href: '#dashboard' },
-    { label: 'STAR Casebooks', href: '#projects' },
+    { label: 'Case Studies', href: '#projects' },
     { label: 'Experience', href: '#experience' },
-    { label: 'Philosophy', href: '#about' },
+    { label: 'About', href: '#about' },
     { label: 'Contact', href: '#contact' },
   ];
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-[#FAFAF8]/95 backdrop-blur-xl border-b border-black/[0.06] py-3.5 shadow-sm' : 'bg-transparent py-5'
+    <header className={`fixed top-0 inset-x-0 z-50 transition-colors duration-200 ${
+      isScrolled ? 'bg-[#090A0F]/90 backdrop-blur-md border-b border-white/[0.08]' : 'bg-transparent border-b border-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="max-w-portfolio mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        {/* Luxury Gold Monogram Logo */}
-        <a href="#home" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#D4AF37] via-[#B38F5B] to-[#8A6B3D] p-[1px] shadow-sm">
-            <div className="w-full h-full bg-[#FFFFFF] rounded-[15px] flex items-center justify-center font-luxury font-bold text-base text-[#8A6B3D] group-hover:bg-transparent group-hover:text-white transition-all">
-              AC
-            </div>
-          </div>
-          <div className="text-left hidden sm:block">
-            <div className="font-luxury font-bold text-base text-[#111318] tracking-wider uppercase">
-              {personalInfo.name}
-            </div>
-            <div className="text-[10px] font-mono text-[#8A6B3D] font-semibold tracking-widest uppercase">
-              Product & Growth Practice
-            </div>
-          </div>
+        {/* Brand Name */}
+        <a href="#home" className="flex items-center gap-2.5 group">
+          <span className="font-semibold text-sm text-slate-100 tracking-tight">
+            Ayush Chatterjee
+          </span>
+          <span className="text-[11px] font-mono text-slate-400 px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.06] hidden sm:inline">
+            Product &bull; Growth
+          </span>
         </a>
 
-        {/* Center Floating Pill Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 bg-[#FFFFFF] px-5 py-2 rounded-full border border-black/[0.06] shadow-sm">
+        {/* Center Nav Links */}
+        <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="px-3.5 py-1 text-xs font-sans font-semibold text-slate-600 hover:text-[#8A6B3D] hover:bg-[#FAFAF8] rounded-full transition-all tracking-wide"
+              className="text-xs font-medium text-slate-400 hover:text-slate-100 transition-colors"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* Right Actions Cluster */}
-        <div className="hidden sm:flex items-center gap-2.5">
+        {/* Right Actions */}
+        <div className="hidden sm:flex items-center gap-3">
           <button
             onClick={onOpenBrief}
-            className="px-4 py-2 rounded-full btn-luxury-outline text-xs font-mono font-semibold flex items-center gap-1.5"
-            title="Open 1-Page ATS Audit Brief"
+            className="text-xs font-medium text-slate-300 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors flex items-center gap-1.5"
+            title="View 1-Page Executive ATS Brief"
           >
-            <FileText className="w-3.5 h-3.5 text-[#B38F5B]" />
-            <span>1P BRIEF</span>
+            <FileText className="w-3.5 h-3.5 text-slate-400" />
+            <span>1P Brief</span>
           </button>
 
           <a
             href="/Ayush_Chatterjee_CV.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-full btn-luxury-outline text-xs font-mono font-semibold flex items-center gap-1.5"
-            title="Download Official Resume PDF"
+            className="text-xs font-medium text-slate-300 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors flex items-center gap-1.5"
           >
-            <Download className="w-3.5 h-3.5 text-[#B38F5B]" />
+            <Download className="w-3.5 h-3.5 text-slate-400" />
             <span>CV</span>
           </a>
 
           <a
             href="#contact"
-            className="px-5 py-2 rounded-full btn-luxury-dark text-xs font-sans font-bold flex items-center gap-1.5 tracking-wider uppercase"
+            className="text-xs font-medium text-white bg-orange-600 hover:bg-orange-500 px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1 shadow-sm"
           >
-            <span>INQUIRE</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-amber-300" />
+            <span>Get in touch</span>
+            <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
           </a>
         </div>
 
         {/* Mobile Menu Trigger */}
         <button
           onClick={() => setMobileMenuOpen(prev => !prev)}
-          className="lg:hidden p-2 rounded-xl bg-white border border-black/10 text-slate-700 hover:text-black"
-          aria-label="Toggle menu"
+          className="md:hidden p-1.5 text-slate-400 hover:text-white"
+          aria-label="Toggle navigation menu"
         >
           {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
 
       </div>
 
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#FFFFFF] border-b border-black/10 px-6 py-6 space-y-4 shadow-xl"
-          >
-            <nav className="flex flex-col space-y-2">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-2.5 rounded-xl text-sm font-sans font-medium text-slate-800 hover:bg-[#FAFAF8] text-left"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-
-            <div className="pt-4 border-t border-black/10 flex flex-col gap-2">
-              <button
-                onClick={() => { setMobileMenuOpen(false); onOpenBrief(); }}
-                className="w-full py-2.5 rounded-full btn-luxury-outline text-xs font-mono font-semibold flex items-center justify-center gap-2"
-              >
-                <FileText className="w-4 h-4 text-[#B38F5B]" />
-                <span>1-PAGE EXECUTIVE BRIEF</span>
-              </button>
+      {/* Mobile Dropdown */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-[#0F1118] border-b border-white/[0.08] px-5 py-4 space-y-3">
+          <nav className="flex flex-col space-y-2">
+            {navLinks.map((link) => (
               <a
-                href="/Ayush_Chatterjee_CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 rounded-full btn-luxury-outline text-xs font-mono font-semibold flex items-center justify-center gap-2"
-              >
-                <Download className="w-4 h-4 text-[#B38F5B]" />
-                <span>DOWNLOAD RESUME CV</span>
-              </a>
-              <a
-                href="#contact"
+                key={link.label}
+                href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 rounded-full btn-luxury-dark text-xs font-sans font-bold flex items-center justify-center gap-2 uppercase"
+                className="text-xs font-medium text-slate-300 hover:text-white py-1.5"
               >
-                <span>COMMISSION / INQUIRE</span>
-                <ArrowUpRight className="w-4 h-4" />
+                {link.label}
               </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+          </nav>
+          <div className="pt-3 border-t border-white/[0.06] flex flex-wrap gap-2">
+            <button
+              onClick={() => { setMobileMenuOpen(false); onOpenBrief(); }}
+              className="text-xs text-slate-300 py-1.5 px-3 rounded bg-white/[0.04] flex items-center gap-1"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>1P Brief</span>
+            </button>
+            <a
+              href="/Ayush_Chatterjee_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-slate-300 py-1.5 px-3 rounded bg-white/[0.04] flex items-center gap-1"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Resume (PDF)</span>
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
