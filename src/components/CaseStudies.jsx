@@ -1,5 +1,4 @@
 import React from 'react';
-import { CheckCircle2, ArrowUpRight } from 'lucide-react';
 import { starCaseStudies } from '../data/portfolioData';
 
 export default function CaseStudies() {
@@ -10,10 +9,10 @@ export default function CaseStudies() {
         {/* Section Header */}
         <div className="max-w-2xl mb-12">
           <div className="text-xs font-mono uppercase tracking-widest text-orange-400 font-semibold mb-2">
-            Selected Work &bull; STAR Method Casebooks
+            Selected Campaigns &bull; STAR Method Casebooks
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-100">
-            Case Studies & Measurable Impact
+            Marketing Campaigns & Growth Case Studies
           </h2>
           <p className="text-sm text-slate-400 mt-2 leading-relaxed">
             Deconstructed through Situation, Task, Action, and Result with verified commercial telemetry.
@@ -63,7 +62,7 @@ export default function CaseStudies() {
                 {/* [S] Situation */}
                 <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
                   <div className="text-xs font-mono font-semibold text-slate-300 mb-1">
-                    [S] Situation
+                    [S] Situation & Baseline
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed font-normal">
                     {project.star.situation}
@@ -73,7 +72,7 @@ export default function CaseStudies() {
                 {/* [T] Task */}
                 <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
                   <div className="text-xs font-mono font-semibold text-slate-300 mb-1">
-                    [T] Task & Objective
+                    [T] Strategic Task & Targets
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed font-normal">
                     {project.star.task}
@@ -83,7 +82,7 @@ export default function CaseStudies() {
                 {/* [A] Action */}
                 <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
                   <div className="text-xs font-mono font-semibold text-slate-300 mb-1">
-                    [A] Action & Systems Built
+                    [A] Execution & Workflows
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed font-normal">
                     {project.star.action}
@@ -93,7 +92,7 @@ export default function CaseStudies() {
                 {/* [R] Result */}
                 <div className="p-4 rounded-xl bg-white/[0.02] border border-orange-500/20 bg-orange-500/[0.02]">
                   <div className="text-xs font-mono font-semibold text-orange-400 mb-1">
-                    [R] Quantifiable Result
+                    [R] Verified Quantifiable Result
                   </div>
                   <p className="text-xs text-slate-300 leading-relaxed font-normal">
                     {project.star.result}
@@ -107,7 +106,7 @@ export default function CaseStudies() {
                 
                 {/* Deliverables */}
                 <div className="space-y-1">
-                  <div className="text-[11px] font-mono text-slate-500 font-semibold">Key Deliverables:</div>
+                  <div className="text-[11px] font-mono text-slate-500 font-semibold">Key Deliverables Built:</div>
                   <div className="flex flex-wrap gap-x-4 gap-y-1 text-slate-400">
                     {project.deliverables.map((del, dIdx) => (
                       <span key={dIdx} className="flex items-center gap-1.5">

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Download, FileText, ArrowUpRight, Menu, X, Cpu } from 'lucide-react';
+import { Download, FileText, ArrowUpRight, Menu, X } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export default function Navbar({ onOpenBrief, onOpenOmniroute }) {
+export default function Navbar({ onOpenBrief }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -13,9 +13,9 @@ export default function Navbar({ onOpenBrief, onOpenOmniroute }) {
   }, []);
 
   const navLinks = [
-    { label: 'Case Studies', href: '#projects' },
+    { label: 'Campaigns & STAR', href: '#projects' },
     { label: 'Experience', href: '#experience' },
-    { label: 'About', href: '#about' },
+    { label: 'Disciplines', href: '#about' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -31,7 +31,7 @@ export default function Navbar({ onOpenBrief, onOpenOmniroute }) {
             Ayush Chatterjee
           </span>
           <span className="text-[11px] font-mono text-slate-400 px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.06] hidden sm:inline">
-            Product &bull; Growth
+            Digital Marketing &bull; Growth
           </span>
         </a>
 
@@ -46,16 +46,6 @@ export default function Navbar({ onOpenBrief, onOpenOmniroute }) {
               {link.label}
             </a>
           ))}
-
-          {/* Omniroute Studio Trigger */}
-          <button
-            onClick={onOpenOmniroute}
-            className="text-xs font-medium text-orange-400 hover:text-orange-300 transition-colors flex items-center gap-1.5"
-            title="Open Omniroute Multi-Model Developer Studio"
-          >
-            <Cpu className="w-3.5 h-3.5" />
-            <span>Omniroute Hub</span>
-          </button>
         </nav>
 
         {/* Right Actions */}
@@ -63,7 +53,7 @@ export default function Navbar({ onOpenBrief, onOpenOmniroute }) {
           <button
             onClick={onOpenBrief}
             className="text-xs font-medium text-slate-300 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors flex items-center gap-1.5"
-            title="View 1-Page Executive ATS Brief"
+            title="View 1-Page Executive Summary"
           >
             <FileText className="w-3.5 h-3.5 text-slate-400" />
             <span>1P Brief</span>
@@ -113,13 +103,6 @@ export default function Navbar({ onOpenBrief, onOpenOmniroute }) {
                 {link.label}
               </a>
             ))}
-            <button
-              onClick={() => { setMobileMenuOpen(false); onOpenOmniroute(); }}
-              className="text-xs font-medium text-orange-400 py-1.5 text-left flex items-center gap-1.5"
-            >
-              <Cpu className="w-3.5 h-3.5" />
-              <span>Omniroute Developer Studio</span>
-            </button>
           </nav>
           <div className="pt-3 border-t border-white/[0.06] flex flex-wrap gap-2">
             <button

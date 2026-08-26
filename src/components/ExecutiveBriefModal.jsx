@@ -23,25 +23,26 @@ export default function ExecutiveBriefModal({ isOpen, onClose }) {
 
   const copyBriefText = () => {
     const text = `
-AYUSH CHATTERJEE — PRODUCT MANAGER & GROWTH STRATEGIST
-MBA (IT & International Business) • BBA in Marketing
+AYUSH CHATTERJEE — DIGITAL MARKETING & GROWTH STRATEGIST
+MBA (IT & International Business) • BBA in Marketing & Consumer Behavior
 Website: https://${personalInfo.portfolioDomain}
 Email: ${personalInfo.email}
 LinkedIn: ${personalInfo.linkedinUrl}
 
-CORE POSITIONING:
-Product Management × Unit Economics (CAC:LTV) × Funnel CRO × D2C Analytics
+CORE COMPETENCIES:
+Full-Funnel Paid Acquisition × Unit Economics (CAC:LTV) × Conversion Rate Optimization (CRO) × Lifecycle CRM (Klaviyo)
 
-VERIFIED IMPACT METRICS:
-- 35% Acceleration in Cross-Border Storefront MIS Reporting Speed
-- 24% Average Order Value (AOV) Increase via Dynamic Volume Tiering
+VERIFIED CAMPAIGN METRICS:
+- $4.2M+ Attributed E-Commerce Volume Analyzed
+- 35% Acceleration in Cross-Border MIS Reporting Speed
+- 24% Average Order Value (AOV) Increase via Dynamic Cart Tiering
 - 3.4x CAC:LTV Multiplier achieved across 5 International Markets
-- 22% Reduction in UX Defect Tickets across User Journey Task Flows
-- 15% Increase in Core Exploratory Task Flow Completion Velocity
+- 22% Reduction in Funnel Friction Defects across User Task Flows
+- 15% Increase in Core Exploratory Flow Completion Velocity
 
 PROFESSIONAL EXPERIENCE:
-1. OnePlus & Innovist — UX Analyst & Product Strategy (2024)
-2. Innovist D2C Skincare Portfolio — Growth & Retention Analytics Lead (2023–2024)
+1. OnePlus & Innovist — Growth & UX Analytics Lead (2024)
+2. Innovist D2C Skincare Portfolio — Growth & Retention Marketing Lead (2023–2024)
 3. D-DZIRE Jewels — Retail Operations & Clienteling Strategist (2022–2023)
 4. Swash Consulting Limited — Media & Strategy Consultant (2021–2022)
 
@@ -64,10 +65,10 @@ ACADEMIC CREDENTIALS:
         <div className="sticky top-0 z-10 bg-[#0F1118]/95 backdrop-blur-md px-6 py-4 border-b border-white/[0.08] flex items-center justify-between">
           <div>
             <span className="text-[11px] font-mono uppercase text-orange-400 font-semibold">
-              Candidate Brief
+              Executive Brief
             </span>
             <h2 className="text-base font-semibold text-white">
-              Ayush Chatterjee &bull; 1-Page Executive Summary
+              Ayush Chatterjee &bull; Digital Marketing & Growth Dossier
             </h2>
           </div>
 
@@ -93,14 +94,14 @@ ACADEMIC CREDENTIALS:
         <div className="p-6 space-y-6 text-xs">
           
           <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-1.5">
-            <div className="font-mono text-slate-400 font-medium">Executive Profile</div>
+            <div className="font-mono text-slate-400 font-medium">Marketing Profile</div>
             <p className="text-slate-300 leading-relaxed font-sans text-xs">
-              MBA professional specializing in Product Management, Quantitative Unit Economics (CAC:LTV), Full-Funnel CRO, and D2C Storefront Analytics. Combines structured consulting frameworks with heuristic analysis to eliminate UX friction and drive measurable commercial scale.
+              MBA professional specializing in Full-Funnel Digital Marketing, Paid Media Efficiency, Unit Economics (CAC:LTV), Conversion Rate Optimization (CRO), and D2C Lifecycle Retention. Combines consumer buying psychology with data telemetry to drive measurable, high-margin commercial growth.
             </p>
           </div>
 
           <div>
-            <div className="font-mono text-slate-400 font-medium mb-2.5">Key Metrics</div>
+            <div className="font-mono text-slate-400 font-medium mb-2.5">Key Performance Metrics</div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               {heroTelemetry.map((m, idx) => (
                 <div key={idx} className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.05]">
@@ -128,7 +129,7 @@ ACADEMIC CREDENTIALS:
           </div>
 
           <div>
-            <div className="font-mono text-slate-400 font-medium mb-2.5">Academic Credentials</div>
+            <div className="font-mono text-slate-400 font-medium mb-2.5">Academic Background</div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {academicCredentials.map((ac, idx) => (
                 <div key={idx} className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.05] space-y-0.5">

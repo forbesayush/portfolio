@@ -7,64 +7,42 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ExecutiveBriefModal from './components/ExecutiveBriefModal';
-import OmnirouteHub from './components/OmnirouteHub';
 import { trackVisitor } from './utils/telegramTracker';
 
 export default function App() {
   const [isBriefOpen, setIsBriefOpen] = useState(false);
-  const [viewMode, setViewMode] = useState('portfolio'); // 'portfolio' | 'omniroute'
 
   useEffect(() => {
     document.documentElement.classList.add('dark');
     trackVisitor();
-
-    // Check hash for /#omniroute
-    if (window.location.hash === '#omniroute') {
-      setViewMode('omniroute');
-    }
   }, []);
-
-  if (viewMode === 'omniroute') {
-    return (
-      <OmnirouteHub 
-        onBackToPortfolio={() => {
-          window.location.hash = '';
-          setViewMode('portfolio');
-        }}
-      />
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#090A0F] text-[#F8FAFC] flex flex-col font-sans selection:bg-orange-500/20 selection:text-orange-200 antialiased relative">
       
-      {/* Refined Minimalist Navbar */}
+      {/* Refined Digital Marketing Navigation Header */}
       <Navbar 
         onOpenBrief={() => setIsBriefOpen(true)}
-        onOpenOmniroute={() => {
-          window.location.hash = 'omniroute';
-          setViewMode('omniroute');
-        }}
       />
 
       {/* Main Content Modules */}
       <main className="flex-grow">
         
-        {/* Module 01: Hero & Strategic Positioning */}
+        {/* Module 01: Hero & Marketing Positioning */}
         <Hero 
           onOpenBrief={() => setIsBriefOpen(true)}
         />
 
-        {/* Module 02: STAR Method Project Case Studies */}
+        {/* Module 02: STAR Method Marketing Campaigns */}
         <CaseStudies />
 
         {/* Module 03: Work Experience & Career Ledger */}
         <ExperienceTimeline />
 
-        {/* Module 04: Profile, Philosophy & Academic Foundation */}
+        {/* Module 04: Marketing Philosophy & Academic Foundation */}
         <About />
 
-        {/* Module 05: Direct Contact Inquiry */}
+        {/* Module 05: Consultation & Brand Inquiry */}
         <Contact />
 
       </main>
