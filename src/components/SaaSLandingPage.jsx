@@ -249,17 +249,17 @@ export default function SaaSLandingPage({ onBackToPortfolio }) {
             <span>LinearScale 2.0 &bull; Automated Funnel CRO & Heuristic Audits</span>
           </div>
 
-          {/* Main Hero Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl mx-auto leading-[1.12] mb-6">
-            Turn Product Friction Into Revenue. <br className="hidden sm:inline" />
+          {/* Main Hero Headline (Combined 1 & 3: Root-Cause to Revenue) */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-[1.12] mb-6">
+            Your Analytics Show <span className="text-slate-400 font-normal">Where</span> Users Drop Off. <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-orange-500">
-              Automatically.
+              LinearScale Fixes Why—Automatically.
             </span>
           </h1>
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8 font-normal">
-            Stop guessing why users abandon your checkout and onboarding. LinearScale continuously evaluates 100+ heuristic UX rules across your customer journeys and deploys high-converting CRO experiments in minutes.
+            Traditional tools show you that 68% of users bounce before checkout. LinearScale continuously scans your user journeys against 100+ proven UX heuristics, diagnoses cognitive friction, and deploys high-converting CRO experiments in minutes.
           </p>
 
           {/* Trial Signup Form */}
@@ -288,9 +288,9 @@ export default function SaaSLandingPage({ onBackToPortfolio }) {
           )}
 
           <div className="flex items-center justify-center gap-4 text-[11px] font-mono text-slate-500">
+            <span>&bull; 3.4x Average ROI</span>
+            <span>&bull; -22% Friction in 14 Days</span>
             <span>&bull; No credit card required</span>
-            <span>&bull; 5-minute setup</span>
-            <span>&bull; Cancel anytime</span>
           </div>
 
           {/* High-Fidelity Product UI Dashboard Preview */}
