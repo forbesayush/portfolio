@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Download, FileText, ArrowUpRight, Menu, X, Sparkles } from 'lucide-react';
+import { Download, FileText, ArrowUpRight, Menu, X } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export default function Navbar({ onOpenBrief, onOpenSaaS }) {
+export default function Navbar({ onOpenBrief }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -46,15 +46,6 @@ export default function Navbar({ onOpenBrief, onOpenSaaS }) {
               {link.label}
             </a>
           ))}
-
-          {/* SaaS Landing Page Trigger */}
-          <button
-            onClick={onOpenSaaS}
-            className="text-xs font-medium text-orange-400 hover:text-orange-300 transition-colors flex items-center gap-1"
-          >
-            <Sparkles className="w-3 h-3" />
-            <span>SaaS Landing Demo</span>
-          </button>
         </nav>
 
         {/* Right Actions */}
@@ -112,13 +103,6 @@ export default function Navbar({ onOpenBrief, onOpenSaaS }) {
                 {link.label}
               </a>
             ))}
-            <button
-              onClick={() => { setMobileMenuOpen(false); onOpenSaaS(); }}
-              className="text-xs font-medium text-orange-400 py-1.5 text-left flex items-center gap-1"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>SaaS Landing Page Demo (LinearScale)</span>
-            </button>
           </nav>
           <div className="pt-3 border-t border-white/[0.06] flex flex-wrap gap-2">
             <button
