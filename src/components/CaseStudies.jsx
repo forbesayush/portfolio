@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, ShieldCheck, ChevronRight, CheckCircle2, Target, Zap, TrendingUp, HelpCircle, Layers } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck, ChevronRight, CheckCircle2, Target, Zap, TrendingUp, HelpCircle, Layers, Check } from 'lucide-react';
 import { starCaseStudies } from '../data/portfolioData';
 
 export default function CaseStudies() {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
-  const [expandedStarTab, setExpandedStarTab] = useState({}); // { [caseId]: 'all' | 'S' | 'T' | 'A' | 'R' }
+  const [activeStarTab, setActiveStarTab] = useState({}); // { [id]: 'all' | 'S' | 'T' | 'A' | 'R' }
 
   const categories = ['ALL', 'FinTech & D2C Growth', 'Product UX & Conversion', 'Consulting & Brand Strategy'];
 
@@ -13,32 +13,29 @@ export default function CaseStudies() {
     ? starCaseStudies
     : starCaseStudies.filter(c => c.category.toLowerCase().includes(selectedCategory.toLowerCase()) || c.category === selectedCategory);
 
-  const getActiveTab = (id) => expandedStarTab[id] || 'all';
-
-  const setTabForCase = (id, tab) => {
-    setExpandedStarTab(prev => ({ ...prev, [id]: tab }));
-  };
+  const getTab = (id) => activeStarTab[id] || 'all';
+  const setTab = (id, tab) => setActiveStarTab(prev => ({ ...prev, [id]: tab }));
 
   return (
-    <section id="projects" className="py-24 relative bg-[#07080B] border-t border-b border-white/[0.08] text-white">
+    <section id="projects" className="py-20 sm:py-24 relative bg-[#08090E] border-t border-b border-white/[0.08] text-white">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-left">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-semibold uppercase mb-3">
-            <span className="w-2 h-2 rounded-full bg-blue-400"></span>
-            <span>STAR METHOD CASEBOOKS & PROJECTS</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-mono font-semibold uppercase mb-3">
+            <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
+            <span>SYSTEM MODULE 02 &bull; STAR METHOD PROJECTS & CASEBOOKS</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-white uppercase tracking-tight mb-4">
-            Commercial Projects & Product Impact.
+            Commercial Casebooks & Impact.
           </h2>
           <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
-            Deconstructed using the structured <strong className="text-white font-semibold">STAR Method</strong> (Situation &bull; Task &bull; Action &bull; Result) with verifiable unit economics telemetry.
+            Deconstructed using the <strong className="text-white font-semibold">STAR Method</strong> (Situation &bull; Task &bull; Action &bull; Result) with verified quantitative ROI telemetry.
           </p>
         </div>
 
-        {/* Category Filters */}
+        {/* Category Filter Pills */}
         <div className="flex flex-wrap gap-2 mb-10 pb-4 border-b border-white/[0.08]">
           {categories.map((cat) => (
             <button
@@ -46,7 +43,7 @@ export default function CaseStudies() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-xl text-xs font-mono font-semibold tracking-wider transition-all ${
                 selectedCategory === cat
-                  ? 'bg-blue-600 text-white shadow-fintech-glow'
+                  ? 'bg-indigo-600 text-white shadow-glow-indigo'
                   : 'bg-white/[0.04] text-slate-400 hover:text-white hover:bg-white/[0.08] border border-white/[0.06]'
               }`}
             >
@@ -55,46 +52,46 @@ export default function CaseStudies() {
           ))}
         </div>
 
-        {/* STAR Projects Grid */}
+        {/* STAR Method Project Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {filteredStudies.map((project, idx) => {
-            const currentTab = getActiveTab(project.id);
+            const currentTab = getTab(project.id);
 
             return (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.1 }}
-                className="p-7 sm:p-8 rounded-3xl bg-[#0D0E15] border border-white/[0.08] hover:border-blue-500/30 transition-all flex flex-col justify-between relative overflow-hidden shadow-2xl group"
+                className="p-7 sm:p-8 rounded-3xl glass-card border border-white/[0.08] hover:border-indigo-500/40 transition-all flex flex-col justify-between relative overflow-hidden group shadow-app-card"
               >
                 <div>
                   
-                  {/* Top Meta: Badge & Category */}
+                  {/* Top Meta Bar */}
                   <div className="flex items-center justify-between gap-3 mb-4">
-                    <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-blue-400 font-bold uppercase tracking-wider">
+                    <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold uppercase tracking-wider">
                       {project.badge}
                     </span>
                     <span className="text-[11px] font-mono text-slate-400">
-                      CASE #{String(idx + 1).padStart(2, '0')}
+                      CASE 0{idx + 1}
                     </span>
                   </div>
 
                   {/* Project Title */}
-                  <h3 className="text-xl sm:text-2xl font-display font-bold text-white uppercase tracking-tight mb-2 group-hover:text-blue-300 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-white uppercase tracking-tight mb-2 group-hover:text-indigo-300 transition-colors">
                     {project.title}
                   </h3>
 
-                  {/* Summary */}
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal mb-6">
+                  {/* Summary Description */}
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal mb-5">
                     {project.summary}
                   </p>
 
-                  {/* STAR Method Mode Switcher Tabs */}
-                  <div className="flex items-center gap-1.5 p-1 rounded-xl bg-black/50 border border-white/10 mb-5 overflow-x-auto text-[11px] font-mono font-bold">
+                  {/* Segmented STAR Mode Switcher Tabs */}
+                  <div className="flex items-center gap-1 p-1 rounded-xl bg-[#090B12] border border-white/10 mb-5 overflow-x-auto text-[11px] font-mono font-bold">
                     <button
-                      onClick={() => setTabForCase(project.id, 'all')}
+                      onClick={() => setTab(project.id, 'all')}
                       className={`px-3 py-1.5 rounded-lg transition-colors ${
                         currentTab === 'all' ? 'bg-white text-black' : 'text-slate-400 hover:text-white'
                       }`}
@@ -102,7 +99,7 @@ export default function CaseStudies() {
                       ALL (STAR)
                     </button>
                     <button
-                      onClick={() => setTabForCase(project.id, 'S')}
+                      onClick={() => setTab(project.id, 'S')}
                       className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 ${
                         currentTab === 'S' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
                       }`}
@@ -110,7 +107,7 @@ export default function CaseStudies() {
                       <span>[S]</span> Situation
                     </button>
                     <button
-                      onClick={() => setTabForCase(project.id, 'T')}
+                      onClick={() => setTab(project.id, 'T')}
                       className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 ${
                         currentTab === 'T' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-white'
                       }`}
@@ -118,7 +115,7 @@ export default function CaseStudies() {
                       <span>[T]</span> Task
                     </button>
                     <button
-                      onClick={() => setTabForCase(project.id, 'A')}
+                      onClick={() => setTab(project.id, 'A')}
                       className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 ${
                         currentTab === 'A' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'
                       }`}
@@ -126,7 +123,7 @@ export default function CaseStudies() {
                       <span>[A]</span> Action
                     </button>
                     <button
-                      onClick={() => setTabForCase(project.id, 'R')}
+                      onClick={() => setTab(project.id, 'R')}
                       className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 ${
                         currentTab === 'R' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'
                       }`}
@@ -135,15 +132,15 @@ export default function CaseStudies() {
                     </button>
                   </div>
 
-                  {/* STAR Method Deep Dive Content Blocks */}
-                  <div className="space-y-3 mb-6">
+                  {/* Dynamic STAR Method Content Blocks */}
+                  <div className="space-y-2.5 mb-6">
                     
                     {/* [S] SITUATION */}
                     {(currentTab === 'all' || currentTab === 'S') && (
-                      <div className="p-4 rounded-2xl bg-black/40 border border-blue-500/20 text-xs">
+                      <div className="p-3.5 rounded-2xl bg-[#090B12] border border-blue-500/20 text-xs">
                         <div className="flex items-center gap-2 font-mono font-bold text-blue-400 uppercase tracking-wider mb-1">
-                          <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                          <span>[S] Situation</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                          <span>[S] Situation & Commercial Context</span>
                         </div>
                         <p className="text-slate-300 leading-relaxed font-normal">
                           {project.star.situation}
@@ -153,10 +150,10 @@ export default function CaseStudies() {
 
                     {/* [T] TASK */}
                     {(currentTab === 'all' || currentTab === 'T') && (
-                      <div className="p-4 rounded-2xl bg-black/40 border border-amber-500/20 text-xs">
+                      <div className="p-3.5 rounded-2xl bg-[#090B12] border border-amber-500/20 text-xs">
                         <div className="flex items-center gap-2 font-mono font-bold text-amber-400 uppercase tracking-wider mb-1">
-                          <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                          <span>[T] Task & Objective</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                          <span>[T] Task & Target Objectives</span>
                         </div>
                         <p className="text-slate-300 leading-relaxed font-normal">
                           {project.star.task}
@@ -166,10 +163,10 @@ export default function CaseStudies() {
 
                     {/* [A] ACTION */}
                     {(currentTab === 'all' || currentTab === 'A') && (
-                      <div className="p-4 rounded-2xl bg-black/40 border border-purple-500/20 text-xs">
+                      <div className="p-3.5 rounded-2xl bg-[#090B12] border border-purple-500/20 text-xs">
                         <div className="flex items-center gap-2 font-mono font-bold text-purple-400 uppercase tracking-wider mb-1">
-                          <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-                          <span>[A] Action & Execution</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                          <span>[A] Action & Systems Engineered</span>
                         </div>
                         <p className="text-slate-300 leading-relaxed font-normal">
                           {project.star.action}
@@ -179,10 +176,10 @@ export default function CaseStudies() {
 
                     {/* [R] RESULT */}
                     {(currentTab === 'all' || currentTab === 'R') && (
-                      <div className="p-4 rounded-2xl bg-black/40 border border-emerald-500/30 text-xs">
+                      <div className="p-3.5 rounded-2xl bg-[#090B12] border border-emerald-500/30 text-xs">
                         <div className="flex items-center gap-2 font-mono font-bold text-emerald-400 uppercase tracking-wider mb-1">
-                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                          <span>[R] Quantifiable Result & ROI</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                          <span>[R] Verified Quantifiable Result & ROI</span>
                         </div>
                         <p className="text-slate-200 leading-relaxed font-normal">
                           {project.star.result}
@@ -194,10 +191,9 @@ export default function CaseStudies() {
 
                 </div>
 
-                {/* Bottom Stats & Deliverables */}
+                {/* Bottom Row: Key KPI Metrics & Tech Stack */}
                 <div>
-                  {/* KPI Telemetry Numbers */}
-                  <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-black/60 border border-white/10 mb-4">
+                  <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-[#090B12] border border-white/10 mb-4">
                     {project.keyStats.map((st, sIdx) => (
                       <div key={sIdx} className="text-center">
                         <div className="text-[10px] font-mono text-slate-400 uppercase truncate">
@@ -210,10 +206,9 @@ export default function CaseStudies() {
                     ))}
                   </div>
 
-                  {/* Tech Stack Chips */}
                   <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.08]">
                     {project.techStack.map((tech, tIdx) => (
-                      <span key={tIdx} className="px-2 py-0.5 rounded-md bg-white/[0.04] text-[10px] font-mono text-slate-300 border border-white/[0.06]">
+                      <span key={tIdx} className="px-2.5 py-0.5 rounded-md bg-white/[0.04] text-[10px] font-mono text-slate-300 border border-white/[0.06]">
                         {tech}
                       </span>
                     ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Layers, BarChart3, TrendingUp, Target, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
+import { Layers, BarChart3, TrendingUp, Target, ShieldCheck, Zap } from 'lucide-react';
 import { skillsMatrix } from '../data/portfolioData';
 
 const categoryIcons = {
@@ -12,15 +12,15 @@ const categoryIcons = {
 
 export default function SkillsMatrix() {
   return (
-    <section id="stack" className="py-24 relative bg-[#07080B] border-t border-b border-white/[0.08] text-white">
+    <section id="stack" className="py-20 sm:py-24 relative bg-[#08090E] border-t border-b border-white/[0.08] text-white">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-left">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-semibold uppercase mb-3">
-            <span className="w-2 h-2 rounded-full bg-blue-400"></span>
-            <span>SECTION 04 &bull; FINTECH & GROWTH CAPABILITY MATRIX</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-mono font-semibold uppercase mb-3">
+            <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
+            <span>SYSTEM MODULE 04 &bull; PRODUCT & GROWTH CAPABILITY MATRIX</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-white uppercase tracking-tight mb-4">
             Technical & Strategic Tool Stack.
@@ -42,13 +42,13 @@ export default function SkillsMatrix() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="p-6 sm:p-7 rounded-3xl bg-[#0D0E15] border border-white/[0.08] hover:border-blue-500/30 transition-all flex flex-col justify-between shadow-xl"
+                className="p-6 sm:p-7 rounded-3xl glass-card border border-white/[0.08] hover:border-indigo-500/40 transition-all flex flex-col justify-between shadow-app-card"
               >
                 <div>
                   
                   {/* Category Header */}
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                    <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">
@@ -79,7 +79,7 @@ export default function SkillsMatrix() {
                             whileInView={{ width: `${skill.level}%` }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.2 + sIdx * 0.05 }}
-                            className="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full"
+                            className="h-full bg-gradient-to-r from-indigo-500 via-blue-500 to-emerald-400 rounded-full"
                           />
                         </div>
                       </div>
@@ -91,7 +91,7 @@ export default function SkillsMatrix() {
                 {/* Bottom Domain Badge */}
                 <div className="pt-5 border-t border-white/[0.06] mt-6 flex items-center justify-between text-[10px] font-mono text-slate-400">
                   <span>AUDITED CAPABILITY</span>
-                  <span className="text-blue-400 font-bold">VERIFIED</span>
+                  <span className="text-indigo-400 font-bold">VERIFIED</span>
                 </div>
 
               </motion.div>

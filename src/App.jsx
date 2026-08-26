@@ -8,58 +8,79 @@ import SkillsMatrix from './components/SkillsMatrix';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ExecutiveBriefModal from './components/ExecutiveBriefModal';
+import SpotlightCommandPalette from './components/SpotlightCommandPalette';
 import QuickActionsDock from './components/QuickActionsDock';
 import { trackVisitor } from './utils/telegramTracker';
 
 export default function App() {
   const [isBriefOpen, setIsBriefOpen] = useState(false);
+  const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
 
   useEffect(() => {
-    // Default dark theme for FinTech aesthetic
     document.documentElement.classList.add('dark');
-    // Track visitor arrival via encrypted Telegram bot telemetry
     trackVisitor();
+
+    // Global Command+K / Ctrl+K listener
+    const handleGlobalKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSpotlightOpen(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#07080B] text-slate-100 flex flex-col font-sans selection:bg-blue-500/25 selection:text-blue-200 antialiased relative">
+    <div className="min-h-screen bg-[#08090E] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30 selection:text-indigo-200 antialiased relative">
       
-      {/* Sticky FinTech Navigation Bar */}
+      {/* Sticky App OS Navigation Header */}
       <Navbar 
-        onOpenBrief={() => setIsBriefOpen(true)} 
+        onOpenBrief={() => setIsBriefOpen(true)}
+        onOpenSpotlight={() => setIsSpotlightOpen(true)}
       />
 
-      {/* Main Content Sections */}
+      {/* Main App Content Modules */}
       <main className="flex-grow">
         
-        {/* Section 00: FinTech Hero with 3D Titanium Card & Live Telemetry */}
+        {/* Module 00: Executive Studio Hero & Telemetry Dials */}
         <Hero 
-          onOpenBrief={() => setIsBriefOpen(true)} 
+          onOpenBrief={() => setIsBriefOpen(true)}
+          onOpenSpotlight={() => setIsSpotlightOpen(true)}
         />
 
-        {/* Section 01: Executive Bio & 4 Core Growth Pillars */}
+        {/* Module 01: Executive Bio & 4 Product Pillars */}
         <About />
 
-        {/* Section 02: STAR Method Project Casebooks (Situation, Task, Action, Result) */}
+        {/* Module 02: STAR Method Project Deck (Situation, Task, Action, Result) */}
         <CaseStudies />
 
-        {/* Section 03: Verified Career Ledger & Transaction Feed */}
+        {/* Module 03: Verified Experience Ledger & Timeline */}
         <ExperienceTimeline />
 
-        {/* Section 04: FinTech & Growth Capability Matrix */}
+        {/* Module 04: Product & Growth Capability Stack */}
         <SkillsMatrix />
 
-        {/* Section 05: Instant Settlement & Communication Hub */}
+        {/* Module 05: Superhuman / Raycast Style Direct Transmission Terminal */}
         <Contact />
 
       </main>
 
-      {/* Global FinTech Footer */}
+      {/* Global App Footer */}
       <Footer />
 
-      {/* Floating Action Dock */}
+      {/* Floating System Dock */}
       <QuickActionsDock 
-        onOpenBrief={() => setIsBriefOpen(true)} 
+        onOpenBrief={() => setIsBriefOpen(true)}
+        onOpenSpotlight={() => setIsSpotlightOpen(true)}
+      />
+
+      {/* Raycast-Style Spotlight Command Palette (⌘K) */}
+      <SpotlightCommandPalette
+        isOpen={isSpotlightOpen}
+        onClose={() => setIsSpotlightOpen(false)}
+        onOpenBrief={() => setIsBriefOpen(true)}
       />
 
       {/* 1-Page Executive ATS Audit Brief Modal */}

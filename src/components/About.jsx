@@ -1,25 +1,25 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Target, TrendingUp, Layers, CheckCircle2, Award, Globe2, Sparkles, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Target, TrendingUp, Layers, CheckCircle2, Award, Globe2, Sparkles, Terminal } from 'lucide-react';
 import { personalInfo, corePillars, academicCredentials } from '../data/portfolioData';
 
 export default function About() {
   return (
-    <section id="about" className="py-24 relative bg-[#07080B] text-white">
+    <section id="about" className="py-20 sm:py-24 relative bg-[#08090E] text-white">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-left">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-semibold uppercase mb-3">
-            <span className="w-2 h-2 rounded-full bg-blue-400"></span>
-            <span>SECTION 01 &bull; EXECUTIVE DOSSIER & BIO</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-mono font-semibold uppercase mb-3">
+            <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
+            <span>SYSTEM MODULE 01 &bull; EXECUTIVE DOSSIER & PHILOSOPHY</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-white uppercase tracking-tight mb-4">
             A Strategic Mind With A Growth Perspective.
           </h2>
           <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
-            Operating directly at the intersection of <strong className="text-white font-semibold">consumer buying psychology</strong>, <strong className="text-white font-semibold">quantitative unit economics (CAC : LTV)</strong>, and <strong className="text-white font-semibold">frictionless product conversion (CRO)</strong>.
+            Operating directly at the convergence of <strong className="text-white font-semibold">consumer buying psychology</strong>, <strong className="text-white font-semibold">quantitative unit economics (CAC : LTV)</strong>, and <strong className="text-white font-semibold">frictionless product conversion (CRO)</strong>.
           </p>
         </div>
 
@@ -27,12 +27,12 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-16">
           
           {/* Left Column: Manifesto Card */}
-          <div className="lg:col-span-7 p-7 sm:p-9 rounded-3xl bg-[#0D0E15] border border-white/[0.08] flex flex-col justify-between shadow-2xl">
+          <div className="lg:col-span-7 p-7 sm:p-9 rounded-3xl glass-card border border-white/[0.08] flex flex-col justify-between shadow-app-card">
             <div className="space-y-4">
-              <div className="text-xs font-mono font-bold uppercase text-blue-400 tracking-wider">
-                CORE VALUE PROPOSITION
+              <div className="text-xs font-mono font-bold uppercase text-indigo-400 tracking-wider">
+                CORE OPERATING PHILOSOPHY
               </div>
-              <blockquote className="text-xl sm:text-2xl font-display font-bold text-white leading-snug border-l-2 border-blue-500 pl-4 py-1">
+              <blockquote className="text-xl sm:text-2xl font-display font-bold text-white leading-snug border-l-2 border-indigo-500 pl-4 py-1">
                 "{personalInfo.brandStatementLead}"
               </blockquote>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal pt-2">
@@ -42,7 +42,7 @@ export default function About() {
 
             <div className="pt-6 border-t border-white/[0.08] mt-6 flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center font-display font-bold text-sm text-white">
+                <div className="w-11 h-11 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center font-display font-bold text-sm text-white">
                   AC
                 </div>
                 <div>
@@ -63,16 +63,16 @@ export default function About() {
           </div>
 
           {/* Right Column: Academic Credentials */}
-          <div className="lg:col-span-5 p-7 sm:p-9 rounded-3xl bg-[#0D0E15] border border-white/[0.08] flex flex-col justify-between shadow-2xl space-y-6">
+          <div className="lg:col-span-5 p-7 sm:p-9 rounded-3xl glass-card border border-white/[0.08] flex flex-col justify-between shadow-app-card space-y-6">
             <div className="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider">
               ACADEMIC CREDENTIALS & DEGREES
             </div>
 
             <div className="space-y-4">
               {academicCredentials.map((edu, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-black/50 border border-white/[0.08] space-y-1.5 text-left">
+                <div key={idx} className="p-4 rounded-2xl bg-[#090B12] border border-white/[0.08] space-y-1.5 text-left">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-blue-400 font-bold uppercase">
+                    <span className="text-[10px] font-mono text-indigo-400 font-bold uppercase">
                       {edu.duration}
                     </span>
                     <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
@@ -108,7 +108,7 @@ export default function About() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {corePillars.map((p, idx) => (
-              <div key={p.id} className="p-6 rounded-2xl bg-[#0D0E15] border border-white/[0.08] hover:border-blue-500/30 transition-colors text-left flex flex-col justify-between">
+              <div key={p.id} className="p-6 rounded-2xl glass-card border border-white/[0.08] hover:border-indigo-500/30 transition-colors text-left flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">
@@ -131,7 +131,7 @@ export default function About() {
                 <div className="pt-3 border-t border-white/[0.06] space-y-1">
                   {p.capabilities.slice(0, 3).map((cap, i) => (
                     <div key={i} className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-                      <span className="w-1 h-1 rounded-full bg-blue-400"></span>
+                      <span className="w-1 h-1 rounded-full bg-indigo-400"></span>
                       <span className="truncate">{cap}</span>
                     </div>
                   ))}
