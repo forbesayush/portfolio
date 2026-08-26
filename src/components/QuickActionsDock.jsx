@@ -1,82 +1,54 @@
-import React, { useState } from 'react';
-import { Mail, Copy, Check, FileText, ArrowUp, Sun, Moon, Download } from 'lucide-react';
+import React from 'react';
+import { Download, FileText, Send, ArrowUp, ShieldCheck } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export default function QuickActionsDock({ isDark, onToggleTheme, onOpenBrief }) {
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = () => {
-    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(personalInfo.email);
-    } else {
-      const textarea = document.createElement('textarea');
-      textarea.value = personalInfo.email;
-      document.body.appendChild(textarea);
-      textarea.select();
-      try { document.execCommand('copy'); } catch(e) {}
-      document.body.removeChild(textarea);
-    }
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2200);
-  };
-
+export default function QuickActionsDock({ onOpenBrief }) {
   const scrollToTop = () => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 p-1.5 rounded-full bg-white/95 dark:bg-obsidian-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/15 shadow-2xl shadow-slate-950/15 animate-fade-in ring-1 ring-slate-900/5">
+    <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2 p-2 rounded-2xl bg-[#0D0E15]/90 backdrop-blur-xl border border-white/[0.12] shadow-2xl">
       
-      {/* 1-Page Brief Button */}
+      {/* 1P Audit Brief */}
       <button
         onClick={onOpenBrief}
-        className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-obsidian-800 text-slate-800 dark:text-slate-200 hover:text-accent dark:hover:text-accent-dark text-xs font-mono font-semibold transition-all hover:bg-slate-200/70 dark:hover:bg-obsidian-750"
-        title="Open 1-Page Executive Brief"
+        className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white transition-all text-xs font-mono flex items-center gap-1.5"
+        title="Open 1-Page ATS Audit Brief"
       >
-        <FileText className="w-3.5 h-3.5 text-accent dark:text-accent-dark" />
-        <span className="hidden sm:inline">1P Brief</span>
+        <FileText className="w-4 h-4 text-blue-400" />
+        <span className="hidden sm:inline">1P AUDIT</span>
       </button>
 
-      {/* Download CV Action */}
+      {/* Download Statement CV */}
       <a
         href="/Ayush_Chatterjee_CV.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-obsidian-800 text-slate-800 dark:text-slate-200 hover:text-accent dark:hover:text-accent-dark text-xs font-mono font-semibold transition-all hover:bg-slate-200/70 dark:hover:bg-obsidian-750"
-        title="Download Official CV"
+        className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white transition-all text-xs font-mono flex items-center gap-1.5"
+        title="Download Official Resume PDF"
       >
-        <Download className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+        <Download className="w-4 h-4 text-emerald-400" />
         <span className="hidden sm:inline">CV</span>
       </a>
 
-      {/* Copy Email Button */}
-      <button
-        onClick={copyEmail}
-        className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-accent text-white hover:bg-blue-700 dark:hover:bg-accent-hover text-xs font-mono font-semibold transition-all shadow-sm"
-        title="Copy direct email address"
+      {/* Settle / Contact */}
+      <a
+        href="#contact"
+        className="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition-all text-xs font-mono font-bold flex items-center gap-1.5 shadow-fintech-glow"
+        title="Direct Contact Hub"
       >
-        {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-        <span>{copied ? 'Copied!' : 'Copy Email'}</span>
-      </button>
+        <Send className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline">CONNECT</span>
+      </a>
 
-      {/* Theme Toggle */}
-      <button
-        onClick={onToggleTheme}
-        className="p-2 rounded-full bg-slate-100 dark:bg-obsidian-800 text-slate-700 dark:text-slate-300 hover:text-accent dark:hover:text-accent-dark transition-all hover:bg-slate-200/70"
-        title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      >
-        {isDark ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5" />}
-      </button>
-
-      {/* Scroll Top Button */}
+      {/* Scroll to Top */}
       <button
         onClick={scrollToTop}
-        className="p-2 rounded-full bg-slate-100 dark:bg-obsidian-800 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white transition-all hover:bg-slate-200/70"
-        title="Scroll to top"
+        className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white transition-all"
+        title="Scroll to Top"
       >
-        <ArrowUp className="w-3.5 h-3.5" />
+        <ArrowUp className="w-4 h-4" />
       </button>
 
     </div>

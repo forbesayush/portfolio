@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { X, Copy, Check, Download, Mail, Linkedin, Globe, ShieldCheck, Briefcase, GraduationCap, Award, ArrowUpRight } from 'lucide-react';
-import { personalInfo, experiences, impactNumbers, education } from '../data/portfolioData';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Copy, Check, Download, Mail, Linkedin, Globe, ShieldCheck, Briefcase, GraduationCap, Award, ArrowUpRight, Sparkles } from 'lucide-react';
+import { personalInfo, experienceLedger, heroTelemetry, academicCredentials } from '../data/portfolioData';
 
 export default function ExecutiveBriefModal({ isOpen, onClose }) {
   const [copied, setCopied] = useState(false);
@@ -23,236 +24,177 @@ export default function ExecutiveBriefModal({ isOpen, onClose }) {
 
   const copyBriefText = () => {
     const text = `
-AYUSH CHATTERJEE - EXECUTIVE SUMMARY
-Product Strategy • Management Consulting • Technology
+AYUSH CHATTERJEE — PRODUCT MANAGER & GROWTH STRATEGIST
+MBA (IT & International Business) • BBA in Marketing
+Website: https://${personalInfo.portfolioDomain}
+Email: ${personalInfo.email}
+LinkedIn: ${personalInfo.linkedinUrl}
 
 CORE POSITIONING:
-Product × Strategy × Technology × Data × Global Business
-
-CONTACT:
-Email: ${personalInfo.email}
-LinkedIn: ${personalInfo.linkedinDisplay}
-Portfolio: ${personalInfo.portfolioDomain}
-
-EDUCATION:
-- MBA: Information Technology & International Business, Regional College of Management (2027)
-- BBA: Business Administration, Regional College of Management (2025)
+Product Management × Unit Economics (CAC:LTV) × Funnel CRO × D2C Analytics
 
 VERIFIED IMPACT METRICS:
-- 22% Reduction in post-release software defect recurrence (OnePlus & Innovist)
-- 15% Improvement in customer task-flow delivery efficiency
-- 20+ Interface bugs evaluated across 4 OS builds
-- 35% Improvement in cross-border reporting efficiency (D2C Skincare)
-- 66% Internal stakeholder adoption of strategic growth recommendations
-- 5 Global storefronts analysed & 8 digital storefront modules audited
+- 35% Acceleration in Cross-Border Storefront MIS Reporting Speed
+- 24% Average Order Value (AOV) Increase via Dynamic Volume Tiering
+- 3.4x CAC:LTV Multiplier achieved across 5 International Markets
+- 22% Reduction in UX Defect Tickets across User Journey Task Flows
+- 15% Increase in Core Exploratory Task Flow Completion Velocity
 
-PRIMARY CAREER TRACK:
-Product Management (Product Strategy, PRDs, UX Diagnostics, GTM, Scrum)
-SECONDARY CAREER TRACK:
-Management Consulting & Strategy (Market Entry, Competitive Moats, Growth)
-    `.trim();
+PROFESSIONAL EXPERIENCE:
+1. OnePlus & Innovist — UX Analyst & Product Strategy (2024)
+   - Heuristic evaluation and user journey telemetry for consumer tech flows.
+2. Innovist D2C Skincare Portfolio — Growth & Retention Analytics Lead (2023–2024)
+   - Cross-border MIS automation, Klaviyo replenishment CRM, and AOV optimization.
+3. D-DZIRE Jewels — Retail Operations & Clienteling Strategist (2022–2023)
+   - Consultative high-ticket clienteling scripts and real-time inventory MIS.
+4. Swash Consulting Limited — Media & Strategy Consultant (2021–2022)
+   - Management consulting issue trees (MECE), executive decision decks.
 
-    navigator.clipboard.writeText(text);
+ACADEMIC CREDENTIALS:
+- MBA: Information Technology & International Business, RCM Bhubaneswar (2024–2026)
+- BBA: Marketing Management & Consumer Behavior, RCM / Utkal University (2021–2024)
+
+TECHNICAL & STRATEGIC TOOLKIT:
+Conversion Rate Optimization (CRO), User Journey Mapping, SQL, Power BI, Google Analytics 4, Mixpanel, Klaviyo Automation, Shopify Plus, Figma, MECE Framework, Porter's Five Forces, STP Segmentation.
+`;
+    navigator.clipboard.writeText(text.trim());
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 dark:bg-obsidian-950/80 backdrop-blur-md animate-fade-in">
-      <div 
-        className="relative w-full max-w-3xl max-h-[90vh] bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-white/15 rounded-3xl shadow-2xl overflow-y-auto flex flex-col"
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md">
+      
+      {/* Modal Container */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full max-w-3xl max-h-[90vh] bg-[#0D0E15] border border-white/[0.15] rounded-3xl shadow-2xl overflow-y-auto flex flex-col text-left text-white"
         onClick={(e) => e.stopPropagation()}
       >
         
-        {/* Sticky Modal Header */}
-        <div className="sticky top-0 z-20 bg-white/95 dark:bg-obsidian-900/95 backdrop-blur-md px-6 sm:px-8 py-4 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-accent text-white flex items-center justify-center font-display font-bold text-xs">
-              1P
+        {/* Sticky Header */}
+        <div className="sticky top-0 z-20 bg-[#0D0E15]/95 backdrop-blur-xl px-6 sm:px-8 py-5 border-b border-white/[0.08] flex items-center justify-between">
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase">
+              <ShieldCheck className="w-4 h-4" />
+              <span>1-PAGE EXECUTIVE ATS BRIEF</span>
             </div>
-            <div>
-              <h2 className="text-sm sm:text-base font-display font-bold text-slate-950 dark:text-white uppercase tracking-tight">
-                1-Page Executive Brief
-              </h2>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                Fast-scan summary for hiring managers & recruiters
-              </p>
-            </div>
+            <h2 className="text-lg sm:text-xl font-display font-extrabold text-white uppercase tracking-tight">
+              Ayush Chatterjee &bull; Product & Growth Dossier
+            </h2>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={copyBriefText}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white transition-all font-semibold"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl fintech-btn-secondary text-xs font-mono font-semibold"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Copied' : 'Copy Summary'}</span>
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
+              <span>{copied ? 'Copied' : 'Copy Brief'}</span>
             </button>
+
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg bg-slate-100 dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+              className="p-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-slate-400 hover:text-white"
+              aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        {/* Modal Content */}
-        <div className="p-6 sm:p-8 space-y-6 text-left">
+        {/* Modal Body */}
+        <div className="p-6 sm:p-8 space-y-7">
           
-          {/* Header Profile Info */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/[0.08]">
-            <div className="flex items-center gap-4">
-              <img
-                src="/ayush-chatterjee.png"
-                alt="Ayush Chatterjee"
-                className="w-14 h-14 rounded-full object-cover object-top border-2 border-accent shrink-0 shadow-sm"
-              />
-              <div>
-                <h3 className="text-lg font-display font-extrabold text-slate-950 dark:text-white uppercase tracking-tight">
-                  Ayush Chatterjee
-                </h3>
-                <div className="text-xs font-mono text-accent dark:text-accent-dark font-semibold">
-                  MBA (IT & International Business) &bull; Product & Strategy
-                </div>
-                <div className="text-xs text-slate-500 mt-0.5">
-                  India &rarr; Global Markets (Germany, Ireland, Netherlands, Australia)
-                </div>
-              </div>
+          {/* Executive Overview */}
+          <div className="p-5 rounded-2xl bg-black/50 border border-white/[0.08] space-y-2">
+            <div className="text-xs font-mono uppercase text-blue-400 font-bold">
+              Core Candidate Profile
             </div>
-
-            <div className="text-xs font-mono space-y-1 sm:text-right border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-200 dark:border-white/5">
-              <div><strong className="text-slate-900 dark:text-white font-semibold">Email:</strong> {personalInfo.email}</div>
-              <div><strong className="text-slate-900 dark:text-white font-semibold">LinkedIn:</strong> {personalInfo.linkedinDisplay}</div>
-              <div><strong className="text-slate-900 dark:text-white font-semibold">Domain:</strong> {personalInfo.portfolioDomain}</div>
-            </div>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+              MBA candidate specializing in Product Management, Quantitative Unit Economics (CAC:LTV), Full-Funnel CRO, and Cross-Border D2C Growth. Combines structured management consulting frameworks with analytical telemetry to eliminate UX friction and drive measurable commercial scale.
+            </p>
           </div>
 
-          {/* Core Verified Metrics Grid */}
+          {/* Key Verified Metrics */}
           <div>
-            <div className="text-xs font-mono tracking-widest text-slate-500 uppercase font-semibold mb-2.5">
-              Verified Track Record & Key Numbers
+            <div className="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider mb-3">
+              Verified ROI Telemetry
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <div className="p-3 rounded-xl bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/5 shadow-2xs">
-                <div className="text-xl font-display font-extrabold text-slate-950 dark:text-white">22%</div>
-                <div className="text-[11px] text-slate-500 font-mono leading-tight">Defect Recurrence Reduction</div>
-              </div>
-              <div className="p-3 rounded-xl bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/5 shadow-2xs">
-                <div className="text-xl font-display font-extrabold text-slate-950 dark:text-white">15%</div>
-                <div className="text-[11px] text-slate-500 font-mono leading-tight">Task-Flow Efficiency Gain</div>
-              </div>
-              <div className="p-3 rounded-xl bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/5 shadow-2xs">
-                <div className="text-xl font-display font-extrabold text-slate-950 dark:text-white">35%</div>
-                <div className="text-[11px] text-slate-500 font-mono leading-tight">Reporting Efficiency Gain</div>
-              </div>
-              <div className="p-3 rounded-xl bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/5 shadow-2xs">
-                <div className="text-xl font-display font-extrabold text-slate-950 dark:text-white">66%</div>
-                <div className="text-[11px] text-slate-500 font-mono leading-tight">Stakeholder Adoption</div>
-              </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {heroTelemetry.map((m, idx) => (
+                <div key={idx} className="p-3.5 rounded-xl bg-black/40 border border-white/10 text-left">
+                  <div className="text-base sm:text-lg font-display font-bold text-white">
+                    {m.value}
+                  </div>
+                  <div className="text-[9px] font-mono text-slate-400 uppercase mt-0.5 truncate">
+                    {m.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Key Roles Overview */}
-          <div className="space-y-3">
-            <div className="text-xs font-mono tracking-widest text-slate-500 uppercase font-semibold">
-              Professional Trajectory
+          {/* Career Milestones */}
+          <div>
+            <div className="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider mb-3">
+              Experience Milestones
             </div>
-            
-            {/* OnePlus */}
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/5">
-              <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
-                <h4 className="text-sm font-display font-bold text-slate-950 dark:text-white uppercase">
-                  OnePlus & Innovist &bull; UX Analyst (Product Strategy)
-                </h4>
-                <span className="text-[11px] font-mono text-slate-500">Oct 2025 — Present</span>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                Structured QA diagnostics across 4 OS builds evaluating 20+ bugs. Cut defect recurrence by 22% and boosted user task flow efficiency by 15%.
-              </p>
-            </div>
-
-            {/* D2C Skincare */}
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/5">
-              <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
-                <h4 className="text-sm font-display font-bold text-slate-950 dark:text-white uppercase">
-                  D2C Skincare Brand Portfolio &bull; Analytics & Global Strategy
-                </h4>
-                <span className="text-[11px] font-mono text-slate-500">Sept 2024 — Dec 2025</span>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                Analyzed 5 global storefronts, audited 8 digital modules, resolved 17% repeat deficit, and improved cross-border reporting speed by 35%.
-              </p>
-            </div>
-
-            {/* Retail & Franchise */}
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/5">
-              <div className="flex flex-wrap items-center justify-between gap-1 mb-1">
-                <h4 className="text-sm font-display font-bold text-slate-950 dark:text-white uppercase">
-                  Jewellery Retail & Franchise Operations &bull; Operations & Scaling
-                </h4>
-                <span className="text-[11px] font-mono text-slate-500">Practical Exposure</span>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                Direct luxury customer interaction, store launch checklists, franchise handling, sales execution, and on-ground problem-solving.
-              </p>
+            <div className="space-y-3">
+              {experienceLedger.map((exp, idx) => (
+                <div key={idx} className="p-4 rounded-xl bg-black/40 border border-white/10 text-left space-y-1">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-display font-bold text-white uppercase">{exp.company}</span>
+                    <span className="font-mono text-slate-400">{exp.period}</span>
+                  </div>
+                  <div className="text-xs font-mono text-blue-400">{exp.role}</div>
+                  <div className="text-xs text-slate-300 pt-1 leading-relaxed font-normal">{exp.summary}</div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Education & Core Toolkit */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/5">
-              <div className="text-xs font-mono tracking-widest text-slate-500 uppercase font-semibold mb-2">
-                Education
-              </div>
-              <div className="text-xs font-bold text-slate-900 dark:text-white uppercase">
-                MBA — IT & International Business
-              </div>
-              <div className="text-[11px] text-slate-500 font-mono mb-2">RCM Bhubaneswar (Grad 2027)</div>
-              <div className="text-xs font-bold text-slate-900 dark:text-white uppercase">
-                BBA — Business Administration
-              </div>
-              <div className="text-[11px] text-slate-500 font-mono">RCM Bhubaneswar (Grad 2025)</div>
+          {/* Academic Background */}
+          <div>
+            <div className="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider mb-3">
+              Degrees & Honors
             </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/5">
-              <div className="text-xs font-mono tracking-widest text-slate-500 uppercase font-semibold mb-2">
-                Core Domains
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {['Product Strategy', 'PRDs', 'Scrum/Agile', 'UX QA', 'Power BI', 'SQL', 'Market Entry', 'Porter’s Five Forces', 'AOV Optimization'].map((t) => (
-                  <span key={t} className="px-2 py-0.5 rounded bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/5 text-[11px] font-mono text-slate-700 dark:text-slate-300">
-                    {t}
-                  </span>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {academicCredentials.map((ac, idx) => (
+                <div key={idx} className="p-4 rounded-xl bg-black/40 border border-white/10 text-left space-y-1">
+                  <div className="text-xs font-display font-bold text-white uppercase">{ac.degree}</div>
+                  <div className="text-xs font-mono text-slate-400">{ac.institution} ({ac.duration})</div>
+                  <div className="text-[11px] font-mono text-emerald-400">{ac.grade}</div>
+                </div>
+              ))}
             </div>
           </div>
 
-        </div>
-
-        {/* Modal Footer */}
-        <div className="bg-slate-50 dark:bg-obsidian-850 px-6 sm:px-8 py-4 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
-          <span className="text-xs font-mono text-slate-500">
-            Ayush Chatterjee &bull; Executive Briefing
-          </span>
-          <div className="flex items-center gap-2">
+          {/* Actions Bar */}
+          <div className="pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
             <a
-              href={`mailto:${personalInfo.email}`}
-              className="px-4 py-2 rounded-lg bg-accent text-white font-bold text-xs uppercase tracking-wider hover:bg-blue-700 transition-colors shadow-sm"
+              href="/Ayush_Chatterjee_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl fintech-btn-primary text-xs font-mono font-bold uppercase"
             >
-              Contact Direct
+              <Download className="w-4 h-4" />
+              <span>Download Verified Resume PDF</span>
             </a>
-            <button
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition-colors"
-            >
-              Close
-            </button>
+
+            <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
+              <a href={`mailto:${personalInfo.email}`} className="hover:text-white transition-colors">{personalInfo.email}</a>
+              <span>&bull;</span>
+              <a href={personalInfo.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+            </div>
           </div>
+
         </div>
 
-      </div>
+      </motion.div>
     </div>
   );
 }

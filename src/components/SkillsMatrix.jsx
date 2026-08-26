@@ -1,71 +1,100 @@
-import React, { useState } from 'react';
-import { Box, Database, Cpu, Briefcase, Check } from 'lucide-react';
-import { skillsData } from '../data/portfolioData';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Layers, BarChart3, TrendingUp, Target, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
+import { skillsMatrix } from '../data/portfolioData';
 
-const categories = [
-  { key: 'product', label: 'PRODUCT', icon: Box, color: 'text-blue-600 dark:text-sky-400', border: 'border-blue-200 dark:border-sky-500/20', bg: 'bg-blue-50 dark:bg-sky-500/10' },
-  { key: 'data', label: 'DATA & ANALYTICS', icon: Database, color: 'text-emerald-600 dark:text-emerald-400', border: 'border-emerald-200 dark:border-emerald-500/20', bg: 'bg-emerald-50 dark:bg-emerald-500/10' },
-  { key: 'technology', label: 'TECHNOLOGY', icon: Cpu, color: 'text-indigo-600 dark:text-indigo-400', border: 'border-indigo-200 dark:border-indigo-500/20', bg: 'bg-indigo-50 dark:bg-indigo-500/10' },
-  { key: 'business', label: 'BUSINESS & STRATEGY', icon: Briefcase, color: 'text-amber-600 dark:text-amber-400', border: 'border-amber-200 dark:border-amber-500/20', bg: 'bg-amber-50 dark:bg-amber-500/10' },
-];
+const categoryIcons = {
+  'Product & Growth Systems': Layers,
+  'Financial & Unit Analytics': BarChart3,
+  'Lifecycle CRM & Retention': TrendingUp,
+  'Brand Strategy & Consulting': Target
+};
 
 export default function SkillsMatrix() {
   return (
-    <section className="py-24 relative bg-white dark:bg-obsidian-900/60 border-t border-b border-slate-200 dark:border-white/[0.08] transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="stack" className="py-24 relative bg-[#07080B] border-t border-b border-white/[0.08] text-white">
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-left">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-accent dark:text-accent-dark uppercase mb-3 font-semibold">
-            <span className="w-2 h-[2px] bg-accent dark:bg-accent-dark"></span>
-            Section 09 &bull; Competency Architecture
+        <div className="max-w-3xl mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-semibold uppercase mb-3">
+            <span className="w-2 h-2 rounded-full bg-blue-400"></span>
+            <span>SECTION 04 &bull; FINTECH & GROWTH CAPABILITY MATRIX</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-950 dark:text-white tracking-tight uppercase leading-tight mb-6">
-            Technical & Professional Toolkit.
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-white uppercase tracking-tight mb-4">
+            Technical & Strategic Tool Stack.
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-            A calibrated blend of product methodologies, quantitative analytics, software technologies, and enterprise business strategy.
+          <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
+            A comprehensive matrix of quantitative data analytics, conversion optimization engines, retention flow frameworks, and brand strategy models.
           </p>
         </div>
 
-        {/* 4 Category Matrix Grid */}
+        {/* 4-Column Skill Category Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map((cat) => {
-            const Icon = cat.icon;
-            const skills = skillsData[cat.key] || [];
+          {skillsMatrix.map((cat, idx) => {
+            const Icon = categoryIcons[cat.category] || Layers;
+
             return (
-              <div
-                key={cat.key}
-                className="p-6 rounded-2xl bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 transition-all duration-300 shadow-sm hover:shadow-card-light dark:hover:shadow-card-dark flex flex-col justify-between"
+              <motion.div
+                key={cat.category}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                className="p-6 sm:p-7 rounded-3xl bg-[#0D0E15] border border-white/[0.08] hover:border-blue-500/30 transition-all flex flex-col justify-between shadow-xl"
               >
                 <div>
-                  <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200 dark:border-white/[0.06]">
-                    <div className={`w-9 h-9 rounded-lg ${cat.bg} border ${cat.border} flex items-center justify-center`}>
-                      <Icon className={`w-4 h-4 ${cat.color}`} />
+                  
+                  {/* Category Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-sm font-display font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                      {cat.label}
-                    </h3>
+                    <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">
+                      DOMAIN 0{idx + 1}
+                    </span>
                   </div>
 
-                  <div className="space-y-2.5">
-                    {skills.map((skill, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center gap-2.5 p-2.5 rounded-lg bg-white dark:bg-obsidian-950/40 border border-slate-200 dark:border-white/[0.03] text-xs text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/15 transition-all shadow-2xs font-medium"
-                      >
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent dark:bg-accent-dark shrink-0"></div>
-                        <span className="leading-snug">{skill}</span>
+                  <h3 className="text-lg font-display font-bold text-white uppercase mb-1">
+                    {cat.category}
+                  </h3>
+
+                  <p className="text-xs text-slate-400 font-normal mb-6 leading-relaxed">
+                    {cat.description}
+                  </p>
+
+                  {/* Skills List with Proficiency Meters */}
+                  <div className="space-y-4">
+                    {cat.skills.map((skill, sIdx) => (
+                      <div key={sIdx} className="space-y-1.5">
+                        <div className="flex items-center justify-between text-xs font-mono">
+                          <span className="text-slate-200 truncate pr-2">{skill.name}</span>
+                          <span className="text-emerald-400 font-bold">{skill.level}%</span>
+                        </div>
+                        {/* Progress Bar */}
+                        <div className="w-full h-1.5 bg-black/60 rounded-full overflow-hidden border border-white/5">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${skill.level}%` }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.2 + sIdx * 0.05 }}
+                            className="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full"
+                          />
+                        </div>
                       </div>
                     ))}
                   </div>
+
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-slate-200 dark:border-white/[0.05] text-[10px] font-mono text-slate-500 uppercase flex items-center justify-between font-semibold">
-                  <span>Zero Fluff</span>
-                  <span>Applied Capability</span>
+                {/* Bottom Domain Badge */}
+                <div className="pt-5 border-t border-white/[0.06] mt-6 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                  <span>AUDITED CAPABILITY</span>
+                  <span className="text-blue-400 font-bold">VERIFIED</span>
                 </div>
-              </div>
+
+              </motion.div>
             );
           })}
         </div>

@@ -1,178 +1,234 @@
-import React from 'react';
-import { ArrowDown, ArrowUpRight, ShieldCheck, MapPin, Sparkles, CheckCircle2, Award, Globe2, FileText, Download } from 'lucide-react';
-import { personalInfo } from '../data/portfolioData';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowDown, ArrowUpRight, Download, FileText, ShieldCheck, Sparkles, Wifi, CreditCard, Activity, CheckCircle2, TrendingUp, Layers } from 'lucide-react';
+import { personalInfo, heroTelemetry } from '../data/portfolioData';
 
 export default function Hero({ onOpenBrief }) {
-  return (
-    <section id="home" className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-24 overflow-hidden bg-slate-50 dark:bg-obsidian-950 transition-colors duration-300">
-      
-      {/* Background Subtle Grid & Radial Glow */}
-      <div className="absolute inset-0 bg-grid-subtle opacity-60 pointer-events-none"></div>
-      <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-blue-500/8 dark:bg-accent-dark/8 rounded-full blur-[140px] pointer-events-none"></div>
-      <div className="absolute top-1/3 right-10 w-[450px] h-[300px] bg-indigo-500/6 dark:bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-      
-      {/* Top Hairline Accent */}
-      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-slate-300 dark:via-white/10 to-transparent"></div>
+  const [cardRotateX, setCardRotateX] = useState(0);
+  const [cardRotateY, setCardRotateY] = useState(0);
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    setCardRotateX(-y / 14);
+    setCardRotateY(x / 14);
+  };
+
+  const handleMouseLeave = () => {
+    setCardRotateX(0);
+    setCardRotateY(0);
+  };
+
+  return (
+    <section id="home" className="relative min-h-[92vh] flex items-center justify-center py-16 sm:py-24 bg-[#07080B] overflow-hidden bg-fintech-grid">
+      
+      {/* Ambient background glow cones */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-600/15 via-indigo-600/10 to-emerald-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+      <div className="absolute bottom-10 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center text-left">
           
-          {/* Left Column: Editorial Positioning & Content (7 Cols) */}
-          <div className="lg:col-span-7 text-left">
-            
-            {/* Subtle Visual Indicators / Badges */}
-            <div className="inline-flex flex-wrap items-center gap-2 sm:gap-3 mb-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-xs font-mono tracking-wide shadow-2xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent dark:bg-accent-dark animate-pulse"></span>
-                {personalInfo.educationBadge}
+          {/* Left Column: Positioning & Action Hub (7 Cols) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-6"
+          >
+            {/* Status Pills */}
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs font-mono font-semibold">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>{personalInfo.educationBadge}</span>
               </div>
-              <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 text-xs font-mono tracking-wide shadow-2xs">
-                {personalInfo.focusBadge}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-slate-300 text-xs font-mono">
+                <span>{personalInfo.focusBadge}</span>
               </div>
             </div>
 
-            {/* Large Confident Editorial Name */}
-            <div className="mb-3">
-              <span className="text-xs sm:text-sm font-mono tracking-ultra text-slate-500 dark:text-slate-400 uppercase mb-2 font-semibold block">
-                Executive Portfolio &bull; Ayush Chatterjee
-              </span>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-extrabold tracking-tight text-slate-950 dark:text-white uppercase transition-colors">
+            {/* Main Header */}
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-slate-400 mb-1.5 font-medium">
+                Product Management & Growth Architecture
+              </div>
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-extrabold tracking-tight text-white uppercase leading-[1.05]">
                 {personalInfo.name}
               </h1>
             </div>
 
-            {/* Main Headline */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-gradient-primary tracking-tight mb-5 uppercase">
+            {/* Subtitle & Gradient Tagline */}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-gradient-fintech tracking-tight uppercase">
               {personalInfo.title}
             </h2>
 
-            {/* Supporting Headline */}
-            <p className="text-base sm:text-lg md:text-xl font-normal text-slate-700 dark:text-slate-300 tracking-tight max-w-2xl mb-6 leading-relaxed">
+            {/* Value Proposition */}
+            <p className="text-base sm:text-lg text-slate-300 font-normal max-w-2xl leading-relaxed">
               {personalInfo.supportingHeadline}
             </p>
 
-            {/* Short Editorial Introduction */}
-            <div className="max-w-2xl mb-8">
-              <blockquote className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-normal bg-white dark:bg-obsidian-900/50 border-l-4 border-accent dark:border-accent-dark pl-4 py-3 rounded-r-lg shadow-2xs border border-slate-200/80 dark:border-white/5">
-                "{personalInfo.bio}"
-              </blockquote>
+            {/* Unit Economics Formula Badge */}
+            <div className="p-4 rounded-2xl bg-[#0E1017] border border-white/[0.08] max-w-2xl text-xs font-mono">
+              <div className="text-[10px] text-slate-400 uppercase tracking-wider mb-1.5 font-semibold">
+                Core Growth Formula
+              </div>
+              <div className="flex flex-wrap items-center gap-2 text-slate-200 font-bold">
+                <span className="px-2 py-1 rounded bg-blue-500/10 border border-blue-500/30 text-blue-400">CAC OPTIMIZATION</span>
+                <span className="text-slate-500">+</span>
+                <span className="px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">FUNNEL CRO</span>
+                <span className="text-slate-500">+</span>
+                <span className="px-2 py-1 rounded bg-purple-500/10 border border-purple-500/30 text-purple-400">LTV LIFECYCLE</span>
+                <span className="text-slate-500">=</span>
+                <span className="px-2 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400">PROFITABLE SCALE</span>
+              </div>
             </div>
 
-            {/* CTAs with Resume / CV Button beside Connect */}
-            <div className="flex flex-wrap items-center gap-3 mb-8">
+            {/* CTAs Action Cluster */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
-                href="#case-studies"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-obsidian-950 font-bold text-xs tracking-widest uppercase hover:bg-accent dark:hover:bg-accent dark:hover:text-white transition-all duration-300 shadow-md hover:shadow-glow-blue group"
+                href="#projects"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl fintech-btn-primary font-mono text-xs font-bold tracking-wider uppercase"
               >
-                <span>VIEW MY WORK</span>
-                <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                <span>EXPLORE STAR PROJECTS</span>
+                <ArrowDown className="w-4 h-4" />
               </a>
 
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 font-bold text-xs tracking-widest uppercase hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-950 dark:hover:text-white transition-all duration-300 shadow-2xs group"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl fintech-btn-secondary font-mono text-xs font-semibold tracking-wider uppercase"
               >
                 <span>LET'S CONNECT</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <ArrowUpRight className="w-4 h-4 text-slate-400" />
               </a>
 
               <a
                 href="/Ayush_Chatterjee_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-white dark:bg-obsidian-850 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 font-bold text-xs tracking-widest uppercase hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-950 dark:hover:text-white transition-all duration-300 shadow-2xs group"
-                title="Download Official CV"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl fintech-btn-secondary font-mono text-xs font-semibold tracking-wider uppercase"
+                title="Download Verified Resume PDF"
               >
-                <Download className="w-4 h-4 text-accent dark:text-accent-dark group-hover:translate-y-0.5 transition-transform" />
-                <span>CV / RESUME</span>
+                <Download className="w-4 h-4 text-emerald-400" />
+                <span>STATEMENT (CV)</span>
               </a>
 
               <button
                 onClick={onOpenBrief}
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-blue-50 dark:bg-accent-dark/10 border border-blue-200 dark:border-accent-dark/20 text-accent dark:text-accent-dark font-bold text-xs tracking-widest uppercase hover:bg-blue-100 dark:hover:bg-accent-dark/20 transition-all shadow-2xs group"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 hover:bg-blue-500/20 transition-all font-mono text-xs font-bold tracking-wider uppercase"
               >
                 <FileText className="w-4 h-4" />
-                <span>1P BRIEF</span>
+                <span>1P AUDIT</span>
               </button>
             </div>
 
-            {/* Core Positioning Bar */}
-            <div className="pt-6 border-t border-slate-200 dark:border-white/[0.08] max-w-2xl">
-              <div className="text-[10px] font-mono tracking-widest text-slate-500 uppercase mb-2 font-semibold">
-                Core Career Positioning
-              </div>
-              <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono font-bold text-slate-800 dark:text-slate-300">
-                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">PRODUCT</span>
-                <span className="text-accent dark:text-accent-dark">×</span>
-                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">STRATEGY</span>
-                <span className="text-accent dark:text-accent-dark">×</span>
-                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">TECHNOLOGY</span>
-                <span className="text-accent dark:text-accent-dark">×</span>
-                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">DATA</span>
-                <span className="text-accent dark:text-accent-dark">×</span>
-                <span className="px-2 py-0.5 rounded bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] shadow-2xs">GLOBAL</span>
-              </div>
-            </div>
+          </motion.div>
 
-          </div>
-
-          {/* Right Column: Executive Framed Portrait Card (5 Cols) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-sm sm:max-w-md">
+          {/* Right Column: Interactive Titanium Virtual Membership Card (5 Cols) */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center"
+          >
+            <div className="w-full max-w-md space-y-5">
               
-              {/* Decorative background aura */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition duration-1000"></div>
+              {/* 3D Tilt Titanium FinTech Card */}
+              <div 
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                style={{
+                  perspective: 1000,
+                }}
+                className="w-full"
+              >
+                <motion.div
+                  animate={{
+                    rotateX: cardRotateX,
+                    rotateY: cardRotateY,
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="w-full aspect-[1.586/1] rounded-3xl bg-titanium-card p-6 sm:p-7 border border-white/20 shadow-2xl relative overflow-hidden flex flex-col justify-between group cursor-pointer"
+                >
+                  {/* Holographic foil sheen overlay */}
+                  <div className="absolute inset-0 bg-holographic opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
 
-              {/* Main Framed Card */}
-              <div className="relative rounded-3xl bg-white dark:bg-obsidian-850 p-3.5 border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden">
-                
-                {/* Portrait Image Container */}
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-slate-900">
-                  <img
-                    src="/ayush-chatterjee.png"
-                    alt="Ayush Chatterjee - MBA, Product & Strategy Professional"
-                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
-                    loading="eager"
-                  />
-                  
-                  {/* Subtle Gradient Vignette at Bottom */}
-                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent"></div>
+                  {/* Card Top Row: Chip + Contactless NFC */}
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center gap-3">
+                      {/* Gold EMV Microchip */}
+                      <div className="w-11 h-9 rounded-lg card-chip p-1.5 flex flex-col justify-between">
+                        <div className="w-full h-[1px] bg-black/40"></div>
+                        <div className="w-full h-[1px] bg-black/40"></div>
+                        <div className="w-full h-[1px] bg-black/40"></div>
+                      </div>
+                      <Wifi className="w-5 h-5 text-slate-300 rotate-90" />
+                    </div>
 
-                  {/* Overlaid Bottom Details */}
-                  <div className="absolute inset-x-0 bottom-0 p-4 text-left">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/90 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono tracking-wide mb-1 shadow-sm">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                      <span>Open to Product & Strategy Roles</span>
-                    </div>
-                    <div className="text-white font-display font-bold text-lg leading-tight uppercase">
-                      Ayush Chatterjee
-                    </div>
-                    <div className="text-slate-300 text-xs font-mono">
-                      MBA &bull; IT & International Business
+                    <div className="text-right">
+                      <span className="text-[10px] font-mono font-bold tracking-widest text-emerald-400 uppercase flex items-center gap-1">
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        <span>BLACK TITANIUM</span>
+                      </span>
                     </div>
                   </div>
-                </div>
 
-                {/* Card Footer Quick Highlights */}
-                <div className="pt-3.5 pb-1 px-1 grid grid-cols-2 gap-2 text-left text-xs font-mono">
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-white/5">
-                    <div className="text-[10px] text-slate-500 uppercase font-semibold">Location Scope</div>
-                    <div className="font-bold text-slate-900 dark:text-white truncate">India &rarr; Global</div>
+                  {/* Card Middle: Embossed Number */}
+                  <div className="relative z-10 my-auto">
+                    <div className="text-lg sm:text-xl font-mono tracking-[0.22em] text-white font-bold drop-shadow-md">
+                      4532 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 2026
+                    </div>
+                    <div className="text-[9px] font-mono text-slate-400 uppercase tracking-widest mt-1">
+                      PRODUCT & GROWTH PROTOCOL
+                    </div>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-white/5">
-                    <div className="text-[10px] text-slate-500 uppercase font-semibold">Primary Track</div>
-                    <div className="font-bold text-accent dark:text-accent-dark truncate">Product Strategy</div>
-                  </div>
-                </div>
 
+                  {/* Card Bottom Row: Holder Name & Expiry */}
+                  <div className="flex items-end justify-between relative z-10 pt-2">
+                    <div>
+                      <div className="text-[9px] font-mono text-slate-400 uppercase tracking-wider">
+                        CARDHOLDER / STRATEGIST
+                      </div>
+                      <div className="text-sm sm:text-base font-display font-bold text-white uppercase tracking-wider">
+                        AYUSH CHATTERJEE
+                      </div>
+                    </div>
+
+                    <div className="text-right">
+                      <div className="text-[9px] font-mono text-slate-400 uppercase tracking-wider">
+                        VALID THRU
+                      </div>
+                      <div className="text-xs sm:text-sm font-mono font-bold text-white">
+                        2024 / 2026
+                      </div>
+                    </div>
+                  </div>
+
+                </motion.div>
+              </div>
+
+              {/* Live Telemetry Ticker Bento under Card */}
+              <div className="grid grid-cols-2 gap-3 w-full">
+                {heroTelemetry.map((item, idx) => (
+                  <div 
+                    key={idx} 
+                    className="p-3.5 rounded-2xl bg-[#0D0E15] border border-white/[0.08] hover:border-blue-500/30 transition-colors text-left"
+                  >
+                    <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1">
+                      <span className="truncate">{item.label}</span>
+                    </div>
+                    <div className="text-lg sm:text-xl font-display font-bold text-white flex items-baseline gap-2">
+                      <span>{item.value}</span>
+                      <span className="text-[10px] font-mono text-emerald-400 font-semibold">{item.change}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
 
             </div>
-          </div>
+          </motion.div>
 
         </div>
-
       </div>
     </section>
   );

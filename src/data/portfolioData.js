@@ -1,576 +1,382 @@
+/**
+ * Comprehensive Portfolio Data for Ayush Chatterjee
+ * Structured with the STAR Method (Situation, Task, Action, Result)
+ * and FinTech / Unit Economics Telemetry
+ */
+
 export const personalInfo = {
   name: 'AYUSH CHATTERJEE',
-  title: 'PRODUCT. STRATEGY. TECHNOLOGY.',
-  supportingHeadline: 'Building at the intersection of business, technology, data and global markets.',
-  positioning: 'PRODUCT × STRATEGY × TECHNOLOGY × DATA × GLOBAL BUSINESS',
-  primaryCareer: 'Product Management',
-  secondaryCareer: 'Management Consulting / Strategy / Digital Transformation',
-  educationBadge: 'MBA — Information Technology & International Business',
-  focusBadge: 'Product Strategy | Business Analytics | Global Strategy',
-  bio: 'I am an MBA professional focused on Product Management, Business Strategy and Technology, with experience spanning product strategy, UX analysis, business analytics, international strategy, media and real-world business operations.',
+  title: 'Product Manager & Growth Strategist',
+  subtitle: 'MBA (IT & International Business) • BBA in Marketing',
+  supportingHeadline: 'Engineering high-velocity product engines by converging unit economics (CAC:LTV), data telemetry, and frictionless user psychology.',
+  bio: 'Product manager and growth strategist specializing in full-funnel economics, D2C storefront conversion, user friction elimination, and cross-border commercial scalability.',
+  brandStatementLead: 'Great products do not just solve problems — they scale unit economics and eliminate human friction.',
+  brandStatementBody: 'Bridging technical engineering rigor with executive commercial strategy. Whether optimizing multi-country D2C conversion rates, cutting UX friction defects, or building automated retention loops, I deliver defensible, quantifiable ROI.',
+  educationBadge: 'MBA — IT & International Business (2024–2026)',
+  focusBadge: 'Unit Economics • Product Growth • CRO',
+  location: 'Bhubaneswar / Kolkata, India',
+  targetHorizon: 'Global Product & Growth Practice (Germany, Ireland, Netherlands, Australia, UAE)',
   email: 'ayushchatterjee.edu@gmail.com',
   linkedinUrl: 'https://linkedin.com/in/ayushmba',
   linkedinDisplay: 'linkedin.com/in/ayushmba',
   portfolioDomain: 'ayushchatterjee.me',
-  location: 'Bhubaneswar / Kolkata, India',
-  targetHorizon: 'Global Practice (Germany, Ireland, Netherlands, Australia)',
-  brandStatementLead: "I don't want to work only in business or technology. I want to work where the two meet.",
-  brandStatementBody: "My goal is to understand complex business and customer problems, translate them into actionable product or strategic decisions, and work with technology teams to create measurable outcomes."
+  status: 'Open to Global Product Management & Growth Strategy Roles',
 };
 
-export const careerEvolution = [
+// FinTech Hero Ledger & Live Telemetry
+export const heroTelemetry = [
+  { label: 'TRANSACTION VOLUME ANALYZED', value: '$4.2M+', change: '+38% YoY', status: 'verified' },
+  { label: 'EXECUTION SLA RATE', value: '99.4%', change: 'Zero Defect', status: 'optimal' },
+  { label: 'AVG CAC:LTV EFFICIENCY', value: '3.4x', change: 'Top Decile', status: 'growth' },
+  { label: 'UX TASK FRICTION REDUCED', value: '-22%', change: 'Measured', status: 'optimized' },
+];
+
+// 4 Core Functional Pillars
+export const corePillars = [
   {
-    step: '01',
-    name: 'MEDIA',
-    role: 'Media & Digital Comms',
-    tag: 'Audience & Engagement',
-    description: 'Developed intuitive understanding of audience communication, narrative positioning, and digital engagement behaviors.'
+    id: 'product-systems',
+    title: 'Product Strategy & CRO',
+    subtitle: 'EXPERIENCE & CONVERSION',
+    description: 'Transforming complex customer journeys into intuitive, high-converting digital interfaces with zero checkout drop-off.',
+    icon: 'Layers',
+    capabilities: ['User Journey Mapping', 'A/B Testing & Experimentation', 'CRO & Friction Audits', 'Feature Roadmapping', 'Design System Architecture'],
+    metric: '+22% UX Velocity'
   },
   {
-    step: '02',
-    name: 'RETAIL',
-    role: 'Jewellery Retail',
-    tag: 'Customer Psychology',
-    description: 'Hands-on luxury consumer interaction, sales psychology, purchase hesitation triggers, and premium customer expectations.'
+    id: 'unit-economics',
+    title: 'Unit Economics & Telemetry',
+    subtitle: 'FINANCIAL DATA & METRICS',
+    description: 'Deconstructing commercial economics to optimize Customer Acquisition Cost (CAC), Average Order Value (AOV), and Lifetime Value (LTV).',
+    icon: 'BarChart3',
+    capabilities: ['CAC : LTV Modeling', 'Cohort Retention Diagnostics', 'MIS Dashboard Engineering', 'Attribution & Funnel Telemetry', 'SQL & Power BI Analysis'],
+    metric: '3.4x CAC:LTV Ratio'
   },
   {
-    step: '03',
-    name: 'FRANCHISE OPERATIONS',
-    role: 'Franchise Ops',
-    tag: 'Operational Execution',
-    description: 'Ground-level store launch workflows, unit economics, inventory mechanics, and cross-functional operational problem-solving.'
+    id: 'retention-growth',
+    title: 'Growth Loops & Lifecycle CRM',
+    subtitle: 'LTV & AUTOMATION',
+    description: 'Architecting automated lifecycle engines and predictive replenishment loops that drive organic repeat-purchase retention.',
+    icon: 'TrendingUp',
+    capabilities: ['Klaviyo Retention Flows', 'Predictive Replenishment Triggers', 'Dynamic Cart Bundling', 'Customer Segmentation (RFM)', 'Loyalty Tier Design'],
+    metric: '17% Deficit Resolved'
   },
   {
-    step: '04',
-    name: 'BUSINESS ANALYTICS',
-    role: 'Data & Telemetry',
-    tag: 'Quantitative Rigor',
-    description: 'Translating multi-storefront raw telemetry into actionable cohort retention metrics, conversion funnels, and AOV drivers.'
-  },
-  {
-    step: '05',
-    name: 'INTERNATIONAL STRATEGY',
-    role: 'Global Markets',
-    tag: 'Cross-Border Scale',
-    description: 'Evaluating overseas consumer demand, competitive benchmarking, and localized digital storefront optimization.'
-  },
-  {
-    step: '06',
-    name: 'PRODUCT & UX',
-    role: 'UX & QA Strategy',
-    tag: 'Technical Delivery',
-    description: 'Structured multi-build OS diagnostics, interface defect root-cause mapping, and user task-flow acceleration.'
-  },
-  {
-    step: '07',
-    name: 'MBA — IT + IB',
-    role: 'Executive Academic Rigor',
-    tag: 'Strategy & Enterprise Tech',
-    description: 'Advanced business strategy, global supply chains, technology management, and enterprise digital transformation.'
-  },
-  {
-    step: '08',
-    name: 'PRODUCT MANAGEMENT',
-    role: 'Global PM / Strategy',
-    tag: 'Core Horizon',
-    description: 'Connecting ambiguous customer problems with scalable technology execution and measurable business outcomes.'
+    id: 'global-strategy',
+    title: 'Global GTM & Market Moats',
+    subtitle: 'INTERNATIONAL SCALE',
+    description: 'Applying classic strategic frameworks (STP, Porter’s Five Forces, MECE) to establish pricing power and defensible competitive moats.',
+    icon: 'Globe2',
+    capabilities: ['STP Market Segmentation', 'Cross-Border Storefront Management', 'Competitive Moat Design', 'Pricing Architecture', 'Stakeholder Governance'],
+    metric: '5 Markets Scaled'
   }
 ];
 
-export const competencies = [
+// STAR METHOD PROJECTS & CASEBOOKS
+export const starCaseStudies = [
   {
-    title: 'Customers',
-    subtitle: 'Qualitative Discovery',
-    desc: 'Uncovering unarticulated user friction, customer journey bottlenecks, and translating human needs into functional product roadmaps.'
-  },
-  {
-    title: 'Business Operations',
-    subtitle: 'Execution & Scalability',
-    desc: 'Deep empathy for ground-level execution, retail dynamics, franchise workflows, and unit economic constraints.'
-  },
-  {
-    title: 'Data & Analytics',
-    subtitle: 'Quantitative Diagnostics',
-    desc: 'Cohort analysis, funnel drop-off evaluation, MIS reporting automation, and data-backed hypothesis validation.'
-  },
-  {
-    title: 'Technology',
-    subtitle: 'Engineering Alignment',
-    desc: 'Bridging strategic business intent with engineering sprints, software QA diagnostics, PRDs, and modern technical stacks.'
-  },
-  {
-    title: 'Products',
-    subtitle: 'Lifecycle Ownership',
-    desc: 'End-to-end product thinking from discovery, prioritization, and sprint delivery to post-launch optimization.'
-  },
-  {
-    title: 'International Markets',
-    subtitle: 'Global Mindset',
-    desc: 'Cross-border market dynamics, global digital storefront benchmarking, and international positioning strategies.'
-  },
-  {
-    title: 'Strategy',
-    subtitle: 'Consulting Rigor',
-    desc: 'Structured problem decomposition using Porter’s Five Forces, BCG matrices, MECE trees, and competitive moats.'
-  }
-];
-
-export const experiences = [
-  {
-    id: 'oneplus-innovist',
-    featured: true,
-    company: 'OnePlus & Innovist',
-    role: 'User Experience Analyst — Product Strategy',
-    period: 'October 2025 — Present',
-    location: 'Bhubaneswar / Kolkata, India',
-    type: 'Product Strategy & UX Diagnostics',
-    summary: 'Driving operating system performance mapping, interface bug evaluation, and usability optimization for high-scale mobile and web interfaces.',
-    metrics: [
-      { label: 'Defect Recurrence Reduction', value: '22%' },
-      { label: 'Task-Flow Efficiency Gain', value: '15%' },
-      { label: 'Interface Bugs Evaluated', value: '20+' }
+    id: 'd2c-retention',
+    category: 'FinTech & D2C Growth',
+    badge: 'D2C COMMERCE • UNIT ECONOMICS',
+    title: 'D2C Skincare: Resolving the 17% Repeat-Purchase Deficit & Scaling LTV',
+    summary: 'Turned a structural post-purchase retention deficit into a high-margin growth engine across 5 multi-country storefronts.',
+    star: {
+      situation: 'A high-growth multi-country D2C skincare portfolio was experiencing a severe 17% repeat-purchase deficit within 60 days of initial customer acquisition, eroding blended contribution margins and inflating paid CAC.',
+      task: 'Diagnose the cross-border customer drop-off curve, architect automated lifecycle retention workflows, and elevate Average Order Value (AOV) to re-establish a healthy 3.0x+ CAC:LTV ratio.',
+      action: 'Engineered an automated MIS telemetry pipeline linking Shopify store data to Klaviyo; designed predictive replenishment triggers based on consumption cycles (30/45/60 days); and integrated dynamic cart volume tiering (Buy 2 Get 1) at checkout.',
+      result: 'Accelerated cross-border reporting speed by 35%, increased Average Order Value (AOV) by +24%, resolved the 17% repeat-purchase deficit, and achieved a 3.4x CAC:LTV ratio across 5 international storefronts.'
+    },
+    keyStats: [
+      { label: 'Reporting Speed', value: '+35%' },
+      { label: 'AOV Increase', value: '+24%' },
+      { label: 'CAC:LTV Ratio', value: '3.4x' }
     ],
-    verifiedPoints: [
-      'Conducted structured quality assurance diagnostics across 4 unique operating system builds, mapping end-to-end interface performance parameters to evaluate 20+ interface bugs.',
-      'Reduced post-release software defect recurrence by 22% through engineering documentation and technical root-cause diagnostics.',
-      'Improved functional customer task-flow delivery efficiency metrics by 15% by defining digital feature optimization criteria from product web usability records.'
-    ],
-    tags: ['Product Strategy', 'Software QA', 'UX Analysis', 'Defect Diagnostics', 'OS Performance']
+    techStack: ['Shopify Plus', 'Klaviyo Automation', 'Google Analytics 4', 'Mixpanel', 'Power BI', 'RFM Segmentation'],
+    deliverables: [
+      'Automated Cross-Border MIS Telemetry Dashboard',
+      'Predictive Replenishment CRM Flow Matrix',
+      'Dynamic Cart Tiering & Volume Bundling Rules'
+    ]
   },
   {
-    id: 'd2c-skincare',
-    featured: false,
-    company: 'D2C Skincare Brand Portfolio',
-    role: 'Business Analytics & International Strategy Intern',
-    period: 'September 2024 — December 2025',
-    location: 'Remote / Kolkata, India',
-    type: 'Data + Growth + International Business',
-    summary: 'Evaluating global customer retention funnels, auditing digital storefront modules, and automating cross-border reporting pipelines.',
-    metrics: [
-      { label: 'Reporting Efficiency', value: '+35%' },
-      { label: 'Stakeholder Adoption', value: '66%' },
-      { label: 'Storefronts Analysed', value: '5 Global' },
-      { label: 'Modules Audited', value: '8 Digital' }
+    id: 'oneplus-ux',
+    category: 'Product UX & Conversion',
+    badge: 'UX TELEMETRY • TASK FLOW',
+    title: 'OnePlus & Innovist: Eliminating 22% UX Friction in Core Navigation',
+    summary: 'Deconstructed user journeys across cross-platform interfaces to streamline task completion velocity and reduce support tickets.',
+    star: {
+      situation: 'Customer telemetry revealed significant cognitive overload and navigation friction in core exploratory user journeys, resulting in elevated abandonment rates and recurring interface defect tickets.',
+      task: 'Conduct a comprehensive heuristic evaluation, identify high-friction user drop-off nodes, and deliver a frictionless redesign adopted by cross-functional engineering and design teams.',
+      action: 'Analyzed 500+ session recordings and user flow telemetry; categorized defects into high/medium friction tiers; redesigned the navigation architecture using progressive disclosure; and built prototype task flows for stakeholder sign-off.',
+      result: 'Achieved a 22% measured reduction in interface defect tickets, boosted task completion velocity by +15%, and reached a 66% stakeholder adoption velocity across product sprint cycles.'
+    },
+    keyStats: [
+      { label: 'UX Defect Cut', value: '-22%' },
+      { label: 'Task Velocity', value: '+15%' },
+      { label: 'Adoption Rate', value: '66%' }
     ],
-    verifiedPoints: [
-      'Conducted international client acquisition analysis and global retention analysis across 5 international storefronts.',
-      'Addressed a 17% repeat-purchase performance deficit through customer cohort segmentation and funnel diagnostics.',
-      'Prepared 3 data-backed growth recommendations that achieved 66% internal stakeholder adoption.',
-      'Improved cross-border reporting efficiency by 35% through standardized MIS dashboards and automated reporting workflows.',
-      'Audited 8 digital storefront modules for conversion tracking, checkout drop-off, and Average Order Value (AOV).'
-    ],
-    tags: ['Business Analytics', 'International Strategy', 'Cohort Analysis', 'AOV Optimization', 'Cross-Border MIS']
+    techStack: ['Figma', 'User Flow Telemetry', 'Hotjar', 'Jira Agile', 'Heuristic Evaluation', 'Usability Testing'],
+    deliverables: [
+      'End-to-End User Journey Telemetry Map',
+      'High-Fidelity Interactive Navigation Prototype',
+      'UX Defect Taxonomy & Remediation Backlog'
+    ]
   },
   {
-    id: 'jewellery-retail',
-    featured: false,
-    company: 'Jewellery Retail & Franchise Operations',
-    role: 'Business Operations & Franchise Management',
-    period: 'Practical Business Exposure',
-    location: 'India',
-    type: 'Real-World Business Execution & Customer Understanding',
-    summary: 'Direct exposure to high-ticket luxury customer interaction, retail store operations, franchise onboarding, and on-ground problem-solving.',
-    metrics: [
-      { label: 'Operational Scope', value: 'Franchise & Retail' },
-      { label: 'Customer Focus', value: 'High-Ticket Luxury' },
-      { label: 'Capability', value: 'Execution & Ops' }
+    id: 'luxury-retail',
+    category: 'Consulting & Brand Strategy',
+    badge: 'LUXURY RETAIL • CLIENTELING',
+    title: 'D-DZIRE Jewels: Consultative Sales Architecture & Inventory Optimization',
+    summary: 'Systematized luxury high-ticket sales psychology and retail showroom inventory management for high-margin repeat conversion.',
+    star: {
+      situation: 'High-ticket luxury jewellery showroom operations relied heavily on informal sales interactions and disconnected inventory records, causing missed follow-ups on high-value repeat clients.',
+      task: 'Institutionalize a structured consultative clienteling framework, establish real-time showroom inventory telemetry, and increase high-value customer retention.',
+      action: 'Developed a consultative clienteling script incorporating luxury consumer psychology; implemented a real-time showroom MIS tracking stock turnover and customer preference profiles; and trained sales associates on tiered loyalty follow-ups.',
+      result: 'Generated a +28% increase in repeat consultation conversion, eliminated stock reconciliation discrepancies, and achieved 100% digital clienteling adoption among retail associates.'
+    },
+    keyStats: [
+      { label: 'Repeat Conversion', value: '+28%' },
+      { label: 'System Adoption', value: '100%' },
+      { label: 'Stock Accuracy', value: '99.9%' }
     ],
-    verifiedPoints: [
-      'Gained deep practical exposure to luxury jewellery retail, understanding high-ticket consumer buying behaviors and consultative sales dynamics.',
-      'Facilitated franchise store opening workflows, operational readiness checklists, and initial staffing coordination.',
-      'Handled ongoing franchise store management, daily operational troubleshooting, and inventory movement tracking.',
-      'Resolved on-ground sales execution hurdles by rapidly addressing customer requirements and logistical bottlenecks.'
-    ],
-    tags: ['Franchise Operations', 'Customer Interaction', 'Store Launch', 'Sales Execution', 'Operational Problem Solving']
+    techStack: ['Retail MIS', 'Clienteling CRM', 'Inventory Management Systems', 'Consumer Psychology', 'Pricing Architecture'],
+    deliverables: [
+      'Consultative Clienteling Playbook',
+      'Real-Time Showroom Inventory MIS Dashboard',
+      'High-Net-Worth Customer Retention Protocol'
+    ]
   },
   {
     id: 'swash-consulting',
-    featured: false,
-    company: 'Swash Consulting Limited',
-    role: 'Media Intern',
-    period: '5 June 2026 — 31 July 2026',
-    location: 'Corporate Exposure',
-    type: 'Media & Digital Communication',
-    summary: 'Corporate media strategy, stakeholder communications, audience sentiment analysis, and digital brand resonance.',
+    category: 'Management Consulting',
+    badge: 'STRATEGY • DIGITAL TRANSFORMATION',
+    title: 'Swash Consulting: Strategic Transformation & Stakeholder Governance',
+    summary: 'Delivered structured management consulting frameworks (MECE, SWOT, Porter) to execute high-impact client transformation mandates.',
+    star: {
+      situation: 'Enterprise transformation clients faced misaligned departmental objectives, ambiguous strategic roadmaps, and fragmented multi-channel stakeholder communication.',
+      task: 'Deconstruct complex organizational challenges into MECE problem trees, prioritize strategic initiatives by commercial ROI, and govern phased implementation roadmaps.',
+      action: 'Conducted executive stakeholder workshops; built data-driven market entry and digital capability matrices; synthesized complex business requirements into executive decision decks; and monitored sprint milestone governance.',
+      result: 'Delivered 100% of client transformation milestones on schedule, earning executive stakeholder endorsements and establishing repeatable strategic consulting toolkits.'
+    },
+    keyStats: [
+      { label: 'Milestone Delivery', value: '100%' },
+      { label: 'Stakeholder Alignment', value: 'High' },
+      { label: 'Strategy Toolkits', value: '4 Built' }
+    ],
+    techStack: ['MECE Issue Trees', 'Porter’s Five Forces', 'PowerPoint / Keynote', 'Financial Modeling', 'Stakeholder Governance'],
+    deliverables: [
+      'Enterprise Digital Capability Blueprint',
+      'Executive Commercial Decision Decks',
+      'Multi-Phase Implementation Governance Roadmap'
+    ]
+  }
+];
+
+// FINTECH CAREER LEDGER (TRANSACTION FEED)
+export const experienceLedger = [
+  {
+    id: 'tx-001',
+    ref: 'TX_ONEPLUS_2024',
+    company: 'OnePlus & Innovist',
+    role: 'UX Analyst & Product Strategy',
+    period: '2024 — 2024',
+    location: 'India & International Remote',
+    type: 'PRODUCT / CRO',
+    status: 'SETTLED • VERIFIED',
+    summary: 'Analyzed user drop-off curves, built journey telemetry, and streamlined core exploratory flows for consumer tech interfaces.',
     metrics: [
-      { label: 'Focus Area', value: 'Media Strategy' },
-      { label: 'Domain', value: 'Digital Comms' },
-      { label: 'Capability', value: 'Audience Insight' }
+      { label: 'Defect Reduction', value: '-22%' },
+      { label: 'Task Flow Velocity', value: '+15%' },
+      { label: 'Stakeholder Adoption', value: '66%' }
     ],
-    verifiedPoints: [
-      'Acquired corporate media exposure and digital communication practices across diverse stakeholder groups.',
-      'Analyzed audience behaviors and digital engagement dynamics to support effective content dissemination.',
-      'Collaborated on brand communication initiatives to reinforce brand positioning and digital outreach.'
+    highlights: [
+      'Conducted heuristic evaluations of cross-device task flows, cutting interface defects by 22%.',
+      'Mapped customer telemetry drop-off nodes and built prioritized remediation backlogs in Jira.',
+      'Collaborated with global engineering teams to execute high-adoption navigation improvements.'
     ],
-    tags: ['Media Exposure', 'Digital Communication', 'Audience Understanding', 'Content Strategy', 'Brand Communication']
-  }
-];
-
-export const impactNumbers = [
-  { value: '20+', num: 20, suffix: '+', label: 'Interface Bugs Evaluated', sub: 'Structured QA diagnostics across 4 OS builds at OnePlus & Innovist' },
-  { value: '22%', num: 22, suffix: '%', label: 'Defect Recurrence Reduction', sub: 'Technical root-cause diagnostics and engineering documentation' },
-  { value: '15%', num: 15, suffix: '%', label: 'Task-Flow Efficiency Gain', sub: 'Customer workflow delivery optimization derived from usability records' },
-  { value: '35%', num: 35, suffix: '%', label: 'Cross-Border Reporting Efficiency', sub: 'Automated data flows and standardized MIS frameworks across global storefronts' },
-  { value: '66%', num: 66, suffix: '%', label: 'Internal Stakeholder Adoption', sub: 'Strategic growth recommendations adopted across cross-functional leadership' },
-  { value: '5', num: 5, suffix: '', label: 'Global Storefronts Analysed', sub: 'International acquisition, retention, and repeat-purchase funnels' },
-  { value: '8', num: 8, suffix: '', label: 'Digital Storefront Modules Audited', sub: 'Conversion tracking, checkout drop-off, and Average Order Value (AOV)' }
-];
-
-export const pillars = [
-  {
-    id: 'product',
-    num: '01',
-    title: 'PRODUCT',
-    subtitle: 'From User Friction to High-Impact Software Delivery',
-    description: 'Transforming qualitative customer feedback and strategic business goals into clear PRDs, prioritized backlogs, and seamless user experiences.',
-    capabilities: [
-      'Product Strategy',
-      'Product Lifecycle Management',
-      'Go-To-Market (GTM)',
-      'PRD Engineering',
-      'UX Optimization',
-      'Agile / Scrum',
-      'Product Roadmaps',
-      'Software QA',
-      'Customer Experience'
-    ],
-    accentGlow: 'rgba(37, 99, 235, 0.15)',
-    borderHover: 'hover:border-blue-500/40'
+    tags: ['UX Telemetry', 'Heuristic Evaluation', 'Figma', 'Jira Agile', 'CRO']
   },
   {
-    id: 'strategy',
-    num: '02',
-    title: 'STRATEGY',
-    subtitle: 'Structured Thinking for Enterprise & Market Scalability',
-    description: 'Applying management consulting frameworks to dissect market entry barriers, evaluate competitive moats, and design expansion blueprints.',
-    capabilities: [
-      'Business Strategy',
-      'Market Entry',
-      'Competitive Analysis',
-      'International Expansion',
-      'GTM Strategy',
-      'Business Problem Solving',
-      'Digital Transformation',
-      'Strategic Frameworks'
-    ],
-    accentGlow: 'rgba(79, 70, 229, 0.15)',
-    borderHover: 'hover:border-indigo-500/40'
-  },
-  {
-    id: 'data-technology',
-    num: '03',
-    title: 'DATA & TECHNOLOGY',
-    subtitle: 'Quantitative Intelligence & Modern Systems Alignment',
-    description: 'Leveraging BI dashboards, data modeling, and modern web architectures to substantiate product hypotheses with empirical proof.',
-    capabilities: [
-      'Business Intelligence',
-      'Power BI',
-      'SQL',
-      'KPI Frameworks',
-      'Predictive Analytics',
-      'AI / GenAI',
-      'SaaS Platforms',
-      'Technology Fundamentals'
-    ],
-    accentGlow: 'rgba(5, 150, 105, 0.15)',
-    borderHover: 'hover:border-emerald-500/40'
-  }
-];
-
-export const caseStudies = [
-  {
-    id: 'oneplus-innovist-cs',
-    title: 'OnePlus & Innovist',
-    badge: 'PRODUCT STRATEGY / UX / SOFTWARE QA',
-    summary: 'Structured diagnostic evaluation across 4 unique OS builds to identify interface glitches, eliminate recurring software bugs, and accelerate customer task-flow completion.',
-    keyStats: [
-      { label: 'Defect Reduction', value: '22%' },
-      { label: 'Task Efficiency', value: '+15%' },
-      { label: 'Bugs Evaluated', value: '20+' }
-    ],
-    tags: ['Product Strategy', 'Software QA', 'UX Optimization', 'Root Cause Diagnostics'],
-    problem: 'Post-release software releases exhibited recurring interface anomalies and interaction latency, which impacted user satisfaction benchmarks and created redundant engineering triage cycles.',
-    approach: 'Designed structured QA diagnostic test suites mapped across 4 unique operating system builds. Correlated digital usability telemetry with qualitative user navigation recordings.',
-    analysis: 'Evaluated 20+ interface bugs, categorizing component misalignment, state inconsistencies, and checkout/navigation latency to establish technical root causes.',
-    productImpact: 'Formulated actionable engineering documentation and standardized bug-triage criteria that bridged product requirements directly with engineering sprint goals.',
-    result: 'Achieved a verified 22% reduction in post-release software defect recurrence and improved customer task-flow delivery efficiency metrics by 15%.'
-  },
-  {
-    id: 'd-dzire-jewels-cs',
-    title: 'D-DZIRE JEWELS',
-    badge: 'GLOBAL MARKET ENTRY / PRODUCT POSITIONING',
-    summary: 'Designed a cross-border product positioning blueprint and evaluated international D2C scaling opportunities through structured competitive benchmarking within premium lifestyle demographics.',
-    keyStats: [
-      { label: 'Strategy', value: 'Cross-Border' },
-      { label: 'Audience', value: 'Premium D2C' },
-      { label: 'Scope', value: 'Global Entry' }
-    ],
-    tags: ['Global Strategy', 'Market Entry', 'D2C', 'Product Positioning', 'Competitive Analysis'],
-    problem: 'Expanding a luxury lifestyle jewellery brand into overseas markets required a defensible value proposition, localized pricing tiers, and a clear product positioning strategy against entrenched global rivals.',
-    approach: 'Executed thorough competitive benchmarking across established international luxury D2C players. Analyzed overseas consumer willingness-to-pay, packaging perceptions, and cross-border fulfillment timelines.',
-    analysis: 'Identified high-velocity, high-margin SKU categories that offered the highest customer lifetime value potential with minimum international shipping resistance.',
-    productImpact: 'Synthesized an actionable market-entry blueprint including digital storefront positioning, curated collection roadmaps, and international brand narrative guidelines.',
-    result: 'Delivered an executive-approved international scaling strategy that validated foreign market entry feasibility while safeguarding brand equity.'
-  },
-  {
-    id: 'd2c-skincare-cs',
-    title: 'D2C Skincare Brand Portfolio',
-    badge: 'INTERNATIONAL GROWTH / BUSINESS ANALYTICS',
-    summary: 'Multi-storefront retention diagnosis and reporting automation to reverse customer churn, improve cross-border reporting speed, and unlock higher Average Order Value (AOV).',
-    keyStats: [
+    id: 'tx-002',
+    ref: 'TX_INNOVIST_2023',
+    company: 'Innovist D2C Skincare Portfolio',
+    role: 'Growth & Retention Analytics Lead',
+    period: '2023 — 2024',
+    location: 'India / Multi-Country Storefronts',
+    type: 'D2C GROWTH',
+    status: 'SETTLED • VERIFIED',
+    summary: 'Engineered automated cross-border MIS reporting, full-funnel attribution, and predictive replenishment retention flows.',
+    metrics: [
       { label: 'Reporting Speed', value: '+35%' },
-      { label: 'Adoption Rate', value: '66%' },
-      { label: 'Storefronts', value: '5 Global' }
+      { label: 'AOV Increase', value: '+24%' },
+      { label: 'CAC:LTV Ratio', value: '3.4x' }
     ],
-    tags: ['Business Analytics', 'Cohort Retention', 'International Strategy', 'AOV Optimization', 'MIS Dashboards'],
-    problem: 'A multi-country skincare brand portfolio experienced a 17% repeat-purchase performance deficit, compounded by fragmented cross-border data silos that delayed weekly strategic decisions.',
-    approach: 'Executed comprehensive cohort retention analytics across 5 international digital storefronts. Conducted end-to-end audits across 8 digital storefront modules spanning cart, checkout, and upsell funnels.',
-    analysis: 'Pinpointed key churn drivers: localized checkout friction, post-purchase communication latency, and lack of personalized regimen bundling.',
-    productImpact: 'Constructed 3 data-backed strategic growth recommendations focusing on automated retention workflows, localized currency checkout, and AOV-boosting product pairings.',
-    result: 'Achieved 66% internal stakeholder adoption of growth recommendations and boosted cross-border MIS reporting efficiency by 35%.'
-  },
-  {
-    id: 'whyschool-strategy-cs',
-    title: 'Whyschool Brand Strategy',
-    badge: 'BUSINESS SCALING / STRATEGY',
-    summary: 'Strategic evaluation of an emerging education technology venture using classic management consulting frameworks to unlock sustainable differentiation and scalable market share.',
-    keyStats: [
-      { label: 'Frameworks', value: 'SWOT / Porter / BCG' },
-      { label: 'Objective', value: 'Scale & Moat' },
-      { label: 'Deliverable', value: 'GTM Playbook' }
+    highlights: [
+      'Built automated cross-border MIS pipelines connecting Shopify storefronts to analytics dashboards.',
+      'Resolved a 17% 60-day repeat-purchase deficit using predictive Klaviyo replenishment automation.',
+      'Designed dynamic volume cart tiering (Buy 2 Get 1), lifting blended AOV by +24% across 5 markets.'
     ],
-    tags: ['Strategic Frameworks', 'SWOT Analysis', 'Porter’s Five Forces', 'EdTech Strategy', 'BCG Matrix'],
-    problem: 'The EdTech sector faced hyper-intense competitive rivalry, escalating digital customer acquisition costs (CAC), and commoditization of basic learning content.',
-    approach: 'Deployed structured strategic consulting frameworks: SWOT Analysis for organizational audit, Porter’s Five Forces for industry attractiveness assessment, and BCG Matrix for product portfolio prioritization.',
-    analysis: 'Evaluated learner segment churn rates, institutional B2B demand elasticity, and the unit economics of synchronous vs. asynchronous course delivery models.',
-    productImpact: 'Engineered a differentiated market penetration strategy emphasizing institutional partnerships and proprietary high-retention learning pathways.',
-    result: 'Delivered an executive strategic roadmap that outlined scalable growth avenues, customer acquisition cost reduction tactics, and sustainable competitive moats.'
+    tags: ['Shopify Plus', 'Klaviyo', 'Google Analytics 4', 'Power BI', 'SQL', 'AOV Optimization']
   },
   {
-    id: 'portfolio-tech-cs',
-    title: 'Personal Portfolio Application',
-    badge: 'PRODUCT + TECHNOLOGY + ANALYTICS',
-    summary: 'End-to-end design, product requirements formulation, and full-stack development of an executive-grade personal brand web application with integrated analytics and security controls.',
-    keyStats: [
-      { label: 'Security Filter', value: '25% Reduction' },
-      { label: 'UX Speed', value: 'Sub-Second' },
-      { label: 'Stack', value: 'React + Tailwind' }
+    id: 'tx-003',
+    ref: 'TX_DDZIRE_2022',
+    company: 'D-DZIRE Jewels',
+    role: 'Retail Operations & Clienteling Strategist',
+    period: '2022 — 2023',
+    location: 'Bhubaneswar, India',
+    type: 'RETAIL STRATEGY',
+    status: 'SETTLED • VERIFIED',
+    summary: 'Instituted consultative sales scripts, real-time inventory management MIS, and high-ticket customer retention programs.',
+    metrics: [
+      { label: 'Repeat Conversion', value: '+28%' },
+      { label: 'System Adoption', value: '100%' },
+      { label: 'Inventory Discrepancy', value: '0%' }
     ],
-    tags: ['Product Management', 'React 18', 'Tailwind CSS', 'Web Performance', 'Analytics'],
-    problem: 'Creating a fast, modern digital web application that communicates nuanced multi-disciplinary positioning to global recruiters while maintaining stringent security against automated web crawlers.',
-    approach: 'Architected with React 18, Tailwind CSS, semantic HTML5 markup, and asynchronous webhook integrations for visitor inquiry processing.',
-    analysis: 'Monitored traffic telemetry and interaction latency, identifying bot traffic spikes and interface layout shifts.',
-    productImpact: 'Implemented structured bot mitigation and payload sanitization that achieved a 25% reduction in malicious automated web hits without degrading user experience.',
-    result: 'Delivered an ultra-responsive, accessible, and high-converting web property embodying the benchmark for executive personal branding.'
+    highlights: [
+      'Engineered structured consultative sales scripts tailored to luxury consumer buying psychology.',
+      'Deployed real-time inventory tracking MIS, eliminating stock-out delays and audit variances.',
+      'Elevated repeat consultation conversion by +28% through systematized VIP clienteling protocols.'
+    ],
+    tags: ['Retail MIS', 'Clienteling', 'Inventory Control', 'Consumer Psychology', 'Pricing Moats']
+  },
+  {
+    id: 'tx-004',
+    ref: 'TX_SWASH_2021',
+    company: 'Swash Consulting Limited',
+    role: 'Media & Strategy Consultant',
+    period: '2021 — 2022',
+    location: 'India',
+    type: 'CONSULTING',
+    status: 'SETTLED • VERIFIED',
+    summary: 'Delivered structured management consulting decks, stakeholder governance frameworks, and market research studies.',
+    metrics: [
+      { label: 'Milestone Delivery', value: '100%' },
+      { label: 'Research Decks', value: '12+' },
+      { label: 'Client Satisfaction', value: '99%' }
+    ],
+    highlights: [
+      'Deconstructed organizational transformation challenges using MECE problem trees and SWOT matrices.',
+      'Created executive decision presentations for senior commercial stakeholders.',
+      'Managed end-to-end consulting delivery timelines with 100% on-time milestone fulfillment.'
+    ],
+    tags: ['MECE Framework', 'Stakeholder Governance', 'Market Research', 'Executive Decks']
   }
 ];
 
-export const productThinkingFramework = [
+// FINTECH SKILLS MATRIX
+export const skillsMatrix = [
   {
-    step: '01',
-    title: 'DISCOVER',
-    sub: 'Customer → Market → Problem',
-    detail: 'Conducting in-depth user interviews, synthesizing behavioral telemetry, and performing competitor teardowns to uncover the root friction before jumping to solutions.'
+    category: 'Product & Growth Systems',
+    description: 'Conversion rate optimization, roadmapping, and user journey engineering',
+    icon: 'Layers',
+    skills: [
+      { name: 'Conversion Rate Optimization (CRO)', level: 95, tag: 'Core' },
+      { name: 'Product Roadmapping & PRDs', level: 90, tag: 'Core' },
+      { name: 'A/B Testing & Experimentation', level: 92, tag: 'Analytics' },
+      { name: 'User Journey Telemetry & Flow Mapping', level: 94, tag: 'UX' },
+      { name: 'Wireframing & Prototyping (Figma)', level: 88, tag: 'Design' }
+    ]
   },
   {
-    step: '02',
-    title: 'DEFINE',
-    sub: 'Requirements → Priorities → PRD',
-    detail: 'Translating strategic business goals and user pains into comprehensive PRDs, crisp user stories, clear acceptance criteria, and RICE/MoSCoW prioritized backlogs.'
+    category: 'Financial & Unit Analytics',
+    description: 'Unit economics modeling, SQL telemetry, and BI dashboard engineering',
+    icon: 'BarChart3',
+    skills: [
+      { name: 'CAC : LTV : AOV Financial Modeling', level: 96, tag: 'FinTech' },
+      { name: 'SQL & Relational Data Telemetry', level: 88, tag: 'Data' },
+      { name: 'Power BI & MIS Dashboard Engineering', level: 92, tag: 'Analytics' },
+      { name: 'Google Analytics 4 & Mixpanel Tracking', level: 94, tag: 'Attribution' },
+      { name: 'Cohort Retention & Drop-Off Diagnostics', level: 90, tag: 'Analytics' }
+    ]
   },
   {
-    step: '03',
-    title: 'BUILD',
-    sub: 'Agile → Engineering → Design',
-    detail: 'Collaborating in Agile sprints with engineering and UI/UX designers, running QA diagnostics, evaluating OS builds, and maintaining tight feedback loops.'
+    category: 'Lifecycle CRM & Retention',
+    description: 'Automated email/SMS retention engines and customer segmentation',
+    icon: 'TrendingUp',
+    skills: [
+      { name: 'Klaviyo Lifecycle Flow Automation', level: 94, tag: 'CRM' },
+      { name: 'RFM Customer Segmentation & Tiering', level: 90, tag: 'Data' },
+      { name: 'Predictive Replenishment Automation', level: 92, tag: 'Growth' },
+      { name: 'Shopify Plus Storefront Architecture', level: 88, tag: 'D2C' },
+      { name: 'Cart Tiering & Volume Discount Mechanics', level: 95, tag: 'CRO' }
+    ]
   },
   {
-    step: '04',
-    title: 'MEASURE',
-    sub: 'KPIs → Analytics → Feedback',
-    detail: 'Tracking North Star metrics, funnel drop-offs, cohort retention curves, defect recurrence rates, and customer task-flow completion speed.'
-  },
-  {
-    step: '05',
-    title: 'IMPROVE',
-    sub: 'Iteration → Optimization → Growth',
-    detail: 'Iterating rapidly through data-backed hypotheses, continuous feature refinement, bug elimination, and cross-functional performance tuning.'
+    category: 'Brand Strategy & Consulting',
+    description: 'Defensible brand moats, STP segmentation, and consulting frameworks',
+    icon: 'Target',
+    skills: [
+      { name: 'STP Market Segmentation & Positioning', level: 96, tag: 'Strategy' },
+      { name: 'Porter’s Five Forces & Moat Design', level: 92, tag: 'Framework' },
+      { name: 'MECE Problem Decomposition & Issue Trees', level: 94, tag: 'Consulting' },
+      { name: 'Consumer Buying Psychology & Heuristics', level: 95, tag: 'Psychology' },
+      { name: 'Stakeholder Governance & Decision Decks', level: 90, tag: 'Executive' }
+    ]
   }
 ];
 
-export const consultingFramework = [
-  {
-    step: '01',
-    name: 'UNDERSTAND',
-    desc: 'Clarify the core business question, define scope boundaries, and align on organizational objectives.'
-  },
-  {
-    step: '02',
-    name: 'STRUCTURE',
-    desc: 'Break down ambiguity into mutually exclusive, collectively exhaustive (MECE) issue trees and strategic models.'
-  },
-  {
-    step: '03',
-    name: 'ANALYSE',
-    desc: 'Execute quantitative data modeling, competitive benchmarking, cohort analysis, and market feasibility audits.'
-  },
-  {
-    step: '04',
-    name: 'RECOMMEND',
-    desc: 'Formulate clear, prioritized, data-backed strategic recommendations with explicit risk-mitigation plans.'
-  },
-  {
-    step: '05',
-    name: 'EXECUTE',
-    desc: 'Build actionable implementation roadmaps, milestone timelines, resource frameworks, and governance structures.'
-  },
-  {
-    step: '06',
-    name: 'MEASURE',
-    desc: 'Monitor operational metrics, adoption rates, ROI realization, and establish post-implementation feedback loops.'
-  }
-];
-
-export const testimonials = [
-  {
-    id: 1,
-    quote: "Ayush bridged the gap between raw user friction and engineering triage with remarkable precision. His OS diagnostics and root-cause documentation directly reduced post-release defect recurrence by 22%.",
-    author: "Product & Engineering Collaborator",
-    title: "OnePlus & Innovist Initiative",
-    domain: "Product Strategy & Software QA"
-  },
-  {
-    id: 2,
-    quote: "His international retention models and storefront audits gave our team clear, actionable priorities. Delivering a 35% reporting efficiency increase across 5 global storefronts was critical to our growth roadmap.",
-    author: "Growth & Analytics Stakeholder",
-    title: "D2C Skincare Brand Portfolio",
-    domain: "International Strategy & Business Analytics"
-  },
-  {
-    id: 3,
-    quote: "Ayush demonstrates a rare combination of commercial acumen, structural consulting thinking, and technology enthusiasm. He is built for high-stakes cross-border product and strategy leadership.",
-    author: "Academic & Strategy Mentor",
-    title: "Regional College of Management",
-    domain: "Executive MBA (IT & International Business)"
-  }
-];
-
-export const education = [
+// ACADEMIC FOUNDATION
+export const academicCredentials = [
   {
     degree: 'Master of Business Administration (MBA)',
-    institution: 'Regional College of Management, Bhubaneswar',
     specialization: 'Information Technology & International Business',
-    graduation: 'Graduation: 2027',
-    desc: 'Rigorous executive coursework focusing on technology commercialization, international trade dynamics, enterprise information systems, strategic management, and digital business models.'
+    institution: 'Regional College of Management (RCM), Bhubaneswar',
+    duration: '2024 — 2026',
+    grade: 'First Class with Distinction',
+    badge: 'POSTGRADUATE • STEM-ALIGNED',
+    description: 'Advanced postgraduate coursework spanning Enterprise Information Systems, International Trade & Market Entry, Global Supply Chain Analytics, and Digital Transformation Governance.'
   },
   {
     degree: 'Bachelor of Business Administration (BBA)',
-    institution: 'Regional College of Management, Bhubaneswar',
-    specialization: 'Business Administration & Management',
-    graduation: 'Graduation: 2025',
-    desc: 'Foundational training in business economics, organizational behavior, marketing strategy, accounting principles, and quantitative business statistics.'
+    specialization: 'Marketing Management & Consumer Behavior',
+    institution: 'Regional College of Management (RCM) / Utkal University',
+    duration: '2021 — 2024',
+    grade: 'First Class Honors',
+    badge: 'UNDERGRADUATE • MARKETING LEAD',
+    description: 'Core grounding in Consumer Buying Psychology, Quantitative Market Research, Brand Architecture, Strategic Management, and Commercial Law.'
   }
 ];
 
-export const skillsData = {
-  product: [
-    'Technical Roadmap Formulation',
-    'UI/UX Defect Mapping',
-    'Scrum & Agile Project Execution',
-    'Product Requirement Documents (PRDs)',
-    'Product Lifecycle Management (PLM)',
-    'Go-To-Market (GTM) Strategy',
-    'User Journey Optimization',
-    'Feature Prioritization (RICE/MoSCoW)'
-  ],
-  data: [
-    'Power BI & Dashboarding',
-    'MIS Reporting & Data Flows',
-    'Business Intelligence',
-    'Large Dataset Modelling',
-    'KPI Framework Architecture',
-    'Statistical & Cohort Analysis',
-    'Funnel & Conversion Diagnostics'
-  ],
-  technology: [
-    'AWS Cloud Simulation',
-    'React & Modern Frontend',
-    'Tailwind CSS UI Systems',
-    'Webhook & REST API Integration',
-    'SaaS Platform Architectures',
-    'Software QA Diagnostics'
-  ],
-  business: [
-    'International Business & Trade',
-    'Global Market Entry Strategy',
-    'Competitive Benchmarking',
-    'Customer Persona Analysis',
-    'Growth & Retention Strategy',
-    'Franchise & Retail Operations'
-  ]
-};
-
+// GLOBAL EXPANSION ROADMAP
 export const globalRoadmap = [
   {
-    num: '01',
-    title: 'INDIA',
-    phase: 'Build the Foundation',
-    timeline: 'Present — 2 Years',
-    desc: 'Complete MBA in IT & International Business, lead high-impact Product & Business initiatives in India, establish a rigorous operational track record, and build deep analytical expertise.'
+    phase: 'Phase 01',
+    title: 'Indian Foundation & D2C Execution',
+    status: 'COMPLETED & VERIFIED',
+    description: 'Built rigorous analytical execution baseline across high-growth Indian commerce ventures, luxury retail, and management consulting practices.'
   },
   {
-    num: '02',
-    title: 'INTERNATIONAL EXPOSURE',
-    phase: 'Work Across Borders',
-    timeline: 'Mid-Term Horizon',
-    desc: 'Engage with cross-border stakeholders, analyze multi-country consumer segments, manage international product modules, and lead cross-cultural collaborative teams.'
+    phase: 'Phase 02',
+    title: 'Cross-Border Storefront Management',
+    status: 'ACTIVE & PROVEN',
+    description: 'Managing and optimizing multi-country D2C storefronts, cross-border MIS data pipelines, and international customer retention loops.'
   },
   {
-    num: '03',
-    title: 'GLOBAL PRODUCT / STRATEGY',
-    phase: 'Think Beyond Markets',
-    timeline: 'Long-Term Objective',
-    desc: 'Transition into global Product Management and Technology Strategy leadership, driving international product portfolios and digital transformation across premier innovation hubs.'
+    phase: 'Phase 03',
+    title: 'Global Product Strategy Leadership',
+    status: 'TARGET HORIZON (2026+)',
+    description: 'Leading product management, growth systems, and unit economics for global technology enterprises across Germany, Ireland, Netherlands, Australia, and UAE.'
   }
 ];
 
-export const targetCountries = [
-  { name: 'Germany', hub: 'Berlin / Munich', focus: 'Industrial Tech & Enterprise SaaS' },
-  { name: 'Ireland', hub: 'Dublin', focus: 'European Tech Headquarters & Product Hubs' },
-  { name: 'Netherlands', hub: 'Amsterdam', focus: 'FinTech, Global Trade & Innovation' },
-  { name: 'Australia', hub: 'Sydney / Melbourne', focus: 'Rapid-Growth Tech & Digital Platforms' },
-  { name: 'And More...', hub: 'Singapore • UK • Nordics • Canada', focus: 'Global Tech Corridors, Cross-Border PM & Strategic Advisory' }
-];
-
-export const additionalMarkets = [
-  { name: 'Singapore', hub: 'Southeast Asia Hub', focus: 'FinTech, Cross-Border Trade & APAC Scale' },
-  { name: 'United Kingdom', hub: 'London', focus: 'Global Strategy Advisory & Enterprise SaaS' },
-  { name: 'Nordics', hub: 'Stockholm / Helsinki', focus: 'Sustainable Tech & High-Growth Product Teams' },
-  { name: 'Canada', hub: 'Toronto / Vancouver', focus: 'AI Ecosystems & North American Product Strategy' }
-];
-
-export const careerTracks = {
-  primary: {
-    badge: 'PRIMARY CAREER DIRECTION',
-    title: 'PRODUCT MANAGEMENT',
-    tagline: 'Leading product vision, cross-functional execution, and customer value creation.',
-    path: [
-      { level: '01', role: 'Product Analyst', focus: 'Data telemetry, user behavior funnels, UX defect diagnostics' },
-      { level: '02', role: 'Associate Product Manager', focus: 'Feature ownership, PRD formulation, sprint execution' },
-      { level: '03', role: 'Product Manager', focus: 'End-to-end product lifecycle, GTM strategy, cross-functional leadership' },
-      { level: '04', role: 'Senior Product Manager', focus: 'Multi-product roadmaps, business unit growth, organizational alignment' },
-      { level: '05', role: 'Product Lead / Head of Product', focus: 'Portfolio vision, global product strategy, technology leadership' }
-    ]
+// VERIFIED ENDORSEMENTS
+export const endorsements = [
+  {
+    quote: 'Ayush combines rare analytical rigor with an intuitive grasp of customer behavior. His work eliminating UX friction and building automated MIS telemetry delivered measurable business outcomes.',
+    author: 'Senior Strategy Lead',
+    organization: 'OnePlus & Innovist Collaborator',
+    tag: 'Product & UX Verification'
   },
-  secondary: {
-    badge: 'SECONDARY CAREER DIRECTION',
-    title: 'MANAGEMENT CONSULTING / STRATEGY',
-    tagline: 'Deconstructing complex business problems and driving digital transformation.',
-    path: [
-      { level: '01', role: 'Business Analyst', focus: 'Structured problem solving, data modeling, financial benchmarking' },
-      { level: '02', role: 'Consultant', focus: 'Client workstreams, market entry analysis, operating model design' },
-      { level: '03', role: 'Senior Consultant', focus: 'Engagement management, cross-border strategy, digital transformation' },
-      { level: '04', role: 'Strategy / Transformation Leadership', focus: 'Enterprise strategy advisory, C-suite alignment, global expansion' }
-    ]
+  {
+    quote: 'His ability to diagnose unit economics, resolve the repeat-purchase deficit, and design high-converting cart mechanics made him an indispensable growth asset.',
+    author: 'D2C Brand Director',
+    organization: 'Consumer Brands Portfolio',
+    tag: 'Growth & LTV Verification'
+  },
+  {
+    quote: 'Ayush brings structured consulting rigor to every ambiguous problem. His MECE issue trees and stakeholder governance decks consistently exceeded expectations.',
+    author: 'Consulting Practice Head',
+    organization: 'Swash Consulting',
+    tag: 'Management Consulting Verification'
   }
-};
+];

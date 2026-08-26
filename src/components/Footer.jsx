@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Globe2, ShieldCheck } from 'lucide-react';
+import { ArrowUp, ShieldCheck, Lock, Globe2 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function Footer() {
@@ -8,64 +8,63 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-slate-50 dark:bg-obsidian-950 border-t border-slate-200 dark:border-white/[0.08] py-12 text-slate-600 dark:text-slate-400 transition-colors duration-300">
+    <footer className="bg-[#050608] border-t border-white/[0.08] py-14 text-slate-400 font-sans text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Footer Row */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-200 dark:border-white/[0.06]">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/[0.06]">
           
-          {/* Left Brand info */}
+          {/* Brand Info */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-900 dark:bg-obsidian-850 border border-slate-800 dark:border-white/10 flex items-center justify-center font-display font-bold text-xs text-white shadow-sm">
+            <div className="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center font-display font-bold text-xs text-white">
               AC
             </div>
-            <div>
-              <div className="font-display font-bold text-sm tracking-wider text-slate-950 dark:text-white uppercase">
+            <div className="text-left">
+              <div className="font-display font-bold text-xs tracking-wider text-white uppercase">
                 {personalInfo.name}
               </div>
-              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                MBA &bull; Product Management & Strategy Professional
+              <div className="text-[10px] font-mono text-slate-400">
+                PRODUCT & GROWTH ENGINE &bull; 2026
               </div>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-mono font-semibold">
-            <a href="#about" className="text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-white transition-colors">ABOUT</a>
-            <span className="text-slate-300 dark:text-slate-700">&bull;</span>
-            <a href="#experience" className="text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-white transition-colors">EXPERIENCE</a>
-            <span className="text-slate-300 dark:text-slate-700">&bull;</span>
-            <a href="#case-studies" className="text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-white transition-colors">CASE STUDIES</a>
-            <span className="text-slate-300 dark:text-slate-700">&bull;</span>
-            <a href="#strategy" className="text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-white transition-colors">STRATEGY</a>
-            <span className="text-slate-300 dark:text-slate-700">&bull;</span>
-            <a href="#product" className="text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-white transition-colors">PRODUCT</a>
-            <span className="text-slate-300 dark:text-slate-700">&bull;</span>
-            <a href="#global" className="text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-white transition-colors">GLOBAL</a>
-            <span className="text-slate-300 dark:text-slate-700">&bull;</span>
-            <a href="#contact" className="text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-white transition-colors">CONTACT</a>
+          {/* Quick Nav Anchors */}
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-mono">
+            <a href="#home" className="hover:text-white transition-colors">HOME</a>
+            <span className="text-white/20">&bull;</span>
+            <a href="#about" className="hover:text-white transition-colors">ABOUT</a>
+            <span className="text-white/20">&bull;</span>
+            <a href="#projects" className="hover:text-white transition-colors">STAR PROJECTS</a>
+            <span className="text-white/20">&bull;</span>
+            <a href="#ledger" className="hover:text-white transition-colors">CAREER LEDGER</a>
+            <span className="text-white/20">&bull;</span>
+            <a href="#stack" className="hover:text-white transition-colors">STACK</a>
+            <span className="text-white/20">&bull;</span>
+            <a href="#contact" className="hover:text-white transition-colors">CONTACT</a>
           </div>
 
-          {/* Back to top button */}
+          {/* Back to top */}
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-white/10 text-xs font-mono font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:border-slate-300 dark:hover:border-accent-dark/40 transition-all shadow-2xs"
-            aria-label="Back to top"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-slate-300 hover:text-white hover:bg-white/[0.08] transition-all"
+            aria-label="Scroll to top"
           >
-            <span>Back to Top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
+            <span>TOP</span>
+            <ArrowUp className="w-3 h-3" />
           </button>
+
         </div>
 
         {/* Bottom Metadata */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500 dark:text-slate-500">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-slate-400">
           <div>
-            &copy; {new Date().getFullYear()} Ayush Chatterjee. All verified rights reserved.
+            &copy; {new Date().getFullYear()} Ayush Chatterjee. All rights reserved.
           </div>
-          <div className="flex items-center gap-4">
-            <span>Portfolio: {personalInfo.portfolioDomain}</span>
+          <div className="flex items-center gap-3">
+            <span className="text-slate-300 font-medium">{personalInfo.portfolioDomain}</span>
             <span>&bull;</span>
-            <span>Target: India &rarr; Global Markets</span>
+            <span>India &rarr; Global Innovation Practice</span>
           </div>
         </div>
 
