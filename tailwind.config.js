@@ -8,43 +8,37 @@ export default {
   theme: {
     extend: {
       colors: {
-        app: {
-          canvas: '#08090E',
-          window: '#0E1018',
-          sidebar: '#0A0C13',
-          card: '#121520',
-          'card-hover': '#181C2B',
+        dark: {
+          bg: '#050608',
+          card: '#0B0D12',
+          'card-hover': '#11141D',
           border: 'rgba(255, 255, 255, 0.08)',
-          'border-active': 'rgba(99, 102, 241, 0.4)',
-          muted: '#94A3B8',
-          subtle: '#64748B',
+          'border-orange': 'rgba(249, 115, 22, 0.4)',
         },
-        studio: {
-          indigo: '#6366F1',
-          violet: '#8B5CF6',
-          blue: '#3B82F6',
-          emerald: '#10B981',
+        brand: {
+          orange: '#F97316',
+          'orange-glow': '#FF5500',
           amber: '#F59E0B',
-          rose: '#F43F5E',
-          cyan: '#06B6D4',
+          emerald: '#10B981',
+          indigo: '#6366F1',
+          cream: '#F4F2EB',
         }
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        display: ['Outfit', '"Plus Jakarta Sans"', 'sans-serif'],
+        syne: ['Syne', 'sans-serif'],
+        space: ['"Space Grotesk"', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       boxShadow: {
-        'app-window': '0 25px 80px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08)',
-        'app-card': '0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06)',
-        'app-card-hover': '0 20px 40px -12px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.35)',
-        'glow-indigo': '0 0 40px -10px rgba(99, 102, 241, 0.3)',
-        'glow-emerald': '0 0 40px -10px rgba(16, 185, 129, 0.3)',
+        'glow-orange': '0 0 50px -10px rgba(249, 115, 22, 0.35)',
+        'glow-orange-sm': '0 0 20px -5px rgba(249, 115, 22, 0.4)',
+        'bento-card': '0 12px 36px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08)',
+        'bento-card-hover': '0 24px 48px -12px rgba(249, 115, 22, 0.2), 0 0 0 1px rgba(249, 115, 22, 0.35)',
       },
       backgroundImage: {
-        'mesh-glow': 'radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.08) 35%, transparent 70%)',
-        'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)',
-        'apple-card': 'linear-gradient(145deg, rgba(22, 27, 42, 0.75) 0%, rgba(12, 15, 24, 0.85) 100%)',
+        'grid-orange': 'linear-gradient(to right, rgba(249, 115, 22, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(249, 115, 22, 0.05) 1px, transparent 1px)',
+        'radial-glow': 'radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.18) 0%, rgba(249, 115, 22, 0.05) 40%, transparent 70%)',
       }
     },
   },
