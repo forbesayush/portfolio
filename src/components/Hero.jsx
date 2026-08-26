@@ -1,8 +1,48 @@
-import React from 'react';
-import { ArrowDown, ArrowUpRight, Download, FileText, CheckCircle2 } from 'lucide-react';
+import React, { memo } from 'react';
+import { ArrowDown, Download, FileText } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export default function Hero({ onOpenBrief }) {
+// Memoized sub-component for metric cards
+const MetricCard = memo(function MetricCard({ value, label }) {
+  return (
+    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+      <div className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight font-mono">{value}</div>
+      <div className="text-[11px] font-mono text-slate-400 mt-0.5">{label}</div>
+    </div>
+  );
+});
+
+// Memoized sub-component for portrait card
+const PortraitCard = memo(function PortraitCard() {
+  return (
+    <div className="w-full max-w-sm rounded-2xl bg-[#0F1118] border border-white/[0.08] p-3 shadow-xl">
+      <div className="relative rounded-xl overflow-hidden aspect-[4/4.6] bg-black/40">
+        <img
+          src="/ayush-portrait.jpg"
+          alt="Ayush Chatterjee - Product Manager & Growth Strategist"
+          className="w-full h-full object-cover object-top"
+          loading="eager"
+          decoding="async"
+        />
+        <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+          <div className="text-xs font-semibold text-white">
+            Ayush Chatterjee
+          </div>
+          <div className="text-[11px] text-slate-300 font-mono">
+            MBA (IT & International Business) &bull; RCM
+          </div>
+        </div>
+      </div>
+
+      <div className="pt-3 px-1 flex items-center justify-between text-xs font-mono text-slate-400">
+        <span>Location: India &rarr; Global</span>
+        <span className="text-emerald-400">● Open to roles</span>
+      </div>
+    </div>
+  );
+});
+
+function Hero({ onOpenBrief }) {
   return (
     <section id="home" className="pt-28 pb-16 sm:pt-36 sm:pb-24 text-left">
       <div className="max-w-portfolio mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,20 +68,11 @@ export default function Hero({ onOpenBrief }) {
               Product manager and growth strategist specializing in full-funnel CRO, cross-border retention modeling (CAC:LTV), and eliminating interface friction for digital platforms.
             </p>
 
-            {/* Core Metrics Row */}
+            {/* Core Metrics Row (Memoized) */}
             <div className="grid grid-cols-3 gap-3 pt-2 max-w-lg">
-              <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-                <div className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">+35%</div>
-                <div className="text-[11px] font-mono text-slate-400 mt-0.5">MIS Speed</div>
-              </div>
-              <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-                <div className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">3.4x</div>
-                <div className="text-[11px] font-mono text-slate-400 mt-0.5">CAC:LTV Ratio</div>
-              </div>
-              <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-                <div className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">-22%</div>
-                <div className="text-[11px] font-mono text-slate-400 mt-0.5">UX Defect Cut</div>
-              </div>
+              <MetricCard value="+35%" label="MIS Speed" />
+              <MetricCard value="3.4x" label="CAC:LTV Ratio" />
+              <MetricCard value="-22%" label="UX Defect Cut" />
             </div>
 
             {/* Action Buttons */}
@@ -82,33 +113,9 @@ export default function Hero({ onOpenBrief }) {
 
           </div>
 
-          {/* Right Column: Executive Portrait Card (5 Cols) */}
+          {/* Right Column: Executive Portrait Card (5 Cols) (Memoized) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="w-full max-w-sm rounded-2xl bg-[#0F1118] border border-white/[0.08] p-3 shadow-xl">
-              
-              <div className="relative rounded-xl overflow-hidden aspect-[4/4.6] bg-black/40">
-                <img
-                  src="/ayush-portrait.jpg"
-                  alt="Ayush Chatterjee - Product Manager & Growth Strategist"
-                  className="w-full h-full object-cover object-top"
-                />
-                
-                <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-                  <div className="text-xs font-semibold text-white">
-                    Ayush Chatterjee
-                  </div>
-                  <div className="text-[11px] text-slate-300 font-mono">
-                    MBA (IT & International Business) &bull; RCM
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-3 px-1 flex items-center justify-between text-xs font-mono text-slate-400">
-                <span>Location: India &rarr; Global</span>
-                <span className="text-emerald-400">● Open to roles</span>
-              </div>
-
-            </div>
+            <PortraitCard />
           </div>
 
         </div>
@@ -117,3 +124,5 @@ export default function Hero({ onOpenBrief }) {
     </section>
   );
 }
+
+export default memo(Hero);
