@@ -1,89 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
+import ExecutiveDashboard from './components/ExecutiveDashboard';
 import CaseStudies from './components/CaseStudies';
 import ExperienceTimeline from './components/ExperienceTimeline';
-import SkillsMatrix from './components/SkillsMatrix';
+import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ExecutiveBriefModal from './components/ExecutiveBriefModal';
-import SpotlightCommandPalette from './components/SpotlightCommandPalette';
 import QuickActionsDock from './components/QuickActionsDock';
 import { trackVisitor } from './utils/telegramTracker';
 
 export default function App() {
   const [isBriefOpen, setIsBriefOpen] = useState(false);
-  const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
 
   useEffect(() => {
-    document.documentElement.classList.add('dark');
+    // Remove dark class for luxury light theme
+    document.documentElement.classList.remove('dark');
+    // Track visitor arrival via encrypted Telegram bot telemetry
     trackVisitor();
-
-    // Global Command+K / Ctrl+K listener
-    const handleGlobalKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        setIsSpotlightOpen(prev => !prev);
-      }
-    };
-
-    window.addEventListener('keydown', handleGlobalKeyDown);
-    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#08090E] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30 selection:text-indigo-200 antialiased relative">
+    <div className="min-h-screen bg-[#FAFAF8] text-[#111318] flex flex-col font-sans selection:bg-[#C5A880]/30 selection:text-[#5B4323] antialiased relative">
       
-      {/* Sticky App OS Navigation Header */}
+      {/* Luxury Navigation Bar */}
       <Navbar 
         onOpenBrief={() => setIsBriefOpen(true)}
-        onOpenSpotlight={() => setIsSpotlightOpen(true)}
       />
 
-      {/* Main App Content Modules */}
+      {/* Main Content Modules */}
       <main className="flex-grow">
         
-        {/* Module 00: Executive Studio Hero & Telemetry Dials */}
+        {/* Module 00: Editorial Luxury Hero */}
         <Hero 
           onOpenBrief={() => setIsBriefOpen(true)}
-          onOpenSpotlight={() => setIsSpotlightOpen(true)}
         />
 
-        {/* Module 01: Executive Bio & 4 Product Pillars */}
-        <About />
+        {/* Module 01: Interactive Executive Growth Dashboard & Panels */}
+        <ExecutiveDashboard />
 
-        {/* Module 02: STAR Method Project Deck (Situation, Task, Action, Result) */}
+        {/* Module 02: STAR Method Project Casebooks (Situation, Task, Action, Result) */}
         <CaseStudies />
 
-        {/* Module 03: Verified Experience Ledger & Timeline */}
+        {/* Module 03: Commercial Experience Ledger */}
         <ExperienceTimeline />
 
-        {/* Module 04: Product & Growth Capability Stack */}
-        <SkillsMatrix />
+        {/* Module 04: Executive Bio & 4 Core Pillars */}
+        <About />
 
-        {/* Module 05: Superhuman / Raycast Style Direct Transmission Terminal */}
+        {/* Module 05: Private Mandate & Communication Terminal */}
         <Contact />
 
       </main>
 
-      {/* Global App Footer */}
+      {/* Luxury Footer */}
       <Footer />
 
-      {/* Floating System Dock */}
+      {/* Floating System Action Dock */}
       <QuickActionsDock 
         onOpenBrief={() => setIsBriefOpen(true)}
-        onOpenSpotlight={() => setIsSpotlightOpen(true)}
       />
 
-      {/* Raycast-Style Spotlight Command Palette (⌘K) */}
-      <SpotlightCommandPalette
-        isOpen={isSpotlightOpen}
-        onClose={() => setIsSpotlightOpen(false)}
-        onOpenBrief={() => setIsBriefOpen(true)}
-      />
-
-      {/* 1-Page Executive ATS Audit Brief Modal */}
+      {/* 1-Page Executive ATS Brief Modal */}
       <ExecutiveBriefModal
         isOpen={isBriefOpen}
         onClose={() => setIsBriefOpen(false)}

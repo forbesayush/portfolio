@@ -8,37 +8,37 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: {
-          bg: '#050608',
-          card: '#0B0D12',
-          'card-hover': '#11141D',
-          border: 'rgba(255, 255, 255, 0.08)',
-          'border-orange': 'rgba(249, 115, 22, 0.4)',
-        },
-        brand: {
-          orange: '#F97316',
-          'orange-glow': '#FF5500',
-          amber: '#F59E0B',
-          emerald: '#10B981',
-          indigo: '#6366F1',
-          cream: '#F4F2EB',
+        luxury: {
+          bg: '#FAFAF8',
+          card: '#FFFFFF',
+          champagne: '#F4EFE6',
+          sand: '#ECE7DD',
+          gold: '#B38F5B',
+          'gold-light': '#C5A880',
+          'gold-dark': '#8A6B3D',
+          onyx: '#111318',
+          charcoal: '#222630',
+          muted: '#64748B',
+          border: 'rgba(0, 0, 0, 0.07)',
+          'border-gold': 'rgba(179, 143, 91, 0.35)',
         }
       },
       fontFamily: {
-        syne: ['Syne', 'sans-serif'],
-        space: ['"Space Grotesk"', 'sans-serif'],
+        luxury: ['"Bodoni Moda"', '"Cormorant Garamond"', 'serif'],
+        serif: ['"Cormorant Garamond"', 'serif'],
+        italiana: ['Italiana', 'serif'],
         sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       boxShadow: {
-        'glow-orange': '0 0 50px -10px rgba(249, 115, 22, 0.35)',
-        'glow-orange-sm': '0 0 20px -5px rgba(249, 115, 22, 0.4)',
-        'bento-card': '0 12px 36px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08)',
-        'bento-card-hover': '0 24px 48px -12px rgba(249, 115, 22, 0.2), 0 0 0 1px rgba(249, 115, 22, 0.35)',
+        'luxury-card': '0 15px 40px -15px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.05)',
+        'luxury-card-hover': '0 25px 60px -18px rgba(179, 143, 91, 0.18), 0 0 0 1px rgba(179, 143, 91, 0.3)',
+        'luxury-gold-glow': '0 8px 30px rgba(179, 143, 91, 0.25)',
       },
       backgroundImage: {
-        'grid-orange': 'linear-gradient(to right, rgba(249, 115, 22, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(249, 115, 22, 0.05) 1px, transparent 1px)',
-        'radial-glow': 'radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.18) 0%, rgba(249, 115, 22, 0.05) 40%, transparent 70%)',
+        'luxury-shimmer': 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(244, 239, 230, 0.6) 100%)',
+        'gold-metallic': 'linear-gradient(135deg, #D4AF37 0%, #B38F5B 50%, #8A6B3D 100%)',
+        'gold-soft': 'linear-gradient(135deg, #C5A880 0%, #B38F5B 100%)',
       }
     },
   },

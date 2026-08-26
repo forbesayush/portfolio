@@ -32,11 +32,11 @@ export default function Contact() {
     setIsSubmitting(true);
 
     const receipt = {
-      txId: `TX_INQUIRY_${Date.now().toString().slice(-6)}`,
+      txId: `MANDATE_${Date.now().toString().slice(-6)}`,
       timestamp: new Date().toLocaleTimeString(),
       name: formData.name,
       email: formData.email,
-      status: 'TRANSMITTED • TELEGRAM ENCRYPTED'
+      status: 'TRANSMITTED • 256-BIT ENCRYPTED'
     };
 
     try {
@@ -57,25 +57,25 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#050608] text-white relative">
+    <section id="contact" className="py-24 bg-[#FAFAF8] text-[#111318] relative text-center">
       
-      {/* Ambient background glow */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-orange-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+      {/* Subtle Gold Ambient Glow */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-[#C5A880]/15 rounded-full blur-[140px] pointer-events-none"></div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Minimalist Header (Template 5 Style: "Have an idea? / Let's talk!") */}
+        {/* Luxury Minimalist Header */}
         <div className="mb-12">
-          <div className="text-sm font-mono uppercase tracking-widest text-slate-400 mb-2 font-semibold">
+          <div className="text-xs font-mono uppercase tracking-[0.25em] text-[#8A6B3D] mb-2 font-bold">
             Have an opportunity or strategic mandate?
           </div>
-          <h2 className="text-5xl sm:text-7xl md:text-8xl font-syne font-black text-white uppercase tracking-tight">
-            Let's talk!
+          <h2 className="text-5xl sm:text-7xl md:text-8xl font-luxury font-bold text-[#111318] tracking-tight">
+            Let's talk.
           </h2>
         </div>
 
-        {/* Minimalist Contact Card (Template 5 Style) */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-[#0B0D12] border border-white/[0.1] shadow-2xl text-left">
+        {/* Minimalist Light Card */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-[#FFFFFF] border border-black/[0.08] shadow-luxury-card text-left">
           
           <AnimatePresence mode="wait">
             {submittedReceipt ? (
@@ -86,51 +86,51 @@ export default function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="space-y-6 text-center py-6"
               >
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">
+                <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto text-emerald-700">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-syne font-bold text-white uppercase">
-                    Transmission Dispatched!
+                  <h3 className="text-2xl font-luxury font-bold text-[#111318]">
+                    Transmission Dispatched
                   </h3>
-                  <p className="text-xs font-mono text-emerald-400 mt-1">
+                  <p className="text-xs font-mono text-emerald-800 mt-1">
                     REF: {submittedReceipt.txId} &bull; {submittedReceipt.timestamp}
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-black/60 border border-white/10 text-left text-xs font-mono space-y-2 max-w-md mx-auto">
+                <div className="p-5 rounded-2xl bg-[#FAFAF8] border border-black/[0.06] text-left text-xs font-mono space-y-2 max-w-md mx-auto">
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Sender:</span>
-                    <span className="text-white font-medium">{submittedReceipt.name}</span>
+                    <span className="text-slate-500">Sender:</span>
+                    <span className="text-[#111318] font-semibold">{submittedReceipt.name}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Email:</span>
-                    <span className="text-white font-medium">{submittedReceipt.email}</span>
+                    <span className="text-slate-500">Email:</span>
+                    <span className="text-[#111318] font-semibold">{submittedReceipt.email}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Security:</span>
-                    <span className="text-emerald-400">Telegram Bot Encrypted</span>
+                    <span className="text-slate-500">Security:</span>
+                    <span className="text-emerald-700 font-semibold">Telegram Encrypted Telemetry</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-300">
-                  Thank you! Opening your email client to finalize transmission...
+                <p className="text-xs text-slate-600">
+                  Thank you. Opening your email client to finalize transmission...
                 </p>
 
                 <button
                   onClick={() => setSubmittedReceipt(null)}
-                  className="px-6 py-2.5 rounded-full btn-dark-outline text-xs font-mono font-semibold"
+                  className="px-6 py-2.5 rounded-full btn-luxury-outline text-xs font-mono font-semibold"
                 >
-                  Send Another Message
+                  Send Another Transmission
                 </button>
               </motion.div>
             ) : (
-              /* Template 5 Clean Minimal Form */
+              /* Minimal Light Form */
               <form onSubmit={handleSubmit} className="space-y-5">
                 
                 <div>
-                  <label className="block text-xs font-mono uppercase text-slate-400 font-semibold mb-2">
+                  <label className="block text-xs font-mono uppercase text-slate-500 font-bold mb-2">
                     Name
                   </label>
                   <input
@@ -140,12 +140,12 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Your Name"
-                    className="minimal-input"
+                    className="w-full bg-[#FAFAF8] border border-black/[0.08] text-[#111318] p-4 rounded-xl text-sm font-sans focus:outline-none focus:border-[#B38F5B] focus:bg-[#FFFFFF] transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono uppercase text-slate-400 font-semibold mb-2">
+                  <label className="block text-xs font-mono uppercase text-slate-500 font-bold mb-2">
                     Email
                   </label>
                   <input
@@ -155,12 +155,12 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="your.email@company.com"
-                    className="minimal-input"
+                    className="w-full bg-[#FAFAF8] border border-black/[0.08] text-[#111318] p-4 rounded-xl text-sm font-sans focus:outline-none focus:border-[#B38F5B] focus:bg-[#FFFFFF] transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono uppercase text-slate-400 font-semibold mb-2">
+                  <label className="block text-xs font-mono uppercase text-slate-500 font-bold mb-2">
                     Message
                   </label>
                   <textarea
@@ -170,17 +170,17 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleInputChange}
                     placeholder="Tell me about the role, project mandate, or key business challenge..."
-                    className="minimal-input resize-none"
+                    className="w-full bg-[#FAFAF8] border border-black/[0.08] text-[#111318] p-4 rounded-xl text-sm font-sans focus:outline-none focus:border-[#B38F5B] focus:bg-[#FFFFFF] transition-all resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 rounded-xl btn-orange-glow font-syne font-black text-sm tracking-widest uppercase flex items-center justify-center gap-2"
+                  className="w-full py-4 rounded-xl btn-luxury-dark font-luxury font-bold text-sm tracking-widest uppercase flex items-center justify-center gap-2 shadow-sm"
                 >
-                  <span>{isSubmitting ? 'TRANSMITTING...' : 'SEND'}</span>
-                  <Send className="w-4 h-4" />
+                  <span>{isSubmitting ? 'TRANSMITTING...' : 'TRANSMIT MANDATE'}</span>
+                  <Send className="w-4 h-4 text-amber-300" />
                 </button>
 
               </form>
@@ -188,22 +188,22 @@ export default function Contact() {
           </AnimatePresence>
 
           {/* Bottom Direct Connect Options */}
-          <div className="pt-8 mt-8 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+          <div className="pt-8 mt-8 border-t border-black/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
             <div className="flex items-center gap-3">
-              <span className="text-slate-400">Direct Email:</span>
-              <button onClick={copyEmail} className="text-orange-400 hover:underline flex items-center gap-1 font-semibold">
-                {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              <span className="text-slate-500">Direct Email:</span>
+              <button onClick={copyEmail} className="text-[#8A6B3D] hover:underline flex items-center gap-1 font-bold">
+                {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copiedEmail ? 'Copied!' : personalInfo.email}</span>
               </button>
             </div>
 
             <div className="flex items-center gap-4">
-              <a href={personalInfo.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-white flex items-center gap-1">
+              <a href={personalInfo.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-slate-700 hover:text-black flex items-center gap-1 font-semibold">
                 <span>LinkedIn</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
               <span>&bull;</span>
-              <span className="text-emerald-400 flex items-center gap-1">
+              <span className="text-emerald-800 flex items-center gap-1 font-semibold">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Encrypted Telemetry</span>
               </span>
