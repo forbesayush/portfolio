@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1, h2, h3 {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  p, li, a {
+    font-family: var(--font-body), sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-feature-settings: "tnum";
+  }
+}
+
+/* Custom utility for masking text reveals */
+.split-reveal {
+  visibility: hidden; /* Hidden until GSAP sets autoAlpha: 1 */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #09090b;
+  color: #f4f4f5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Focus states for accessibility */
+:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .split-reveal {
+    visibility: visible !important;
+  }
+  .reveal-word {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
