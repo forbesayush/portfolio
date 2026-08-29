@@ -363,7 +363,7 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
 
   /* ---------- scroll: funnel %, milestones, live funnel stage ---------- */
   const stages = $$('.f-stage');
-  const stageNames = ['AWARENESS', 'INTEREST', 'CONSIDERATION', 'CONVERSION', 'RETENTION'];
+  const stageNames = ['DISCOVERY', 'PRODUCT UX', 'EXPERIMENTATION', 'CONVERSION', 'RETENTION'];
   let anchors = [];
 
   function measure() {
