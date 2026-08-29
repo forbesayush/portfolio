@@ -11,7 +11,7 @@ export const personalInfo = {
   subtitle: 'MBA (IT & IB) • BBA (Marketing & Consumer Behavior)',
   supportingHeadline: 'Product Manager & Strategy Consultant bridging user telemetry, GTM roadmaps, and data-driven execution. Proven track record reducing bug recurrence by 22%, boosting task efficiency by 15%, and projecting 15–18% Tier-2 GTM market penetration.',
   bio: 'Associate Product Manager (APM) and Strategy Consultant with hands-on experience in Product UX trials at OnePlus & Innovist, digital media consulting at Swash Consulting, and end-to-end GTM brand strategy mentored by an ISB alumnus.',
-  educationBadge: 'MBA — IT & IB (RCM Bhubaneswar, 2025, 66%)',
+  educationBadge: 'MBA — IT & IB (RCM Bhubaneswar, 2025)',
   focusBadge: 'Consulting • Product Strategy • Product Management • APM',
   location: 'Bhubaneswar / Kolkata, India',
   targetHorizon: 'Consulting | Product Strategy Intern | Product Manager | APM (Summer Placements 2026)',
@@ -286,28 +286,24 @@ export const academicProfile = [
     degree: 'MBA (IT & IB)',
     year: '2025',
     institution: 'Regional College of Management, Bhubaneswar',
-    score: '66% / CGPA',
     description: 'Postgraduate degree focused on Enterprise Information Technology & International Business.'
   },
   {
     degree: 'BBA',
     year: '2022',
     institution: 'Regional College of Management',
-    score: '67% / CGPA',
     description: 'Undergraduate degree focused on Marketing Management & Consumer Behavior.'
   },
   {
     degree: 'HSC (CBSE)',
     year: '2022',
     institution: 'Apeejay School, Kolkata (CBSE)',
-    score: '60%',
     description: 'Higher Secondary Certificate, Central Board of Secondary Education.'
   },
   {
     degree: 'SSC (CBSE)',
     year: '2020',
     institution: 'Apeejay School, Kolkata (CBSE)',
-    score: '52%',
     description: 'Secondary School Certificate, Central Board of Secondary Education.'
   }
 ];
