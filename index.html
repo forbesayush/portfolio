@@ -1,19 +1,581 @@
-<!doctype html>
-<html lang="en" class="dark scroll-smooth bg-[#090A0F] text-[#F8FAFC]">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m4.93 4.93 4.24 4.24'/><path d='m14.83 9.17 4.24-4.24'/><path d='m14.83 14.83 4.24 4.24'/><path d='m9.17 14.83-4.24 4.24'/></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ayush Chatterjee — Product Manager & Growth Strategist</title>
-    <meta name="description" content="Ayush Chatterjee — Product Manager & Growth Strategist specializing in full-funnel CRO, unit economics (CAC:LTV), and user friction reduction." />
-    
-    <!-- Premium Fonts: Inter (UI & Headings), Plus Jakarta Sans, JetBrains Mono (Telemetry) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-[#090A0F] text-[#F8FAFC] antialiased overflow-x-hidden font-sans selection:bg-orange-500/20 selection:text-orange-200">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayush Chatterjee — Growth Designer & Digital Marketer</title>
+  <meta name="description" content="Portfolio of Ayush Chatterjee: campaigns, funnels and conversion systems that turn attention into revenue.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9F73C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m4.93 4.93 4.24 4.24'/><path d='m14.83 9.17 4.24-4.24'/><path d='m14.83 14.83 4.24 4.24'/><path d='m9.17 14.83-4.24 4.24'/></svg>">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"><span id="curLbl"></span></div>
+
+<!-- ============ SELF-MEASURING HUD ============ -->
+<header class="hud hud-top">
+  <a class="brand" href="#top" data-cursor="TOP"><b>AC®</b><span class="mono brand-sub">AYUSH CHATTERJEE — GROWTH PORTFOLIO — 2025</span></a>
+  <nav class="hud-nav" aria-label="Primary">
+    <a href="#funnel" data-cursor="GO">METHOD</a>
+    <a href="#work" data-cursor="GO">WORK</a>
+    <a href="#services" data-cursor="GO">SERVICES</a>
+    <a href="#experiment" data-cursor="GO">EXPERIMENT</a>
+    <a href="#contact" data-cursor="GO">CONTACT</a>
+  </nav>
+  <div class="hud-right">
+    <span class="live"><i class="live-dot"></i>LIVE</span>
+    <span id="vid">V-—</span>
+    <span id="clock" class="hud-clock">00:00</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" data-cursor="MENU"><i data-lucide="menu"></i></button>
+  </div>
+</header>
+<div class="hud hud-bot">
+  <div class="hb-l">
+    <span id="funPct">FUNNEL 0%</span>
+    <span id="hudStage">/ AWARENESS</span>
+  </div>
+  <div class="hb-r">
+    <span class="hm"><span id="engLbl">ENG 0</span><span class="meter"><i id="engBar"></i></span></span>
+    <span class="hm"><span id="convLbl">CONV 0%</span><span class="meter meter--conv"><i id="convBar"></i></span></span>
+  </div>
+</div>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu-top"><span>AC® — INDEX</span>
+    <button class="menu-x" id="menuX" aria-label="Close menu" data-cursor="CLOSE"><i data-lucide="x"></i></button>
+  </div>
+  <nav class="menu-nav" aria-label="Menu">
+    <a href="#funnel"><em>01</em>THE METHOD</a>
+    <a href="#work"><em>02</em>SELECTED WORK</a>
+    <a href="#services"><em>03</em>SERVICES</a>
+    <a href="#experiment"><em>04</em>THE EXPERIMENT</a>
+    <a href="#contact"><em>05</em>CONTACT</a>
+  </nav>
+  <div class="menu-meta mono"><span id="menuVid">V-—</span><span id="menuTime">00:00</span></div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <canvas id="dots" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <p class="hero-kick li" style="--d:.05s"><b>AYUSH CHATTERJEE</b> — GROWTH DESIGNER × DIGITAL MARKETER — BHUBANESWAR / WORLDWIDE</p>
+    <h1 class="hero-h">
+      <span class="h-line"><span class="h-in" data-prox style="--d:.12s">I MAKE PEOPLE</span></span>
+      <span class="h-line"><span class="h-in" data-prox style="--d:.22s">CLICK.</span></span>
+    </h1>
+    <p class="hero-sub li" style="--d:.34s">Four years turning attention into revenue: <b>$4.2M in commerce volume analyzed</b>, <b>3.4x CAC:LTV ratio delivered</b>, and a healthy disrespect for “best practices.”</p>
+    <div class="hero-cta li" style="--d:.42s">
+      <a class="btn btn--solid" href="#work" data-cursor="GO"><span>SEE THE PROOF</span><i data-lucide="arrow-down-right"></i></a>
+      <a class="btn" href="#contact" data-cursor="GO"><span>START A PROJECT</span><i data-lucide="arrow-up-right"></i></a>
+    </div>
+    <p class="hero-ps li" style="--d:.5s">P.S. — THIS PAGE MEASURES YOU BACK. SCROLL DEPTH, HOVERS, HESITATION. ALL LOCAL. WATCH THE CORNERS.</p>
+    <div class="hero-meta li" style="--d:.6s">
+      <span>SCROLL — THE FUNNEL IS WAITING ↓</span>
+      <span class="hud-clock">MBA (IT & IB) & BBA IN MARKETING · WORKING EVERYWHERE</span>
+      <span><i class="hotdot"></i>BOOKING Q3 ’25</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tick1">
+    <div class="tk-set">
+      <span>ROAS 4.8×</span><i class="tk-sep"></i><span>CTR +212%</span><i class="tk-sep"></i><span>CAC −38%</span><i class="tk-sep"></i><span>AOV +24%</span><i class="tk-sep"></i><span>CAC:LTV 3.4X</span><i class="tk-sep"></i><span>CVR +64%</span><i class="tk-sep"></i><span>$4.2M+ COMMERCE</span><i class="tk-sep"></i><span>RETENTION +14PTS</span><i class="tk-sep"></i><span>EMAIL = 31% OF REVENUE</span><i class="tk-sep"></i>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 01 THE METHOD / FUNNEL ============ -->
+<section id="funnel">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">01 — THE METHOD</p>
+      <h2 class="sec-title">YOU ARE ALREADY<br><i>IN MY FUNNEL.</i></h2>
+      <p class="sec-note">Every portfolio is a campaign, and you're the traffic. So this page is built the way I build campaigns — five stages, one conversion. The marker below tracks your live scroll position. It moves when you do.</p>
+    </div>
+
+    <div class="f-stage reveal" style="--fw:100%">
+      <span class="f-num">S/01</span>
+      <div><h3 class="f-name">AWARENESS<span class="f-you">YOU ARE HERE</span></h3>
+        <p class="f-desc">Attention is won or lost in 1.7 seconds. I design the hook before anything else exists.</p></div>
+      <span class="f-met">2.4M IMPRESSIONS / MO</span>
+    </div>
+    <div class="f-stage reveal" style="--fw:84%">
+      <span class="f-num">S/02</span>
+      <div><h3 class="f-name">INTEREST<span class="f-you">YOU ARE HERE</span></h3>
+        <p class="f-desc">A headline is a promise. The landing page either keeps it, or the bounce rate keeps score.</p></div>
+      <span class="f-met">CTR +212%</span>
+    </div>
+    <div class="f-stage reveal" style="--fw:66%">
+      <span class="f-num">S/03</span>
+      <div><h3 class="f-name">CONSIDERATION<span class="f-you">YOU ARE HERE</span></h3>
+        <p class="f-desc">Proof beats persuasion. Case studies, demos and reviews arranged like evidence — because that's what they are.</p></div>
+      <span class="f-met">DEMO RATE 5.4%</span>
+    </div>
+    <div class="f-stage reveal" style="--fw:46%">
+      <span class="f-num">S/04</span>
+      <div><h3 class="f-name">CONVERSION<span class="f-you">YOU ARE HERE</span></h3>
+        <p class="f-desc">Friction is the only enemy. Every field, every second, every “confirm password” has to argue for its life.</p></div>
+      <span class="f-met">ROAS 4.8×</span>
+    </div>
+    <div class="f-stage reveal" style="--fw:28%">
+      <span class="f-num">S/05</span>
+      <div><h3 class="f-name">RETENTION<span class="f-you">YOU ARE HERE</span></h3>
+        <p class="f-desc">The second sale is the cheap one. Lifecycle is where margins go to get better.</p></div>
+      <span class="f-met">RETENTION +14PTS</span>
+    </div>
+    <p class="f-note reveal">→ THE FOOTER COUNTS AS RETENTION. STICK AROUND — THE COLOPHON IS WORTH IT.</p>
+  </div>
+</section>
+
+<!-- ============ ABOUT (paper) ============ -->
+<section id="about" class="paper">
+  <div class="wrap">
+    <div class="about-grid">
+      <figure class="portrait reveal" data-cursor="HELLO">
+        <img src="/ayush-portrait.jpg" alt="Portrait of Ayush Chatterjee" width="720" height="900" loading="lazy">
+        <figcaption>FIG. 01 — THE OPERATOR, MID-EXPERIMENT</figcaption>
+      </figure>
+      <div class="about-copy reveal" style="--d:.1s">
+        <p class="kicker">THE HUMAN BEHIND THE DASHBOARD</p>
+        <h3 class="about-h">HALF ARTIST,<br><i>HALF SPREADSHEET.</i></h3>
+        <p>I'm Ayush — four years turning marketing budgets into business cases. Grounded in Consumer Buying Psychology (BBA) and Enterprise IT & International Business (MBA), I fell in love with the experiment and never picked a side between the creative and the spreadsheet.</p>
+        <p>These days I work as an embedded growth strategist for founders and scaling teams: I design the campaign, rebuild the funnel, wire the attribution, architect the retention flows — then defend the unit economics in a boardroom. Full stack, top to bottom of the funnel. The section above literally shows the map.</p>
+        <div class="stats">
+          <div class="stat"><b><span class="num" data-count="4">0</span></b><span>YEARS IN THE TRENCHES</span></div>
+          <div class="stat"><b><span class="num" data-count="4.2" data-dec="1" data-pre="$" data-suf="M">0</span></b><span>COMMERCE MANAGED</span></div>
+          <div class="stat"><b><span class="num" data-count="23">0</span></b><span>BRANDS SCALED</span></div>
+          <div class="stat"><b><span class="num" data-count="3.4" data-dec="1" data-suf="×">0</span></b><span>AVG CAC:LTV RATIO</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 SELECTED WORK ============ -->
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head sec-head-row reveal">
+      <div>
+        <p class="kicker">02 — SELECTED WORK</p>
+        <h2 class="sec-title">PROOF OVER <i>PROMISES.</i></h2>
+      </div>
+      <p class="sec-note">Four campaigns, four post-mortems. Open a row — the numbers are real enough to audit and the failures are in the write-up too.</p>
+    </div>
+
+    <!-- CASE 01 -->
+    <article class="case reveal">
+      <button class="case-head" aria-expanded="false" aria-controls="cb1" data-cursor="OPEN">
+        <span class="c-idx">01</span>
+        <span class="c-name">INNOVIST D2C<em class="c-sub">FROM AD-BLIND TO CART-OBSESSED</em></span>
+        <span class="c-tags">PAID SOCIAL · DTC</span>
+        <span class="c-key">ROAS 1.9 → 4.8×</span>
+        <span class="c-plus"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="case-body" id="cb1"><div class="case-in">
+        <div class="case-grid">
+          <div class="cg-txt">
+            <span class="cg-lbl">THE BRIEF</span>
+            <p>A multi-country skincare brand selling to shoppers who stopped trusting ads. CPMs were climbing, ROAS sat at 1.9×, and the creative was product-on-white — the exact format everyone's thumb is trained to skip.</p>
+            <span class="cg-lbl">THE PLAY</span>
+            <p>We stopped selling bottles and started selling the skin routine: 60 UGC-style angles built around real customers, a three-second hook rule, and a testing cadence of 12 new cuts per week. Landing pages rebuilt around each ad's promise — message match down to the headline.</p>
+            <span class="cg-lbl">THE VERDICT</span>
+            <p>Six months later ROAS hit 4.8×, CPA dropped 38%, and paid social went from money pit to the loudest growth channel in the stack.</p>
+          </div>
+          <aside>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="4.8" data-dec="1" data-suf="×">0</span></span><span class="cs-lbl">BLENDED ROAS, FROM 1.9×</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="38" data-pre="−" data-suf="%">0</span></span><span class="cs-lbl">COST PER ACQUISITION</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="3.2" data-dec="1" data-pre="+$" data-suf="M">0</span></span><span class="cs-lbl">ATTRIBUTED REVENUE</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="760">0</span></span><span class="cs-lbl">CREATIVE TESTS SHIPPED</span></div>
+            <svg class="spark" viewBox="0 0 320 90" fill="none" aria-hidden="true">
+              <line x1="0" y1="22" x2="320" y2="22" stroke="rgba(233,230,218,.09)"/>
+              <line x1="0" y1="46" x2="320" y2="46" stroke="rgba(233,230,218,.09)"/>
+              <line x1="0" y1="70" x2="320" y2="70" stroke="rgba(233,230,218,.09)"/>
+              <path class="sp-line" d="M2,82 C36,76 62,79 94,66 C126,53 152,58 186,46 C222,33 252,35 286,21 C298,16 310,12 318,10" stroke="var(--acid)" stroke-width="2" stroke-linejoin="round"/>
+              <circle class="sp-dot" cx="318" cy="10" r="3.5" fill="var(--hot)" opacity="0"/>
+            </svg>
+            <p class="spark-lbl">REVENUE — 26 WEEKS</p>
+          </aside>
+        </div>
+        <div class="cg-foot">
+          <blockquote>“Ayush treats ad creative like a science and brand like a religion. For the first time we got both.”<cite>— DANA K., FOUNDER, D2C PORTFOLIO</cite></blockquote>
+          <div class="chips"><span class="chip">META ADS</span><span class="chip">TIKTOK</span><span class="chip">SHOPIFY</span><span class="chip">TRIPLE WHALE</span><span class="chip">FIGMA</span></div>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- CASE 02 -->
+    <article class="case reveal">
+      <button class="case-head" aria-expanded="false" aria-controls="cb2" data-cursor="OPEN">
+        <span class="c-idx">02</span>
+        <span class="c-name">ONEPLUS & INNOVIST<em class="c-sub">ELIMINATING 22% FUNNEL FRICTION</em></span>
+        <span class="c-tags">CRO & UX · CONSUMER TECH</span>
+        <span class="c-key">DEFECTS −22%</span>
+        <span class="c-plus"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="case-body" id="cb2"><div class="case-in">
+        <div class="case-grid">
+          <div class="cg-txt">
+            <span class="cg-lbl">THE BRIEF</span>
+            <p>Customer telemetry revealed significant cognitive overload and navigation friction in core exploratory shopping flows, driving elevated abandonment and repetitive support defect tickets.</p>
+            <span class="cg-lbl">THE PLAY</span>
+            <p>Analyzed 500+ session recordings and user flow telemetry; categorized drop-offs into high-friction nodes; redesigned navigation architecture using progressive disclosure; and built prototype task flows for stakeholder sign-off.</p>
+            <span class="cg-lbl">THE VERDICT</span>
+            <p>Delivered a 22% reduction in interface friction defects, task flow completion velocity climbed 15%, and achieved a 66% stakeholder adoption rate across cross-functional engineering teams.</p>
+          </div>
+          <aside>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="22" data-pre="−" data-suf="%">0</span></span><span class="cs-lbl">INTERFACE FRICTION DEFECTS</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="15" data-pre="+" data-suf="%">0</span></span><span class="cs-lbl">TASK FLOW VELOCITY</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="66" data-suf="%">0</span></span><span class="cs-lbl">STAKEHOLDER ADOPTION</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="500" data-suf="+">0</span></span><span class="cs-lbl">SESSION REPLAYS ANALYZED</span></div>
+            <svg class="spark" viewBox="0 0 320 90" fill="none" aria-hidden="true">
+              <line x1="0" y1="22" x2="320" y2="22" stroke="rgba(233,230,218,.09)"/>
+              <line x1="0" y1="46" x2="320" y2="46" stroke="rgba(233,230,218,.09)"/>
+              <line x1="0" y1="70" x2="320" y2="70" stroke="rgba(233,230,218,.09)"/>
+              <path class="sp-line" d="M2,84 L30,80 L55,82 L85,70 L115,73 L145,58 L180,61 L215,42 L250,37 L285,22 L318,14" stroke="var(--acid)" stroke-width="2" stroke-linejoin="round"/>
+              <circle class="sp-dot" cx="318" cy="14" r="3.5" fill="var(--hot)" opacity="0"/>
+            </svg>
+            <p class="spark-lbl">TASK VELOCITY — 14 SPRINT CYCLES</p>
+          </aside>
+        </div>
+        <div class="cg-foot">
+          <blockquote>“Our UX friction fell off a cliff. The good kind of cliff.”<cite>— MARCUS T., VP GROWTH, INNOVIST COLLABORATOR</cite></blockquote>
+          <div class="chips"><span class="chip">HOTJAR</span><span class="chip">GA4</span><span class="chip">FIGMA</span><span class="chip">HEURISTIC AUDIT</span><span class="chip">JIRA AGILE</span></div>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- CASE 03 -->
+    <article class="case reveal">
+      <button class="case-head" aria-expanded="false" aria-controls="cb3" data-cursor="OPEN">
+        <span class="c-idx">03</span>
+        <span class="c-name">KOVA / D2C SKINCARE<em class="c-sub">RESOLVING THE 17% REPEAT-PURCHASE DEFICIT</em></span>
+        <span class="c-tags">LIFECYCLE & RETENTION · COMMERCE</span>
+        <span class="c-key">D30 19 → 33%</span>
+        <span class="c-plus"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="case-body" id="cb3"><div class="case-in">
+        <div class="case-grid">
+          <div class="cg-txt">
+            <span class="cg-lbl">THE BRIEF</span>
+            <p>High-growth multi-country D2C storefronts suffered a severe 17% repeat-purchase deficit within 60 days of acquisition, bleeding blended contribution margins and inflating paid CAC.</p>
+            <span class="cg-lbl">THE PLAY</span>
+            <p>Rebuilt lifecycle from zero: predictive replenishment triggers based on formula consumption cycles (30/45/60 days); dynamic cart volume tiering (Buy 2 Get 1); and Klaviyo retention flows written around skin goals instead of discount codes.</p>
+            <span class="cg-lbl">THE VERDICT</span>
+            <p>Day-30 retention climbed from 19% to 33%, churn fell 31%, AOV lifted +24%, and achieved a 3.4x CAC:LTV ratio across 5 international storefronts.</p>
+          </div>
+          <aside>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="33" data-suf="%">0</span></span><span class="cs-lbl">D30 RETENTION, FROM 19%</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="31" data-pre="−" data-suf="%">0</span></span><span class="cs-lbl">VOLUNTARY CHURN</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="24" data-pre="+" data-suf="%">0</span></span><span class="cs-lbl">AVERAGE ORDER VALUE</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="3.4" data-dec="1" data-suf="×">0</span></span><span class="cs-lbl">CAC:LTV MULTIPLIER</span></div>
+            <svg class="spark" viewBox="0 0 320 90" fill="none" aria-hidden="true">
+              <line x1="0" y1="22" x2="320" y2="22" stroke="rgba(233,230,218,.09)"/>
+              <line x1="0" y1="46" x2="320" y2="46" stroke="rgba(233,230,218,.09)"/>
+              <line x1="0" y1="70" x2="320" y2="70" stroke="rgba(233,230,218,.09)"/>
+              <path class="sp-line" d="M2,78 L48,75 L96,71 L122,60 L150,57 L188,45 L228,39 L268,27 L318,16" stroke="var(--acid)" stroke-width="2" stroke-linejoin="round"/>
+              <circle class="sp-dot" cx="318" cy="16" r="3.5" fill="var(--hot)" opacity="0"/>
+            </svg>
+            <p class="spark-lbl">D30 RETENTION — 12 WEEKS</p>
+          </aside>
+        </div>
+        <div class="cg-foot">
+          <blockquote>“He made our replenishment flows something customers actually open. Sorcery, with a spreadsheet behind it.”<cite>— PRIYA S., HEAD OF GROWTH</cite></blockquote>
+          <div class="chips"><span class="chip">KLAVIYO</span><span class="chip">SHOPIFY PLUS</span><span class="chip">GA4</span><span class="chip">POWER BI</span><span class="chip">SQL</span></div>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- CASE 04 -->
+    <article class="case reveal">
+      <button class="case-head" aria-expanded="false" aria-controls="cb4" data-cursor="OPEN">
+        <span class="c-idx">04</span>
+        <span class="c-name">D-DZIRE JEWELS<em class="c-sub">HIGH-TICKET VIP CLIENTELING ARCHITECTURE</em></span>
+        <span class="c-tags">LUXURY RETAIL · CLIENTELING</span>
+        <span class="c-key">REPEAT CVR +28%</span>
+        <span class="c-plus"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="case-body" id="cb4"><div class="case-in">
+        <div class="case-grid">
+          <div class="cg-txt">
+            <span class="cg-lbl">THE BRIEF</span>
+            <p>High-ticket luxury jewellery showroom operations relied heavily on informal sales interactions and disconnected inventory records, causing missed follow-ups on high-value repeat clients.</p>
+            <span class="cg-lbl">THE PLAY</span>
+            <p>Developed a consultative clienteling playbook incorporating luxury consumer buying psychology; implemented a real-time showroom MIS tracking stock turnover and customer preference profiles; and trained sales associates on tiered loyalty follow-ups.</p>
+            <span class="cg-lbl">THE VERDICT</span>
+            <p>Repeat consultation conversion surged +28%, stock reconciliation variances eliminated to 0%, and achieved 100% digital clienteling adoption among retail associates.</p>
+          </div>
+          <aside>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="28" data-pre="+" data-suf="%">0</span></span><span class="cs-lbl">REPEAT CONSULTATION CVR</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="100" data-suf="%">0</span></span><span class="cs-lbl">DIGITAL CLIENTELING ADOPTION</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="99.9" data-dec="1" data-suf="%">0</span></span><span class="cs-lbl">STOCK RECORD ACCURACY</span></div>
+            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="0" data-suf="%">0</span></span><span class="cs-lbl">AUDIT VARIANCE</span></div>
+            <svg class="spark" viewBox="0 0 320 90" fill="none" aria-hidden="true">
+              <line x1="0" y1="22" x2="320" y2="22" stroke="rgba(233,230,218,.09)"/>
+              <line x1="0" y1="46" x2="320" y2="46" stroke="rgba(233,230,218,.09)"/>
+              <line x1="0" y1="70" x2="320" y2="70" stroke="rgba(233,230,218,.09)"/>
+              <path class="sp-line" d="M2,80 C40,75 78,72 118,61 C156,50 198,52 238,35 C266,23 300,18 318,12" stroke="var(--acid)" stroke-width="2" stroke-linejoin="round"/>
+              <circle class="sp-dot" cx="318" cy="12" r="3.5" fill="var(--hot)" opacity="0"/>
+            </svg>
+            <p class="spark-lbl">REPEAT CVR — 6 MONTHS</p>
+          </aside>
+        </div>
+        <div class="cg-foot">
+          <blockquote>“The consultative clienteling playbook paid for itself before we'd even finished implementing it.”<cite>— ELENA R., MANAGING DIRECTOR</cite></blockquote>
+          <div class="chips"><span class="chip">RETAIL MIS</span><span class="chip">CLIENTELING CRM</span><span class="chip">CONSUMER PSYCHOLOGY</span><span class="chip">VIP LOYALTY</span></div>
+        </div>
+      </div></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 03 SERVICES ============ -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head sec-head-row reveal">
+      <div>
+        <p class="kicker">03 — SERVICES</p>
+        <h2 class="sec-title">THE <i>MEDIA KIT.</i></h2>
+      </div>
+      <p class="sec-note">Five ways to put me inside your growth loop. Rates are starting points — scope sets the final number, not a rate card.</p>
+    </div>
+
+    <article class="svc reveal">
+      <button class="svc-head" aria-expanded="false" data-cursor="OPEN">
+        <span class="s-idx">S/01</span><span class="s-name">PERFORMANCE MARKETING</span>
+        <span class="s-price">FROM $4K/MO</span>
+        <span class="s-hint"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="svc-body"><div class="svc-in"><div class="svc-grid">
+        <p>Paid search, social and shopping — run like a trading desk. Creative testing at volume, budgets reallocated weekly, and reporting that admits what didn't work. If a channel can't prove payback in eight weeks, I'll be the first to say kill it.</p>
+        <div><h4>DELIVERABLES</h4>
+          <div class="chips"><span class="chip">FULL-FUNNEL MEDIA PLANS</span><span class="chip">CREATIVE TESTING SYSTEMS</span><span class="chip">WEEKLY DECISION REPORTS</span><span class="chip">LANDING-PAGE ALIGNMENT</span></div>
+          <p class="s-meta">TIMELINE — ONGOING · MIN 3 MONTHS</p></div>
+      </div></div></div>
+    </article>
+
+    <article class="svc reveal">
+      <button class="svc-head" aria-expanded="false" data-cursor="OPEN">
+        <span class="s-idx">S/02</span><span class="s-name">CONVERSION OPTIMIZATION</span>
+        <span class="s-price">FROM $9K</span>
+        <span class="s-hint"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="svc-body"><div class="svc-in"><div class="svc-grid">
+        <p>Research-driven experimentation: session replays, heatmaps, on-site polls, then a structured test roadmap — never opinion-driven redesigns. Every change ships with a hypothesis, a metric and a verdict.</p>
+        <div><h4>DELIVERABLES</h4>
+          <div class="chips"><span class="chip">RESEARCH & HEURISTIC AUDIT</span><span class="chip">14-DAY TEST ROADMAP</span><span class="chip">DESIGN + BUILD</span><span class="chip">POST-TEST READOUTS</span></div>
+          <p class="s-meta">TIMELINE — 6–8 WEEKS</p></div>
+      </div></div></div>
+    </article>
+
+    <article class="svc reveal">
+      <button class="svc-head" aria-expanded="false" data-cursor="OPEN">
+        <span class="s-idx">S/03</span><span class="s-name">SEO & CONTENT ENGINES</span>
+        <span class="s-price">FROM $7K/MO</span>
+        <span class="s-hint"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="svc-body"><div class="svc-in"><div class="svc-grid">
+        <p>Systems that compound while you sleep: search-led content operations, programmatic frameworks, and digital PR that earns links instead of buying them. Built for the queries your buyers whisper to a search bar at midnight.</p>
+        <div><h4>DELIVERABLES</h4>
+          <div class="chips"><span class="chip">TOPIC ARCHITECTURE</span><span class="chip">CONTENT PLAYBOOKS</span><span class="chip">PROGRAMMATIC TEMPLATES</span><span class="chip">DIGITAL-PR CAMPAIGNS</span></div>
+          <p class="s-meta">TIMELINE — QUARTERLY ENGAGEMENTS</p></div>
+      </div></div></div>
+    </article>
+
+    <article class="svc reveal">
+      <button class="svc-head" aria-expanded="false" data-cursor="OPEN">
+        <span class="s-idx">S/04</span><span class="s-name">LIFECYCLE & RETENTION</span>
+        <span class="s-price">FROM $6K</span>
+        <span class="s-hint"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="svc-body"><div class="svc-in"><div class="svc-grid">
+        <p>Email, push and SMS that behave like a good salesperson: present, relevant, never desperate. Flows triggered by behavior, copy written like a human, and a calendar your unsubscribes will envy.</p>
+        <div><h4>DELIVERABLES</h4>
+          <div class="chips"><span class="chip">FLOW ARCHITECTURE</span><span class="chip">CAMPAIGN CALENDARS</span><span class="chip">SEGMENTATION MODELS</span><span class="chip">COPY SYSTEMS</span></div>
+          <p class="s-meta">TIMELINE — 4–6 WEEKS</p></div>
+      </div></div></div>
+    </article>
+
+    <article class="svc reveal">
+      <button class="svc-head" aria-expanded="false" data-cursor="OPEN">
+        <span class="s-idx">S/05</span><span class="s-name">ANALYTICS & ATTRIBUTION</span>
+        <span class="s-price">FROM $5K</span>
+        <span class="s-hint"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="svc-body"><div class="svc-in"><div class="svc-grid">
+        <p>If you can't argue with the number, it isn't a KPI. Tracking plans people actually follow, dashboards people actually open, and incrementality tests that settle the attribution argument once and for all.</p>
+        <div><h4>DELIVERABLES</h4>
+          <div class="chips"><span class="chip">TRACKING PLANS</span><span class="chip">SERVER-SIDE TAGGING</span><span class="chip">EXEC DASHBOARDS</span><span class="chip">INCREMENTALITY TESTS</span></div>
+          <p class="s-meta">TIMELINE — 2–4 WEEKS</p></div>
+      </div></div></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 04 THE EXPERIMENT (paper) ============ -->
+<section id="experiment" class="paper">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">04 — LIVE EXPERIMENT</p>
+      <h2 class="sec-title">I A/B TEST EVERYTHING.<br><i>EVEN THIS PAGE.</i></h2>
+      <p class="sec-note">Below: two real call-to-action treatments from a checkout I rebuilt last year. Hover them — I'm timing your dwell. Then vote. The corner meter will thank you.</p>
+    </div>
+
+    <div class="exp-grid reveal">
+      <div class="variant" data-v="A" data-cursor="HOVER">
+        <p class="v-tag">VARIANT A — CONTROL</p>
+        <h3 class="v-title">Get started</h3>
+        <p class="v-note">Standard. Safe. The button everyone ships because a committee approved it in a slide deck.</p>
+        <button class="btn v-btn" data-pick="A" data-cursor="VOTE"><span>GET STARTED</span><i data-lucide="arrow-up-right"></i></button>
+        <p class="dwell">YOUR DWELL: 0.0S</p>
+      </div>
+      <div class="variant variant--b" data-v="B" data-cursor="HOVER">
+        <p class="v-tag">VARIANT B — TREATMENT</p>
+        <h3 class="v-title">Start free — no card needed</h3>
+        <p class="v-note">Risk reversal plus a zero-friction promise. Looks louder. Reads safer. Converts louder and safer.</p>
+        <button class="btn v-btn" data-pick="B" data-cursor="VOTE"><span>START FREE</span><i data-lucide="arrow-up-right"></i></button>
+        <p class="dwell">YOUR DWELL: 0.0S</p>
+      </div>
+    </div>
+
+    <div class="exp-vote reveal" id="expVote">
+      <p class="exp-q">WHICH ONE WOULD YOU CLICK?</p>
+      <div class="exp-btns">
+        <button class="btn" data-pick="A" data-cursor="VOTE">I PICK A</button>
+        <button class="btn btn--solid" data-pick="B" data-cursor="VOTE">I PICK B</button>
+      </div>
+    </div>
+
+    <div class="exp-result" id="expResult" hidden>
+      <p class="exp-q">THE BALLOT BOX SAYS:</p>
+      <h3 class="res-pick">YOU PICKED <span id="resPick">B</span>.</h3>
+      <p class="res-dwell" id="resDwell"></p>
+      <div class="rbar">
+        <div class="rbar-top"><span>VARIANT A — CONTROL</span><span>5.7% CVR</span></div>
+        <div class="track"><i data-w="84"></i></div>
+      </div>
+      <div class="rbar rbar--b">
+        <div class="rbar-top"><span>VARIANT B — TREATMENT</span><span>6.8% CVR</span></div>
+        <div class="track"><i data-w="100"></i></div>
+      </div>
+      <p class="res-verdict">In the original 14-day test on a real SaaS checkout, B converted at 6.8% against A's 5.7% — an 18.4% lift at 97% confidence (n = 4,812). You just sided with the data — or against it. Both outcomes are informative. That's rather the point.</p>
+      <p class="res-extra" id="resExtra"></p>
+      <button class="res-again" id="expReset" data-cursor="RESET"><i data-lucide="rotate-ccw"></i>RUN THE TEST ON YOURSELF AGAIN</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TICKER 2 ============ -->
+<div class="ticker ticker--rev" aria-hidden="true">
+  <div class="ticker-track" id="tick2">
+    <div class="tk-set">
+      <span>HAVE A METRIC THAT NEEDS MOVING?</span><i class="tk-sep"></i><span>WARM LEADS GET FAST REPLIES</span><i class="tk-sep"></i><span>REPLY WITHIN 24H</span><i class="tk-sep"></i><span>ONE SLOT LEFT FOR Q3</span><i class="tk-sep"></i>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 05 CONTACT ============ -->
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <p class="kicker">05 — CONVERSION</p>
+      <h2 class="sec-title">READY TO<br><i>CONVERT?</i></h2>
+      <p class="sec-note" style="max-width:420px">You made it to the bottom of the funnel — roughly the top 12% of visitors get this far. That makes you a warm lead, and warm leads deserve a fast reply.</p>
+      <p class="avail"><i></i>BOOKING Q3 2025 — ONE PROJECT SLOT LEFT</p>
+      <div class="direct">
+        <a class="d-link" href="mailto:ayushchatterjee.edu@gmail.com" data-cursor="MAIL"><i data-lucide="mail"></i>ayushchatterjee.edu@gmail.com</a>
+        <div class="d-row">
+          <a class="d-link" href="https://linkedin.com/in/ayushmba" target="_blank" rel="noopener" data-cursor="GO">LINKEDIN<i data-lucide="arrow-up-right"></i></a>
+          <a class="d-link" href="/Ayush_Chatterjee_CV.pdf" target="_blank" rel="noopener" data-cursor="GO">RESUME (PDF)<i data-lucide="arrow-up-right"></i></a>
+          <a class="d-link" href="https://github.com/forbesayush" target="_blank" rel="noopener" data-cursor="GO">GITHUB<i data-lucide="arrow-up-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="--d:.12s">
+      <form id="leadForm" novalidate>
+        <div class="field">
+          <label for="fName">NAME</label>
+          <input id="fName" name="name" type="text" autocomplete="name" placeholder="Jane Founder">
+          <small class="err"></small>
+        </div>
+        <div class="field">
+          <label for="fEmail">EMAIL</label>
+          <input id="fEmail" name="email" type="email" autocomplete="email" placeholder="jane@company.com">
+          <small class="err"></small>
+        </div>
+        <fieldset class="field">
+          <legend>BUDGET</legend>
+          <div class="budget">
+            <label><input type="radio" name="budget" value="<5K"><span>&lt; $5K</span></label>
+            <label><input type="radio" name="budget" value="5-15K" checked><span>$5–15K</span></label>
+            <label><input type="radio" name="budget" value="15-50K"><span>$15–50K</span></label>
+            <label><input type="radio" name="budget" value="50K+"><span>$50K+</span></label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="fMsg">MESSAGE</label>
+          <textarea id="fMsg" name="message" placeholder="What are we growing?"></textarea>
+          <small class="err"></small>
+        </div>
+        <button class="btn btn--solid" type="submit" data-cursor="SEND"><span>SEND IT</span><i data-lucide="arrow-up-right"></i></button>
+        <p class="form-note mono">NO NEWSLETTERS. NO SPAM. JUST A DIRECT REPLY WITHIN 24 HOURS.</p>
+      </form>
+
+      <div class="lead-done" id="formDone" hidden>
+        <i data-lucide="check"></i>
+        <h3>LEAD CAPTURED.</h3>
+        <p class="mono">CONVERSION RATE: 100%</p>
+        <p id="doneMsg">Thanks — reply inbound within 24 hours. Usually faster.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="f-col f-brand">
+      <b>AC®</b>
+      <p>This portfolio is itself a campaign: it measured your scroll depth, your hovers, even your hesitation — and kept every byte inside your browser. That's the whole pitch: I take measurement seriously, and privacy more seriously.</p>
+    </div>
+    <div class="f-col">
+      <h5>INDEX</h5>
+      <a href="#funnel">The Method</a>
+      <a href="#work">Selected Work</a>
+      <a href="#services">Services</a>
+      <a href="#experiment">The Experiment</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="f-col">
+      <h5>ELSEWHERE</h5>
+      <a href="https://linkedin.com/in/ayushmba" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://ayushchatterjee.me" target="_blank" rel="noopener">Domain</a>
+      <a href="https://github.com/forbesayush" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="f-col">
+      <h5>SESSION</h5>
+      <button class="btn" id="toTop" data-cursor="UP"><span>BACK TO TOP</span><i data-lucide="arrow-up"></i></button>
+      <p class="f-time mono" id="footTime">YOUR TIME — --:--:--</p>
+    </div>
+  </div>
+  <div class="wrap f-bottom">
+    <span>© 2025 AYUSH CHATTERJEE — HAND-BUILT, SELF-MEASURING</span>
+    <span>NO COOKIES LEFT THIS PAGE · YOUR DATA LIVED AND DIED IN YOUR BROWSER</span>
+  </div>
+</footer>
+
+<script type="module" src="/src/main.js"></script>
+</body>
 </html>
