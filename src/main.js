@@ -367,7 +367,7 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
   let anchors = [];
 
   function measure() {
-    anchors = ['#funnel', '#work', '#contact'].map(s => $(s)?.offsetTop || 0);
+    anchors = ['#about', '#work', '#experience', '#contact'].map(s => $(s)?.offsetTop || 0);
   }
 
   let ticking = false;
