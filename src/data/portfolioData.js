@@ -8,10 +8,10 @@
 export const personalInfo = {
   name: 'AYUSH CHATTERJEE',
   title: 'Consultant & Associate Product Manager (APM)',
-  subtitle: 'MBA (IT & IB, 2024–2026) • BBA (2021–2024)',
+  subtitle: 'MBA (IT & IB, 2025–2027) • BBA (2022–2025)',
   supportingHeadline: 'Product Manager & Strategy Consultant bridging user telemetry, GTM roadmaps, and data-driven execution. Proven track record reducing bug recurrence by 22%, boosting task efficiency by 15%, and projecting 15–18% Tier-2 GTM market penetration.',
   bio: 'Associate Product Manager (APM) and Strategy Consultant with hands-on experience in Product UX trials at OnePlus & Innovist, digital media consulting at Swash Consulting, and end-to-end GTM brand strategy mentored by an ISB alumnus.',
-  educationBadge: 'MBA — IT & IB (RCM Bhubaneswar, 2024–2026)',
+  educationBadge: 'MBA — IT & IB (RCM Bhubaneswar, 2025–2027)',
   focusBadge: 'Consulting • Product Strategy • Product Management • APM',
   location: 'Bhubaneswar / Kolkata, India',
   targetHorizon: 'Consulting | Product Strategy Intern | Product Manager | APM (Summer Placements 2026)',
@@ -284,25 +284,25 @@ export const experienceLedger = [
 export const academicProfile = [
   {
     degree: 'MBA (IT & IB)',
-    year: '2024 — 2026',
+    year: '2025 — 2027',
     institution: 'Regional College of Management, Bhubaneswar',
     description: 'Postgraduate degree focused on Enterprise Information Technology & International Business.'
   },
   {
     degree: 'BBA',
-    year: '2021 — 2024',
+    year: '2022 — 2025',
     institution: 'Regional College of Management',
     description: 'Undergraduate degree focused on Marketing Management & Consumer Behavior.'
   },
   {
     degree: 'HSC (CBSE)',
-    year: '2019 — 2021',
+    year: '2020 — 2022',
     institution: 'Apeejay School, Kolkata (CBSE)',
     description: 'Higher Secondary Certificate, Central Board of Secondary Education.'
   },
   {
     degree: 'SSC (CBSE)',
-    year: '2017 — 2019',
+    year: '2018 — 2020',
     institution: 'Apeejay School, Kolkata (CBSE)',
     description: 'Secondary School Certificate, Central Board of Secondary Education.'
   }
