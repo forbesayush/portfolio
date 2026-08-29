@@ -509,7 +509,7 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
       const email = $('#fEmail');
       const msg = $('#fMsg');
       const budgetChecked = $('input[name="budget"]:checked');
-      const budgetVal = budgetChecked ? budgetChecked.value : '5-15L';
+      const budgetVal = budgetChecked ? budgetChecked.value : 'APM Role';
 
       let ok = true;
       if (name.value.trim().length < 2) {
