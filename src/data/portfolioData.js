@@ -25,7 +25,7 @@ export const personalInfo = {
 
 // Key Quantitative Marketing Metrics
 export const heroTelemetry = [
-  { label: 'ATTRIBUTED COMMERCE VOLUME', value: '$4.2M+', change: '+38% YoY', status: 'verified' },
+  { label: 'ATTRIBUTED COMMERCE VOLUME', value: '₹35 Cr+', change: '+38% YoY', status: 'verified' },
   { label: 'CAC : LTV MULTIPLIER', value: '3.4x', change: 'Top Decile', status: 'growth' },
   { label: 'AOV LIFT VIA CART TIERING', value: '+24%', change: 'Dynamic B2G1', status: 'optimal' },
   { label: 'FUNNEL FRICTION DEFECT CUT', value: '-22%', change: 'Measured CRO', status: 'optimized' },
