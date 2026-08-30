@@ -871,6 +871,8 @@ body::after {
 
 .portrait {
   position: relative;
+  max-width: 360px;
+  width: 100%;
 }
 
 .portrait img {
@@ -1963,6 +1965,7 @@ footer h5 {
   .hud-nav { display: none; }
   .menu-btn { display: block; }
   .case-grid, .svc-grid, .exp-grid, .contact-grid, .about-grid { grid-template-columns: 1fr; }
+  .portrait { max-width: 320px; margin: 0 auto 24px; }
   .case-head { grid-template-columns: 44px 1fr 44px; }
   .c-tags, .c-key { display: none; }
   .svc-head { grid-template-columns: 44px 1fr 44px; }
