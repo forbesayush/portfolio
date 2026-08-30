@@ -1443,11 +1443,20 @@ body::after {
 .s-hint {
   width: 32px;
   height: 32px;
-  border: 1px solid currentColor;
+  border: 1px solid var(--hot);
+  color: var(--hot);
   display: flex;
   align-items: center;
   justify-content: center;
   justify-self: end;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.svc-head:hover .s-hint,
+.svc.open .s-hint {
+  background: var(--hot);
+  color: #EDE8DB;
+  border-color: var(--hot);
 }
 
 .s-hint svg, .s-hint .lucide {
