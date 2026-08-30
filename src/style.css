@@ -871,12 +871,17 @@ body::after {
 
 .portrait {
   position: relative;
+  max-width: 440px;
 }
 
 .portrait img {
   filter: grayscale(1) contrast(1.06);
   transition: filter 0.5s;
   border: 1px solid var(--line);
+  width: 100%;
+  max-height: 460px;
+  object-fit: cover;
+  object-position: top;
 }
 
 .portrait:hover img {
