@@ -1095,14 +1095,14 @@ body::after {
 }
 
 .c-idx {
-  font: 500 12px var(--mono);
+  font: 600 12px var(--mono);
   letter-spacing: 0.1em;
-  color: var(--mut);
+  color: var(--hot);
   transition: color 0.25s;
 }
 
 .case-head:hover .c-idx {
-  color: inherit;
+  color: var(--hot);
 }
 
 .c-name {
@@ -1149,12 +1149,21 @@ body::after {
 .c-plus {
   width: 36px;
   height: 36px;
-  border: 1px solid currentColor;
+  border: 1px solid var(--hot);
+  color: var(--hot);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   justify-self: end;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.case-head:hover .c-plus,
+.case.open .c-plus {
+  background: var(--hot);
+  color: #EDE8DB;
+  border-color: var(--hot);
 }
 
 .c-plus svg, .c-plus .lucide {
