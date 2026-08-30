@@ -5,17 +5,17 @@
   --paper: #EDE8DB;
   --acid: #C9F73C;
   --hot: #FF4D00;
-  --txt: #E9E6DA;
-  --mut: #9BA08E;
-  --line: rgba(233, 230, 218, 0.15);
+  --txt: #FFFFFF;
+  --mut: #E4E8DA;
+  --line: rgba(233, 230, 218, 0.22);
   --disp: 'Bricolage Grotesque', -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', monospace;
   --acc: var(--acid);
 }
 
 .paper {
-  --line: rgba(18, 20, 12, 0.22);
-  --mut: #5D6152;
+  --line: rgba(18, 20, 12, 0.28);
+  --mut: #12140E;
   --acc: var(--hot);
   background: var(--paper);
   color: #12140E;
@@ -158,9 +158,10 @@ body::after {
 
 .sec-note {
   max-width: 540px;
-  color: var(--mut);
+  color: #F0F4E8;
   margin-top: 20px;
   font-size: 15.5px;
+  line-height: 1.55;
 }
 
 .sec-head {
@@ -612,10 +613,10 @@ body::after {
 }
 
 .hero-kick {
-  font: 500 11px var(--mono);
+  font: 600 11.5px var(--mono);
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
   display: flex;
   gap: 12px;
   align-items: center;
@@ -669,9 +670,10 @@ body::after {
 
 .hero-sub {
   max-width: 620px;
-  color: var(--mut);
+  color: #FFFFFF;
   margin-top: clamp(24px, 3.4vh, 40px);
   font-size: 16.5px;
+  line-height: 1.6;
 }
 
 .hero-sub b {
@@ -691,10 +693,10 @@ body::after {
   align-items: center;
   gap: 10px;
   margin-top: 26px;
-  font: 500 10.5px var(--mono);
+  font: 600 11px var(--mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: #FFFFFF;
 }
 
 .hero-ps::before {
@@ -713,10 +715,10 @@ body::after {
   margin-top: auto;
   padding-top: 20px;
   border-top: 1px solid var(--line);
-  font: 500 10.5px var(--mono);
+  font: 700 11px var(--mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: #FFFFFF;
 }
 
 .hero-meta .hotdot {
@@ -797,9 +799,9 @@ body::after {
 }
 
 .f-num {
-  font: 500 11px var(--mono);
+  font: 600 12px var(--mono);
   letter-spacing: 0.14em;
-  color: var(--mut);
+  color: var(--acid);
 }
 
 .f-name {
@@ -840,10 +842,11 @@ body::after {
 }
 
 .f-desc {
-  color: var(--mut);
+  color: #F0F4E8;
   font-size: 15px;
   max-width: 540px;
   margin-top: 10px;
+  line-height: 1.55;
 }
 
 .f-met {
@@ -855,10 +858,10 @@ body::after {
 
 .f-note {
   margin-top: 26px;
-  font: 500 11px var(--mono);
+  font: 600 11.5px var(--mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
 }
 
 /* ============ ABOUT (paper) ============ */
@@ -889,10 +892,10 @@ body::after {
 
 .portrait figcaption {
   margin-top: 12px;
-  font: 500 10px var(--mono);
+  font: 600 11px var(--mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: #12140E;
 }
 
 .about-h {
@@ -911,7 +914,7 @@ body::after {
 }
 
 .about-copy p {
-  color: #3C4033;
+  color: #12140E; font-weight: 500;
   margin-bottom: 16px;
   max-width: 580px;
 }
@@ -941,7 +944,7 @@ body::after {
   font: 500 10px var(--mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #5D6152;
+  color: #12140E; font-weight: 600;
   margin-top: 4px;
 }
 
@@ -973,7 +976,7 @@ body::after {
   font: 600 10px var(--mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #5D6152;
+  color: #12140E; font-weight: 600;
   border-bottom: 1px solid var(--line);
   padding: 8px 6px;
 }
@@ -1020,7 +1023,7 @@ body::after {
   font: 500 9.5px var(--mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #5D6152;
+  color: #12140E; font-weight: 600;
 }
 
 @media (max-width: 768px) {
@@ -1051,10 +1054,10 @@ body::after {
 .stat span {
   display: block;
   margin-top: 8px;
-  font: 500 9.5px var(--mono);
+  font: 600 10.5px var(--mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: #FFFFFF;
 }
 
 /* ============ WORK / CASES ============ */
@@ -1083,9 +1086,9 @@ body::after {
 }
 
 .c-idx {
-  font: 500 12px var(--mono);
+  font: 700 12px var(--mono);
   letter-spacing: 0.1em;
-  color: var(--mut);
+  color: var(--acid);
   transition: color 0.25s;
 }
 
@@ -1102,10 +1105,10 @@ body::after {
 
 .c-sub {
   display: block;
-  font: 500 10px var(--mono);
+  font: 600 10.5px var(--mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
   margin-top: 7px;
   transition: color 0.25s;
 }
@@ -1123,7 +1126,8 @@ body::after {
 }
 
 .c-tags {
-  color: var(--mut);
+  color: #FFFFFF;
+  font-weight: 600;
 }
 
 .c-key {
@@ -1163,8 +1167,11 @@ body::after {
   color: var(--acid);
 }
 
-.case.open .c-sub, .case.open .c-tags {
-  color: var(--mut);
+.case.open .c-sub {
+  color: var(--acid);
+}
+.case.open .c-tags {
+  color: #FFFFFF;
 }
 
 .case-body {
@@ -1203,8 +1210,8 @@ body::after {
 }
 
 .cg-txt p {
-  color: var(--mut);
-  font-size: 15px;
+  color: #FFFFFF;
+  font-size: 15.5px;
   max-width: 560px;
   line-height: 1.6;
 }
@@ -1224,10 +1231,10 @@ body::after {
 .cs-lbl {
   display: block;
   margin-top: 7px;
-  font: 500 10px var(--mono);
+  font: 600 10.5px var(--mono);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: #FFFFFF;
 }
 
 .spark {
@@ -1237,10 +1244,10 @@ body::after {
 }
 
 .spark-lbl {
-  font: 500 9.5px var(--mono);
+  font: 600 10px var(--mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
   margin-top: 10px;
 }
 
@@ -1263,10 +1270,10 @@ body::after {
 .cg-foot cite {
   display: block;
   margin-top: 10px;
-  font: 500 10px var(--mono);
+  font: 600 10.5px var(--mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
   font-style: normal;
 }
 
@@ -1279,12 +1286,12 @@ body::after {
 }
 
 .chip {
-  font: 500 9.5px var(--mono);
+  font: 600 10px var(--mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 7px 11px;
-  border: 1px solid var(--line);
-  color: var(--mut);
+  border: 1px solid rgba(233, 230, 218, 0.35);
+  color: #FFFFFF;
 }
 
 /* ============ EXPERIENCE LEDGER ============ */
@@ -1307,9 +1314,9 @@ body::after {
 }
 
 .exp-period {
-  font: 600 11px var(--mono);
+  font: 700 12px var(--mono);
   letter-spacing: 0.14em;
-  color: var(--mut);
+  color: var(--acid);
 }
 
 .exp-role {
@@ -1329,10 +1336,11 @@ body::after {
 }
 
 .exp-desc {
-  color: var(--mut);
-  font-size: 14.5px;
+  color: #FFFFFF;
+  font-size: 15px;
   margin-top: 10px;
   max-width: 520px;
+  line-height: 1.6;
 }
 
 .exp-metrics-grid {
@@ -1358,8 +1366,9 @@ body::after {
 }
 
 .exp-metric-pill span {
-  color: var(--mut);
-  font-size: 9px;
+  color: #FFFFFF;
+  font-size: 9.5px;
+  font-weight: 600;
   display: block;
 }
 
@@ -1389,9 +1398,9 @@ body::after {
 }
 
 .s-idx {
-  font: 500 12px var(--mono);
+  font: 700 12px var(--mono);
   letter-spacing: 0.1em;
-  color: var(--mut);
+  color: var(--acid);
 }
 
 .svc-head:hover .s-idx {
@@ -1406,9 +1415,9 @@ body::after {
 }
 
 .s-price {
-  font: 500 11px var(--mono);
+  font: 600 11.5px var(--mono);
   letter-spacing: 0.13em;
-  color: var(--mut);
+  color: #FFFFFF;
   white-space: nowrap;
 }
 
@@ -1463,9 +1472,10 @@ body::after {
 }
 
 .svc-grid > p {
-  color: var(--mut);
+  color: #FFFFFF;
   font-size: 15.5px;
   max-width: 520px;
+  line-height: 1.6;
 }
 
 .svc-grid h4 {
@@ -1483,10 +1493,10 @@ body::after {
 
 .s-meta {
   margin-top: 16px;
-  font: 500 10px var(--mono);
+  font: 600 11px var(--mono);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
 }
 
 /* ============ EXPERIMENT (paper) ============ */
@@ -1514,10 +1524,10 @@ body::after {
 }
 
 .v-tag {
-  font: 600 10px var(--mono);
+  font: 700 11px var(--mono);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--hot);
 }
 
 .variant--b .v-tag {
@@ -1533,8 +1543,9 @@ body::after {
 }
 
 .v-note {
-  color: var(--mut);
-  font-size: 14.5px;
+  color: #12140E;
+  font-size: 15px;
+  font-weight: 500;
   max-width: 380px;
   min-height: 66px;
 }
@@ -1571,10 +1582,10 @@ body::after {
 
 .dwell {
   margin-top: 20px;
-  font: 500 10.5px var(--mono);
+  font: 700 11px var(--mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: #12140E;
 }
 
 .variant--b .dwell {
@@ -1618,10 +1629,10 @@ body::after {
 }
 
 .res-dwell, .res-extra {
-  font: 500 10.5px var(--mono);
+  font: 700 11px var(--mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: #12140E;
   margin-bottom: 6px;
 }
 
@@ -1636,10 +1647,10 @@ body::after {
 .rbar-top {
   display: flex;
   justify-content: space-between;
-  font: 500 10px var(--mono);
+  font: 700 11px var(--mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: #12140E;
   margin-bottom: 7px;
 }
 
@@ -1662,7 +1673,7 @@ body::after {
 
 .res-verdict {
   margin-top: 24px;
-  color: #3C4033;
+  color: #12140E; font-weight: 500;
   font-size: 15.5px;
   max-width: 640px;
 }
@@ -1753,10 +1764,10 @@ body::after {
 
 .field label, .field legend {
   display: block;
-  font: 600 10px var(--mono);
+  font: 700 11px var(--mono);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
   margin-bottom: 10px;
 }
 
@@ -1785,7 +1796,7 @@ body::after {
 }
 
 .field :is(input, textarea)::placeholder {
-  color: #5E6353;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .field.bad .err {
@@ -1834,11 +1845,11 @@ fieldset.field {
 
 .budget span {
   display: inline-block;
-  font: 500 10.5px var(--mono);
+  font: 600 11px var(--mono);
   letter-spacing: 0.12em;
   padding: 10px 14px;
-  border: 1px solid var(--line);
-  color: var(--mut);
+  border: 1px solid rgba(233, 230, 218, 0.35);
+  color: #FFFFFF;
   transition: all 0.2s;
   cursor: pointer;
 }
@@ -1856,10 +1867,11 @@ fieldset.field {
 
 .form-note {
   margin-top: 18px;
-  font-size: 9.5px;
+  font-size: 10.5px;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
 }
 
 .lead-done {
@@ -1888,7 +1900,8 @@ fieldset.field {
 }
 
 .lead-done p:last-child {
-  color: var(--mut);
+  color: #FFFFFF;
+  font-size: 15px;
   margin-top: 16px;
   max-width: 440px;
 }
@@ -1910,17 +1923,18 @@ footer {
 }
 
 .f-brand p {
-  color: var(--mut);
-  font-size: 14px;
+  color: #FFFFFF;
+  font-size: 14.5px;
+  line-height: 1.6;
   margin-top: 14px;
   max-width: 360px;
 }
 
 footer h5 {
-  font: 600 10px var(--mono);
+  font: 700 11px var(--mono);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
   margin-bottom: 16px;
 }
 
@@ -1928,7 +1942,7 @@ footer h5 {
   display: block;
   font-size: 14.5px;
   padding: 5px 0;
-  color: var(--mut);
+  color: #FFFFFF;
   transition: color 0.2s;
 }
 
@@ -1938,10 +1952,11 @@ footer h5 {
 
 .f-time {
   margin-top: 20px;
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--acid);
 }
 
 .f-bottom {
@@ -1952,10 +1967,11 @@ footer h5 {
   margin-top: 56px;
   padding-top: 20px;
   border-top: 1px solid var(--line);
-  font-size: 9.5px;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: #FFFFFF;
 }
 
 /* ============ RESPONSIVE ============ */
