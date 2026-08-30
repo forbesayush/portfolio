@@ -871,18 +871,12 @@ body::after {
 
 .portrait {
   position: relative;
-  max-width: 360px;
-  width: 100%;
 }
 
 .portrait img {
   filter: grayscale(1) contrast(1.06);
   transition: filter 0.5s;
   border: 1px solid var(--line);
-  aspect-ratio: 4/5;
-  object-fit: cover;
-  object-position: top;
-  width: 100%;
 }
 
 .portrait:hover img {
@@ -1965,7 +1959,6 @@ footer h5 {
   .hud-nav { display: none; }
   .menu-btn { display: block; }
   .case-grid, .svc-grid, .exp-grid, .contact-grid, .about-grid { grid-template-columns: 1fr; }
-  .portrait { max-width: 320px; margin: 0 auto 24px; }
   .case-head { grid-template-columns: 44px 1fr 44px; }
   .c-tags, .c-key { display: none; }
   .svc-head { grid-template-columns: 44px 1fr 44px; }
