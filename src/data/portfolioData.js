@@ -14,12 +14,12 @@ export const personalInfo = {
   educationBadge: 'MBA — IT & IB (RCM Bhubaneswar, 2025–2027)',
   focusBadge: 'Consulting • Product Strategy • Product Management • APM',
   location: 'Bhubaneswar / Kolkata, India',
-  targetHorizon: 'Consulting | Product Strategy Intern | Product Manager | APM (Summer Placements 2026)',
+  targetHorizon: 'Consulting | Product Strategy Intern | Product Manager | APM (Summer Placements 2027)',
   email: 'ayushchatterjee.edu@gmail.com',
   linkedinUrl: 'https://linkedin.com/in/ayushmba',
   linkedinDisplay: 'linkedin.com/in/ayushmba',
   portfolioDomain: 'ayushchatterjee.me',
-  status: 'Open to Consulting, Product Strategy & APM Roles (Summer Placements 2026)',
+  status: 'Open to Consulting, Product Strategy & APM Roles (Summer Placements 2027)',
 };
 
 // Verified Quantitative Metrics from Official CV
