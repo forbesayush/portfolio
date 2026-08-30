@@ -200,12 +200,12 @@ export const starCaseStudies = [
 export const experienceLedger = [
   {
     id: 'exp-01',
-    ref: 'ONEPLUS_INNOVIST_2024',
+    ref: 'ONEPLUS_INNOVIST_2024_2026',
     company: 'ONEPLUS & INNOVIST',
     location: 'Bhubaneswar, Kolkata',
     role: 'Product & User Experience Exposure (OnePlus + D2C Brands) Trials',
-    period: '2024',
-    status: 'VERIFIED',
+    period: '2024 — 2026',
+    status: 'INDUSTRY EXPOSURE',
     summary: 'Executed structured QA cycles across 4 OS builds; identified 20+ UI/UX defects and earbuds bugs; reduced bug recurrence by 22%; improved task-flow efficiency by 15%; evaluated 5 D2C brands on CAC drivers and 17% repeat purchase gaps.',
     metrics: [
       { label: 'Bug Recurrence', value: '-22%' },
