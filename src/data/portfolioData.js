@@ -284,7 +284,7 @@ export const experienceLedger = [
 export const academicProfile = [
   {
     degree: 'MBA (IT & IB)',
-    year: '2025 — 2027',
+    year: '2027',
     institution: 'Regional College of Management, Bhubaneswar',
     description: 'Postgraduate degree focused on Enterprise Information Technology & International Business.'
   },
@@ -296,13 +296,13 @@ export const academicProfile = [
   },
   {
     degree: 'HSC (CBSE)',
-    year: '2020 — 2022',
+    year: '2022',
     institution: 'Apeejay School, Kolkata (CBSE)',
     description: 'Higher Secondary Certificate, Central Board of Secondary Education.'
   },
   {
     degree: 'SSC (CBSE)',
-    year: '2018 — 2020',
+    year: '2020',
     institution: 'Apeejay School, Kolkata (CBSE)',
     description: 'Secondary School Certificate, Central Board of Secondary Education.'
   }
