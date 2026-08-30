@@ -729,6 +729,11 @@ body::after {
   animation: blink 1.4s infinite;
 }
 
+.hero-meta .hero-meta-white {
+  color: #ffffff;
+  font-weight: 700;
+}
+
 /* ============ TICKER ============ */
 .ticker {
   background: var(--acid);
