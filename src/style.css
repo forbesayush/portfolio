@@ -1413,13 +1413,14 @@ body::after {
 }
 
 .s-idx {
-  font: 500 12px var(--mono);
+  font: 600 12px var(--mono);
   letter-spacing: 0.1em;
-  color: var(--mut);
+  color: var(--hot);
 }
 
-.svc-head:hover .s-idx {
-  color: inherit;
+.svc-head:hover .s-idx,
+.svc.open .s-idx {
+  color: var(--hot);
 }
 
 .s-name {
