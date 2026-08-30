@@ -1561,25 +1561,26 @@ body::after {
 }
 
 .variant .btn {
-  border-color: rgba(18, 20, 12, 0.45);
-  color: var(--ink);
+  border: 1.5px solid #12140E;
+  color: #12140E;
 }
 
 .variant .btn:hover {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
+  background: #12140E;
+  color: #EDE8DB;
+  border-color: #12140E;
 }
 
 .variant--b .btn {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--paper);
+  background: #12140E;
+  border: 1.5px solid #12140E;
+  color: #EDE8DB;
 }
 
 .variant--b .btn:hover {
-  background: #12140E;
+  background: #000000;
   color: var(--acid);
+  border-color: #000000;
 }
 
 .dwell {
