@@ -1527,9 +1527,32 @@ body::after {
   position: relative;
 }
 
+.variant:not(.variant--b) {
+  background: var(--hot);
+  border-color: var(--hot);
+  color: #FFFFFF;
+}
+
+.variant:not(.variant--b) .v-tag {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.variant:not(.variant--b) .v-title {
+  color: #FFFFFF;
+}
+
+.variant:not(.variant--b) .v-note {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.variant:not(.variant--b) .dwell {
+  color: rgba(255, 255, 255, 0.85);
+}
+
 .variant--b {
   background: var(--acid);
   border-color: var(--acid);
+  color: #12140E;
 }
 
 .variant.picked {
@@ -1572,14 +1595,15 @@ body::after {
 }
 
 .variant .btn {
+  background: #12140E;
   border: 1.5px solid #12140E;
-  color: #12140E;
+  color: #EDE8DB;
 }
 
 .variant .btn:hover {
-  background: #12140E;
-  color: #EDE8DB;
-  border-color: #12140E;
+  background: #000000;
+  color: #FFFFFF;
+  border-color: #000000;
 }
 
 .variant--b .btn {
