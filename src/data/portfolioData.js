@@ -245,17 +245,17 @@ export const experienceLedger = [
     ref: 'ORANGE_CROSS_2026',
     company: 'Orange Cross',
     location: 'Bhubaneswar, India',
-    role: 'Point of Contact (POC)',
+    role: 'Point of Contact (POC) – Orange Cross CEO',
     period: '2026',
     status: 'POSITION OF RESPONSIBILITY',
-    summary: 'Served as Point of Contact (POC) under Mr. Ajay Bhanja managing organizational coordination and stakeholder communication.',
+    summary: 'Served as Point of Contact (POC) to the CEO under Mr. Ajay Bhanja managing organizational coordination and executive stakeholder communication.',
     metrics: [
-      { label: 'Role', value: 'POC' },
-      { label: 'Leadership', value: 'Direct' },
+      { label: 'Role', value: 'POC to CEO' },
+      { label: 'Executive', value: 'Direct' },
       { label: 'Year', value: '2026' }
     ],
     highlights: [
-      'Point of Contact (POC) – Orange Cross under Mr. Ajay Bhanja.'
+      'Point of Contact (POC) – Orange Cross CEO under Mr. Ajay Bhanja.'
     ],
     tags: ['Stakeholder Management', 'Coordination', 'Operational Leadership']
   },
