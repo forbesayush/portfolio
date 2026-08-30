@@ -1060,7 +1060,106 @@ body::after {
   color: #FFFFFF;
 }
 
-/* ============ WORK / CASES ============ */
+/* ============ WORK / CASES (VERIFIED PROJECTS - BOLD WHITE TEXT) ============ */
+#work .sec-title,
+#work .sec-title i {
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+}
+
+#work .kicker {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+#work .sec-note {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+#work .c-idx {
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+}
+
+#work .c-name {
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+}
+
+#work .c-sub {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+#work .c-tags {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+#work .c-key {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+#work .c-plus {
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+#work .case.open .case-head,
+#work .case.open .case-head .c-name,
+#work .case.open .case-head .c-idx,
+#work .case.open .c-sub,
+#work .case.open .c-tags,
+#work .case.open .c-key {
+  color: #FFFFFF !important;
+}
+
+#work .cg-lbl {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+#work .cg-txt p {
+  color: #FFFFFF !important;
+  font-size: 15.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.65 !important;
+}
+
+#work .cs-num {
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+}
+
+#work .cs-lbl {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+#work .spark-lbl {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+#work .cg-foot blockquote {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  border-left-color: #FFFFFF !important;
+}
+
+#work .cg-foot cite {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+#work .chip {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
 .case {
   border-top: 1px solid var(--line);
 }
