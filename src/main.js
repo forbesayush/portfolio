@@ -180,8 +180,8 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
     cmx += (tx - cmx) * 0.08;
     cmy += (ty - cmy) * 0.08;
     ctx.clearRect(0, 0, cw, ch);
-    ctx.fillStyle = '#E9E6DA';
-    ctx.globalAlpha = 0.15;
+    ctx.fillStyle = '#12140E';
+    ctx.globalAlpha = 0.12;
     ctx.beginPath();
     for (const p of pts) {
       const yy = reduced ? p.y : p.y + Math.sin(t / 1400 + p.ph) * 2.2;
@@ -192,13 +192,13 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
       }
       const g = 1 - d / 170;
       ctx.fill();
-      ctx.globalAlpha = 0.15 + 0.6 * g;
-      ctx.fillStyle = `rgb(${Math.round(233 + (201 - 233) * g)},${Math.round(230 + (247 - 230) * g)},${Math.round(218 + (60 - 218) * g)})`;
+      ctx.globalAlpha = 0.15 + 0.7 * g;
+      ctx.fillStyle = `rgb(${Math.round(18 + (255 - 18) * g)},${Math.round(20 + (77 - 20) * g)},${Math.round(12 + (0 - 12) * g)})`;
       ctx.beginPath();
-      ctx.arc(p.x, yy, 1 + 1.6 * g, 0, 6.29);
+      ctx.arc(p.x, yy, 1 + 1.8 * g, 0, 6.29);
       ctx.fill();
-      ctx.fillStyle = '#E9E6DA';
-      ctx.globalAlpha = 0.15;
+      ctx.fillStyle = '#12140E';
+      ctx.globalAlpha = 0.12;
       ctx.beginPath();
     }
     ctx.fill();
