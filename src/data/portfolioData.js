@@ -222,12 +222,12 @@ export const experienceLedger = [
   },
   {
     id: 'exp-02',
-    ref: 'SWASH_CONSULTING_2022',
+    ref: 'SWASH_CONSULTING_2026',
     company: 'Swash Consulting Ltd',
     location: 'Odisha, Kolkata',
     role: 'Digital Marketing – (Media Intern)',
-    period: '2021 — 2022',
-    status: 'VERIFIED',
+    period: '2026 (2 Months)',
+    status: 'INDUSTRY EXPOSURE',
     summary: 'Conducted on-page, technical, keyword, and content optimizations for college website; improved Google Search visibility by 5% and organic traffic by 5%.',
     metrics: [
       { label: 'Search Visibility', value: '+5%' },
