@@ -16,7 +16,29 @@ export default {
         serif: ['Playfair Display', 'serif'],
       },
       colors: {
+        bg: {
+          DEFAULT: 'var(--color-bg)',
+          elevated: 'var(--color-bg-elevated)',
+          muted: 'var(--color-bg-muted)',
+        },
+        fg: {
+          DEFAULT: 'var(--color-fg)',
+          muted: 'var(--color-fg-muted)',
+          subtle: 'var(--color-fg-subtle)',
+        },
+        border: {
+          DEFAULT: 'var(--color-border)',
+          strong: 'var(--color-border-strong)',
+        },
+        accent: {
+          DEFAULT: 'var(--color-accent)',
+          hover: 'var(--color-accent-hover)',
+          light: 'var(--color-accent-light)',
+        },
         primary: {
+          DEFAULT: 'var(--color-primary)',
+          hover: 'var(--color-primary-hover)',
+          light: 'var(--color-primary-light)',
           50: '#f0fdf4',
           100: '#dcfce7',
           200: '#bbf7d0',

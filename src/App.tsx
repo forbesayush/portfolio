@@ -10,7 +10,7 @@ import { EducationSection } from './components/EducationSection';
 import { ContactSection } from './components/ContactSection';
 import { EntranceModal } from './components/EntranceModal';
 import { ayushData } from './data/portfolioData';
-import { trackNewVisitor } from './services/tracker';
+import { trackNewVisitor, trackUserAction } from './services/tracker';
 import { ArrowDown, Sparkles, ChevronRight, Award, Brain, Code, BarChart3, GraduationCap, Mail } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -28,6 +28,7 @@ export const App: React.FC = () => {
     setTheme((prev) => {
       const next = prev === 'dark' ? 'light' : 'dark';
       localStorage.setItem('portfolio_theme', next);
+      trackUserAction('Theme Toggled', next);
       return next;
     });
   };
@@ -64,6 +65,7 @@ export const App: React.FC = () => {
   }, []);
 
   const scrollToSection = (id: string) => {
+    trackUserAction('Section Nav Click', `#${id}`);
     const elem = document.getElementById(id);
     if (elem) {
       elem.scrollIntoView({ behavior: 'smooth' });
@@ -208,7 +210,7 @@ export const App: React.FC = () => {
             WebkitBackdropFilter: 'blur(10px)',
           }}
         >
-          <p className="gradient-text">© {new Date().getFullYear()} {ayushData.name}. Product Strategist &amp; Business Analyst • Data-Driven Decisions • Telegram Live</p>
+          <p className="gradient-text">© {new Date().getFullYear()} {ayushData.name}. Product Strategist &amp; Business Analyst • Data-Driven Decisions • All Rights Reserved</p>
         </footer>
       </section>
     </div>

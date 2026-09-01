@@ -9,7 +9,7 @@ interface SectionProps {
 
 export const ContactSection: React.FC<SectionProps> = ({ theme = 'dark' }) => {
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', _gotcha: '' });
 
   const isDark = theme === 'dark';
 
@@ -17,12 +17,12 @@ export const ContactSection: React.FC<SectionProps> = ({ theme = 'dark' }) => {
     e.preventDefault();
     setSubmitted(true);
 
-    // Dispatch Telegram Bot Alert with visitor lead data
-    trackContactForm(formData.name, formData.email, formData.message);
+    // Dispatch form securely through backend proxy (Honeypot + validation handled server-side)
+    trackContactForm(formData.name, formData.email, formData.message, undefined, formData._gotcha);
 
     setTimeout(() => {
       setSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', message: '', _gotcha: '' });
     }, 4000);
   };
 
@@ -132,7 +132,7 @@ export const ContactSection: React.FC<SectionProps> = ({ theme = 'dark' }) => {
             </div>
           </div>
 
-          {/* Right Lead Capture Form (Dispatches to Telegram Chat ID 6290094136) */}
+          {/* Right Lead Capture Form (Hardened Server-Side Proxy Dispatch) */}
           <div
             className={`lg:col-span-7 rounded-3xl p-8 sm:p-10 border shadow-2xl transition-colors ${
               isDark ? 'bg-neutral-900/80 border-white/10 text-white' : 'bg-white/90 border-neutral-200 text-neutral-900'
@@ -150,11 +150,22 @@ export const ContactSection: React.FC<SectionProps> = ({ theme = 'dark' }) => {
                 </div>
                 <h4 className="text-xl font-bold">Message Sent Successfully!</h4>
                 <p className={`text-sm max-w-md ${isDark ? 'text-neutral-300' : 'text-neutral-600'}`}>
-                  Thank you for reaching out! Ayush has received your message via Telegram alert and will respond to {formData.email} shortly.
+                  Thank you for reaching out! Ayush will review your message and respond to {formData.email} shortly.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                {/* Honeypot Anti-Spam Field - Invisible to humans, filled by spam bots */}
+                <input
+                  type="text"
+                  name="_gotcha"
+                  value={formData._gotcha}
+                  onChange={(e) => setFormData({ ...formData, _gotcha: e.target.value })}
+                  style={{ display: 'none' }}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
                 <div className="flex flex-col gap-2">
                   <label htmlFor="name" className="text-xs font-mono-code font-semibold uppercase tracking-wider text-amber-500">
                     Your Name
@@ -163,6 +174,7 @@ export const ContactSection: React.FC<SectionProps> = ({ theme = 'dark' }) => {
                     id="name"
                     type="text"
                     required
+                    maxLength={100}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Sarah Jenkins"
@@ -182,6 +194,7 @@ export const ContactSection: React.FC<SectionProps> = ({ theme = 'dark' }) => {
                     id="email"
                     type="email"
                     required
+                    maxLength={100}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="sarah@company.com"
@@ -201,6 +214,7 @@ export const ContactSection: React.FC<SectionProps> = ({ theme = 'dark' }) => {
                     id="message"
                     rows={4}
                     required
+                    maxLength={1000}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Let's talk product strategy..."
