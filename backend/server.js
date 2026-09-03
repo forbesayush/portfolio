@@ -1,4 +1,4 @@
-﻿require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
@@ -145,6 +145,50 @@ function sanitizeString(str = '', maxLength = 1000) {
 function escapeTelegramMarkdown(str = '') {
   if (typeof str !== 'string') return '';
   return str.replace(/([*_`\[\]()])/g, '\\$1');
+}
+
+// Anti-Spam, Link Injection & Phishing Shield
+function detectSpamOrPhishing(name = '', email = '', message = '') {
+  const combined = `${name} ${email} ${message}`.toLowerCase();
+
+  // 1. URL injection in name or email fields
+  if (/(https?:\/\/|www\.|\.ru\/|\.top\/|\.xyz\/|\.cn\/|t\.me\/|wa\.me\/)/i.test(name) ||
+      /(https?:\/\/|www\.)/i.test(email)) {
+    return { isSpam: true, reason: 'URL injection in name/email' };
+  }
+
+  // 2. Multiple external links in message
+  const urlMatches = message.match(/(https?:\/\/[^\s]+|www\.[^\s]+|t\.me\/[^\s]+)/gi) || [];
+  if (urlMatches.length > 1) {
+    return { isSpam: true, reason: 'Multiple URLs in message body' };
+  }
+
+  // 3. Known phishing, spam, and bot keywords
+  const spamKeywords = [
+    't.me/', 'telegram.me/', 'wa.me/', 'whatsapp.com/channel',
+    'bit.ly/', 'tinyurl.com/', 'cutt.ly/', 'is.gd/', 'v.ht/',
+    'crypto profit', 'casino', 'viagra', 'cialis', 'porn', 'xxx',
+    'seo ranking', 'backlinks', 'guest post', 'domain rating',
+    'earn money fast', 'passive income', 'investment return',
+    'whatsapp marketing', 'dating site', 'escort', 'adult dating',
+    'hack tool', 'telegram bot access', 'buy traffic', 'darknet',
+    'binance airdrop', 'usdt investment', 'wallet connect'
+  ];
+
+  for (const kw of spamKeywords) {
+    if (combined.includes(kw)) {
+      return { isSpam: true, reason: `Spam keyword matched: ${kw}` };
+    }
+  }
+
+  return { isSpam: false };
+}
+
+// Defang URLs so they are not rendered as active clickable links in Telegram
+function defangUrls(str = '') {
+  return str.replace(/(https?:\/\/|www\.)([^\s]+)/gi, (match, prefix, domain) => {
+    return `[defanged-link: ${domain.replace(/[\/\.]/g, ' ')}]`;
+  });
 }
 
 // -----------------------------------------------------------------------------
@@ -442,6 +486,13 @@ app.post('/api/contact', contactRateLimiter, async (req, res) => {
       return res.status(400).json({ error: 'Please provide a valid email address' });
     }
 
+    // Anti-Spam / Phishing Link Evaluation
+    const spamCheck = detectSpamOrPhishing(cleanName, cleanEmail, cleanMessage);
+    if (spamCheck.isSpam) {
+      console.warn(`[Spam Blocked] IP ${clientIp} blocked: ${spamCheck.reason}`);
+      return res.status(200).json({ success: true, message: 'Message received' });
+    }
+
     // 4. Enrich visitor context
     let geo = payload;
     if (!geo && clientIp !== 'Unknown') {
@@ -450,6 +501,7 @@ app.post('/api/contact', contactRateLimiter, async (req, res) => {
 
     const loc = geo ? `${geo.city || 'N/A'}, ${geo.region || 'N/A'}, ${geo.country || 'N/A'}` : 'N/A';
     const nowIst = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+    const safeMessage = defangUrls(cleanMessage);
 
     // 5. Build Safe Markdown Alert
     const contactAlert = `📬 *NEW CONTACT FORM SUBMISSION* 📬
@@ -457,7 +509,7 @@ app.post('/api/contact', contactRateLimiter, async (req, res) => {
 👤 *Lead Name*: ${escapeTelegramMarkdown(cleanName)}
 📧 *Email Address*: \`${cleanEmail}\`
 💬 *Direct Message*:
-"${escapeTelegramMarkdown(cleanMessage)}"
+"${escapeTelegramMarkdown(safeMessage)}"
 
 ━━━━━━━━━━━━━━━━━━━━━━━
 📍 *VISITOR CONTEXT*

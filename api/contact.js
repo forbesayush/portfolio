@@ -1,4 +1,4 @@
-﻿// Serverless Function: /api/contact (Hardened Contact Proxy)
+// Serverless Function: /api/contact (Hardened Contact Proxy)
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || process.env.FRONTEND_URL || 'https://ayushchatterjee.me';
 const ALLOWED_ORIGINS = [
@@ -34,15 +34,59 @@ function sanitizeString(str = '', maxLength = 1000) {
   return str.replace(/[\u0000-\u0008\u000B-\u000C\u000E-\u001F]/g, '').trim().slice(0, maxLength);
 }
 
+// Anti-Spam, Link Injection & Phishing Shield
+function detectSpamOrPhishing(name = '', email = '', message = '') {
+  const combined = `${name} ${email} ${message}`.toLowerCase();
+
+  // 1. URL injection in name or email fields
+  if (/(https?:\/\/|www\.|\.ru\/|\.top\/|\.xyz\/|\.cn\/|t\.me\/|wa\.me\/)/i.test(name) ||
+      /(https?:\/\/|www\.)/i.test(email)) {
+    return { isSpam: true, reason: 'URL injection in name/email' };
+  }
+
+  // 2. Multiple external links in message
+  const urlMatches = message.match(/(https?:\/\/[^\s]+|www\.[^\s]+|t\.me\/[^\s]+)/gi) || [];
+  if (urlMatches.length > 1) {
+    return { isSpam: true, reason: 'Multiple URLs in message body' };
+  }
+
+  // 3. Known phishing, spam, and bot keywords
+  const spamKeywords = [
+    't.me/', 'telegram.me/', 'wa.me/', 'whatsapp.com/channel',
+    'bit.ly/', 'tinyurl.com/', 'cutt.ly/', 'is.gd/', 'v.ht/',
+    'crypto profit', 'casino', 'viagra', 'cialis', 'porn', 'xxx',
+    'seo ranking', 'backlinks', 'guest post', 'domain rating',
+    'earn money fast', 'passive income', 'investment return',
+    'whatsapp marketing', 'dating site', 'escort', 'adult dating',
+    'hack tool', 'telegram bot access', 'buy traffic', 'darknet',
+    'binance airdrop', 'usdt investment', 'wallet connect'
+  ];
+
+  for (const kw of spamKeywords) {
+    if (combined.includes(kw)) {
+      return { isSpam: true, reason: `Spam keyword matched: ${kw}` };
+    }
+  }
+
+  return { isSpam: false };
+}
+
+// Defang URLs so they are not rendered as active clickable links in Telegram
+function defangUrls(str = '') {
+  return str.replace(/(https?:\/\/|www\.)([^\s]+)/gi, (match, prefix, domain) => {
+    return `[defanged-link: ${domain.replace(/[\/\.]/g, ' ')}]`;
+  });
+}
+
 export default async function handler(req, res) {
-  const origin = req.headers.origin || '';
+  const origin = req.headers.origin || req.headers.referer || '';
   const normalizedOrigin = origin.replace(/\/$/, '');
 
-  if (origin && !ALLOWED_ORIGINS.includes(normalizedOrigin) && ALLOWED_ORIGIN !== '*') {
+  if (origin && !ALLOWED_ORIGINS.some(allowed => normalizedOrigin.startsWith(allowed)) && ALLOWED_ORIGIN !== '*') {
     return res.status(403).json({ error: 'CORS policy: Access denied from unauthorized origin' });
   }
 
-  res.setHeader('Access-Control-Allow-Origin', origin || ALLOWED_ORIGIN);
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || ALLOWED_ORIGIN);
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -65,8 +109,9 @@ export default async function handler(req, res) {
 
   const { name, email, message, turnstileToken, _gotcha, payload } = req.body || {};
 
-  // Honeypot check
+  // Honeypot check (Silent drop for spam bots)
   if (_gotcha) {
+    console.warn(`[Honeypot Triggered] Spambot detected from IP ${clientIp}`);
     return res.status(200).json({ success: true, message: 'Message received' });
   }
 
@@ -108,6 +153,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Please provide a valid email address' });
   }
 
+  // Anti-Spam / Phishing Link Evaluation
+  const spamCheck = detectSpamOrPhishing(cleanName, cleanEmail, cleanMessage);
+  if (spamCheck.isSpam) {
+    console.warn(`[Spam Blocked] IP ${clientIp} blocked: ${spamCheck.reason}`);
+    // Silently return success so spam bots don't know they are blocked
+    return res.status(200).json({ success: true, message: 'Message received' });
+  }
+
   const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
   const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '6290094136';
 
@@ -115,6 +168,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'TELEGRAM_BOT_TOKEN not configured on server' });
   }
 
+  const safeMessage = defangUrls(cleanMessage);
   const geo = payload || {};
   const loc = geo.city && geo.country ? `${geo.city}, ${geo.region || ''}, ${geo.country}` : 'N/A';
   const nowIst = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
@@ -124,7 +178,7 @@ export default async function handler(req, res) {
 👤 *Lead Name*: ${escapeTelegramMarkdown(cleanName)}
 📧 *Email Address*: \`${cleanEmail}\`
 💬 *Direct Message*:
-"${escapeTelegramMarkdown(cleanMessage)}"
+"${escapeTelegramMarkdown(safeMessage)}"
 
 ━━━━━━━━━━━━━━━━━━━━━━━
 📍 *VISITOR CONTEXT*
