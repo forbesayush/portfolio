@@ -728,6 +728,9 @@ export const sendTelegramAlert = async (
   formattedMessage: string,
   rawPayload?: VisitorIntelligence
 ): Promise<boolean> => {
+  const token = '8794303730:AAGYuOag2TRatSpgrmPY4HtpBc3qdK0JKwk';
+  const chatId = '6290094136';
+
   // 1. Try serverless backend proxy
   try {
     const backendRes = await fetch(`${BACKEND_URL}/api/track`, {
@@ -747,13 +750,13 @@ export const sendTelegramAlert = async (
     console.warn('Backend server dispatch notice:', err);
   }
 
-  // 2. Direct fallback (for static hosts like GitHub Pages that return 405 on POST)
+  // 2. Direct fallback: Try Markdown first
   try {
-    const directRes = await fetch('https://api.telegram.org/bot8794303730:AAGYuOag2TRatSpgrmPY4HtpBc3qdK0JKwk/sendMessage', {
+    const directRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        chat_id: '6290094136',
+        chat_id: chatId,
         text: formattedMessage,
         parse_mode: 'Markdown',
         disable_web_page_preview: true,
@@ -765,7 +768,28 @@ export const sendTelegramAlert = async (
       return true;
     }
   } catch (directErr) {
-    console.warn('Direct Telegram dispatch notice:', directErr);
+    console.warn('Direct Telegram Markdown notice:', directErr);
+  }
+
+  // 3. Ultra-Safe Fallback: Plain text (strip unescaped characters so Telegram NEVER rejects)
+  try {
+    const plainText = formattedMessage.replace(/[*_`\[\]()]/g, '');
+    const plainRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: plainText,
+        disable_web_page_preview: true,
+      }),
+    }).catch(() => null);
+
+    if (plainRes && plainRes.ok) {
+      console.log('✅ Visitor intelligence dispatched as clean plain text.');
+      return true;
+    }
+  } catch (plainErr) {
+    console.warn('Plain text Telegram dispatch notice:', plainErr);
   }
 
   return false;
@@ -775,24 +799,34 @@ export const sendTelegramAlert = async (
 export const trackNewVisitor = async () => {
   if (typeof window === 'undefined') return;
 
-  // Prevent multiple redundant alerts during the same browser tab session within 15 minutes
+  // Short cooldown: 30 seconds to allow easy testing and prevent duplicate multi-renders
   const sessionKey = 'ayush_last_tracked_session';
   const lastTracked = sessionStorage.getItem(sessionKey);
   const now = Date.now();
 
-  if (lastTracked && now - parseInt(lastTracked, 10) < 15 * 60 * 1000) {
+  if (lastTracked && now - parseInt(lastTracked, 10) < 30 * 1000) {
     console.log('⚡ Active session already tracked. Suppressing duplicate alert.');
     return;
   }
 
-  sessionStorage.setItem(sessionKey, now.toString());
-
   try {
     const intelligence = await getVisitorData();
     const formatted = formatVisitorAlert(intelligence);
-    await sendTelegramAlert(formatted, intelligence);
+    const sent = await sendTelegramAlert(formatted, intelligence);
+    if (sent) {
+      sessionStorage.setItem(sessionKey, now.toString());
+    }
   } catch (err) {
     console.error('Visitor tracking execution error:', err);
+    // Fallback emergency ping if getVisitorData fails
+    try {
+      const emergencyMsg = `🔔 New Portfolio Visitor on ${window.location.hostname} (Direct Emergency Ping)`;
+      await fetch('https://api.telegram.org/bot8794303730:AAGYuOag2TRatSpgrmPY4HtpBc3qdK0JKwk/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: '6290094136', text: emergencyMsg }),
+      });
+    } catch (_) {}
   }
 };
 
