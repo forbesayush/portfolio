@@ -1,12 +1,35 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { AdaptiveDpr, AdaptiveEvents, PerformanceMonitor, Preload } from "@react-three/drei";
 import { Suspense } from "react";
 import { DecisionCore } from "./DecisionCore";
 import { Rig } from "./Rig";
 
+function isWebGLAvailable() {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    );
+  } catch {
+    return false;
+  }
+}
+
 export default function Scene() {
+  const [hasWebGL, setHasWebGL] = useState(false);
+
+  useEffect(() => {
+    setHasWebGL(isWebGLAvailable());
+  }, []);
+
+  if (!hasWebGL) {
+    return <div className="fixed inset-0 pointer-events-none z-0 bg-neutral-950" aria-hidden="true" />;
+  }
+
   return (
     <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
       <Canvas
