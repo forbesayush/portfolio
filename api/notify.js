@@ -1,4 +1,4 @@
-// Serverless Function: /api/notify (Vercel / Netlify / Cloudflare Serverless)
+// Serverless Function: /api/notify
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || process.env.FRONTEND_URL || 'https://ayushchatterjee.me';
 const ALLOWED_ORIGINS = [
