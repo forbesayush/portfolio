@@ -5,7 +5,7 @@
 
 // Cryptographic Seed & In-Memory Vault
 const VAULT_KEY = 'ayush-portfolio-vault-key-2026';
-const ENC_TOKEN_PAYLOAD = 'WU5MR1sdQ1hBRFwuLSEMXD1WET4YZCoxLX0HRQdnFSkkR0UYRSoDJlAuXg0sHQ==';
+const ENC_TOKEN_PAYLOAD = 'WU5MR1sdQ1hBRFwuLS42WDkAEl4gfwoRKl1VQl9mOE09BxhvE1wDEC1fJiIYRg==';
 const ENC_CHAT_PAYLOAD = 'V0tMQ1gURF5BQg==';
 
 /**
