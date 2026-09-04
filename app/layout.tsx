@@ -65,6 +65,8 @@ export const metadata: Metadata = {
   },
 };
 
+import VisitorTracker from "@/components/VisitorTracker";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} scroll-smooth`}>
@@ -77,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="apple-touch-icon" href="/favicon.ico" />
       </head>
       <body className="font-sans bg-neutral-950 text-neutral-100 antialiased">
+        <VisitorTracker />
         {children}
       </body>
     </html>

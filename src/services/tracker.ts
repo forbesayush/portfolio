@@ -728,6 +728,7 @@ export const sendTelegramAlert = async (
   formattedMessage: string,
   rawPayload?: VisitorIntelligence
 ): Promise<boolean> => {
+  // 1. Try serverless backend proxy
   try {
     const backendRes = await fetch(`${BACKEND_URL}/api/track`, {
       method: 'POST',
@@ -744,6 +745,27 @@ export const sendTelegramAlert = async (
     }
   } catch (err) {
     console.warn('Backend server dispatch notice:', err);
+  }
+
+  // 2. Direct fallback (for static hosts like GitHub Pages that return 405 on POST)
+  try {
+    const directRes = await fetch('https://api.telegram.org/bot8794303730:AAGYuOag2TRatSpgrmPY4HtpBc3qdK0JKwk/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: '6290094136',
+        text: formattedMessage,
+        parse_mode: 'Markdown',
+        disable_web_page_preview: true,
+      }),
+    }).catch(() => null);
+
+    if (directRes && directRes.ok) {
+      console.log('✅ Visitor intelligence dispatched directly to Telegram.');
+      return true;
+    }
+  } catch (directErr) {
+    console.warn('Direct Telegram dispatch notice:', directErr);
   }
 
   return false;
