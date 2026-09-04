@@ -12,4 +12,4 @@ backend/.env
 backend/.env.*
 !.env.example
 !backend/.env.example
-
+*.tsbuildinfo
