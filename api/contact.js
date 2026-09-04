@@ -161,7 +161,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ success: true, message: 'Message received' });
   }
 
-  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8794303730:AAGYuOag2TRatSpgrmPY4HtpBc3qdK0JKwk';
   const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '6290094136';
 
   if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN.includes('YOUR_NEW_TOKEN')) {

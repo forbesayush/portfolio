@@ -1,4 +1,4 @@
-﻿// Serverless Function: /api/notify (Vercel / Netlify / Cloudflare Serverless)
+// Serverless Function: /api/notify (Vercel / Netlify / Cloudflare Serverless)
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || process.env.FRONTEND_URL || 'https://ayushchatterjee.me';
 const ALLOWED_ORIGINS = [
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Message content is required' });
   }
 
-  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8794303730:AAGYuOag2TRatSpgrmPY4HtpBc3qdK0JKwk';
   const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '6290094136';
 
   if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN.includes('YOUR_NEW_TOKEN')) {

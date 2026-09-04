@@ -1,4 +1,4 @@
-﻿// Helper: Enterprise & Big Brand Intelligence Classifier
+// Helper: Enterprise & Big Brand Intelligence Classifier
 function detectEnterpriseBrand(isp = '', org = '', asn = '') {
   const combined = `${isp} ${org} ${asn}`.toLowerCase();
 
@@ -89,7 +89,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8794303730:AAGYuOag2TRatSpgrmPY4HtpBc3qdK0JKwk';
   const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '6290094136';
 
   if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN.includes('YOUR_NEW_TOKEN')) {
