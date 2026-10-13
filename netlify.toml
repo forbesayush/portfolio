@@ -1,4 +1,13 @@
-# Stop automated Netlify builds to prevent consuming build credits
+# Netlify Configuration for Ayush Chatterjee Portfolio
 [build]
-  ignore = "exit 0"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/netflix"
+  to = "/netflix.html"
+  status = 200
 
