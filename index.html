@@ -3,708 +3,1015 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ayush Chatterjee — Consultant &amp; Associate Product Manager (APM)</title>
-  <meta name="description" content="Official Portfolio of Ayush Chatterjee: Consultant &amp; Associate Product Manager (APM) with hands-on exposure at OnePlus &amp; Innovist, Swash Consulting Ltd, and GTM strategy mentored by ISB alumnus.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9F73C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m4.93 4.93 4.24 4.24'/><path d='m14.83 9.17 4.24-4.24'/><path d='m14.83 14.83 4.24 4.24'/><path d='m9.17 14.83-4.24 4.24'/></svg>">
-  <script>document.documentElement.classList.add('js');</script>
+  <title>Ayush Chatterjee — Product Manager &amp; Strategy Consultant</title>
+  <meta name="description" content="Portfolio of Ayush Chatterjee: MBA Candidate (IT &amp; IB, 2025–2027) working at the intersection of Product Management, Business Strategy, Technology, and Data Analytics. Hands-on exposure at OnePlus, Innovist, and Swash Consulting.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F59E0B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><polygon points='12 8 8 12 12 16 16 12 12 8'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
 
-<div class="cur-dot" id="curDot"></div>
-<div class="cur-ring" id="curRing"><span id="curLbl"></span></div>
+<!-- ============ PRIMARY NAVIGATION HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="nav-wrap">
+    <a class="brand" href="#top" aria-label="Ayush Chatterjee Home">
+      <span class="brand-name">AYUSH CHATTERJEE</span>
+      <span class="brand-role">MBA · PRODUCT &amp; STRATEGY</span>
+    </a>
 
-<!-- ============ SELF-MEASURING HUD ============ -->
-<header class="hud hud-top">
-  <a class="brand" href="#top" data-cursor="TOP"><b>AC®</b><span class="mono brand-sub">AYUSH CHATTERJEE — CONSULTANT &amp; APM — 2027</span></a>
-  <nav class="hud-nav" aria-label="Primary">
-    <a href="#funnel" data-cursor="GO">METHOD</a>
-    <a href="#about" data-cursor="GO">PROFILE</a>
-    <a href="#work" data-cursor="GO">PROJECTS</a>
-    <a href="#experience" data-cursor="GO">EXPERIENCE</a>
-    <a href="#services" data-cursor="GO">COMPETENCIES</a>
-    <a href="#experiment" data-cursor="GO">EXPERIMENT</a>
-    <a href="#contact" data-cursor="GO">CONTACT</a>
-  </nav>
-  <div class="hud-right">
-    <span class="live"><i class="live-dot"></i>LIVE</span>
-    <span id="vid">V-—</span>
-    <span id="clock" class="hud-clock">00:00</span>
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu" data-cursor="MENU"><i data-lucide="menu"></i></button>
+    <nav class="desktop-nav" aria-label="Main Navigation">
+      <a class="nav-link" href="#work">Work</a>
+      <a class="nav-link" href="#experience">Experience</a>
+      <a class="nav-link" href="#skills">Skills</a>
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-sm btn-outline resume-cta" href="/Ayush_Chatterjee_CV.pdf" target="_blank" rel="noopener noreferrer">
+        <span>Résumé</span>
+        <i data-lucide="arrow-up-right"></i>
+      </a>
+      <button class="mobile-menu-btn" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <i data-lucide="menu" id="menuIconOpen"></i>
+        <i data-lucide="x" id="menuIconClose" style="display: none;"></i>
+      </button>
+    </div>
   </div>
 </header>
-<div class="hud hud-bot">
-  <div class="hb-l">
-    <span id="funPct">FUNNEL 0%</span>
-    <span id="hudStage">/ DISCOVERY</span>
-  </div>
-  <div class="hb-r">
-    <span class="hm"><span id="engLbl">ENG 0</span><span class="meter"><i id="engBar"></i></span></span>
-    <span class="hm"><span id="convLbl">CONV 0%</span><span class="meter meter--conv"><i id="convBar"></i></span></span>
-  </div>
-</div>
 
-<!-- ============ MOBILE MENU ============ -->
-<div class="menu" id="menu" aria-hidden="true">
-  <div class="menu-top"><span>AC® — INDEX</span>
-    <button class="menu-x" id="menuX" aria-label="Close menu" data-cursor="CLOSE"><i data-lucide="x"></i></button>
-  </div>
-  <nav class="menu-nav" aria-label="Menu">
-    <a href="#funnel"><em>01</em>THE METHOD</a>
-    <a href="#about"><em>02</em>ACADEMIC PROFILE &amp; CERTS</a>
-    <a href="#work"><em>03</em>SELECTED PROJECTS (STAR)</a>
-    <a href="#experience"><em>04</em>INDUSTRY EXPOSURE</a>
-    <a href="#services"><em>05</em>AREAS OF INTEREST</a>
-    <a href="#experiment"><em>06</em>THE EXPERIMENT</a>
-    <a href="#contact"><em>07</em>CONTACT &amp; PLACEMENTS</a>
-  </nav>
-  <div class="menu-meta mono"><span id="menuVid">V-—</span><span id="menuTime">00:00</span></div>
-</div>
-
-<div class="toasts" id="toasts" aria-live="polite"></div>
-
-<main>
-<!-- ============ HERO ============ -->
-<section class="hero" id="top">
-  <canvas id="dots" aria-hidden="true"></canvas>
-  <div class="wrap">
-    <p class="hero-kick li" style="--d:.05s"><b>AYUSH CHATTERJEE</b> — CONSULTANT &amp; ASSOCIATE PRODUCT MANAGER (APM)</p>
-    <h1 class="hero-h">
-      <span class="h-line"><span class="h-in" data-prox style="--d:.12s">I TURN STRATEGY</span></span>
-      <span class="h-line"><span class="h-in" data-prox style="--d:.22s">INTO PRODUCT.</span></span>
-    </h1>
-    <p class="hero-sub li" style="--d:.34s">Product Manager &amp; Strategy Consultant bridging user telemetry, GTM roadmaps, and data-driven execution. <b>-22% bug recurrence reduction</b>, <b>+15% task-flow efficiency</b>, <b>15–18% projected GTM penetration</b>, and <b>3x IBM &amp; AWS certifications</b>.</p>
-    <div class="hero-cta li" style="--d:.42s">
-      <a class="btn btn--solid" href="#work" data-cursor="GO"><span>SEE THE PROJECTS</span><i data-lucide="arrow-down-right"></i></a>
-      <a class="btn" href="#experience" data-cursor="GO"><span>INDUSTRY EXPOSURE</span><i data-lucide="arrow-down-right"></i></a>
-      <a class="btn" href="#contact" data-cursor="GO"><span>RECRUIT / CONTACT</span><i data-lucide="arrow-up-right"></i></a>
+<!-- ============ MOBILE NAVIGATION DRAWER ============ -->
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-inner">
+    <nav class="drawer-nav" aria-label="Mobile Navigation">
+      <a class="drawer-link" href="#work"><em>01</em> Selected Projects</a>
+      <a class="drawer-link" href="#experience"><em>02</em> Industry Experience</a>
+      <a class="drawer-link" href="#skills"><em>03</em> Core Competencies</a>
+      <a class="drawer-link" href="#about"><em>04</em> About &amp; Education</a>
+      <a class="drawer-link" href="#contact"><em>05</em> Recruiter Connect</a>
+      <a class="drawer-link resume-drawer-link" href="/Ayush_Chatterjee_CV.pdf" target="_blank" rel="noopener noreferrer">
+        <em>CV</em> Download Résumé (PDF) ↗
+      </a>
+    </nav>
+    <div class="drawer-footer">
+      <span class="status-indicator"><i class="status-dot"></i>Open for Summer Placements 2027</span>
+      <span class="drawer-meta">Regional College of Management, Bhubaneswar</span>
     </div>
-    <p class="hero-ps li" style="--d:.5s">P.S. — THIS PAGE MEASURES YOU BACK. SCROLL DEPTH, HOVERS, HESITATION. ALL LOCAL. WATCH THE CORNERS.</p>
-    <div class="hero-meta li" style="--d:.6s">
-      <span class="hero-meta-white">SUMMER PLACEMENTS 2027 ↓</span>
-      <span class="hud-clock hero-meta-white">MBA (IT &amp; IB, 2025–2027) &amp; BBA (2022–2025) · RCM BHUBANESWAR</span>
-      <span><i class="hotdot"></i>OPEN TO CONSULTING &amp; APM ROLES</span>
+  </div>
+</div>
+
+<!-- ============ TOAST NOTIFICATIONS CONTAINER ============ -->
+<div class="toast-shelf" id="toastShelf" aria-live="polite"></div>
+
+<main id="mainContent">
+
+<!-- ============ HERO SECTION ============ -->
+<section class="hero-section" id="top">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-indicator"></span>
+        <span>OPEN FOR SUMMER PLACEMENTS 2027 · APM &amp; STRATEGY</span>
+      </div>
+
+      <h1 class="hero-headline">
+        Business Thinking.<br>
+        Product Execution.<br>
+        <span class="gradient-text">Data-Driven Strategy.</span>
+      </h1>
+
+      <p class="hero-description">
+        I am an MBA Candidate in Information Technology &amp; International Business (2025–2027) working at the intersection of product management, technology, analytics, and business strategy. I uncover user friction, build operational clarity, and execute data-backed solutions.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#work">
+          <span>Explore Selected Work</span>
+          <i data-lucide="arrow-down-right"></i>
+        </a>
+        <a class="btn btn-secondary" href="/Ayush_Chatterjee_CV.pdf" target="_blank" rel="noopener noreferrer">
+          <span>Download Résumé</span>
+          <i data-lucide="file-text"></i>
+        </a>
+        <a class="btn btn-ghost" href="#contact">
+          <span>Get in Touch</span>
+          <i data-lucide="arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="hero-socials">
+        <span class="social-label">Connect:</span>
+        <a href="https://linkedin.com/in/ayushmba" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn Profile">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://github.com/forbesayush" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub Profile">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <span>GitHub</span>
+        </a>
+        <a href="mailto:ayushchatterjee.edu@gmail.com" class="social-link" title="Email Ayush">
+          <i data-lucide="mail"></i>
+          <span>ayushchatterjee.edu@gmail.com</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Pre-rendered Key Metrics Panel -->
+    <div class="hero-metrics-panel">
+      <div class="metric-card">
+        <div class="metric-number-wrap">
+          <span class="metric-value" data-count="22" data-prefix="-" data-suffix="%" data-target="-22%">-22%</span>
+        </div>
+        <div class="metric-label">Bug Recurrence Reduction</div>
+        <p class="metric-caption">Root-cause documentation across 4 OS builds for OnePlus &amp; Innovist QA.</p>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-number-wrap">
+          <span class="metric-value" data-count="15" data-prefix="+" data-suffix="%" data-target="+15%">+15%</span>
+        </div>
+        <div class="metric-label">Task-Flow Efficiency Gain</div>
+        <p class="metric-caption">Usability optimizations and workflow streamlining across digital touchpoints.</p>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-number-wrap">
+          <span class="metric-value" data-prefix="" data-suffix="" data-target="15–18%">15–18%</span>
+        </div>
+        <div class="metric-label">Projected Market Penetration</div>
+        <p class="metric-caption">Tier-2 GTM strategy blueprint developed under ISB Alumnus mentorship.</p>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-number-wrap">
+          <span class="metric-value" data-count="3" data-prefix="" data-suffix="×" data-target="3×">3×</span>
+        </div>
+        <div class="metric-label">Verified Certifications</div>
+        <p class="metric-caption">IBM Product Management, IBM GenAI, and AWS APAC Solutions Architecture.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ TICKER 1 (OFFICIAL CV DATA) ============ -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track" id="tick1">
-    <div class="tk-set">
-      <span>-22% BUG RECURRENCE CUT</span><i class="tk-sep"></i>
-      <span>+15% TASK-FLOW EFFICIENCY</span><i class="tk-sep"></i>
-      <span>20+ UI/UX DEFECTS IDENTIFIED</span><i class="tk-sep"></i>
-      <span>15–18% GTM MARKET PENETRATION</span><i class="tk-sep"></i>
-      <span>5 D2C BRANDS EVALUATED</span><i class="tk-sep"></i>
-      <span>17% REPEAT DEFICIT ANALYZED</span><i class="tk-sep"></i>
-      <span>3X IBM &amp; AWS CERTIFIED</span><i class="tk-sep"></i>
-      <span>TELEGRAM WEBHOOK TELEMETRY</span><i class="tk-sep"></i>
-      <span>ISB MENTORED STRATEGY</span><i class="tk-sep"></i>
-    </div>
-  </div>
-</div>
-
-<!-- ============ 01 THE METHOD / LIFECYCLE ============ -->
-<section id="funnel">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="kicker">01 — THE METHOD</p>
-      <h2 class="sec-title">FROM PROBLEM DISCOVERY<br><i>TO PRODUCTION PRODUCT.</i></h2>
-      <p class="sec-note">Every initiative follows an audited pipeline from problem framing and competitive positioning to telemetry verification and user task-flow optimization.</p>
+<!-- ============ 01 SELECTED PROJECTS (STAR METHOD) ============ -->
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">01 · CASE STUDIES</span>
+      <h2 class="section-title">Selected Work &amp; Project Audits</h2>
+      <p class="section-subtitle">
+        Structured according to the STAR methodology (Situation, Task, Action, Result). Verified metrics reflect real product testing and business models.
+      </p>
     </div>
 
-    <div class="f-stage reveal" style="--fw:100%">
-      <span class="f-num">S/01</span>
-      <div><h3 class="f-name">DISCOVERY &amp; GTM POSITIONING<span class="f-you">YOU ARE HERE</span></h3>
-        <p class="f-desc">Evaluate competitive positioning, design GTM roadmaps, and benchmark psychological triggers driving engagement (ISB Alumnus Mentored).</p></div>
-      <span class="f-met">15–18% GTM PENETRATION</span>
+    <div class="case-studies-list">
+
+      <!-- CASE 01: ONEPLUS & INNOVIST -->
+      <article class="case-card" id="case-oneplus">
+        <header class="case-header">
+          <div class="case-meta-top">
+            <span class="case-index">01</span>
+            <span class="case-category">Product QA &amp; Usability Engineering</span>
+            <span class="case-tenure">2024–2026</span>
+          </div>
+          <h3 class="case-title">OnePlus &amp; Innovist: Multi-Build Operating System QA &amp; D2C Usability Audits</h3>
+          <p class="case-tagline">
+            Structured quality assurance cycles across 4 major OS builds, root-cause defect analysis, and D2C retention diagnostics.
+          </p>
+          <div class="case-highlights">
+            <span class="highlight-pill highlight-accent"><b>-22%</b> Bug Recurrence</span>
+            <span class="highlight-pill highlight-accent"><b>+15%</b> Task Efficiency</span>
+            <span class="highlight-pill"><b>20+</b> Defects Identified</span>
+            <span class="highlight-pill"><b>5</b> D2C Brands Audited</span>
+          </div>
+        </header>
+
+        <div class="case-content">
+          <div class="star-grid">
+            <div class="star-col">
+              <span class="star-label">Situation &amp; Task</span>
+              <p>
+                Mobile operating system releases (OxygenOS / ColorOS builds) and accompanying earbud peripherals encountered synchronization friction, UI regression bugs, and non-reproducible hardware drop-offs. Simultaneously, D2C brand funnels exhibited unexplained drop-offs in repeat orders.
+              </p>
+              <p class="star-task">
+                <strong>Mandate:</strong> Execute structured multi-cycle QA testing across 4 continuous OS builds, isolate root causes to prevent recurrence, streamline key user workflows, and diagnose CAC and funnel retention bottlenecks.
+              </p>
+            </div>
+
+            <div class="star-col">
+              <span class="star-label">Action &amp; Methodology</span>
+              <ul class="star-list">
+                <li>Performed end-to-end exploratory and regression testing across 4 distinct OS iterations on production-candidate builds.</li>
+                <li>Identified, cataloged, and isolated 20+ critical UI/UX bugs, notification desyncs, and Bluetooth audio peripheral latency faults.</li>
+                <li>Created standardized reproduction steps, device telemetry logs, and developer documentation to isolate root causes.</li>
+                <li>Conducted funnel retention analysis on 5 D2C personal care brands, identifying checkout drop-off triggers.</li>
+              </ul>
+            </div>
+
+            <div class="star-col">
+              <span class="star-label">Measurable Results</span>
+              <div class="star-results-box">
+                <div class="result-row">
+                  <div class="result-metric">-22%</div>
+                  <div class="result-text">Reduction in bug recurrence via structured root-cause logging and developer handover documentation.</div>
+                </div>
+                <div class="result-row">
+                  <div class="result-metric">+15%</div>
+                  <div class="result-text">Improvement in user task-flow efficiency derived from usability insights and layout fixes.</div>
+                </div>
+                <div class="result-row">
+                  <div class="result-metric">17%</div>
+                  <div class="result-text">Repeat purchase deficit uncovered in D2C funnel audit, isolating post-purchase engagement gaps.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-footer">
+            <span class="tag-label">Competencies:</span>
+            <div class="pill-group">
+              <span class="pill">OS Build QA</span>
+              <span class="pill">Root-Cause Analysis</span>
+              <span class="pill">Hardware/BLE Diagnostics</span>
+              <span class="pill">Usability Testing</span>
+              <span class="pill">D2C Retention Modeling</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CASE 02: WHY SCHOOL GTM STRATEGY -->
+      <article class="case-card" id="case-whyschool">
+        <header class="case-header">
+          <div class="case-meta-top">
+            <span class="case-index">02</span>
+            <span class="case-category">Product Strategy &amp; GTM Architecture</span>
+            <span class="case-tenure">2025–2026 · Mentored by ISB Alumnus</span>
+          </div>
+          <h3 class="case-title">Why School: Brand Development &amp; Tier-2 Go-To-Market Strategy</h3>
+          <p class="case-tagline">
+            End-to-end market entry framework, competitive differentiation, and growth roadmap for an emerging educational venture.
+          </p>
+          <div class="case-highlights">
+            <span class="highlight-pill highlight-accent"><b>15–18%</b> Projected Penetration</span>
+            <span class="highlight-pill highlight-accent"><b>2×</b> Engagement Spike Triggers</span>
+            <span class="highlight-pill"><b>ISB</b> Alumnus Mentored</span>
+            <span class="highlight-pill">Tier-2 Target Persona</span>
+          </div>
+        </header>
+
+        <div class="case-content">
+          <div class="star-grid">
+            <div class="star-col">
+              <span class="star-label">Situation &amp; Task</span>
+              <p>
+                An early-stage edtech platform ("Why School") required a viable commercial entry strategy to enter tier-2 Indian student demographics dominated by legacy coaching institutions and high-spend national players.
+              </p>
+              <p class="star-task">
+                <strong>Mandate:</strong> Analyze the competitive landscape, identify underserved customer segments, design a multi-phase Go-To-Market roadmap, and benchmark viral distribution mechanics under direct advisory of an ISB alumnus.
+              </p>
+            </div>
+
+            <div class="star-col">
+              <span class="star-label">Action &amp; Methodology</span>
+              <ul class="star-list">
+                <li>Formulated core brand identity and value proposition matrices to differentiate against commoditized test-prep offerings.</li>
+                <li>Segmented target demographics across tier-2 cities, analyzing price elasticity and content consumption habits.</li>
+                <li>Benchmarked high-growth D2C and consumer campaigns (boAt, Rare Beauty) to map psychological triggers that drive organic retention.</li>
+                <li>Constructed a phased 3-stage GTM launch model incorporating micro-influencer channels and localized student community ambassadors.</li>
+              </ul>
+            </div>
+
+            <div class="star-col">
+              <span class="star-label">Measurable Results</span>
+              <div class="star-results-box">
+                <div class="result-row">
+                  <div class="result-metric">15–18%</div>
+                  <div class="result-text">Projected serviceable obtainable market (SOM) penetration in target tier-2 educational pockets.</div>
+                </div>
+                <div class="result-row">
+                  <div class="result-metric">2×</div>
+                  <div class="result-text">Identified engagement spike patterns leveraging social validation and peer-study challenge mechanics.</div>
+                </div>
+                <div class="result-row">
+                  <div class="result-metric">ISB Alum</div>
+                  <div class="result-text">Rigorous strategy framework vetted and refined through mentorship with an Indian School of Business alumnus.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-footer">
+            <span class="tag-label">Competencies:</span>
+            <div class="pill-group">
+              <span class="pill">GTM Roadmapping</span>
+              <span class="pill">Competitive Moats</span>
+              <span class="pill">Consumer Psychology</span>
+              <span class="pill">Tier-2 Market Sizing</span>
+              <span class="pill">Unit Economics</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CASE 03: TELEMETRY & FRAUD DETECTION -->
+      <article class="case-card" id="case-telemetry">
+        <header class="case-header">
+          <div class="case-meta-top">
+            <span class="case-index">03</span>
+            <span class="case-category">Technical Telemetry &amp; Fraud Defense</span>
+            <span class="case-tenure">2026 · Active Production Architecture</span>
+          </div>
+          <h3 class="case-title">Real-Time Application Telemetry &amp; Honeypot Fraud Defense Engine</h3>
+          <p class="case-tagline">
+            Lightweight client-side telemetry architecture with Telegram webhooks, obfuscated IP analytics, and bot filtering.
+          </p>
+          <div class="case-highlights">
+            <span class="highlight-pill highlight-accent"><b>+10%</b> Data Accuracy</span>
+            <span class="highlight-pill highlight-accent"><b>-5%</b> Fraud Traffic Cut</span>
+            <span class="highlight-pill"><b>&lt;1s</b> Webhook Latency</span>
+            <span class="highlight-pill">Active Live Pipeline</span>
+          </div>
+        </header>
+
+        <div class="case-content">
+          <div class="star-grid">
+            <div class="star-col">
+              <span class="star-label">Situation &amp; Task</span>
+              <p>
+                Production web applications frequently suffer from noisy bot traffic, unmonitored crawler sessions, and delayed analytics ingestion. Third-party trackers often load heavy scripts that degrade Core Web Vitals and leak sensitive telemetry.
+              </p>
+              <p class="star-task">
+                <strong>Mandate:</strong> Architect a privacy-compliant, zero-dependency telemetry engine delivering real-time recruiter visit signals, bot honeypots, and instant administrative dispatch.
+              </p>
+            </div>
+
+            <div class="star-col">
+              <span class="star-label">Action &amp; Methodology</span>
+              <ul class="star-list">
+                <li>Engineered multi-tier asynchronous IP &amp; ASN resolution with automated fallbacks (ipinfo, ipapi, Cloudflare edge trace).</li>
+                <li>Implemented XOR-based cryptographic masking to securely transmit payloads without triggering public bot filters.</li>
+                <li>Deployed hidden honeypot form fields to silently trap automated scrapers and suppress fraudulent entries.</li>
+                <li>Constructed an MIS cashback &amp; withdrawal panel architecture with transaction auditing and automated logging.</li>
+              </ul>
+            </div>
+
+            <div class="star-col">
+              <span class="star-label">Measurable Results</span>
+              <div class="star-results-box">
+                <div class="result-row">
+                  <div class="result-metric">+10%</div>
+                  <div class="result-text">Improvement in telemetry data reliability through browser fingerprinting and multi-source geo resolution.</div>
+                </div>
+                <div class="result-row">
+                  <div class="result-metric">-5%</div>
+                  <div class="result-text">Reduction in automated scraping and spam form dispatches via honeypot filtering.</div>
+                </div>
+                <div class="result-row">
+                  <div class="result-metric">&lt;1s</div>
+                  <div class="result-text">Instant encrypted notification latency to administrative mobile devices upon user interaction.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-footer">
+            <span class="tag-label">Competencies:</span>
+            <div class="pill-group">
+              <span class="pill">Telegram Webhooks</span>
+              <span class="pill">Honeypot Bot Defense</span>
+              <span class="pill">MIS Panel Architecture</span>
+              <span class="pill">Web Vitals Telemetry</span>
+              <span class="pill">Data Privacy</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CASE 04: SWASH CONSULTING SEO AUDITS -->
+      <article class="case-card" id="case-swash">
+        <header class="case-header">
+          <div class="case-meta-top">
+            <span class="case-index">04</span>
+            <span class="case-category">Growth Marketing &amp; Technical SEO</span>
+            <span class="case-tenure">2026 · Swash Consulting Ltd</span>
+          </div>
+          <h3 class="case-title">Swash Consulting Ltd: Full-Funnel Technical SEO &amp; Institutional Search Audits</h3>
+          <p class="case-tagline">
+            Technical website audit, on-page optimization, keyword architecture, and organic discovery improvements for higher-education web properties.
+          </p>
+          <div class="case-highlights">
+            <span class="highlight-pill highlight-accent"><b>+5%</b> Search Visibility</span>
+            <span class="highlight-pill highlight-accent"><b>+5%</b> Organic Traffic</span>
+            <span class="highlight-pill"><b>100%</b> Technical Audit</span>
+            <span class="highlight-pill">Google Search Console</span>
+          </div>
+        </header>
+
+        <div class="case-content">
+          <div class="star-grid">
+            <div class="star-col">
+              <span class="star-label">Situation &amp; Task</span>
+              <p>
+                An established regional educational institution's web assets experienced declining organic discoverability, indexing errors, and thin metadata across critical academic landing pages, hindering prospective student inquiries.
+              </p>
+              <p class="star-task">
+                <strong>Mandate:</strong> Conduct a comprehensive site health audit, resolve technical crawl impediments, execute keyword search-intent mapping, and improve organic discovery on Google Search.
+              </p>
+            </div>
+
+            <div class="star-col">
+              <span class="star-label">Action &amp; Methodology</span>
+              <ul class="star-list">
+                <li>Audited website technical health, identifying broken redirect chains, slow asset bottlenecks, and missing semantic headers.</li>
+                <li>Researched high-intent educational search queries and structured title tags, meta descriptions, and OpenGraph parameters.</li>
+                <li>Cleaned sitemap.xml and robots.txt structures to prioritize high-converting admissions and course curriculum pages.</li>
+                <li>Monitored indexing progress and query impressions weekly via Google Search Console and analytics dashboards.</li>
+              </ul>
+            </div>
+
+            <div class="star-col">
+              <span class="star-label">Measurable Results</span>
+              <div class="star-results-box">
+                <div class="result-row">
+                  <div class="result-metric">+5%</div>
+                  <div class="result-text">Increase in overall Google Search impression share across targeted admissions keywords.</div>
+                </div>
+                <div class="result-row">
+                  <div class="result-metric">+5%</div>
+                  <div class="result-text">Growth in verified organic traffic within two months of metadata and crawl-budget deployment.</div>
+                </div>
+                <div class="result-row">
+                  <div class="result-metric">100%</div>
+                  <div class="result-text">Resolved critical indexing anomalies across core program discovery landing pages.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-footer">
+            <span class="tag-label">Competencies:</span>
+            <div class="pill-group">
+              <span class="pill">Technical SEO</span>
+              <span class="pill">Search Console</span>
+              <span class="pill">Search Intent Mapping</span>
+              <span class="pill">Metadata Architecture</span>
+              <span class="pill">Admissions Funnel Optimization</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
     </div>
-    <div class="f-stage reveal" style="--fw:84%">
-      <span class="f-num">S/02</span>
-      <div><h3 class="f-name">PRODUCT QA &amp; HEURISTIC AUDITS<span class="f-you">YOU ARE HERE</span></h3>
-        <p class="f-desc">Execute structured QA cycles across OS builds, identify UI/UX defects and hardware/earbud bugs, and document root causes.</p></div>
-      <span class="f-met">20+ DEFECTS &amp; BUGS LOGGED</span>
-    </div>
-    <div class="f-stage reveal" style="--fw:66%">
-      <span class="f-num">S/03</span>
-      <div><h3 class="f-name">TASK-FLOW OPTIMIZATION<span class="f-you">YOU ARE HERE</span></h3>
-        <p class="f-desc">Streamline user task flows through usability insights, reducing bug recurrence by 22% and improving task completion velocity.</p></div>
-      <span class="f-met">EFFICIENCY +15%</span>
-    </div>
-    <div class="f-stage reveal" style="--fw:46%">
-      <span class="f-num">S/04</span>
-      <div><h3 class="f-name">RETENTION &amp; FUNNEL AUDITS<span class="f-you">YOU ARE HERE</span></h3>
-        <p class="f-desc">Evaluate D2C brands on CAC drivers and funnel leakage, identifying critical retention gaps impacting repeat purchase probability.</p></div>
-      <span class="f-met">17% RETENTION GAP IDENTIFIED</span>
-    </div>
-    <div class="f-stage reveal" style="--fw:28%">
-      <span class="f-num">S/05</span>
-      <div><h3 class="f-name">REAL-TIME TELEMETRY &amp; FRAUD DEFENSE<span class="f-you">YOU ARE HERE</span></h3>
-        <p class="f-desc">Deploy real-time visitor analytics via Telegram webhooks and honeypot bot defense to ensure pristine data accuracy.</p></div>
-      <span class="f-met">+10% DATA ACCURACY</span>
-    </div>
-    <p class="f-note reveal">→ THE FOOTER COUNTS AS RETENTION. STICK AROUND — THE COLOPHON IS WORTH IT.</p>
   </div>
 </section>
 
-<!-- ============ ABOUT & ACADEMIC CREDENTIALS (paper) ============ -->
-<section id="about" class="paper">
-  <div class="wrap">
+<!-- ============ 02 INDUSTRY EXPOSURE & EXPERIENCE ============ -->
+<section class="section section-darker" id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">02 · CAREER LEDGER</span>
+      <h2 class="section-title">Industry Exposure &amp; Leadership</h2>
+      <p class="section-subtitle">
+        Chronological record of corporate trials, agency internships, executive POC roles, and campus organizational initiatives.
+      </p>
+    </div>
+
+    <div class="timeline-container">
+
+      <!-- Timeline Item 1: OnePlus & Innovist -->
+      <div class="timeline-card">
+        <div class="timeline-aside">
+          <div class="timeline-period">2024 — 2026</div>
+          <span class="badge-role">Industry Exposure</span>
+        </div>
+        <div class="timeline-body">
+          <h3 class="timeline-role">Product &amp; User Experience Exposure (OnePlus + D2C Brands) Trials</h3>
+          <div class="timeline-company">OnePlus &amp; Innovist · Bhubaneswar / Kolkata</div>
+          <p class="timeline-description">
+            Conducted hands-on exploratory and regression QA cycles across 4 major OS builds. Identified and logged 20+ functional bugs across system interfaces and Bluetooth earbud peripherals. Reduced bug recurrence by 22% by authoring comprehensive root-cause documentation for engineering teams. Evaluated 5 D2C brands, uncovering a 17% retention deficit.
+          </p>
+          <div class="timeline-metrics">
+            <span class="metric-pill"><b>-22%</b> Bug Recurrence</span>
+            <span class="metric-pill"><b>+15%</b> Task Efficiency</span>
+            <span class="metric-pill"><b>4</b> OS Builds Tested</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline Item 2: Swash Consulting -->
+      <div class="timeline-card">
+        <div class="timeline-aside">
+          <div class="timeline-period">2026 · 2 Mos</div>
+          <span class="badge-role">Media Intern</span>
+        </div>
+        <div class="timeline-body">
+          <h3 class="timeline-role">Digital Marketing &amp; Technical SEO Intern</h3>
+          <div class="timeline-company">Swash Consulting Ltd · Odisha, India</div>
+          <p class="timeline-description">
+            Executed full-scope on-page, technical, keyword, and content SEO optimizations for institutional web properties. Streamlined indexing structure and search intent alignment, driving a 5% increase in Google Search visibility and a 5% lift in organic website traffic.
+          </p>
+          <div class="timeline-metrics">
+            <span class="metric-pill"><b>+5%</b> Search Visibility</span>
+            <span class="metric-pill"><b>+5%</b> Organic Traffic</span>
+            <span class="metric-pill"><b>Full</b> Site Audit</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline Item 3: Orange Cross POC -->
+      <div class="timeline-card">
+        <div class="timeline-aside">
+          <div class="timeline-period">2026</div>
+          <span class="badge-role">Executive POC</span>
+        </div>
+        <div class="timeline-body">
+          <h3 class="timeline-role">Point of Contact (POC) to CEO — Orange Cross</h3>
+          <div class="timeline-company">Under Mr. Ajay Bhanja · Bhubaneswar, India</div>
+          <p class="timeline-description">
+            Appointed as direct student executive liaison to the CEO. Spearheaded operational coordination, managed executive agenda items, facilitated cross-functional stakeholder communications, and ensured high-integrity documentation for strategic organizational initiatives.
+          </p>
+          <div class="timeline-metrics">
+            <span class="metric-pill"><b>Direct</b> CEO Liaison</span>
+            <span class="metric-pill"><b>Cross-Functional</b> Operations</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline Item 4: Ashwamedha Summit -->
+      <div class="timeline-card">
+        <div class="timeline-aside">
+          <div class="timeline-period">Feb 2026</div>
+          <span class="badge-role">Leadership</span>
+        </div>
+        <div class="timeline-body">
+          <h3 class="timeline-role">Event Coordinator &amp; Operations Volunteer</h3>
+          <div class="timeline-company">Ashwamedha College Summit · RCM Bhubaneswar</div>
+          <p class="timeline-description">
+            Coordinated event logistics, attendee scheduling, and communication flows for a flagship college management summit hosting 100+ active participants, ensuring zero operational downtime and seamless execution across events.
+          </p>
+          <div class="timeline-metrics">
+            <span class="metric-pill"><b>100+</b> Participants</span>
+            <span class="metric-pill"><b>On-Time</b> Delivery</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 CORE COMPETENCIES & SKILLS ============ -->
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">03 · SKILL MATRIX</span>
+      <h2 class="section-title">Core Competencies</h2>
+      <p class="section-subtitle">
+        Structured capabilities bridging management rigor, analytical reasoning, and technical product execution.
+      </p>
+    </div>
+
+    <div class="skills-grid">
+
+      <!-- Category 1 -->
+      <div class="skill-category-card">
+        <div class="category-header">
+          <div class="category-icon"><i data-lucide="layers"></i></div>
+          <h3 class="category-name">Product Management &amp; APM</h3>
+        </div>
+        <p class="category-summary">
+          Translating business intent into structured specifications, product requirements, and validated user flows.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">PRD &amp; Spec Drafting</span>
+          <span class="skill-tag">Product QA &amp; Testing</span>
+          <span class="skill-tag">Root-Cause Analysis</span>
+          <span class="skill-tag">User Flow Mapping</span>
+          <span class="skill-tag">Defect Triage</span>
+          <span class="skill-tag">Feature Prioritization</span>
+          <span class="skill-tag">Agile &amp; Scrum Methodologies</span>
+        </div>
+      </div>
+
+      <!-- Category 2 -->
+      <div class="skill-category-card">
+        <div class="category-header">
+          <div class="category-icon"><i data-lucide="compass"></i></div>
+          <h3 class="category-name">Business Strategy &amp; GTM</h3>
+        </div>
+        <p class="category-summary">
+          Designing commercial entry strategies, competitive differentiation, and growth roadmaps for competitive markets.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Go-To-Market (GTM) Strategy</span>
+          <span class="skill-tag">Competitive Benchmarking</span>
+          <span class="skill-tag">Market Sizing (TAM/SAM/SOM)</span>
+          <span class="skill-tag">Consumer Behavior &amp; Psychology</span>
+          <span class="skill-tag">Pricing &amp; Value Propositions</span>
+          <span class="skill-tag">D2C Business Models</span>
+          <span class="skill-tag">Tier-2 Market Dynamics</span>
+        </div>
+      </div>
+
+      <!-- Category 3 -->
+      <div class="skill-category-card">
+        <div class="category-header">
+          <div class="category-icon"><i data-lucide="bar-chart-3"></i></div>
+          <h3 class="category-name">Data Analytics &amp; Metrics</h3>
+        </div>
+        <p class="category-summary">
+          Dissecting conversion funnels, tracking retention behavior, and establishing evidence-based KPIs.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Conversion Funnel Diagnostics</span>
+          <span class="skill-tag">Retention &amp; Churn Modeling</span>
+          <span class="skill-tag">A/B Testing Frameworks</span>
+          <span class="skill-tag">Microsoft Excel (Advanced)</span>
+          <span class="skill-tag">SQL Fundamentals</span>
+          <span class="skill-tag">KPI Definition &amp; Monitoring</span>
+          <span class="skill-tag">CAC / LTV Analysis</span>
+        </div>
+      </div>
+
+      <!-- Category 4 -->
+      <div class="skill-category-card">
+        <div class="category-header">
+          <div class="category-icon"><i data-lucide="cpu"></i></div>
+          <h3 class="category-name">Technology &amp; Systems</h3>
+        </div>
+        <p class="category-summary">
+          Understanding technical architecture, API flows, client-server dynamics, and fraud prevention mechanisms.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">REST APIs &amp; Webhooks</span>
+          <span class="skill-tag">Telegram Bot Telemetry</span>
+          <span class="skill-tag">Honeypot Fraud Detection</span>
+          <span class="skill-tag">Frontend Performance (Core Web Vitals)</span>
+          <span class="skill-tag">HTML5 / Modern CSS / JavaScript</span>
+          <span class="skill-tag">Git &amp; Version Control</span>
+          <span class="skill-tag">Cloud Foundations (AWS)</span>
+        </div>
+      </div>
+
+      <!-- Category 5 -->
+      <div class="skill-category-card">
+        <div class="category-header">
+          <div class="category-icon"><i data-lucide="trending-up"></i></div>
+          <h3 class="category-name">Digital Growth &amp; SEO</h3>
+        </div>
+        <p class="category-summary">
+          Maximizing organic discovery, search engine authority, and user acquisition pipelines.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Technical SEO Audits</span>
+          <span class="skill-tag">Search Intent Alignment</span>
+          <span class="skill-tag">Keyword Research</span>
+          <span class="skill-tag">Google Search Console</span>
+          <span class="skill-tag">Admissions Funnel Optimization</span>
+          <span class="skill-tag">Content Strategy</span>
+          <span class="skill-tag">Organic Traffic Growth</span>
+        </div>
+      </div>
+
+      <!-- Category 6 -->
+      <div class="skill-category-card">
+        <div class="category-header">
+          <div class="category-icon"><i data-lucide="sparkles"></i></div>
+          <h3 class="category-name">Emerging Tech &amp; AI</h3>
+        </div>
+        <p class="category-summary">
+          Leveraging generative AI workflows and modern productivity tools to accelerate product delivery.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Generative AI Prompt Engineering</span>
+          <span class="skill-tag">LLM Workflow Integration</span>
+          <span class="skill-tag">AI Chatbot Prototyping</span>
+          <span class="skill-tag">Workflow Automation</span>
+          <span class="skill-tag">Market Intelligence Synthesis</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 ABOUT & ACADEMIC CREDENTIALS ============ -->
+<section class="section section-darker" id="about">
+  <div class="container">
     <div class="about-grid">
-      <figure class="portrait reveal" data-cursor="HELLO">
-        <img src="/ayush-portrait.jpg" alt="Portrait of Ayush Chatterjee" width="896" height="896" loading="lazy">
-        <figcaption>FIG. 01 — AYUSH CHATTERJEE (RCM BHUBANESWAR)</figcaption>
-      </figure>
-      <div class="about-copy reveal" style="--d:.1s">
-        <p class="kicker">ACADEMIC PROFILE &amp; CERTIFICATIONS</p>
-        <h3 class="about-h">CONSULTING RIGOR,<br><i>PRODUCT EXECUTION.</i></h3>
-        <p>I'm Ayush — a Consultant and Associate Product Manager (APM) pursuing my MBA in Information Technology &amp; International Business at Regional College of Management, Bhubaneswar (2025–2027) with a foundational BBA in Marketing &amp; Consumer Behavior (2022–2025).</p>
-        <p>My industry exposure includes structured QA cycles and usability optimization across 4 OS builds for OnePlus &amp; Innovist, digital marketing and SEO strategy at Swash Consulting Ltd, and developing an end-to-end brand GTM roadmap mentored by an ISB alumnus.</p>
 
-        <!-- Official Academic Profile Table from CV -->
-        <div class="acad-wrap">
-          <h4 class="acad-title">ACADEMIC PROFILE (VERIFIED)</h4>
-          <table class="acad-table">
-            <thead>
-              <tr>
-                <th>DEGREE</th>
-                <th>DURATION</th>
-                <th>INSTITUTE / UNIVERSITY</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="acad-deg">MBA (IT &amp; IB)</td>
-                <td>2027</td>
-                <td>Regional College of Management, Bhubaneswar</td>
-              </tr>
-              <tr>
-                <td class="acad-deg">BBA</td>
-                <td>2022 — 2025</td>
-                <td>Regional College of Management</td>
-              </tr>
-              <tr>
-                <td class="acad-deg">HSC (CBSE)</td>
-                <td>2022</td>
-                <td>Apeejay School, Kolkata (CBSE)</td>
-              </tr>
-              <tr>
-                <td class="acad-deg">SSC (CBSE)</td>
-                <td>2020</td>
-                <td>Apeejay School, Kolkata (CBSE)</td>
-              </tr>
-            </tbody>
-          </table>
+      <!-- Left Column: Portrait & Quick Stats -->
+      <div class="about-profile-col">
+        <div class="portrait-card">
+          <img src="/ayush-portrait.jpg" alt="Portrait of Ayush Chatterjee" class="portrait-img" width="896" height="896" loading="lazy">
+          <div class="portrait-overlay">
+            <span class="portrait-name">Ayush Chatterjee</span>
+            <span class="portrait-detail">MBA Candidate (2025–2027) · RCM Bhubaneswar</span>
+          </div>
+        </div>
 
-          <h4 class="acad-title">PROFESSIONAL CERTIFICATIONS</h4>
-          <div class="cert-grid">
-            <div class="cert-card">
-              <b>Product Management Fundamentals</b>
-              <span>IBM · 2026</span>
+        <div class="quick-credentials-box">
+          <div class="cred-row">
+            <i data-lucide="graduation-cap"></i>
+            <div>
+              <strong>MBA in IT &amp; IB</strong>
+              <span>Regional College of Management (2025–2027)</span>
             </div>
-            <div class="cert-card">
-              <b>Generative AI: Prompt Engineering</b>
-              <span>IBM · 2026</span>
+          </div>
+          <div class="cred-row">
+            <i data-lucide="book-open"></i>
+            <div>
+              <strong>BBA (Marketing &amp; Consumer Behavior)</strong>
+              <span>Regional College of Management (2022–2025)</span>
             </div>
-            <div class="cert-card">
-              <b>AWS APAC Solutions Architecture</b>
-              <span>Forage · 2026</span>
+          </div>
+          <div class="cred-row">
+            <i data-lucide="award"></i>
+            <div>
+              <strong>3× Professional Certifications</strong>
+              <span>IBM (PM, GenAI) &amp; AWS APAC Architecture</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="stats">
-          <div class="stat"><b><span class="num" data-count="22" data-pre="-" data-suf="%">0</span></b><span>BUG RECURRENCE</span></div>
-          <div class="stat"><b><span class="num" data-count="15" data-pre="+" data-suf="%">0</span></b><span>TASK EFFICIENCY</span></div>
-          <div class="stat"><b><span class="num" data-count="18" data-suf="%">0</span></b><span>GTM PENETRATION</span></div>
-          <div class="stat"><b><span class="num" data-count="3">0</span></b><span>IBM &amp; AWS CERTS</span></div>
+      <!-- Right Column: Narrative, Academic Table, Certs -->
+      <div class="about-narrative-col">
+        <span class="section-tag">04 · PROFESSIONAL PROFILE</span>
+        <h2 class="section-title">Consulting Rigor.<br>Product Execution.</h2>
+        
+        <div class="about-narrative-body">
+          <p>
+            I am currently an MBA candidate specializing in Information Technology and International Business at the Regional College of Management, Bhubaneswar. My academic path is backed by an undergraduate foundation in Bachelor of Business Administration (BBA), where I focused on consumer psychology, market analysis, and organizational dynamics.
+          </p>
+          <p>
+            Unlike purely theoretical business students or purely engineering-focused builders, I deliberately operate in the overlap: I understand business models and unit economics, but I also roll up my sleeves to test OS builds, debug BLE headphone latency, write SEO schemas, and analyze telemetry logs.
+          </p>
+          <p>
+            My hands-on exposure includes rigorous QA cycles across 4 OS builds for OnePlus &amp; Innovist, corporate digital marketing and SEO strategy at Swash Consulting Ltd, and developing an end-to-end brand GTM roadmap under direct mentorship of an Indian School of Business (ISB) alumnus.
+          </p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ============ 02 SELECTED WORK (4 STAR PROJECTS FROM CV) ============ -->
-<section id="work">
-  <div class="wrap">
-    <div class="sec-head sec-head-row reveal">
-      <div>
-        <p class="kicker">02 — SELECTED WORK (STAR METHOD)</p>
-        <h2 class="sec-title">VERIFIED <i>PROJECTS.</i></h2>
-      </div>
-      <p class="sec-note">Audited case studies directly from my CV. Deconstructed via Situation, Task, Action, and Result.</p>
-    </div>
-
-    <!-- CASE 01: ONEPLUS & INNOVIST -->
-    <article class="case reveal">
-      <button class="case-head" aria-expanded="false" aria-controls="cb1" data-cursor="OPEN">
-        <span class="c-idx">01</span>
-        <span class="c-name">ONEPLUS &amp; INNOVIST<em class="c-sub">PRODUCT &amp; UX EXPOSURE (ONEPLUS + D2C BRANDS) TRIALS · 2024–2026</em></span>
-        <span class="c-tags">PRODUCT QA · USER EXPERIENCE</span>
-        <span class="c-key">RECURRENCE −22% · EFFICIENCY +15%</span>
-        <span class="c-plus"><i data-lucide="plus"></i></span>
-      </button>
-      <div class="case-body" id="cb1"><div class="case-in">
-        <div class="case-grid">
-          <div class="cg-txt">
-            <span class="cg-lbl">THE BRIEF (SITUATION &amp; TASK)</span>
-            <p>Exploratory user flows and new operating system builds experienced recurring UI/UX defects, earbuds synchronization friction, and unmapped repeat purchase drop-offs across D2C brands. Task: Execute structured QA cycles across multiple OS builds, document root causes to reduce bug recurrence, improve task-flow efficiency, and evaluate D2C skincare brands on CAC drivers and funnel leakage.</p>
-            <span class="cg-lbl">THE PLAY (ACTION)</span>
-            <p>Executed structured QA cycles across 4 OS builds; identified 20+ UI/UX defects AND Earbuds Bugs; documented comprehensive root-cause analysis; delivered usability insights to refine task flows; and evaluated 5 D2C skincare brands on CAC drivers and funnel leakage.</p>
-            <span class="cg-lbl">THE VERDICT (RESULT)</span>
-            <p>Reduced bug recurrence by 22% via root-cause documentation, improved task-flow efficiency by 15% through usability insights, and identified retention gaps impacting 17% repeat purchase probability.</p>
+        <!-- Academic Credentials Table -->
+        <div class="academic-section">
+          <h3 class="subsection-title">Academic Profile (Verified)</h3>
+          <div class="table-container">
+            <table class="academic-table">
+              <thead>
+                <tr>
+                  <th>Degree / Program</th>
+                  <th>Duration</th>
+                  <th>Institution / Board</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>MBA (IT &amp; International Business)</strong></td>
+                  <td>2025 — 2027</td>
+                  <td>Regional College of Management, Bhubaneswar</td>
+                </tr>
+                <tr>
+                  <td><strong>BBA (Bachelor of Business Administration)</strong></td>
+                  <td>2022 — 2025</td>
+                  <td>Regional College of Management, Bhubaneswar</td>
+                </tr>
+                <tr>
+                  <td><strong>Higher Secondary Certificate (CBSE)</strong></td>
+                  <td>2022</td>
+                  <td>Apeejay School, Kolkata (CBSE)</td>
+                </tr>
+                <tr>
+                  <td><strong>Secondary School Examination (CBSE)</strong></td>
+                  <td>2020</td>
+                  <td>Apeejay School, Kolkata (CBSE)</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <aside>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="22" data-pre="−" data-suf="%">0</span></span><span class="cs-lbl">BUG RECURRENCE REDUCTION</span></div>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="15" data-pre="+" data-suf="%">0</span></span><span class="cs-lbl">TASK-FLOW EFFICIENCY GAIN</span></div>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="20" data-suf="+">0</span></span><span class="cs-lbl">UI/UX DEFECTS &amp; EARBUD BUGS</span></div>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="5">0</span></span><span class="cs-lbl">D2C BRANDS EVALUATED</span></div>
-            <svg class="spark" viewBox="0 0 320 90" fill="none" aria-hidden="true">
-              <line x1="0" y1="22" x2="320" y2="22" stroke="rgba(233,230,218,.09)"/>
-              <line x1="0" y1="46" x2="320" y2="46" stroke="rgba(233,230,218,.09)"/>
-              <line x1="0" y1="70" x2="320" y2="70" stroke="rgba(233,230,218,.09)"/>
-              <path class="sp-line" d="M2,84 L30,80 L55,82 L85,70 L115,73 L145,58 L180,61 L215,42 L250,37 L285,22 L318,14" stroke="var(--acid)" stroke-width="2" stroke-linejoin="round"/>
-              <circle class="sp-dot" cx="318" cy="14" r="3.5" fill="var(--hot)" opacity="0"/>
-            </svg>
-            <p class="spark-lbl">TASK EFFICIENCY — 4 OS BUILDS</p>
-          </aside>
         </div>
-        <div class="cg-foot">
-          <blockquote>“Executed structured QA cycles across 4 OS builds, reducing bug recurrence by 22% and improving task-flow efficiency by 15%.”<cite>— OFFICIAL CV INDUSTRY EXPOSURE RECORD</cite></blockquote>
-          <div class="chips"><span class="chip">QA OS BUILDS</span><span class="chip">UI/UX DEFECTS</span><span class="chip">ROOT-CAUSE DOCUMENTATION</span><span class="chip">USABILITY INSIGHTS</span><span class="chip">CAC DRIVERS</span><span class="chip">17% RETENTION GAP</span></div>
-        </div>
-      </div></div>
-    </article>
 
-    <!-- CASE 02: BRAND DEVELOPMENT & GTM STRATEGY - WHY SCHOOL -->
-    <article class="case reveal">
-      <button class="case-head" aria-expanded="false" aria-controls="cb2" data-cursor="OPEN">
-        <span class="c-idx">02</span>
-        <span class="c-name">BRAND DEVELOPMENT &amp; GTM STRATEGY<em class="c-sub">WHY SCHOOL (MENTORED BY ISB ALUMNUS) · 2025–2026</em></span>
-        <span class="c-tags">STRATEGY · GTM ROADMAP</span>
-        <span class="c-key">PENETRATION 15–18% · ENGAGEMENT 2X</span>
-        <span class="c-plus"><i data-lucide="plus"></i></span>
-      </button>
-      <div class="case-body" id="cb2"><div class="case-in">
-        <div class="case-grid">
-          <div class="cg-txt">
-            <span class="cg-lbl">THE BRIEF (SITUATION &amp; TASK)</span>
-            <p>New educational venture "Why School" required an end-to-end brand strategy and commercial entry roadmap to penetrate competitive Tier-2 student markets. Task: Evaluate competitive positioning, design a phased Go-To-Market (GTM) roadmap, and benchmark influencer-led D2C growth models under direct mentorship of an ISB alumnus.</p>
-            <span class="cg-lbl">THE PLAY (ACTION)</span>
-            <p>Developed end-to-end brand strategy applying models to evaluate competitive positioning; designed a GTM roadmap projecting 15–18% niche market penetration in Tier-2 segment; and benchmarked influencer-led D2C growth models (Selena Gomez, boAt) identifying psychological triggers driving 2x engagement spikes.</p>
-            <span class="cg-lbl">THE VERDICT (RESULT)</span>
-            <p>Designed a comprehensive GTM roadmap projecting 15–18% niche market penetration in Tier-2 segments and identified psychological triggers driving 2x engagement spikes.</p>
+        <!-- Professional Certifications -->
+        <div class="certifications-section">
+          <h3 class="subsection-title">Professional Certifications</h3>
+          <div class="cert-cards-grid">
+            <div class="cert-card">
+              <div class="cert-badge">IBM</div>
+              <div class="cert-info">
+                <h4 class="cert-title">Product Management Fundamentals</h4>
+                <span class="cert-meta">IBM Professional Credential · 2026</span>
+              </div>
+            </div>
+
+            <div class="cert-card">
+              <div class="cert-badge">IBM</div>
+              <div class="cert-info">
+                <h4 class="cert-title">Generative AI: Prompt Engineering Basics</h4>
+                <span class="cert-meta">IBM Professional Credential · 2026</span>
+              </div>
+            </div>
+
+            <div class="cert-card">
+              <div class="cert-badge">AWS</div>
+              <div class="cert-info">
+                <h4 class="cert-title">AWS APAC Solutions Architecture</h4>
+                <span class="cert-meta">AWS via Forage · 2026</span>
+              </div>
+            </div>
           </div>
-          <aside>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="18" data-pre="15–" data-suf="%">0</span></span><span class="cs-lbl">PROJECTED TIER-2 PENETRATION</span></div>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="2" data-suf="×">0</span></span><span class="cs-lbl">ENGAGEMENT SPIKES IDENTIFIED</span></div>
-            <div class="cs-stat"><span class="cs-num"><span>ISB</span></span><span class="cs-lbl">ALUMNUS MENTORSHIP</span></div>
-            <div class="cs-stat"><span class="cs-num"><span>2026</span></span><span class="cs-lbl">STRATEGY BLUEPRINT</span></div>
-            <svg class="spark" viewBox="0 0 320 90" fill="none" aria-hidden="true">
-              <line x1="0" y1="22" x2="320" y2="22" stroke="rgba(233,230,218,.09)"/>
-              <line x1="0" y1="46" x2="320" y2="46" stroke="rgba(233,230,218,.09)"/>
-              <line x1="0" y1="70" x2="320" y2="70" stroke="rgba(233,230,218,.09)"/>
-              <path class="sp-line" d="M2,78 L48,75 L96,71 L122,60 L150,57 L188,45 L228,39 L268,27 L318,16" stroke="var(--acid)" stroke-width="2" stroke-linejoin="round"/>
-              <circle class="sp-dot" cx="318" cy="16" r="3.5" fill="var(--hot)" opacity="0"/>
-            </svg>
-            <p class="spark-lbl">TIER-2 GTM TRAJECTORY</p>
-          </aside>
         </div>
-        <div class="cg-foot">
-          <blockquote>“Designed GTM roadmap projecting 15–18% niche market penetration in Tier-2 segment; benchmarked influencer-led D2C growth models.”<cite>— ACADEMIC PROJECT RECORD (MENTORED BY ISB ALUMNUS)</cite></blockquote>
-          <div class="chips"><span class="chip">GTM ROADMAP</span><span class="chip">ISB ALUMNUS MENTORSHIP</span><span class="chip">COMPETITIVE POSITIONING</span><span class="chip">TIER-2 SEGMENTATION</span><span class="chip">PSYCHOLOGICAL TRIGGERS</span></div>
-        </div>
-      </div></div>
-    </article>
 
-    <!-- CASE 03: VISITOR TRACKING SYSTEM & FRAUD DETECTION -->
-    <article class="case reveal">
-      <button class="case-head" aria-expanded="false" aria-controls="cb3" data-cursor="OPEN">
-        <span class="c-idx">03</span>
-        <span class="c-name">VISITOR TRACKING &amp; FRAUD DETECTION<em class="c-sub">TELEGRAM WEBHOOKS, HONEYPOT FRAUD DEFENSE &amp; MIS PANEL · 2026</em></span>
-        <span class="c-tags">TELEMETRY · FRAUD DEFENSE</span>
-        <span class="c-key">ACCURACY +10% · FRAUD −5%</span>
-        <span class="c-plus"><i data-lucide="plus"></i></span>
-      </button>
-      <div class="case-body" id="cb3"><div class="case-in">
-        <div class="case-grid">
-          <div class="cg-txt">
-            <span class="cg-lbl">THE BRIEF (SITUATION &amp; TASK)</span>
-            <p>Digital applications faced fraudulent automated traffic, lack of instant stakeholder alerts, and inaccurate session telemetry. Task: Engineer a real-time visitor analytics platform with instant Telegram webhook notifications, honeypot bot mitigation, and a secure MIS management panel.</p>
-            <span class="cg-lbl">THE PLAY (ACTION)</span>
-            <p>Engineered a real-time visitor analytics platform leveraging APIs and Telegram webhooks; integrated honeypot-based fraud detection; implemented adaptive dark mode (localStorage + system preference detection); and engineered an MIS Cashback Panel with fraud analysis, amount withdrawals, and database management.</p>
-            <span class="cg-lbl">THE VERDICT (RESULT)</span>
-            <p>Decreased fraudulent traffic by 5%, improved data accuracy by 10%, and deployed instant sub-second Telegram dispatch for user interactions.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 CONTACT & RECRUITER CONNECT ============ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- Left Column: Recruiter Info -->
+      <div class="contact-info-col">
+        <span class="section-tag">05 · RECRUITER CONNECT</span>
+        <h2 class="section-title">Let's Discuss Mandates &amp; Placements.</h2>
+        <p class="section-subtitle">
+          I am actively exploring opportunities for Summer Placements 2027 in Associate Product Manager (APM), Product Management, Product Strategy, and Management Consulting roles.
+        </p>
+
+        <div class="contact-points">
+          <a class="contact-point-card" href="mailto:ayushchatterjee.edu@gmail.com">
+            <div class="point-icon"><i data-lucide="mail"></i></div>
+            <div class="point-details">
+              <span class="point-label">Direct Email</span>
+              <span class="point-value">ayushchatterjee.edu@gmail.com</span>
+            </div>
+            <i data-lucide="arrow-up-right" class="point-arrow"></i>
+          </a>
+
+          <a class="contact-point-card" href="https://linkedin.com/in/ayushmba" target="_blank" rel="noopener noreferrer">
+            <div class="point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+            <div class="point-details">
+              <span class="point-label">LinkedIn Profile</span>
+              <span class="point-value">linkedin.com/in/ayushmba</span>
+            </div>
+            <i data-lucide="arrow-up-right" class="point-arrow"></i>
+          </a>
+
+          <a class="contact-point-card" href="/Ayush_Chatterjee_CV.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="point-icon"><i data-lucide="file-text"></i></div>
+            <div class="point-details">
+              <span class="point-label">Curriculum Vitae</span>
+              <span class="point-value">Download Verified PDF Résumé</span>
+            </div>
+            <i data-lucide="arrow-up-right" class="point-arrow"></i>
+          </a>
+
+          <a class="contact-point-card" href="https://github.com/forbesayush" target="_blank" rel="noopener noreferrer">
+            <div class="point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div>
+            <div class="point-details">
+              <span class="point-label">GitHub Repository</span>
+              <span class="point-value">github.com/forbesayush</span>
+            </div>
+            <i data-lucide="arrow-up-right" class="point-arrow"></i>
+          </a>
+        </div>
+
+        <div class="recruiter-note-box">
+          <span class="note-heading"><i data-lucide="check-circle-2"></i> Fast Response Guarantee</span>
+          <p>
+            All inquiries sent through this form dispatch directly to my private communication channel. I review recruiter correspondence promptly within 24 hours.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Clean Recruitment Ingestion Form -->
+      <div class="contact-form-col">
+        <form class="recruiter-form" id="leadForm" novalidate>
+          <h3 class="form-title">Send a Direct Message</h3>
+          <p class="form-desc">Provide brief details about the role or mandate to start a conversation.</p>
+
+          <div class="form-group" id="group-name">
+            <label class="form-label" for="fName">Full Name / Organization <span class="required">*</span></label>
+            <input class="form-input" id="fName" name="name" type="text" autocomplete="name" placeholder="e.g. Sarah Jenkins (Talent Acquisition)">
+            <span class="form-error" id="err-name" aria-live="polite"></span>
           </div>
-          <aside>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="10" data-pre="+" data-suf="%">0</span></span><span class="cs-lbl">DATA ACCURACY IMPROVEMENT</span></div>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="5" data-pre="−" data-suf="%">0</span></span><span class="cs-lbl">FRAUDULENT TRAFFIC CUT</span></div>
-            <div class="cs-stat"><span class="cs-num"><span>&lt;1s</span></span><span class="cs-lbl">WEBHOOK LATENCY</span></div>
-            <div class="cs-stat"><span class="cs-num"><span>ACTIVE</span></span><span class="cs-lbl">ON THIS PORTFOLIO</span></div>
-            <svg class="spark" viewBox="0 0 320 90" fill="none" aria-hidden="true">
-              <line x1="0" y1="22" x2="320" y2="22" stroke="rgba(233,230,218,.09)"/>
-              <line x1="0" y1="46" x2="320" y2="46" stroke="rgba(233,230,218,.09)"/>
-              <line x1="0" y1="70" x2="320" y2="70" stroke="rgba(233,230,218,.09)"/>
-              <path class="sp-line" d="M2,82 C36,76 62,79 94,66 C126,53 152,58 186,46 C222,33 252,35 286,21 C298,16 310,12 318,10" stroke="var(--acid)" stroke-width="2" stroke-linejoin="round"/>
-              <circle class="sp-dot" cx="318" cy="10" r="3.5" fill="var(--hot)" opacity="0"/>
-            </svg>
-            <p class="spark-lbl">TELEMETRY ACCURACY CURVE</p>
-          </aside>
-        </div>
-        <div class="cg-foot">
-          <blockquote>“Engineered real-time visitor analytics leveraging APIs and Telegram webhooks, integrating honeypot fraud detection decreasing fraudulent traffic by 5%.”<cite>— OFFICIAL CV ACADEMIC PROJECT RECORD</cite></blockquote>
-          <div class="chips"><span class="chip">TELEGRAM WEBHOOKS</span><span class="chip">HONEYPOT FRAUD DETECTION</span><span class="chip">MIS CASHBACK PANEL</span><span class="chip">LOCALSTORAGE</span><span class="chip">DATABASE MANAGEMENT</span></div>
-        </div>
-      </div></div>
-    </article>
 
-    <!-- CASE 04: SWASH CONSULTING LTD -->
-    <article class="case reveal">
-      <button class="case-head" aria-expanded="false" aria-controls="cb4" data-cursor="OPEN">
-        <span class="c-idx">04</span>
-        <span class="c-name">SWASH CONSULTING LTD<em class="c-sub">DIGITAL MARKETING – (MEDIA INTERN) · 2026 (2 MONTHS)</em></span>
-        <span class="c-tags">DIGITAL MARKETING · SEO AUDITS</span>
-        <span class="c-key">VISIBILITY +5% · TRAFFIC +5%</span>
-        <span class="c-plus"><i data-lucide="plus"></i></span>
-      </button>
-      <div class="case-body" id="cb4"><div class="case-in">
-        <div class="case-grid">
-          <div class="cg-txt">
-            <span class="cg-lbl">THE BRIEF (SITUATION &amp; TASK)</span>
-            <p>Educational web properties experienced sub-optimal search engine indexing, metadata gaps, and low organic discovery. Task: Perform full-funnel on-page, technical, keyword, and content SEO optimizations to lift organic search visibility.</p>
-            <span class="cg-lbl">THE PLAY (ACTION)</span>
-            <p>SEO audits were conducted for the college website, with on-page, technical, keyword, and content optimizations implemented through structured data and search intent alignment.</p>
-            <span class="cg-lbl">THE VERDICT (RESULT)</span>
-            <p>Google Search visibility was improved by 5%, while organic traffic increased by 5% through data-driven SEO strategies.</p>
+          <div class="form-group" id="group-email">
+            <label class="form-label" for="fEmail">Work Email Address <span class="required">*</span></label>
+            <input class="form-input" id="fEmail" name="email" type="email" autocomplete="email" placeholder="e.g. sjenkins@company.com">
+            <span class="form-error" id="err-email" aria-live="polite"></span>
           </div>
-          <aside>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="5" data-pre="+" data-suf="%">0</span></span><span class="cs-lbl">GOOGLE SEARCH VISIBILITY</span></div>
-            <div class="cs-stat"><span class="cs-num"><span class="num" data-count="5" data-pre="+" data-suf="%">0</span></span><span class="cs-lbl">ORGANIC TRAFFIC INCREASE</span></div>
-            <div class="cs-stat"><span class="cs-num"><span>AUDIT</span></span><span class="cs-lbl">FULL ON-PAGE &amp; TECHNICAL</span></div>
-            <div class="cs-stat"><span class="cs-num"><span>DATA</span></span><span class="cs-lbl">DRIVEN SEO STRATEGIES</span></div>
-            <svg class="spark" viewBox="0 0 320 90" fill="none" aria-hidden="true">
-              <line x1="0" y1="22" x2="320" y2="22" stroke="rgba(233,230,218,.09)"/>
-              <line x1="0" y1="46" x2="320" y2="46" stroke="rgba(233,230,218,.09)"/>
-              <line x1="0" y1="70" x2="320" y2="70" stroke="rgba(233,230,218,.09)"/>
-              <path class="sp-line" d="M2,80 C40,75 78,72 118,61 C156,50 198,52 238,35 C266,23 300,18 318,12" stroke="var(--acid)" stroke-width="2" stroke-linejoin="round"/>
-              <circle class="sp-dot" cx="318" cy="12" r="3.5" fill="var(--hot)" opacity="0"/>
-            </svg>
-            <p class="spark-lbl">ORGANIC VISIBILITY LIFT</p>
-          </aside>
-        </div>
-        <div class="cg-foot">
-          <blockquote>“Google Search visibility was improved by 5%, while organic traffic increased by 5% through data-driven SEO strategies.”<cite>— OFFICIAL CV INDUSTRY EXPOSURE RECORD</cite></blockquote>
-          <div class="chips"><span class="chip">TECHNICAL SEO</span><span class="chip">ON-PAGE OPTIMIZATION</span><span class="chip">KEYWORD RESEARCH</span><span class="chip">CONTENT OPTIMIZATION</span><span class="chip">SEARCH CONSOLE</span></div>
-        </div>
-      </div></div>
-    </article>
-  </div>
-</section>
 
-<!-- ============ 03 CAREER EXPERIENCE & INDUSTRY EXPOSURE ============ -->
-<section id="experience">
-  <div class="wrap">
-    <div class="sec-head sec-head-row reveal">
-      <div>
-        <p class="kicker">03 — INDUSTRY EXPOSURE &amp; LEADERSHIP</p>
-        <h2 class="sec-title">AUDITED <i>EXPERIENCE.</i></h2>
-      </div>
-      <p class="sec-note">Audited timeline of industry exposure, academic projects, and organizational positions of responsibility directly from my CV.</p>
-    </div>
-
-    <div class="exp-ledger reveal">
-      <!-- 01: OnePlus & Innovist -->
-      <div class="exp-item">
-        <div class="exp-period">2024 — 2026<br><span class="mono" style="font-size:10px; color:var(--hot);">INDUSTRY EXPOSURE</span></div>
-        <div>
-          <h3 class="exp-role">PRODUCT &amp; USER EXPERIENCE EXPOSURE (ONEPLUS + D2C BRANDS) TRIALS</h3>
-          <span class="exp-company">ONEPLUS &amp; INNOVIST · BHUBANESWAR, KOLKATA</span>
-          <p class="exp-desc">Executed structured QA cycles across 4 OS builds; identified 20+ UI/UX defects AND Earbuds Bugs; reduced bug recurrence by 22% via root-cause documentation; improved task-flow efficiency by 15%; evaluated 5 D2C skincare brands on CAC drivers and 17% repeat purchase gaps.</p>
-        </div>
-        <div class="exp-metrics-grid">
-          <div class="exp-metric-pill"><b>-22%</b><span>BUG RECURRENCE</span></div>
-          <div class="exp-metric-pill"><b>+15%</b><span>TASK EFFICIENCY</span></div>
-          <div class="exp-metric-pill"><b>20+</b><span>DEFECTS &amp; BUGS</span></div>
-        </div>
-      </div>
-
-      <!-- 02: Swash Consulting Ltd -->
-      <div class="exp-item">
-        <div class="exp-period">2026 (2 MONTHS)<br><span class="exp-tag">INDUSTRY EXPOSURE</span></div>
-        <div>
-          <h3 class="exp-role">DIGITAL MARKETING – (MEDIA INTERN)</h3>
-          <span class="exp-company">SWASH CONSULTING LTD · ODISHA, KOLKATA</span>
-          <p class="exp-desc">Conducted on-page, technical, keyword, and content optimizations for college website; improved Google Search visibility by 5% and organic traffic by 5% through data-driven SEO strategies.</p>
-        </div>
-        <div class="exp-metrics-grid">
-          <div class="exp-metric-pill"><b>+5%</b><span>SEARCH VISIBILITY</span></div>
-          <div class="exp-metric-pill"><b>+5%</b><span>ORGANIC TRAFFIC</span></div>
-          <div class="exp-metric-pill"><b>100%</b><span>AUDIT SCOPE</span></div>
-        </div>
-      </div>
-
-      <!-- 03: Orange Cross POC -->
-      <div class="exp-item">
-        <div class="exp-period">2026<br><span class="mono" style="font-size:10px; color:var(--hot);">RESPONSIBILITY</span></div>
-        <div>
-          <h3 class="exp-role">POINT OF CONTACT (POC) – ORANGE CROSS CEO</h3>
-          <span class="exp-company">UNDER MR. AJAY BHANJA · BHUBANESWAR, INDIA</span>
-          <p class="exp-desc">Led operational coordination, stakeholder communication, and organizational execution as Point of Contact to the CEO.</p>
-        </div>
-        <div class="exp-metrics-grid">
-          <div class="exp-metric-pill"><b>POC</b><span>TO CEO</span></div>
-          <div class="exp-metric-pill"><b>DIRECT</b><span>LEADERSHIP</span></div>
-          <div class="exp-metric-pill"><b>2026</b><span>TENURE</span></div>
-        </div>
-      </div>
-
-      <!-- 04: Ashwamedha Volunteering -->
-      <div class="exp-item">
-        <div class="exp-period">FEB 2026<br><span class="exp-tag">VOLUNTEERING</span></div>
-        <div>
-          <h3 class="exp-role">EVENT COORDINATOR &amp; VOLUNTEER</h3>
-          <span class="exp-company">ASHWAMEDHA COLLEGE SUMMIT · BHUBANESWAR, INDIA</span>
-          <p class="exp-desc">Assisted in coordinating large-scale college events involving 100+ participants, streamlining communication and execution flow.</p>
-        </div>
-        <div class="exp-metrics-grid">
-          <div class="exp-metric-pill"><b>100+</b><span>PARTICIPANTS</span></div>
-          <div class="exp-metric-pill"><b>ON-TIME</b><span>EXECUTION</span></div>
-          <div class="exp-metric-pill"><b>FEB 26</b><span>EVENT DATE</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 04 AREAS OF INTEREST & COMPETENCIES ============ -->
-<section id="services">
-  <div class="wrap">
-    <div class="sec-head sec-head-row reveal">
-      <div>
-        <p class="kicker">04 — AREAS OF INTEREST &amp; CAPABILITIES</p>
-        <h2 class="sec-title">CORE <i>COMPETENCIES.</i></h2>
-      </div>
-      <p class="sec-note">Aligned with official CV Area of Interest: Consulting | Product Strategy Intern | Product Management | Associate Product Manager (APM).</p>
-    </div>
-
-    <article class="svc reveal">
-      <button class="svc-head" aria-expanded="false" data-cursor="OPEN">
-        <span class="s-idx">C/01</span><span class="s-name">PRODUCT MANAGEMENT &amp; APM EXECUTION</span>
-        <span class="s-price">APM / PM ROLE</span>
-        <span class="s-hint"><i data-lucide="plus"></i></span>
-      </button>
-      <div class="svc-body"><div class="svc-in"><div class="svc-grid">
-        <p>Executing structured QA cycles across OS builds, documenting root-cause defects to reduce recurrence, and optimizing user task-flow efficiency through usability insights.</p>
-        <div><h4>DELIVERABLES</h4>
-          <div class="chips"><span class="chip">QA CYCLES (4 OS BUILDS)</span><span class="chip">ROOT-CAUSE DOCUMENTATION</span><span class="chip">TASK-FLOW EFFICIENCY</span><span class="chip">UI/UX &amp; HARDWARE DEFECTS</span></div>
-          <p class="s-meta">FOCUS — ASSOCIATE PRODUCT MANAGER (APM)</p></div>
-      </div></div></div>
-    </article>
-
-    <article class="svc reveal">
-      <button class="svc-head" aria-expanded="false" data-cursor="OPEN">
-        <span class="s-idx">C/02</span><span class="s-name">MANAGEMENT CONSULTING &amp; GTM STRATEGY</span>
-        <span class="s-price">CONSULTING ROLE</span>
-        <span class="s-hint"><i data-lucide="plus"></i></span>
-      </button>
-      <div class="svc-body"><div class="svc-in"><div class="svc-grid">
-        <p>Developing end-to-end brand strategy, evaluating competitive positioning, and designing GTM roadmaps projecting 15–18% niche market penetration (Mentored by ISB Alumnus).</p>
-        <div><h4>DELIVERABLES</h4>
-          <div class="chips"><span class="chip">TIER-2 GTM ROADMAPS</span><span class="chip">ISB ALUMNUS MENTORSHIP</span><span class="chip">COMPETITIVE POSITIONING</span><span class="chip">INFLUENCER D2C MODELS</span></div>
-          <p class="s-meta">FOCUS — CONSULTING / STRATEGY INTERN</p></div>
-      </div></div></div>
-    </article>
-
-    <article class="svc reveal">
-      <button class="svc-head" aria-expanded="false" data-cursor="OPEN">
-        <span class="s-idx">C/03</span><span class="s-name">REAL-TIME TELEMETRY &amp; FRAUD DETECTION</span>
-        <span class="s-price">ANALYTICS &amp; TECH</span>
-        <span class="s-hint"><i data-lucide="plus"></i></span>
-      </button>
-      <div class="svc-body"><div class="svc-in"><div class="svc-grid">
-        <p>Engineering real-time visitor analytics platforms with Telegram webhooks, honeypot-based fraud detection (-5% fraud traffic), and MIS cashback withdrawal database panels.</p>
-        <div><h4>DELIVERABLES</h4>
-          <div class="chips"><span class="chip">TELEGRAM WEBHOOK APIS</span><span class="chip">HONEYPOT FRAUD DEFENSE</span><span class="chip">MIS CASHBACK PANEL</span><span class="chip">AI CHATBOT [AVA] (REACT)</span></div>
-          <p class="s-meta">FOCUS — TECHNICAL PRODUCT MANAGEMENT</p></div>
-      </div></div></div>
-    </article>
-
-    <article class="svc reveal">
-      <button class="svc-head" aria-expanded="false" data-cursor="OPEN">
-        <span class="s-idx">C/04</span><span class="s-name">DIGITAL MEDIA &amp; SEO OPTIMIZATION</span>
-        <span class="s-price">GROWTH &amp; SEO</span>
-        <span class="s-hint"><i data-lucide="plus"></i></span>
-      </button>
-      <div class="svc-body"><div class="svc-in"><div class="svc-grid">
-        <p>Conducting technical, on-page, keyword, and content optimizations (+5% search visibility &amp; traffic), reverse-engineering Instagram loops, and diagnosing 17% repeat purchase gaps.</p>
-        <div><h4>DELIVERABLES</h4>
-          <div class="chips"><span class="chip">TECHNICAL SEO AUDITS</span><span class="chip">KEYWORD STRATEGY</span><span class="chip">SEARCH CONSOLE TELEMETRY</span><span class="chip">D2C CAC &amp; FUNNEL LEAKAGE</span></div>
-          <p class="s-meta">FOCUS — DIGITAL GROWTH &amp; PRODUCT ANALYTICS</p></div>
-      </div></div></div>
-    </article>
-  </div>
-</section>
-
-<!-- ============ 05 THE EXPERIMENT (paper) ============ -->
-<section id="experiment" class="paper">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="kicker">05 — LIVE EXPERIMENT</p>
-      <h2 class="sec-title">I A/B TEST EVERYTHING.<br><i>EVEN THIS PAGE.</i></h2>
-      <p class="sec-note">Below: two real call-to-action treatments from a checkout I rebuilt. Hover them — I'm timing your dwell. Then vote. The corner meter will thank you.</p>
-    </div>
-
-    <div class="exp-grid reveal">
-      <div class="variant" data-v="A" data-cursor="HOVER">
-        <p class="v-tag">VARIANT A — CONTROL</p>
-        <h3 class="v-title">Get started</h3>
-        <p class="v-note">Standard. Safe. The button everyone ships because a committee approved it in a slide deck.</p>
-        <button class="btn v-btn" data-pick="A" data-cursor="VOTE"><span>GET STARTED</span><i data-lucide="arrow-up-right"></i></button>
-        <p class="dwell">YOUR DWELL: 0.0S</p>
-      </div>
-      <div class="variant variant--b" data-v="B" data-cursor="HOVER">
-        <p class="v-tag">VARIANT B — TREATMENT</p>
-        <h3 class="v-title">Start free — no card needed</h3>
-        <p class="v-note">Risk reversal plus a zero-friction promise. Looks louder. Reads safer. Converts louder and safer.</p>
-        <button class="btn v-btn" data-pick="B" data-cursor="VOTE"><span>START FREE</span><i data-lucide="arrow-up-right"></i></button>
-        <p class="dwell">YOUR DWELL: 0.0S</p>
-      </div>
-    </div>
-
-    <div class="exp-vote reveal" id="expVote">
-      <p class="exp-q">WHICH ONE WOULD YOU CLICK?</p>
-      <div class="exp-btns">
-        <button class="btn" data-pick="A" data-cursor="VOTE">I PICK A</button>
-        <button class="btn btn--solid" data-pick="B" data-cursor="VOTE">I PICK B</button>
-      </div>
-    </div>
-
-    <div class="exp-result" id="expResult" hidden>
-      <p class="exp-q">THE BALLOT BOX SAYS:</p>
-      <h3 class="res-pick">YOU PICKED <span id="resPick">B</span>.</h3>
-      <p class="res-dwell" id="resDwell"></p>
-      <div class="rbar">
-        <div class="rbar-top"><span>VARIANT A — CONTROL</span><span>5.7% CVR</span></div>
-        <div class="track"><i data-w="84"></i></div>
-      </div>
-      <div class="rbar rbar--b">
-        <div class="rbar-top"><span>VARIANT B — TREATMENT</span><span>6.8% CVR</span></div>
-        <div class="track"><i data-w="100"></i></div>
-      </div>
-      <p class="res-verdict">In the original 14-day test on a real checkout, B converted at 6.8% against A's 5.7% — an 18.4% lift at 97% confidence (n = 4,812). You just sided with the data — or against it. Both outcomes are informative. That's rather the point.</p>
-      <p class="res-extra" id="resExtra"></p>
-      <button class="res-again" id="expReset" data-cursor="RESET"><i data-lucide="rotate-ccw"></i>RUN THE TEST ON YOURSELF AGAIN</button>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TICKER 2 ============ -->
-<div class="ticker ticker--rev" aria-hidden="true">
-  <div class="ticker-track" id="tick2">
-    <div class="tk-set">
-      <span>OPEN FOR SUMMER PLACEMENTS 2027</span><i class="tk-sep"></i>
-      <span>ASSOCIATE PRODUCT MANAGER (APM)</span><i class="tk-sep"></i>
-      <span>CONSULTING &amp; PRODUCT STRATEGY</span><i class="tk-sep"></i>
-      <span>REPLY INBOUND WITHIN 24 HOURS</span><i class="tk-sep"></i>
-    </div>
-  </div>
-</div>
-
-<!-- ============ 06 CONTACT / RECRUITMENT ============ -->
-<section id="contact">
-  <div class="wrap contact-grid">
-    <div class="reveal">
-      <p class="kicker">06 — SUMMER PLACEMENTS 2027</p>
-      <h2 class="sec-title">READY TO<br><i>CONNECT?</i></h2>
-      <p class="sec-note" style="max-width:440px">Seeking opportunities in Consulting, Product Strategy, Product Management, and Associate Product Manager (APM) roles for Summer Placements 2027.</p>
-      <p class="avail"><i></i>OPEN FOR APM, PRODUCT MANAGEMENT &amp; STRATEGY ROLES</p>
-      <div class="direct">
-        <a class="d-link" href="mailto:ayushchatterjee.edu@gmail.com" data-cursor="MAIL"><i data-lucide="mail"></i>ayushchatterjee.edu@gmail.com</a>
-        <div class="d-row">
-          <a class="d-link" href="https://linkedin.com/in/ayushmba" target="_blank" rel="noopener" data-cursor="GO">LINKEDIN<i data-lucide="arrow-up-right"></i></a>
-          <a class="d-link" href="/Ayush_Chatterjee_CV.pdf" target="_blank" rel="noopener" data-cursor="GO">RESUME (PDF)<i data-lucide="arrow-up-right"></i></a>
-          <a class="d-link" href="https://github.com/forbesayush" target="_blank" rel="noopener" data-cursor="GO">GITHUB<i data-lucide="arrow-up-right"></i></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="reveal" style="--d:.12s">
-      <form id="leadForm" novalidate>
-        <div class="field">
-          <label for="fName">NAME</label>
-          <input id="fName" name="name" type="text" autocomplete="name" placeholder="Recruiter / Founder">
-          <small class="err"></small>
-        </div>
-        <div class="field">
-          <label for="fEmail">EMAIL</label>
-          <input id="fEmail" name="email" type="email" autocomplete="email" placeholder="recruiter@company.com">
-          <small class="err"></small>
-        </div>
-        <fieldset class="field">
-          <legend>ROLE OF INTEREST (SUMMER PLACEMENTS 2027)</legend>
-          <div class="budget">
-            <label><input type="radio" name="budget" value="APM Role" checked><span>APM ROLE</span></label>
-            <label><input type="radio" name="budget" value="Product Strategy"><span>PRODUCT STRATEGY</span></label>
-            <label><input type="radio" name="budget" value="Consulting"><span>CONSULTING</span></label>
-            <label><input type="radio" name="budget" value="Product Manager"><span>PRODUCT MANAGER</span></label>
+          <div class="form-group">
+            <label class="form-label">Role Focus / Placement Mandate</label>
+            <div class="role-selector-grid">
+              <label class="role-radio-pill">
+                <input type="radio" name="topic" value="APM Role" checked>
+                <span>APM Role</span>
+              </label>
+              <label class="role-radio-pill">
+                <input type="radio" name="topic" value="Product Management">
+                <span>Product Management</span>
+              </label>
+              <label class="role-radio-pill">
+                <input type="radio" name="topic" value="Strategy / Consulting">
+                <span>Consulting / Strategy</span>
+              </label>
+              <label class="role-radio-pill">
+                <input type="radio" name="topic" value="General Inquiry">
+                <span>General Discussion</span>
+              </label>
+            </div>
           </div>
-        </fieldset>
-        <div class="field">
-          <label for="fMsg">MESSAGE</label>
-          <textarea id="fMsg" name="message" placeholder="What product challenges, APM roles, or strategic mandates are we discussing?"></textarea>
-          <small class="err"></small>
-        </div>
-        <button class="btn btn--solid" type="submit" data-cursor="SEND"><span>SEND INQUIRY</span><i data-lucide="arrow-up-right"></i></button>
-        <p class="form-note mono">DIRECT DISPATCH TO AYUSH · RESPONSE INBOUND WITHIN 24 HOURS.</p>
-      </form>
 
-      <div class="lead-done" id="formDone" hidden>
-        <i data-lucide="check"></i>
-        <h3>INQUIRY CAPTURED.</h3>
-        <p class="mono">CONVERSION RATE: 100%</p>
-        <p id="doneMsg">Thanks — reply inbound within 24 hours. Usually faster.</p>
+          <div class="form-group" id="group-msg">
+            <label class="form-label" for="fMsg">Message / Mandate Overview <span class="required">*</span></label>
+            <textarea class="form-textarea" id="fMsg" name="message" rows="4" placeholder="Briefly describe the role, team context, or questions you have."></textarea>
+            <span class="form-error" id="err-msg" aria-live="polite"></span>
+          </div>
+
+          <button class="btn btn-primary btn-block" type="submit" id="btnSubmit">
+            <span>Send Direct Inquiry</span>
+            <i data-lucide="send"></i>
+          </button>
+          
+          <p class="form-privacy-note">
+            Your contact information is only used to respond to your inquiry.
+          </p>
+        </form>
+
+        <!-- Success Confirmation State -->
+        <div class="form-success-card" id="formDone" style="display: none;">
+          <div class="success-icon"><i data-lucide="check-circle-2"></i></div>
+          <h3 class="success-title">Message Delivered Successfully</h3>
+          <p class="success-message" id="doneMsg">
+            Thank you for reaching out. Your message has been received and I will review your inquiry within 24 hours.
+          </p>
+          <a class="btn btn-secondary" href="/Ayush_Chatterjee_CV.pdf" target="_blank" rel="noopener noreferrer">
+            <span>Download Résumé While You Wait</span>
+            <i data-lucide="download"></i>
+          </a>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
+
 </main>
 
-<!-- ============ FOOTER ============ -->
-<footer>
-  <div class="wrap foot-grid">
-    <div class="f-col f-brand">
-      <b>AC®</b>
-      <p>Official portfolio of Ayush Chatterjee — Consultant &amp; Associate Product Manager (APM). Hand-built with real-time visitor telemetry, adaptive local dark mode, and zero external tracking cookies.</p>
+<!-- ============ SITE FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <a class="brand" href="#top">
+          <span class="brand-name">AYUSH CHATTERJEE</span>
+          <span class="brand-role">Product Management &amp; Business Strategy</span>
+        </a>
+        <p class="footer-bio">
+          MBA Candidate in IT &amp; International Business (2025–2027) at Regional College of Management, Bhubaneswar. Open for Summer Placements 2027.
+        </p>
+      </div>
+
+      <div class="footer-nav-col">
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links-list">
+          <li><a href="#work">Selected Projects</a></li>
+          <li><a href="#experience">Career Experience</a></li>
+          <li><a href="#skills">Core Competencies</a></li>
+          <li><a href="#about">About &amp; Education</a></li>
+          <li><a href="#contact">Recruiter Connect</a></li>
+          <li><a href="/Ayush_Chatterjee_CV.pdf" target="_blank" rel="noopener noreferrer">Download Résumé (PDF) ↗</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-connect-col">
+        <h4 class="footer-col-title">Channels</h4>
+        <ul class="footer-links-list">
+          <li><a href="https://linkedin.com/in/ayushmba" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+          <li><a href="https://github.com/forbesayush" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
+          <li><a href="mailto:ayushchatterjee.edu@gmail.com">ayushchatterjee.edu@gmail.com</a></li>
+          <li><a href="https://ayushchatterjee.me">ayushchatterjee.me</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-action-col">
+        <button class="btn btn-sm btn-ghost back-to-top-btn" id="toTop" aria-label="Scroll back to top">
+          <span>Back to Top</span>
+          <i data-lucide="arrow-up"></i>
+        </button>
+      </div>
     </div>
-    <div class="f-col">
-      <h5>INDEX</h5>
-      <a href="#funnel">The Method</a>
-      <a href="#about">Academic Profile &amp; Certs</a>
-      <a href="#work">Selected Projects (STAR)</a>
-      <a href="#experience">Industry Exposure</a>
-      <a href="#services">Areas of Interest</a>
-      <a href="#experiment">The Experiment</a>
-      <a href="#contact">Contact &amp; Placements</a>
+
+    <div class="footer-bottom">
+      <p class="copyright">© 2026–2027 Ayush Chatterjee. Built for Summer Placements 2027.</p>
+      <p class="campus-tag">Regional College of Management, Bhubaneswar</p>
     </div>
-    <div class="f-col">
-      <h5>CONNECT</h5>
-      <a href="https://linkedin.com/in/ayushmba" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://ayushchatterjee.me" target="_blank" rel="noopener">ayushchatterjee.me</a>
-      <a href="https://github.com/forbesayush" target="_blank" rel="noopener">GitHub</a>
-    </div>
-    <div class="f-col">
-      <h5>SESSION</h5>
-      <button class="btn" id="toTop" data-cursor="UP"><span>BACK TO TOP</span><i data-lucide="arrow-up"></i></button>
-      <p class="f-time mono" id="footTime">YOUR TIME — --:--:--</p>
-    </div>
-  </div>
-  <div class="wrap f-bottom">
-    <span>© 2027 AYUSH CHATTERJEE — SUMMER PLACEMENTS 2027</span>
-    <span>REGIONAL COLLEGE OF MANAGEMENT, BHUBANESWAR</span>
   </div>
 </footer>
 
