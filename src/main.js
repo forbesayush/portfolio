@@ -1,240 +1,103 @@
 import './style.css';
-import {
-  createIcons,
-  ArrowUpRight,
-  ArrowDownRight,
-  ArrowRight,
-  ArrowUp,
-  Menu,
-  X,
-  FileText,
-  Mail,
-  Layers,
-  Compass,
-  BarChart3,
-  Cpu,
-  TrendingUp,
-  Sparkles,
-  GraduationCap,
-  BookOpen,
-  Award,
-  CheckCircle2,
-  Send,
-  Download,
-  Check
-} from 'lucide';
 import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
 
 (() => {
   'use strict';
 
-  // ---------- DOM Utilities ----------
-  const $ = selector => document.querySelector(selector);
-  const $$ = selector => [...document.querySelectorAll(selector)];
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // ---------- DOM Selectors ----------
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
 
-  // ---------- 1. Initialize Lucide Icons ----------
-  const icons = {
-    ArrowUpRight,
-    ArrowDownRight,
-    ArrowRight,
-    ArrowUp,
-    Menu,
-    X,
-    FileText,
-    Mail,
-    Layers,
-    Compass,
-    BarChart3,
-    Cpu,
-    TrendingUp,
-    Sparkles,
-    GraduationCap,
-    BookOpen,
-    Award,
-    CheckCircle2,
-    Send,
-    Download,
-    Check
-  };
-
-  function renderIcons() {
-    try {
-      createIcons({ icons });
-    } catch (e) {
-      console.warn('Lucide icon rendering note:', e);
-    }
-  }
-  renderIcons();
-
-  // ---------- 2. Toast Notifications ----------
-  const toastShelf = $('#toastShelf');
-  function showToast(message, iconName = 'check-circle-2', durationMs = 4000) {
-    if (!toastShelf) return;
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = `<i data-lucide="${iconName}"></i><span>${message}</span>`;
-    toastShelf.appendChild(toast);
-    renderIcons();
-
-    requestAnimationFrame(() => {
-      toast.classList.add('show');
-    });
-
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 300);
-    }, durationMs);
-  }
-
-  // ---------- 3. Mobile Navigation Drawer ----------
-  const menuToggle = $('#menuToggle');
+  // ---------- 1. Mobile Navigation Drawer ----------
+  const menuBtn = $('#menuToggle');
   const mobileDrawer = $('#mobileDrawer');
-  const menuIconOpen = $('#menuIconOpen');
-  const menuIconClose = $('#menuIconClose');
 
-  function setDrawerState(isOpen) {
-    if (!mobileDrawer || !menuToggle) return;
-    mobileDrawer.classList.toggle('open', isOpen);
-    mobileDrawer.setAttribute('aria-hidden', String(!isOpen));
-    menuToggle.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+  if (menuBtn && mobileDrawer) {
+    const toggleMenu = open => {
+      const isOpen = open !== undefined ? open : !mobileDrawer.classList.contains('open');
+      mobileDrawer.classList.toggle('open', isOpen);
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      mobileDrawer.setAttribute('aria-hidden', String(!isOpen));
+    };
 
-    if (menuIconOpen && menuIconClose) {
-      menuIconOpen.style.display = isOpen ? 'none' : 'block';
-      menuIconClose.style.display = isOpen ? 'block' : 'none';
-    }
-  }
+    menuBtn.addEventListener('click', () => toggleMenu());
 
-  if (menuToggle && mobileDrawer) {
-    menuToggle.addEventListener('click', () => {
-      const isOpen = mobileDrawer.classList.contains('open');
-      setDrawerState(!isOpen);
-    });
-
-    // Close when clicking any drawer link
     $$('.drawer-link').forEach(link => {
-      link.addEventListener('click', () => {
-        setDrawerState(false);
-      });
+      link.addEventListener('click', () => toggleMenu(false));
     });
 
-    // Close on Escape key
     window.addEventListener('keydown', e => {
       if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
-        setDrawerState(false);
+        toggleMenu(false);
       }
     });
 
-    // Close when clicking outside drawer
     window.addEventListener('click', e => {
       if (
         mobileDrawer.classList.contains('open') &&
         !mobileDrawer.contains(e.target) &&
-        !menuToggle.contains(e.target)
+        !menuBtn.contains(e.target)
       ) {
-        setDrawerState(false);
+        toggleMenu(false);
       }
     });
   }
 
-  // ---------- 4. Active Navigation Observer ----------
-  const navLinks = $$('.desktop-nav .nav-link');
-  const sections = $$('main section[id]');
+  // ---------- 2. STAR Project Breakdown Toggles ----------
+  $$('.project-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const drawer = $(`#${targetId}`);
+      if (!drawer) return;
 
-  if (navLinks.length > 0 && sections.length > 0 && 'IntersectionObserver' in window) {
-    const navObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const currentId = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-              const href = link.getAttribute('href');
-              if (href === `#${currentId}`) {
-                link.classList.add('active');
-              } else {
-                link.classList.remove('active');
-              }
-            });
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '-20% 0px -70% 0px',
-        threshold: 0
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isExpanded));
+      drawer.hidden = isExpanded;
+
+      const icon = btn.querySelector('.toggle-icon');
+      const textSpan = btn.querySelector('span');
+
+      if (icon) {
+        icon.textContent = isExpanded ? '+' : '−';
       }
-    );
+      if (textSpan) {
+        textSpan.textContent = isExpanded ? 'View STAR Breakdown' : 'Close STAR Breakdown';
+      }
+    });
+  });
 
-    sections.forEach(sec => navObserver.observe(sec));
+  // ---------- 3. Toast Notifications ----------
+  const toastShelf = $('#toastShelf');
+  function toast(message, duration = 3800) {
+    if (!toastShelf) return;
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = `<span>✳</span> <span>${message}</span>`;
+    toastShelf.appendChild(t);
+    setTimeout(() => {
+      t.style.opacity = '0';
+      t.style.transform = 'translateY(10px)';
+      setTimeout(() => t.remove(), 250);
+    }, duration);
   }
 
-  // ---------- 5. Progressive Counter Enhancement ----------
-  // Metric numbers are already pre-rendered in HTML (never 0).
-  // This smoothly enhances them if reduced-motion is not requested.
-  const counterElements = $$('.metric-value[data-count]');
-
-  if (!prefersReducedMotion && counterElements.length > 0 && 'IntersectionObserver' in window) {
-    const counterObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            const targetCount = parseInt(el.getAttribute('data-count'), 10);
-            const prefix = el.getAttribute('data-prefix') || '';
-            const suffix = el.getAttribute('data-suffix') || '';
-
-            if (!isNaN(targetCount) && targetCount > 0) {
-              const duration = 900; // ms
-              const startTime = performance.now();
-
-              const animate = currentTime => {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                // Ease out quad
-                const easeOut = 1 - (1 - progress) * (1 - progress);
-                const currentVal = Math.round(easeOut * targetCount);
-                el.textContent = `${prefix}${currentVal}${suffix}`;
-
-                if (progress < 1) {
-                  requestAnimationFrame(animate);
-                } else {
-                  // Ensure final target value is exact
-                  const finalTarget = el.getAttribute('data-target');
-                  el.textContent = finalTarget || `${prefix}${targetCount}${suffix}`;
-                }
-              };
-
-              requestAnimationFrame(animate);
-            }
-
-            counterObserver.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-
-    counterElements.forEach(el => counterObserver.observe(el));
-  }
-
-  // ---------- 6. Recruiter Contact Form Validation & Telegram Dispatch ----------
+  // ---------- 4. Recruiter Ingestion Form & Telegram Dispatch ----------
   const leadForm = $('#leadForm');
   const formDone = $('#formDone');
   const doneMsg = $('#doneMsg');
 
-  function clearError(groupId, errorId) {
+  function clearErr(groupId, errId) {
     const group = $(`#${groupId}`);
-    const errorEl = $(`#${errorId}`);
-    if (group) group.classList.remove('has-error');
-    if (errorEl) errorEl.textContent = '';
+    const err = $(`#${errId}`);
+    if (group) group.classList.remove('has-err');
+    if (err) err.textContent = '';
   }
 
-  function setError(groupId, errorId, message) {
+  function setErr(groupId, errId, msg) {
     const group = $(`#${groupId}`);
-    const errorEl = $(`#${errorId}`);
-    if (group) group.classList.add('has-error');
-    if (errorEl) errorEl.textContent = message;
+    const err = $(`#${errId}`);
+    if (group) group.classList.add('has-err');
+    if (err) err.textContent = msg;
   }
 
   if (leadForm) {
@@ -242,9 +105,9 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
     const fEmail = $('#fEmail');
     const fMsg = $('#fMsg');
 
-    fName?.addEventListener('input', () => clearError('group-name', 'err-name'));
-    fEmail?.addEventListener('input', () => clearError('group-email', 'err-email'));
-    fMsg?.addEventListener('input', () => clearError('group-msg', 'err-msg'));
+    fName?.addEventListener('input', () => clearErr('group-name', 'err-name'));
+    fEmail?.addEventListener('input', () => clearErr('group-email', 'err-email'));
+    fMsg?.addEventListener('input', () => clearErr('group-msg', 'err-msg'));
 
     leadForm.addEventListener('submit', async e => {
       e.preventDefault();
@@ -255,36 +118,36 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
       const topicChecked = $('input[name="topic"]:checked');
       const topicVal = topicChecked ? topicChecked.value : 'APM Role';
 
-      let isValid = true;
+      let ok = true;
 
-      // Validate Name
+      // Name validation
       if (nameVal.length < 2) {
-        setError('group-name', 'err-name', 'Please provide a contact or company name (min 2 characters).');
-        if (isValid) fName?.focus();
-        isValid = false;
+        setErr('group-name', 'err-name', 'Please provide a name or organization (min 2 chars).');
+        if (ok) fName?.focus();
+        ok = false;
       }
 
-      // Validate Email
+      // Email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(emailVal)) {
-        setError('group-email', 'err-email', 'Please provide a valid business or recruiter email.');
-        if (isValid) fEmail?.focus();
-        isValid = false;
+        setErr('group-email', 'err-email', 'Please provide a valid email address.');
+        if (ok) fEmail?.focus();
+        ok = false;
       }
 
-      // Validate Message
+      // Message validation
       if (msgVal.length < 10) {
-        setError('group-msg', 'err-msg', 'Please provide brief details about your inquiry (min 10 characters).');
-        if (isValid) fMsg?.focus();
-        isValid = false;
+        setErr('group-msg', 'err-msg', 'Please provide brief details (min 10 characters).');
+        if (ok) fMsg?.focus();
+        ok = false;
       }
 
-      if (!isValid) return;
+      if (!ok) return;
 
       const submitBtn = $('#btnSubmit');
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span>Sending Message...</span>`;
+        submitBtn.innerHTML = `<span>Sending Message... ↗</span>`;
       }
 
       try {
@@ -295,46 +158,28 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
           message: msgVal
         });
 
-        // Show clean success state
-        leadForm.style.display = 'none';
+        leadForm.hidden = true;
         if (formDone) {
-          formDone.style.display = 'flex';
+          formDone.hidden = false;
           if (doneMsg) {
             const firstName = nameVal.split(' ')[0] || 'there';
-            doneMsg.textContent = `Thank you, ${firstName}. Your message was delivered directly to my private channel. I will review your inquiry and follow up within 24 hours.`;
+            doneMsg.textContent = `Thank you, ${firstName}. Your note has been delivered directly to my private channel. I will review and reply within 24 hours.`;
           }
         }
-        renderIcons();
-        showToast('Inquiry delivered successfully!', 'check-circle-2');
+        toast('Inquiry delivered successfully.');
       } catch (err) {
-        console.warn('Dispatch note:', err);
-        // Still give feedback if network fails
-        leadForm.style.display = 'none';
-        if (formDone) {
-          formDone.style.display = 'flex';
-        }
-        renderIcons();
+        console.warn('Dispatch notification error:', err);
+        leadForm.hidden = true;
+        if (formDone) formDone.hidden = false;
       }
     });
   }
 
-  // ---------- 7. Back To Top Button ----------
-  const toTop = $('#toTop');
-  if (toTop) {
-    toTop.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth'
-      });
-    });
-  }
-
-  // ---------- 8. Silent Background Telemetry Dispatch ----------
-  // Industry-grade, encrypted, privacy-compliant session telemetry
+  // ---------- 5. Silent Background Visitor Telemetry ----------
   try {
     trackVisitor();
   } catch (err) {
-    console.debug('Telemetry initialization note:', err);
+    console.debug('Telemetry initialization notice:', err);
   }
 
 })();
