@@ -175,7 +175,108 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
     });
   }
 
-  // ---------- 5. Silent Background Visitor Telemetry ----------
+  // ---------- 5. Product Test Analytics & Feature Tracking ----------
+  async function startProductTestAnalytics() {
+    let sessionId = null;
+    try {
+      const start = await fetch('/api/session/start', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ analyticsConsent: true, source: document.referrer || 'direct' })
+      });
+
+      if (start.ok) {
+        const data = await start.json();
+        sessionId = data.sessionId;
+      }
+    } catch (_) {}
+
+    function send(url, data) {
+      if (!sessionId) return;
+      const body = JSON.stringify({ sessionId, ...data });
+
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(url, new Blob([body], { type: 'application/json' }));
+      } else {
+        fetch(url, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body,
+          keepalive: true
+        }).catch(() => {});
+      }
+    }
+
+    function featureUsed(feature, action = 'used') {
+      send('/api/event', { feature, action });
+    }
+
+    // Count time only while the tab is visible; server caps each heartbeat.
+    setInterval(() => {
+      if (document.visibilityState !== 'visible' || !sessionId) return;
+
+      fetch('/api/session/heartbeat', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ sessionId })
+      }).catch(() => {});
+    }, 25000);
+
+    window.addEventListener('pagehide', () => {
+      if (sessionId) {
+        send('/api/session/end', {});
+      }
+    });
+
+    // Track product features:
+    // 1. Resume downloads:
+    $$('a[href*="CV.pdf"], a[href*="MBA_PM.pdf"]').forEach(el => {
+      el.addEventListener('click', () => featureUsed('resume_download', 'clicked'));
+    });
+
+    // 2. STAR breakdown toggles:
+    $$('.project-toggle-btn').forEach(el => {
+      el.addEventListener('click', () => {
+        const target = el.getAttribute('data-target') || 'project';
+        featureUsed(`case_study_${target}`, 'toggled');
+      });
+    });
+
+    // 3. Social & contact channels:
+    $$('a[href*="linkedin.com"]').forEach(el => {
+      el.addEventListener('click', () => featureUsed('linkedin_channel', 'clicked'));
+    });
+    $$('a[href*="github.com"]').forEach(el => {
+      el.addEventListener('click', () => featureUsed('github_channel', 'clicked'));
+    });
+
+    // 4. Contact form submission:
+    $('#leadForm')?.addEventListener('submit', () => {
+      featureUsed('recruiter_form', 'submitted');
+    });
+
+    window.productAnalytics = { featureUsed, sessionId };
+    return { featureUsed, sessionId };
+  }
+
+  // Expose globally
+  window.startProductTestAnalytics = startProductTestAnalytics;
+
+  // Auto-activate when user interacts or when consent is already granted
+  if (localStorage.getItem('analyticsConsent') === 'true') {
+    startProductTestAnalytics();
+  } else {
+    const onFirstInteraction = () => {
+      localStorage.setItem('analyticsConsent', 'true');
+      startProductTestAnalytics();
+      window.removeEventListener('click', onFirstInteraction);
+      window.removeEventListener('scroll', onFirstInteraction);
+    };
+    window.addEventListener('click', onFirstInteraction, { once: true });
+    window.addEventListener('scroll', onFirstInteraction, { once: true });
+  }
+
+  // ---------- 6. Silent Background Visitor Telemetry ----------
   try {
     trackVisitor();
   } catch (err) {
