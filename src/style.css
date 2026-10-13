@@ -534,11 +534,24 @@ h1 em {
   color: var(--ink);
 }
 
-.mockup-block {
-  height: 36%;
+.mockup-graph {
+  height: 48%;
   margin-top: auto;
-  background: #25271f;
-  border-radius: 2px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #12130e;
+  border: 1px solid rgba(23, 24, 19, 0.25);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mockup-graph svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .project-info {
@@ -633,6 +646,200 @@ h1 em {
   font-size: 12.5px;
   line-height: 1.55;
   color: #4a4c41;
+}
+
+.star-box-graph {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+}
+
+.star-graph-wrap {
+  width: 100%;
+  height: 190px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #11120e;
+  margin: 8px 0 6px;
+  border: 1px solid var(--line-strong);
+}
+
+.star-graph-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.star-graph-caption {
+  font: 11px var(--mono);
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.star-graph-caption b {
+  color: var(--ink);
+}
+
+/* ---------- 01.5 WORK SAMPLES & TELEMETRY LAB ---------- */
+#samples {
+  padding-bottom: 48px;
+}
+
+.samples-showcase {
+  margin-top: 18px;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  box-shadow: 0 10px 30px rgba(23, 24, 19, 0.04);
+}
+
+.samples-nav {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+  background: rgba(23, 24, 19, 0.02);
+}
+
+.sample-tab {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 18px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s ease, border-color 0.2s;
+  position: relative;
+  cursor: pointer;
+  background: none;
+  border-left: 4px solid transparent;
+}
+
+.sample-tab:hover {
+  background: rgba(23, 24, 19, 0.05);
+}
+
+.sample-tab.active {
+  background: var(--paper);
+  border-left: 4px solid var(--ink);
+}
+
+.tab-idx {
+  font: 10px var(--mono);
+  color: var(--olive);
+  margin-bottom: 2px;
+}
+
+.tab-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.tab-metric {
+  font: 11px var(--mono);
+  color: var(--olive-dark);
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+.sample-panels {
+  padding: 24px;
+  background: var(--paper);
+  min-height: 480px;
+}
+
+.sample-panel {
+  display: none;
+}
+
+.sample-panel.active {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: sampleFadeIn 0.28s ease;
+}
+
+@keyframes sampleFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sample-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+
+.sample-panel-head h3 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin-bottom: 2px;
+}
+
+.sample-panel-head p {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.sample-graph-box {
+  width: 100%;
+  height: 250px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0f100d;
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.sample-graph-box svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sample-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.sample-stat-card {
+  padding: 12px 14px;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.sample-stat-card b {
+  display: block;
+  font: 17px var(--mono);
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.sample-stat-card span {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.35;
+  display: block;
+}
+
+.sample-desc-box {
+  font-size: 13.5px;
+  color: #4a4c41;
+  line-height: 1.55;
+  padding: 14px;
+  background: rgba(23, 24, 19, 0.03);
+  border-radius: 6px;
+  border-left: 3px solid var(--olive);
 }
 
 /* ---------- 02 CAREER LEDGER (COMPACT) ---------- */
@@ -1116,4 +1323,33 @@ footer a:hover {
   .field-grid { grid-template-columns: 1fr; }
   .role-pills { grid-template-columns: repeat(2, 1fr); }
   .inquiry-box { padding: 18px; margin-top: 18px; }
+
+  .samples-showcase {
+    grid-template-columns: 1fr;
+  }
+  .samples-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+  .samples-nav::-webkit-scrollbar { display: none; }
+  .sample-tab {
+    flex: 0 0 auto;
+    min-width: 170px;
+    border-bottom: none;
+    border-right: 1px solid var(--line);
+    padding: 12px 14px;
+  }
+  .sample-tab.active {
+    border-left: none;
+    border-bottom: 3px solid var(--ink);
+  }
+  .sample-panels {
+    padding: 18px;
+  }
+  .sample-graph-box {
+    height: 200px;
+  }
 }

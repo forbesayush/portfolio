@@ -74,6 +74,24 @@ import {
     });
   });
 
+  // ---------- 2.5 Work Samples Tab Switcher ----------
+  $$('.sample-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.getAttribute('data-tab');
+      $$('.sample-tab').forEach(t => {
+        const isActive = t === tab;
+        t.classList.toggle('active', isActive);
+        t.setAttribute('aria-selected', String(isActive));
+      });
+      $$('.sample-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.id === targetId);
+      });
+      const title = tab.querySelector('.tab-title')?.textContent || 'Sample';
+      const metric = tab.querySelector('.tab-metric')?.textContent || '';
+      trackCaseStudyView(title, metric);
+    });
+  });
+
   // ---------- 3. Toast Notifications ----------
   const toastShelf = $('#toastShelf');
   function toast(message, duration = 3800) {
