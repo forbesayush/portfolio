@@ -257,7 +257,7 @@ app.post("/api/session/end", (req, res) => {
   res.status(202).json({ ended: true });
 });
 
-// 3. Feature / Event Recording
+// 3. Feature / Event Recording with Real-Time Telegram Dispatch
 app.post(["/api/session/event", "/api/event"], (req, res) => {
   const sessionId = req.body?.sessionId || null;
   const consentId = req.body?.consentId || null;
@@ -271,6 +271,38 @@ app.post(["/api/session/event", "/api/event"], (req, res) => {
     INSERT INTO events (session_id, consent_id, event_name, source, metadata, created_at)
     VALUES (?, ?, ?, ?, ?, ?)
   `).run(sessionId, consentId, eventName, source, metadata, now());
+
+  // Real-Time Telegram Dispatch for High-Value Conversion Events
+  if (feature === "resume_download" || (action === "clicked" && feature.includes("resume"))) {
+    const session = sessionId ? db.prepare("SELECT * FROM sessions WHERE session_id = ?").get(sessionId) : null;
+    const activeSec = session ? Math.round(session.active_seconds) : 0;
+    const cost = session ? Number(session.total_cost).toFixed(4) : COST_PER_SESSION.toFixed(4);
+    sendTelegramAlert(`
+📄 <b>RÉSUMÉ DOWNLOAD EVENT (TELEMETRY)</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 <b>Action:</b> Visitor clicked to view/download CV
+⏱ <b>Active Engagement:</b> ${activeSec}s
+💻 <b>Device / Browser:</b> ${session?.device_type || 'desktop'} (${session?.browser_family || 'browser'})
+🌐 <b>Traffic Source:</b> <code>${session?.source || 'direct'}</code>
+💰 <b>Session Cost:</b> $${cost} USD
+⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
+    `.trim());
+  } else if (feature.startsWith("case_study_") || feature === "netflix_modal_open") {
+    sendTelegramAlert(`
+🎯 <b>CASE STUDY REVIEWED (TELEMETRY)</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 <b>Feature:</b> <code>${eventName}</code>
+🌐 <b>Channel:</b> <code>${source || "portfolio"}</code>
+⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
+    `.trim());
+  } else if (feature === "theme_switch") {
+    sendTelegramAlert(`
+🎬 <b>THEME TOGGLED (TELEMETRY)</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔄 <b>Switched to:</b> <code>${action}</code>
+⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
+    `.trim());
+  }
 
   res.status(202).json({ recorded: true, eventName });
 });
@@ -447,6 +479,171 @@ function purgeOldData() {
 }
 purgeOldData();
 setInterval(purgeOldData, 24 * 60 * 60 * 1000).unref();
+
+// 8. Interactive Telegram Bot Command Listener (@ekchatterjee_bot)
+let lastUpdateId = 0;
+
+async function handleBotCommand(cmd, msg) {
+  const chatId = msg.chat?.id;
+  if (!chatId || String(chatId) !== String(TELEGRAM_CHAT_ID)) return;
+
+  const nowIST = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
+  if (cmd === "/start" || cmd === "/help") {
+    const helpText = `
+🤖 <b>AYUSH TELEMETRY BOT COMMANDS</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 <code>/stats</code> — Real-time sessions, active mins & costs
+📬 <code>/leads</code> — Latest recruiter inquiries & contacts
+📈 <code>/report</code> — Generate 24h executive performance digest
+💼 <code>/projects</code> — Case study engagement breakdown
+⚡ <code>/status</code> — Server health, uptime & rate cards
+❓ <code>/help</code> — Show this commands menu
+    `.trim();
+    await sendTelegramAlert(helpText);
+  } else if (cmd === "/stats") {
+    const stats = db.prepare(`
+      SELECT
+        COUNT(*) AS totalSessions,
+        COALESCE(SUM(active_seconds), 0) AS totalActiveSeconds,
+        COALESCE(SUM(total_cost), 0) AS totalCost,
+        COALESCE(AVG(active_seconds), 0) AS avgDuration
+      FROM sessions
+    `).get();
+
+    const totalLeads = db.prepare("SELECT COUNT(*) AS count FROM leads").get().count;
+    const topEvents = db.prepare(`
+      SELECT event_name, COUNT(*) AS count
+      FROM events GROUP BY event_name ORDER BY count DESC LIMIT 5
+    `).all();
+
+    const eventsList = topEvents.length > 0
+      ? topEvents.map(e => `  • <code>${e.event_name}</code>: ${e.count}`).join("\n")
+      : "  • No interactions recorded";
+
+    const statsText = `
+📊 <b>LIVE PORTFOLIO TELEMETRY STATS</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👥 <b>Total Sessions:</b> ${stats.totalSessions}
+⏱ <b>Active Engagement:</b> ${(stats.totalActiveSeconds / 60).toFixed(1)} mins (Avg: ${Math.round(stats.avgDuration)}s)
+💰 <b>Accrued Cost:</b> $${Number(stats.totalCost).toFixed(4)} USD
+📬 <b>Recruiter Inquiries:</b> ${totalLeads}
+
+⚡ <b>TOP FEATURE INTERACTIONS:</b>
+${eventsList}
+
+<i>Dispatched at ${nowIST} IST</i>
+    `.trim();
+    await sendTelegramAlert(statsText);
+  } else if (cmd === "/leads") {
+    const recentLeads = db.prepare(`
+      SELECT name, email, topic, message, created_at
+      FROM leads ORDER BY created_at DESC LIMIT 5
+    `).all();
+
+    if (recentLeads.length === 0) {
+      await sendTelegramAlert("📬 <b>No recruiter inquiries recorded yet.</b>");
+    } else {
+      const leadsList = recentLeads.map((l, i) => `
+<b>#${i + 1} 👤 ${l.name}</b> (${l.email})
+🎯 <b>Mandate:</b> ${l.topic}
+💬 <i>"${l.message}"</i>
+⏰ <code>${l.created_at}</code>
+      `.trim()).join("\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n");
+
+      await sendTelegramAlert(`📬 <b>LATEST RECRUITER INQUIRIES (${recentLeads.length})</b>\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n${leadsList}`);
+    }
+  } else if (cmd === "/projects") {
+    const projectStats = db.prepare(`
+      SELECT event_name, COUNT(*) AS count
+      FROM events
+      WHERE event_name LIKE '%case_study%' OR event_name LIKE '%netflix%'
+      GROUP BY event_name ORDER BY count DESC LIMIT 8
+    `).all();
+
+    const projList = projectStats.length > 0
+      ? projectStats.map(p => `  • <code>${p.event_name}</code>: ${p.count} views`).join("\n")
+      : "  • No case study clicks recorded yet";
+
+    await sendTelegramAlert(`💼 <b>CASE STUDY ENGAGEMENT BREAKDOWN</b>\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n${projList}`);
+  } else if (cmd === "/report") {
+    const since = new Date(Date.now() - 24 * 3600000).toISOString();
+    const sessionStats = db.prepare(`
+      SELECT COUNT(*) AS totalSessions, COALESCE(SUM(active_seconds), 0) AS totalActiveSeconds, COALESCE(SUM(total_cost), 0) AS totalCost, COALESCE(AVG(active_seconds), 0) AS avgDuration
+      FROM sessions WHERE created_at >= ?
+    `).get(since);
+    const leadsCount = db.prepare("SELECT COUNT(*) AS count FROM leads WHERE created_at >= ?").get(since).count;
+
+    const reportHtml = `
+📊 <b>MANUAL 24H PERFORMANCE DIGEST</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👥 <b>Total Sessions:</b> ${sessionStats.totalSessions}
+⏱ <b>Active Time:</b> ${(sessionStats.totalActiveSeconds / 60).toFixed(1)} mins (Avg: ${Math.round(sessionStats.avgDuration)}s)
+💰 <b>Accrued Cost:</b> $${Number(sessionStats.totalCost).toFixed(4)} USD
+📬 <b>Recruiter Inquiries:</b> ${leadsCount}
+
+<i>Dispatched at ${nowIST} IST</i>
+    `.trim();
+    await sendTelegramAlert(reportHtml);
+  } else if (cmd === "/status" || cmd === "/ping") {
+    const sessionCount = db.prepare("SELECT COUNT(*) AS count FROM sessions").get().count;
+    const eventCount = db.prepare("SELECT COUNT(*) AS count FROM events").get().count;
+    const uptimeMins = (process.uptime() / 60).toFixed(1);
+
+    const statusText = `
+🟢 <b>AYUSH TELEMETRY ENGINE: ONLINE</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📡 <b>Port:</b> http://localhost:${PORT}
+⏱ <b>Uptime:</b> ${uptimeMins} minutes
+📂 <b>Sessions in DB:</b> ${sessionCount}
+⚡ <b>Events in DB:</b> ${eventCount}
+💵 <b>Rate Card:</b> $${COST_PER_SESSION}/session + $${COST_PER_ACTIVE_MINUTE}/min
+🔑 <b>Auth:</b> Protected by ADMIN_KEY
+    `.trim();
+    await sendTelegramAlert(statusText);
+  }
+}
+
+async function startTelegramPoller() {
+  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return;
+
+  async function poll() {
+    try {
+      const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=3`;
+      const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.ok && Array.isArray(data.result)) {
+          for (const update of data.result) {
+            lastUpdateId = Math.max(lastUpdateId, update.update_id);
+            const msg = update.message;
+            if (!msg || !msg.text) continue;
+            if (String(msg.chat?.id) !== String(TELEGRAM_CHAT_ID)) continue;
+
+            const cmd = msg.text.trim().split(" ")[0].toLowerCase();
+            await handleBotCommand(cmd, msg);
+          }
+        }
+      }
+    } catch (_) {}
+
+    setTimeout(poll, 3000);
+  }
+
+  // Initial update check to clear backlog
+  try {
+    const initRes = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?limit=5`);
+    if (initRes.ok) {
+      const initData = await initRes.json();
+      if (initData.ok && Array.isArray(initData.result) && initData.result.length > 0) {
+        lastUpdateId = Math.max(...initData.result.map(u => u.update_id));
+      }
+    }
+  } catch (_) {}
+
+  poll();
+}
+startTelegramPoller();
 
 // Start Server
 app.listen(PORT, () => {

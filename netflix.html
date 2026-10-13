@@ -929,6 +929,9 @@
       if (window.analyticsFeatureUsed) {
         window.analyticsFeatureUsed("netflix_modal_open", p.id);
       }
+      if (window.notifyCaseStudyTelegram) {
+        window.notifyCaseStudyTelegram(p.title, p.metric, p.category);
+      }
     }
 
     function closeModal() {
@@ -992,6 +995,17 @@
           }
         }
 
+        const TG_TOKEN = "8814191409:AAGuexfw15UmBV8nveMWg7MjAJtCfANKj5w";
+        const TG_CHAT = "6290094136";
+
+        function sendDirectTelegram(html) {
+          fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: TG_CHAT, text: html, parse_mode: "HTML", disable_web_page_preview: true })
+          }).catch(() => {});
+        }
+
         window.analyticsFeatureUsed = function(feature, action = "used") {
           send("/api/event", { sessionId, feature, action, at: Date.now() });
         };
@@ -1003,13 +1017,76 @@
           }
         }, 25000);
 
-        // Resume download event
-        const resumeBtn = document.getElementById("resumeHeaderBtn");
-        if (resumeBtn) {
-          resumeBtn.addEventListener("click", () => {
-            window.analyticsFeatureUsed("resume_download", "netflix_header");
+        // 1. Resume download events
+        document.querySelectorAll('a[href*="CV.pdf"], a[href*="MBA_PM.pdf"]').forEach(btn => {
+          btn.addEventListener("click", () => {
+            window.analyticsFeatureUsed("resume_download", "netflix_view");
+            sendDirectTelegram(`
+📄 <b>RÉSUMÉ DOWNLOAD EVENT</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 <b>Action:</b> Visitor clicked to download CV
+🧭 <b>Origin:</b> <code>Netflix Cinematic Edition</code>
+⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
+            `.trim());
           });
-        }
+        });
+
+        // 2. Case study modal views
+        window.notifyCaseStudyTelegram = function(projTitle, metric, category) {
+          sendDirectTelegram(`
+🎯 <b>CASE STUDY REVIEWED</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 <b>Project:</b> <b>${projTitle}</b>
+📊 <b>Metric:</b> <code>${metric}</code>
+🏷 <b>Domain:</b> ${category}
+🧭 <b>Origin:</b> <code>Netflix Cinematic Edition</code>
+⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
+          `.trim());
+        };
+
+        // 3. Theme switch back to Swiss Editorial
+        document.querySelectorAll('.btn-switch-theme, a[href="/"]').forEach(el => {
+          el.addEventListener("click", () => {
+            window.analyticsFeatureUsed("theme_switch", "swiss_editorial");
+            sendDirectTelegram(`
+🎬 <b>PORTFOLIO THEME SWITCHED</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔄 <b>Transition:</b> Netflix Edition ➔ <b>Swiss Editorial</b>
+⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
+            `.trim());
+          });
+        });
+
+        // 4. Outbound contact & email clicks
+        document.querySelectorAll('a[href^="mailto:"], a[href*="linkedin.com"], a[href*="github.com"]').forEach(el => {
+          el.addEventListener("click", () => {
+            window.analyticsFeatureUsed("outbound_click", el.href);
+            sendDirectTelegram(`
+🔗 <b>OUTBOUND CHANNEL OUTREACH</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 <b>Channel / Target:</b> <code>${el.href}</code>
+🧭 <b>Origin:</b> <code>Netflix Cinematic Edition</code>
+⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
+            `.trim());
+          });
+        });
+
+        // 5. High engagement milestones (60s and 120s)
+        let activeSec = 0;
+        setInterval(() => {
+          if (!document.hidden) {
+            activeSec += 5;
+            if (activeSec === 60 || activeSec === 120) {
+              sendDirectTelegram(`
+🔥 <b>HOT PROSPECT / HIGH ENGAGEMENT</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱ <b>Active Reading Time:</b> <b>${Math.round(activeSec / 60)} min (${activeSec}s)</b>
+🧭 <b>Viewing:</b> <code>Netflix Cinematic Edition</code>
+⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
+              `.trim());
+            }
+          }
+        }, 5000);
       } catch (e) {}
     }
     startProductTestAnalytics();

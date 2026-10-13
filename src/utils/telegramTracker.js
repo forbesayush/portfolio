@@ -425,3 +425,135 @@ export async function sendContactInquiry({ name, email, topic, message }) {
 
   return await sendTelegramNotification(html);
 }
+
+/**
+ * Track Résumé / CV Download
+ */
+export async function trackResumeDownload({ source = 'direct', fileName = 'Ayush_Chatterjee_CV.pdf' } = {}) {
+  const cacheKey = `resume_dl_${source}`;
+  if (sessionStorage.getItem(cacheKey)) return;
+  sessionStorage.setItem(cacheKey, Date.now().toString());
+
+  const istTimestamp = new Date().toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  });
+
+  const html = `
+📄 <b>RÉSUMÉ DOWNLOAD EVENT</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 <b>Action:</b> Visitor clicked to view/download CV
+📥 <b>File:</b> <code>${escapeHtml(fileName)}</code>
+📍 <b>Source Location:</b> <code>${escapeHtml(source)}</code>
+🧭 <b>Landing Page:</b> <code>${escapeHtml(window.location.pathname)}</code>
+⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
+  `.trim();
+
+  return await sendTelegramNotification(html);
+}
+
+/**
+ * Track STAR Case Study Deep-Dive
+ */
+export async function trackCaseStudyView({ project, metric = '', category = '' } = {}) {
+  const cacheKey = `case_view_${project}`;
+  if (sessionStorage.getItem(cacheKey)) return;
+  sessionStorage.setItem(cacheKey, Date.now().toString());
+
+  const istTimestamp = new Date().toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  });
+
+  const html = `
+🎯 <b>CASE STUDY REVIEWED</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 <b>Project:</b> <b>${escapeHtml(project)}</b>
+📊 <b>Key Metric:</b> <code>${escapeHtml(metric || 'N/A')}</code>
+🏷 <b>Domain:</b> ${escapeHtml(category || 'Product / Analytics')}
+🧭 <b>Page Mode:</b> <code>${escapeHtml(window.location.pathname.includes('netflix') ? 'Netflix Edition' : 'Swiss Editorial')}</code>
+⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
+  `.trim();
+
+  return await sendTelegramNotification(html);
+}
+
+/**
+ * Track Theme Switcher Event
+ */
+export async function trackThemeSwitch({ fromTheme, toTheme } = {}) {
+  const cacheKey = `theme_switch_${toTheme}`;
+  if (sessionStorage.getItem(cacheKey)) return;
+  sessionStorage.setItem(cacheKey, Date.now().toString());
+
+  const istTimestamp = new Date().toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  });
+
+  const html = `
+🎬 <b>PORTFOLIO THEME SWITCHED</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔄 <b>Mode:</b> ${escapeHtml(fromTheme)} ➔ <b>${escapeHtml(toTheme)}</b>
+🧭 <b>Target URL:</b> <code>${escapeHtml(window.location.pathname)}</code>
+⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
+  `.trim();
+
+  return await sendTelegramNotification(html);
+}
+
+/**
+ * Track High Engagement / Hot Lead
+ */
+export async function trackHighEngagement({ activeSeconds, scrollDepth } = {}) {
+  const cacheKey = `engagement_${activeSeconds}`;
+  if (sessionStorage.getItem(cacheKey)) return;
+  sessionStorage.setItem(cacheKey, Date.now().toString());
+
+  const istTimestamp = new Date().toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  });
+
+  const html = `
+🔥 <b>HOT PROSPECT / HIGH ENGAGEMENT</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱ <b>Active Reading Time:</b> <b>${Math.round(activeSeconds / 60)} min (${activeSeconds}s)</b>
+📜 <b>Scroll Depth:</b> ~${Math.round(scrollDepth)}% of page
+🧭 <b>Viewing:</b> <code>${escapeHtml(window.location.pathname)}</code>
+⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
+  `.trim();
+
+  return await sendTelegramNotification(html);
+}
+
+/**
+ * Track Outbound Channel Click (LinkedIn, GitHub, Email, Phone)
+ */
+export async function trackOutboundChannel({ channel, url = '' } = {}) {
+  const cacheKey = `outbound_${channel}`;
+  if (sessionStorage.getItem(cacheKey)) return;
+  sessionStorage.setItem(cacheKey, Date.now().toString());
+
+  const istTimestamp = new Date().toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  });
+
+  const html = `
+🔗 <b>OUTBOUND CHANNEL OUTREACH</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 <b>Channel:</b> <b>${escapeHtml(channel)}</b>
+🔗 <b>Destination:</b> <code>${escapeHtml(url)}</code>
+🧭 <b>Origin:</b> <code>${escapeHtml(window.location.pathname)}</code>
+⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
+  `.trim();
+
+  return await sendTelegramNotification(html);
+}
+

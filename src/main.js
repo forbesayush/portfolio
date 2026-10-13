@@ -1,5 +1,13 @@
 import './style.css';
-import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
+import {
+  trackVisitor,
+  sendContactInquiry,
+  trackResumeDownload,
+  trackCaseStudyView,
+  trackThemeSwitch,
+  trackHighEngagement,
+  trackOutboundChannel
+} from './utils/telegramTracker.js';
 
 (() => {
   'use strict';
@@ -228,10 +236,13 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
       }
     });
 
-    // Track product features:
+    // Track product features with instant Telegram notifications:
     // 1. Resume downloads:
     $$('a[href*="CV.pdf"], a[href*="MBA_PM.pdf"]').forEach(el => {
-      el.addEventListener('click', () => featureUsed('resume_download', 'clicked'));
+      el.addEventListener('click', () => {
+        featureUsed('resume_download', 'clicked');
+        trackResumeDownload({ source: el.className || 'swiss_editorial', fileName: 'Ayush_Chatterjee_CV.pdf' });
+      });
     });
 
     // 2. STAR breakdown toggles:
@@ -239,18 +250,59 @@ import { trackVisitor, sendContactInquiry } from './utils/telegramTracker.js';
       el.addEventListener('click', () => {
         const target = el.getAttribute('data-target') || 'project';
         featureUsed(`case_study_${target}`, 'toggled');
+        
+        const projectMap = {
+          'details-oneplus': { name: 'OnePlus OxygenOS QA', metric: '-22% Defects', cat: 'Consumer Tech / OS' },
+          'details-innovist': { name: 'Innovist D2C E-Commerce', metric: '9 SKUs / 17% Deficit', cat: 'E-Commerce / D2C' },
+          'details-ddzire': { name: 'D-Dzire Jewels MIS', metric: '-35% Cycle / 8 DBs', cat: 'Retail Tech / MIS' },
+          'details-swash': { name: 'Swash Consulting SEO', metric: '+15% Traffic / -30% Time', cat: 'SEO & Media' }
+        };
+        const proj = projectMap[target] || { name: target, metric: 'Case Study', cat: 'Portfolio' };
+        trackCaseStudyView({ project: proj.name, metric: proj.metric, category: proj.cat });
       });
     });
 
-    // 3. Social & contact channels:
+    // 3. Social & outbound contact channels:
     $$('a[href*="linkedin.com"]').forEach(el => {
-      el.addEventListener('click', () => featureUsed('linkedin_channel', 'clicked'));
+      el.addEventListener('click', () => {
+        featureUsed('linkedin_channel', 'clicked');
+        trackOutboundChannel({ channel: 'LinkedIn Profile', url: el.href });
+      });
     });
     $$('a[href*="github.com"]').forEach(el => {
-      el.addEventListener('click', () => featureUsed('github_channel', 'clicked'));
+      el.addEventListener('click', () => {
+        featureUsed('github_channel', 'clicked');
+        trackOutboundChannel({ channel: 'GitHub Codebase', url: el.href });
+      });
+    });
+    $$('a[href^="mailto:"]').forEach(el => {
+      el.addEventListener('click', () => {
+        featureUsed('email_channel', 'clicked');
+        trackOutboundChannel({ channel: 'Direct Email', url: el.href });
+      });
     });
 
-    // 4. Contact form submission:
+    // 4. Theme switch to Netflix Mode:
+    $$('.nav-netflix-btn, a[href*="netflix"]').forEach(el => {
+      el.addEventListener('click', () => {
+        featureUsed('theme_switch', 'netflix');
+        trackThemeSwitch({ fromTheme: 'Swiss Editorial', toTheme: 'Netflix Cinematic' });
+      });
+    });
+
+    // 5. High engagement milestones (60s and 120s active reading):
+    let elapsedActiveSec = 0;
+    setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        elapsedActiveSec += 5;
+        if (elapsedActiveSec === 60 || elapsedActiveSec === 120) {
+          const scrollPct = Math.min(100, Math.round(((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight) * 100));
+          trackHighEngagement({ activeSeconds: elapsedActiveSec, scrollDepth: scrollPct });
+        }
+      }
+    }, 5000);
+
+    // 6. Contact form submission:
     $('#leadForm')?.addEventListener('submit', () => {
       featureUsed('recruiter_form', 'submitted');
     });
