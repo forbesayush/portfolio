@@ -398,6 +398,20 @@ h1 em {
   border-radius: 50%;
 }
 
+.art-portrait-cutout {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  height: 95%;
+  object-fit: contain;
+  object-position: bottom center;
+  z-index: 2;
+  filter: contrast(1.05);
+  pointer-events: none;
+}
+
 .shape {
   position: absolute;
   width: 170px;
@@ -711,6 +725,27 @@ h1 em {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
+}
+
+.about-portrait-wrap {
+  margin-bottom: 24px;
+  max-width: 220px;
+}
+
+.about-portrait-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(244, 240, 232, 0.2);
+  display: block;
+}
+
+.about-portrait-caption {
+  font: 10px var(--mono);
+  color: var(--lime);
+  margin-top: 8px;
+  letter-spacing: 0.08em;
 }
 
 .about h2 {
