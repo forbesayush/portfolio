@@ -352,7 +352,86 @@ app.get("/api/admin/metrics", requireAdmin, (req, res) => {
   });
 });
 
-// 6. Admin Manual Telegram Dispatch
+// 6. Admin Production Progress & Aggregate Report Dispatch (Protected by ADMIN_KEY)
+app.post(["/admin/send-report", "/api/admin/send-report"], requireAdmin, async (req, res) => {
+  const hours = Math.max(1, Math.min(720, Number(req.body?.hours || 24)));
+  const since = new Date(Date.now() - hours * 3600000).toISOString();
+
+  // Query database metrics for period
+  const sessionStats = db.prepare(`
+    SELECT
+      COUNT(*) AS totalSessions,
+      COALESCE(SUM(active_seconds), 0) AS totalActiveSeconds,
+      COALESCE(SUM(total_cost), 0) AS totalCost,
+      COALESCE(AVG(active_seconds), 0) AS avgDuration
+    FROM sessions
+    WHERE created_at >= ?
+  `).get(since);
+
+  const sources = db.prepare(`
+    SELECT COALESCE(source, 'direct') AS source, COUNT(*) AS count
+    FROM sessions
+    WHERE created_at >= ?
+    GROUP BY source ORDER BY count DESC LIMIT 5
+  `).all(since);
+
+  const topEvents = db.prepare(`
+    SELECT event_name, COUNT(*) AS count
+    FROM events
+    WHERE created_at >= ?
+    GROUP BY event_name ORDER BY count DESC LIMIT 5
+  `).all(since);
+
+  const leadsCount = db.prepare(`
+    SELECT COUNT(*) AS count FROM leads WHERE created_at >= ?
+  `).get(since).count;
+
+  const totalActiveMin = (sessionStats.totalActiveSeconds / 60).toFixed(1);
+  const costFormatted = Number(sessionStats.totalCost).toFixed(4);
+
+  const sourcesText = sources.length > 0
+    ? sources.map(s => `  • <code>${s.source}</code>: ${s.count}`).join("\n")
+    : "  • None recorded";
+
+  const eventsText = topEvents.length > 0
+    ? topEvents.map(e => `  • <code>${e.event_name}</code>: ${e.count}`).join("\n")
+    : "  • None recorded";
+
+  const reportHtml = `
+📊 <b>PRODUCTION TELEMETRY REPORT (${hours}H)</b>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👥 <b>Total Sessions:</b> ${sessionStats.totalSessions}
+⏱ <b>Active Engagement:</b> ${totalActiveMin} mins (Avg: ${Math.round(sessionStats.avgDuration)}s)
+💰 <b>Accrued Cost:</b> $${costFormatted} USD
+📬 <b>Recruiter Inquiries:</b> ${leadsCount}
+
+🌐 <b>TOP CHANNELS:</b>
+${sourcesText}
+
+⚡ <b>KEY PRODUCT INTERACTIONS:</b>
+${eventsText}
+
+<i>Dispatched at ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST</i>
+  `.trim();
+
+  const telegramSent = await sendTelegramAlert(reportHtml);
+
+  res.json({
+    success: true,
+    hours,
+    telegramSent,
+    report: {
+      totalSessions: sessionStats.totalSessions,
+      totalActiveMinutes: Number(totalActiveMin),
+      accruedCostUSD: `$${costFormatted}`,
+      leadsCount,
+      sources,
+      topEvents
+    }
+  });
+});
+
+// 7. Admin Manual Telegram Dispatch
 app.post("/api/admin/telegram-alert", requireAdmin, async (req, res) => {
   const text = req.body?.text || "🔔 Manual test alert from Analytics Admin Console.";
   const success = await sendTelegramAlert(text);
