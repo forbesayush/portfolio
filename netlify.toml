@@ -1,0 +1,4 @@
+# Stop automated Netlify builds to prevent consuming build credits
+[build]
+  ignore = "exit 0"
+
