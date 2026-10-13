@@ -346,11 +346,10 @@
     }
     .job {
       background: var(--panel); padding: 20px; border-radius: var(--radius);
-      border-left: 3px solid var(--accent); border-top: 1px solid rgba(255,255,255,0.05);
-      border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: transform 0.2s ease;
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
     }
-    .job:hover { transform: translateY(-3px); background: var(--panel-hover); }
+    .job:hover { transform: translateY(-3px); background: var(--panel-hover); border-color: rgba(255,255,255,0.16); }
     .job-period {
       font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted);
       display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;
@@ -447,10 +446,6 @@
       border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
       display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
       position: relative; overflow: hidden;
-    }
-    .contact-banner::before {
-      content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-      background: var(--accent);
     }
     .contact-banner h2 { font-size: 1.7rem; font-weight: 800; }
     .contact-banner p { color: #a4a4b2; margin-top: 6px; max-width: 580px; font-size: 0.95rem; }
