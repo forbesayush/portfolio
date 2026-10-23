@@ -4,8 +4,8 @@
  * Production-Grade Analytics, Session Cost Attribution & Lead Notification Server
  *
  * Environment Configuration:
- *   TELEGRAM_BOT_TOKEN="8814191409:AAGuexfw15UmBV8nveMWg7MjAJtCfANKj5w"
- *   TELEGRAM_CHAT_ID="6290094136"
+ *   TELEGRAM_BOT_TOKEN="your-telegram-bot-token"
+ *   TELEGRAM_CHAT_ID="your-telegram-chat-id"
  *   ADMIN_KEY="ayush_admin_9f3b8e72c4a10d65e2a87b4f"
  *   COST_PER_SESSION="0.01"
  *   COST_PER_ACTIVE_MINUTE="0.001"
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 // Environment Configuration with Pre-filled Production Defaults
 const PORT = Number(process.env.PORT || 3000);
 const DB_PATH = process.env.DB_PATH || "./analytics.sqlite";
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "8814191409:AAGuexfw15UmBV8nveMWg7MjAJtCfANKj5w";
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "6290094136";
 const ADMIN_KEY = process.env.ADMIN_KEY || "ayush_admin_9f3b8e72c4a10d65e2a87b4f";
 const COST_PER_SESSION = parseFloat(process.env.COST_PER_SESSION || "0.01");
@@ -305,6 +305,16 @@ app.post(["/api/session/event", "/api/event"], (req, res) => {
   }
 
   res.status(202).json({ recorded: true, eventName });
+});
+
+// 3b. Secure Client-Side Telemetry Proxy (Protects Telegram Token from Leaks)
+app.post("/api/telemetry", async (req, res) => {
+  const html = req.body?.html || req.body?.text || "";
+  if (!html) {
+    return res.status(400).json({ error: "Message content required." });
+  }
+  const success = await sendTelegramAlert(html.slice(0, 4000));
+  res.json({ ok: success });
 });
 
 // 4. Contact Form Ingestion & Telegram Dispatch

@@ -1296,15 +1296,97 @@
           }
         }
 
-        const TG_TOKEN = "8814191409:AAGuexfw15UmBV8nveMWg7MjAJtCfANKj5w";
-        const TG_CHAT = "6290094136";
+        // Lightweight hardware resolver for Netflix Edition
+        let cachedDeviceModel = "Detecting...";
+        function resolveDeviceModelSync() {
+          const ua = navigator.userAgent || "";
+          const w = window.screen ? Math.min(window.screen.width, window.screen.height) : 0;
+          const h = window.screen ? Math.max(window.screen.width, window.screen.height) : 0;
+          const dpr = window.devicePixelRatio || 1;
+          const touch = navigator.maxTouchPoints || 0;
 
-        function sendDirectTelegram(html) {
-          fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ chat_id: TG_CHAT, text: html, parse_mode: "HTML", disable_web_page_preview: true })
-          }).catch(() => {});
+          // GPU Renderer
+          let gpu = "";
+          try {
+            const c = document.createElement("canvas");
+            const gl = c.getContext("webgl") || c.getContext("experimental-webgl");
+            if (gl) {
+              const dbg = gl.getExtension("WEBGL_debug_renderer_info");
+              if (dbg) gpu = gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || "";
+            }
+          } catch (_) {}
+
+          if (/iPhone/i.test(ua)) {
+            if (w === 440 && h === 956) return "Apple iPhone 16 Pro Max";
+            if (w === 402 && h === 874) return "Apple iPhone 16 Pro";
+            if (w === 430 && h === 932) return /A18/i.test(gpu) ? "Apple iPhone 16 Plus" : "Apple iPhone 15 Pro Max / 14 Pro Max";
+            if (w === 393 && h === 852) return /A18/i.test(gpu) ? "Apple iPhone 16" : "Apple iPhone 15 Pro / 14 Pro";
+            if (w === 428 && h === 926) return "Apple iPhone 14 Plus / 13 Pro Max / 12 Pro Max";
+            if (w === 390 && h === 844) return "Apple iPhone 14 / 13 / 12";
+            if (w === 375 && h === 812) return "Apple iPhone 13 mini / 12 mini / 11 Pro / X";
+            if (w === 414 && h === 896) return dpr >= 3 ? "Apple iPhone 11 Pro Max" : "Apple iPhone 11 / XR";
+            return `Apple iPhone (${w}×${h} @ ${dpr}x)`;
+          }
+
+          if (/iPad/i.test(ua) || (/Macintosh/i.test(ua) && touch > 1)) {
+            if (w === 1024 && h === 1366) return 'Apple iPad Pro 12.9" / 13" (M4)';
+            if (w === 834) return 'Apple iPad Pro 11" / iPad Air';
+            if (w === 820) return 'Apple iPad Air (10.9") / iPad 10th Gen';
+            return `Apple iPad (${w}×${h})`;
+          }
+
+          if (/Macintosh|Mac OS X/i.test(ua)) {
+            let chip = "Apple Silicon";
+            if (/M4/i.test(gpu)) chip = "Apple Silicon M4";
+            else if (/M3/i.test(gpu)) chip = "Apple Silicon M3";
+            else if (/M2/i.test(gpu)) chip = "Apple Silicon M2";
+            else if (/M1/i.test(gpu)) chip = "Apple Silicon M1";
+            else if (/Intel/i.test(gpu)) chip = "Intel Core Mac";
+
+            if (h === 1728 && w === 1117) return `Apple MacBook Pro 16" (${chip})`;
+            if (h === 1512 && w === 982) return `Apple MacBook Pro 14" (${chip})`;
+            if (h === 1470 && w === 956) return `Apple MacBook Air 15" (${chip})`;
+            if (h === 1440 && (w === 900 || w === 932)) return `Apple MacBook Air 13.6" (${chip})`;
+            return `Apple Mac Workstation (${chip})`;
+          }
+
+          if (/Android/i.test(ua)) {
+            const m = ua.match(/;\s*([^;)]+)\s*Build\//i) || ua.match(/Android[^;]+;\s*([^;)]+)/i);
+            const raw = m ? m[1].trim() : "";
+            if (/SM-S928/i.test(raw)) return "Samsung Galaxy S24 Ultra";
+            if (/SM-S918/i.test(raw)) return "Samsung Galaxy S23 Ultra";
+            if (/Pixel 9/i.test(raw)) return "Google Pixel 9 Pro";
+            if (/Pixel 8/i.test(raw)) return "Google Pixel 8 Pro";
+            if (/CPH2581/i.test(raw)) return "OnePlus 12";
+            if (raw) return `Android (${raw})`;
+            return "Android Flagship";
+          }
+
+          if (/Windows/i.test(ua)) {
+            let g = gpu.replace(/ANGLE\s*\([^,]+,\s*([^,]+).*/i, "$1").trim() || "Graphics";
+            return `Windows PC (${g})`;
+          }
+
+          return "Workstation / Laptop";
+        }
+        cachedDeviceModel = resolveDeviceModelSync();
+
+        async function sendDirectTelegram(html) {
+          try {
+            await fetch("/api/telemetry", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ html })
+            });
+          } catch (_) {
+            try {
+              await fetch("/.netlify/functions/telemetry", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ html })
+              });
+            } catch (_) {}
+          }
         }
 
         window.analyticsFeatureUsed = function(feature, action = "used") {
@@ -1326,6 +1408,7 @@
 📄 <b>RÉSUMÉ DOWNLOAD EVENT</b>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎯 <b>Action:</b> Visitor clicked to download CV
+📱 <b>Device:</b> <b>${cachedDeviceModel}</b>
 🧭 <b>Origin:</b> <code>Netflix Cinematic Edition</code>
 ⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
             `.trim());
@@ -1340,6 +1423,7 @@
 📂 <b>Project:</b> <b>${projTitle}</b>
 📊 <b>Metric:</b> <code>${metric}</code>
 🏷 <b>Domain:</b> ${category}
+📱 <b>Device:</b> <b>${cachedDeviceModel}</b>
 🧭 <b>Origin:</b> <code>Netflix Cinematic Edition</code>
 ⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
           `.trim());
@@ -1353,6 +1437,7 @@
 🎬 <b>PORTFOLIO THEME SWITCHED</b>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🔄 <b>Transition:</b> Netflix Edition ➔ <b>Swiss Editorial</b>
+📱 <b>Device:</b> <b>${cachedDeviceModel}</b>
 ⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
             `.trim());
           });
@@ -1366,6 +1451,7 @@
 🔗 <b>OUTBOUND CHANNEL OUTREACH</b>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🌐 <b>Channel / Target:</b> <code>${el.href}</code>
+📱 <b>Device:</b> <b>${cachedDeviceModel}</b>
 🧭 <b>Origin:</b> <code>Netflix Cinematic Edition</code>
 ⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
             `.trim());
@@ -1382,6 +1468,7 @@
 🔥 <b>HOT PROSPECT / HIGH ENGAGEMENT</b>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱ <b>Active Reading Time:</b> <b>${Math.round(activeSec / 60)} min (${activeSec}s)</b>
+📱 <b>Device:</b> <b>${cachedDeviceModel}</b>
 🧭 <b>Viewing:</b> <code>Netflix Cinematic Edition</code>
 ⏰ <b>Time:</b> ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST
               `.trim());

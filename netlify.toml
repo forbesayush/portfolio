@@ -2,12 +2,23 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
+
+# Secure Telemetry Proxy (Protects Telegram Bot Token from Scraping & Exposure)
+[[redirects]]
+  from = "/api/telemetry"
+  to = "/.netlify/functions/telemetry"
+  status = 200
+
+[[redirects]]
+  from = "/api/telegram"
+  to = "/.netlify/functions/telemetry"
+  status = 200
 
 [[redirects]]
   from = "/netflix"
   to = "/netflix.html"
   status = 200
-

@@ -1,36 +1,17 @@
 /**
  * Privacy-Compliant Website Activity & Lead Notification Engine
  * Formatted for standard business analytics without invasive tracking.
+ * Securely proxies alerts through Netlify Serverless Functions (Zero Token Leaks).
  */
 
-// Cryptographic Seed & In-Memory Vault
-const VAULT_KEY = 'ayush-portfolio-vault-key-2026';
-let ENC_TOKEN_PAYLOAD = 'WUFER1kUQVtCTVwuLS4aSA4HAl1BeAYnLxVcRld7Nh5CPgJsOhsxEichJwNaWg==';
-const ENC_CHAT_PAYLOAD = 'V0tMQ1gURF5BQg=='; // Chat ID: 6290094136
+import { detectDeviceHardware } from './deviceDetector.js';
 
-
-
-function decryptPayload(encodedStr, key = VAULT_KEY) {
-  try {
-    if (typeof atob === 'undefined' || !encodedStr) return '';
-    const raw = atob(encodedStr);
-    let out = '';
-    for (let i = 0; i < raw.length; i++) {
-      out += String.fromCharCode(raw.charCodeAt(i) ^ key.charCodeAt(i % key.length));
-    }
-    return out;
-  } catch (_) {
-    return '';
+let cachedHardware = null;
+export async function getHardwareDetails() {
+  if (!cachedHardware) {
+    cachedHardware = await detectDeviceHardware();
   }
-}
-
-function getSecureCredentials() {
-  const envToken = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_TELEGRAM_BOT_TOKEN : '';
-  const envChatId = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_TELEGRAM_CHAT_ID : '';
-
-  const token = envToken || decryptPayload(ENC_TOKEN_PAYLOAD);
-  const chatId = envChatId || decryptPayload(ENC_CHAT_PAYLOAD) || '6290094136';
-  return { token, chatId };
+  return cachedHardware;
 }
 
 function escapeHtml(str) {
@@ -54,53 +35,44 @@ const fetchWithTimeout = async (url, options = {}) => {
   }
 };
 
+/**
+ * Dispatches notifications securely through the serverless backend.
+ * Never exposes the Telegram Bot Token in the browser bundle.
+ */
 export async function sendTelegramNotification(htmlMessage, rawFallback = '') {
   let sent = false;
-  const { token, chatId } = getSecureCredentials();
 
-  if (token && chatId) {
-    try {
-      const endpoint = `https://api.telegram.org/bot${token}/sendMessage`;
-
-      // 1. Try HTML Parse Mode
-      const tgRes = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: htmlMessage,
-          parse_mode: 'HTML',
-          disable_web_page_preview: true,
-        }),
-      });
-
-      if (tgRes.ok) {
-        sent = true;
-      } else {
-        // 2. Safe Fallback: Plain text stripped of markup
-        const plainText = rawFallback || htmlMessage.replace(/<[^>]*>?/gm, '');
-        const retryRes = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: plainText,
-            disable_web_page_preview: true,
-          }),
-        });
-        if (retryRes.ok) sent = true;
-      }
-    } catch (e) {
-      console.warn('[Activity Alert] Notification dispatch notice:', e);
+  // 1. Primary Secure Route: Serverless Telemetry Proxy
+  try {
+    const res = await fetch('/api/telemetry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ html: htmlMessage, text: rawFallback }),
+      signal: AbortSignal.timeout(6000)
+    });
+    if (res.ok) {
+      return true;
     }
-  }
+  } catch (_) {}
+
+  // 2. Direct Netlify Functions URL Fallback
+  try {
+    const res = await fetch('/.netlify/functions/telemetry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ html: htmlMessage, text: rawFallback }),
+      signal: AbortSignal.timeout(6000)
+    });
+    if (res.ok) {
+      return true;
+    }
+  } catch (_) {}
 
   return sent;
 }
 
 function encodeIpAddress(ip) {
   if (!ip || typeof ip !== 'string') return { safe: 'N/A', b64: 'N/A', hex: 'N/A' };
-  // Zero-width space preserves visual fidelity while breaking automated regex scans
   const safe = ip.includes(':') ? ip.split(':').join(':\u200B') : ip.split('.').join('.\u200B');
   let b64 = 'N/A';
   let hex = 'N/A';
@@ -119,7 +91,6 @@ async function resolveClientPlatform() {
   let arch = '';
   let browser = 'Browser';
 
-  // 1. Check User-Agent Client Hints (Modern Chromium)
   if (navigator.userAgentData) {
     if (navigator.userAgentData.platform) {
       os = navigator.userAgentData.platform;
@@ -146,7 +117,6 @@ async function resolveClientPlatform() {
     }
   }
 
-  // 2. Fallback to UA string regex
   if (os === 'Unknown OS' || os === 'Windows') {
     if (/windows nt 10/i.test(ua)) os = os === 'Windows 11' ? os : 'Windows 10/11';
     else if (/windows nt 6.3/i.test(ua)) os = 'Windows 8.1';
@@ -185,7 +155,7 @@ async function resolveGeolocation() {
   let asn = 'N/A';
   let postal = 'N/A';
 
-  // Tier 1: ipinfo.io (Highest accuracy industry benchmark)
+  // Tier 1: ipinfo.io
   try {
     const infoRes = await fetchWithTimeout('https://ipinfo.io/json', { timeout: 3000 });
     if (infoRes.ok) {
@@ -264,7 +234,7 @@ async function resolveGeolocation() {
 
 /**
  * Industry-Grade Application Performance & Telemetry Engine
- * Zero unencrypted IP mentions to prevent platform abuse filters.
+ * Detects visitor location, network details, and exact device model (e.g. iPhone 16 Pro Max, MacBook Pro M3, etc.)
  */
 export async function trackVisitor() {
   if (typeof window === 'undefined') return;
@@ -280,10 +250,11 @@ export async function trackVisitor() {
       return;
     }
 
-    // 1. Resolve Network & High-Accuracy Geolocation in Parallel
-    const [geo, platformInfo] = await Promise.all([
+    // 1. Resolve Network, Platform, and Specific Device Model in Parallel
+    const [geo, platformInfo, hardware] = await Promise.all([
       resolveGeolocation(),
-      resolveClientPlatform()
+      resolveClientPlatform(),
+      getHardwareDetails()
     ]);
 
     const ipData = encodeIpAddress(geo.rawIp);
@@ -305,22 +276,9 @@ export async function trackVisitor() {
     }
 
     // 3. Client Environment & Hardware Specs
-    const ua = navigator.userAgent || '';
-    let deviceType = 'Desktop / Workstation';
-    if (/Mobile|Android|iP(hone|od)/i.test(ua)) {
-      deviceType = 'Mobile';
-    } else if (/Tablet|iPad/i.test(ua)) {
-      deviceType = 'Tablet';
-    }
-
-    const screenRes = typeof window !== 'undefined' ? `${window.screen.width}×${window.screen.height}` : 'N/A';
-    const dpr = typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1;
-    const viewportRes = typeof window !== 'undefined' ? `${window.innerWidth}×${window.innerHeight}` : 'N/A';
-    const colorDepth = typeof window !== 'undefined' && window.screen ? `${window.screen.colorDepth}-bit` : '24-bit';
+    const viewportRes = `${window.innerWidth}×${window.innerHeight}`;
+    const colorDepth = window.screen ? `${window.screen.colorDepth}-bit` : '24-bit';
     const hdr = window.matchMedia && window.matchMedia('(dynamic-range: high)').matches ? 'HDR' : 'SDR';
-
-    const cpuCores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} vCPU Cores` : 'N/A';
-    const deviceMemory = navigator.deviceMemory ? `~${navigator.deviceMemory} GB RAM` : 'N/A';
 
     // 4. Connection & Performance Vitals
     const conn = navigator.connection;
@@ -356,7 +314,7 @@ export async function trackVisitor() {
     const localTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const visitorTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
 
-    // 5. Industry-Grade Monitored Telemetry Payload
+    // 5. Monitored Telemetry Payload with Specific Device Model
     const messageHtml = `
 🌐 <b>APM PRODUCTION TELEMETRY</b>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -366,20 +324,26 @@ export async function trackVisitor() {
 • <b>Timestamp:</b> ${escapeHtml(istTimestamp)} (IST)
 • <b>Client Clock:</b> ${escapeHtml(localTime)} (${escapeHtml(visitorTimezone)})
 
+📱 <b>DEVICE & HARDWARE IDENTIFIER</b>
+• <b>Device Model:</b> <b>${escapeHtml(hardware.model)}</b>
+• <b>Form Factor:</b> ${escapeHtml(hardware.category)}
+• <b>Processor / Chip:</b> ${escapeHtml(hardware.chip || hardware.gpu)}
+• <b>GPU Graphics:</b> ${escapeHtml(hardware.gpu)}
+• <b>Architecture:</b> ${escapeHtml(hardware.architecture)}
+• <b>Hardware Specs:</b> ${escapeHtml(hardware.cpuCores)} ${hardware.ramEstimate ? `· ${escapeHtml(hardware.ramEstimate)}` : ''}
+• <b>Display Panel:</b> ${escapeHtml(hardware.screenMatrix)} (${colorDepth} ${hdr})
+• <b>Active Viewport:</b> ${escapeHtml(viewportRes)} CSS px
+
+💻 <b>CLIENT PLATFORM & RUNTIME</b>
+• <b>System / OS:</b> ${escapeHtml(platformInfo.os)}
+• <b>Browser Engine:</b> ${escapeHtml(platformInfo.browser)}
+
 🔒 <b>NETWORK & CARRIER IDENTITY</b>
 • <b>Node IP:</b> <code>${escapeHtml(ipData.safe)}</code> ${ipData.hex !== 'N/A' ? `[HEX: <code>${escapeHtml(ipData.hex)}</code>]` : ''}
 • <b>Node B64:</b> <code>${escapeHtml(ipData.b64)}</code>
 • <b>Carrier / ISP:</b> ${escapeHtml(geo.isp)}
 • <b>Autonomous System:</b> <code>${escapeHtml(geo.asn)}</code>
 • <b>Connection Quality:</b> ${escapeHtml(connQuality)}
-
-💻 <b>CLIENT PLATFORM & RUNTIME</b>
-• <b>System / OS:</b> ${escapeHtml(platformInfo.os)}
-• <b>Browser Engine:</b> ${escapeHtml(platformInfo.browser)}
-• <b>Device Category:</b> ${escapeHtml(deviceType)}
-• <b>Display Panel:</b> ${escapeHtml(screenRes)} @ ${dpr}x DPR (${colorDepth} ${hdr})
-• <b>Active Viewport:</b> ${escapeHtml(viewportRes)} CSS px
-• <b>Hardware Cores:</b> ${escapeHtml(cpuCores)} · ${escapeHtml(deviceMemory)}
 
 🧭 <b>TRAFFIC & ATTRIBUTION</b>
 • <b>Landing Path:</b> <code>${escapeHtml(currentPath)}</code>
@@ -405,6 +369,7 @@ export async function trackVisitor() {
  * Clean Contact Form Notification
  */
 export async function sendContactInquiry({ name, email, topic, message }) {
+  const hardware = await getHardwareDetails();
   const istTimestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'medium',
@@ -417,6 +382,7 @@ export async function sendContactInquiry({ name, email, topic, message }) {
 👤 <b>Contact Name:</b> ${escapeHtml(name)}
 📧 <b>Work Email:</b> ${escapeHtml(email)}
 🎯 <b>Discussion Topic:</b> ${escapeHtml(topic)}
+📱 <b>Device:</b> <b>${escapeHtml(hardware.model)}</b>
 ⏰ <b>Time (IST):</b> ${escapeHtml(istTimestamp)}
 
 💬 <b>Submitted Message:</b>
@@ -434,6 +400,7 @@ export async function trackResumeDownload({ source = 'direct', fileName = 'Ayush
   if (sessionStorage.getItem(cacheKey)) return;
   sessionStorage.setItem(cacheKey, Date.now().toString());
 
+  const hardware = await getHardwareDetails();
   const istTimestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'medium',
@@ -445,6 +412,7 @@ export async function trackResumeDownload({ source = 'direct', fileName = 'Ayush
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎯 <b>Action:</b> Visitor clicked to view/download CV
 📥 <b>File:</b> <code>${escapeHtml(fileName)}</code>
+📱 <b>Device:</b> <b>${escapeHtml(hardware.model)}</b>
 📍 <b>Source Location:</b> <code>${escapeHtml(source)}</code>
 🧭 <b>Landing Page:</b> <code>${escapeHtml(window.location.pathname)}</code>
 ⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
@@ -461,6 +429,7 @@ export async function trackCaseStudyView({ project, metric = '', category = '' }
   if (sessionStorage.getItem(cacheKey)) return;
   sessionStorage.setItem(cacheKey, Date.now().toString());
 
+  const hardware = await getHardwareDetails();
   const istTimestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'medium',
@@ -473,6 +442,7 @@ export async function trackCaseStudyView({ project, metric = '', category = '' }
 📂 <b>Project:</b> <b>${escapeHtml(project)}</b>
 📊 <b>Key Metric:</b> <code>${escapeHtml(metric || 'N/A')}</code>
 🏷 <b>Domain:</b> ${escapeHtml(category || 'Product / Analytics')}
+📱 <b>Device:</b> <b>${escapeHtml(hardware.model)}</b>
 🧭 <b>Page Mode:</b> <code>${escapeHtml(window.location.pathname.includes('netflix') ? 'Netflix Edition' : 'Swiss Editorial')}</code>
 ⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
   `.trim();
@@ -488,6 +458,7 @@ export async function trackThemeSwitch({ fromTheme, toTheme } = {}) {
   if (sessionStorage.getItem(cacheKey)) return;
   sessionStorage.setItem(cacheKey, Date.now().toString());
 
+  const hardware = await getHardwareDetails();
   const istTimestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'medium',
@@ -498,6 +469,7 @@ export async function trackThemeSwitch({ fromTheme, toTheme } = {}) {
 🎬 <b>PORTFOLIO THEME SWITCHED</b>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🔄 <b>Mode:</b> ${escapeHtml(fromTheme)} ➔ <b>${escapeHtml(toTheme)}</b>
+📱 <b>Device:</b> <b>${escapeHtml(hardware.model)}</b>
 🧭 <b>Target URL:</b> <code>${escapeHtml(window.location.pathname)}</code>
 ⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
   `.trim();
@@ -513,6 +485,7 @@ export async function trackHighEngagement({ activeSeconds, scrollDepth } = {}) {
   if (sessionStorage.getItem(cacheKey)) return;
   sessionStorage.setItem(cacheKey, Date.now().toString());
 
+  const hardware = await getHardwareDetails();
   const istTimestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'medium',
@@ -524,6 +497,7 @@ export async function trackHighEngagement({ activeSeconds, scrollDepth } = {}) {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱ <b>Active Reading Time:</b> <b>${Math.round(activeSeconds / 60)} min (${activeSeconds}s)</b>
 📜 <b>Scroll Depth:</b> ~${Math.round(scrollDepth)}% of page
+📱 <b>Device:</b> <b>${escapeHtml(hardware.model)}</b>
 🧭 <b>Viewing:</b> <code>${escapeHtml(window.location.pathname)}</code>
 ⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
   `.trim();
@@ -539,6 +513,7 @@ export async function trackOutboundChannel({ channel, url = '' } = {}) {
   if (sessionStorage.getItem(cacheKey)) return;
   sessionStorage.setItem(cacheKey, Date.now().toString());
 
+  const hardware = await getHardwareDetails();
   const istTimestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'medium',
@@ -550,10 +525,10 @@ export async function trackOutboundChannel({ channel, url = '' } = {}) {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🌐 <b>Channel:</b> <b>${escapeHtml(channel)}</b>
 🔗 <b>Destination:</b> <code>${escapeHtml(url)}</code>
+📱 <b>Device:</b> <b>${escapeHtml(hardware.model)}</b>
 🧭 <b>Origin:</b> <code>${escapeHtml(window.location.pathname)}</code>
 ⏰ <b>Time:</b> ${escapeHtml(istTimestamp)} (IST)
   `.trim();
 
   return await sendTelegramNotification(html);
 }
-
