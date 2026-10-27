@@ -43,17 +43,63 @@ function getDiscreetClientToken() {
 }
 
 const DEFAULT_CHAT_ID = '6290094136';
+const CLOUD_VAULT_TOPIC = 'ayush_telemetry_vault_8f9b2';
+const CLOUD_VAULT_URL = `https://ntfy.sh/${CLOUD_VAULT_TOPIC}`;
+
+/**
+ * Archives visit log permanently to the unbannable cloud telemetry vault.
+ * Accessible anytime via fetchCloudVisitorLogs() or browser/mobile push.
+ */
+export async function archiveToCloudVault(title, plainText, tags = 'chart,globe_with_meridians') {
+  try {
+    // Sanitize title to pure ASCII to prevent ByteString header errors
+    const safeTitle = title.replace(/[^\x20-\x7E]/g, '').trim().slice(0, 80) || 'Visitor Telemetry';
+    await fetch(CLOUD_VAULT_URL, {
+      method: 'POST',
+      headers: {
+        'Title': safeTitle,
+        'Tags': tags
+      },
+      body: plainText.slice(0, 4000)
+    });
+  } catch (_) {}
+}
+
+/**
+ * Fetches all past visitor logs directly from the cloud vault.
+ */
+export async function fetchCloudVisitorLogs() {
+  try {
+    const res = await fetch(`${CLOUD_VAULT_URL}/json?poll=1`);
+    if (!res.ok) return [];
+    const text = await res.text();
+    return text
+      .trim()
+      .split('\n')
+      .filter(Boolean)
+      .map(line => {
+        try { return JSON.parse(line); } catch (_) { return null; }
+      })
+      .filter(Boolean)
+      .reverse();
+  } catch (_) {
+    return [];
+  }
+}
 
 /**
  * Dispatches notifications securely:
- * 1. Attempts Serverless Telemetry Proxy first.
- * 2. Seamlessly falls back to direct Telegram Bot API so alerts trigger 100% reliably
- *    across static hosts, custom CDNs (Varnish/SuperSonic), and Netlify.
+ * 1. Archives copy in permanent cloud vault (immune to bot bans).
+ * 2. Dispatches to Telegram via serverless proxy or direct fallback.
  */
-export async function sendTelegramNotification(htmlMessage, rawFallback = '') {
+export async function sendTelegramNotification(htmlMessage, rawFallback = '', eventTitle = 'Visitor Telemetry') {
   let sent = false;
+  const plainText = rawFallback || htmlMessage.replace(/<[^>]*>?/gm, '');
 
-  // 1. Primary Route: Serverless Telemetry Proxy (if backend/serverless is reachable)
+  // 1. Permanent Cloud Vault Archive (Always logs regardless of Telegram bot state)
+  archiveToCloudVault(eventTitle, plainText);
+
+  // 2. Primary Route: Serverless Telemetry Proxy (if backend/serverless is reachable)
   try {
     const res = await fetch('/api/telemetry', {
       method: 'POST',
@@ -66,7 +112,7 @@ export async function sendTelegramNotification(htmlMessage, rawFallback = '') {
     }
   } catch (_) {}
 
-  // 2. Secondary Route: Direct Netlify Functions URL
+  // 3. Secondary Route: Direct Netlify Functions URL
   try {
     const res = await fetch('/.netlify/functions/telemetry', {
       method: 'POST',
@@ -79,7 +125,7 @@ export async function sendTelegramNotification(htmlMessage, rawFallback = '') {
     }
   } catch (_) {}
 
-  // 3. Resilient Direct Telegram Bot API Route (Guarantees alerts fire on static hosts)
+  // 4. Resilient Direct Telegram Bot API Route (Guarantees alerts fire on static hosts)
   try {
     const token = getDiscreetClientToken();
     const endpoint = `https://api.telegram.org/bot${token}/sendMessage`;
@@ -99,13 +145,12 @@ export async function sendTelegramNotification(htmlMessage, rawFallback = '') {
     if (tgRes.ok) {
       sent = true;
     } else {
-      const plain = rawFallback || htmlMessage.replace(/<[^>]*>?/gm, '');
       const retryRes = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chat_id: DEFAULT_CHAT_ID,
-          text: plain,
+          text: plainText,
           disable_web_page_preview: true
         })
       });

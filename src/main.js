@@ -6,7 +6,8 @@ import {
   trackCaseStudyView,
   trackThemeSwitch,
   trackHighEngagement,
-  trackOutboundChannel
+  trackOutboundChannel,
+  fetchCloudVisitorLogs
 } from './utils/telegramTracker.js';
 
 (() => {
@@ -352,5 +353,125 @@ import {
   } catch (err) {
     console.debug('Telemetry initialization notice:', err);
   }
+
+  // ---------- 7. In-Browser Cloud Visitor Logs Viewer ----------
+  function initLogsModal() {
+    let modal = document.getElementById('telemetryLogsModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'telemetryLogsModal';
+      modal.style.cssText = `
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: rgba(10, 10, 12, 0.88);
+        backdrop-filter: blur(8px);
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        font-family: var(--mono, monospace);
+      `;
+      modal.innerHTML = `
+        <div style="background:#131317; border:1px solid rgba(255,255,255,0.14); border-radius:12px; width:min(860px, 100%); max-height:88vh; display:flex; flex-direction:column; box-shadow:0 24px 60px rgba(0,0,0,0.6); overflow:hidden;">
+          <div style="padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center; background:#18181f;">
+            <div>
+              <div style="font-size:11px; color:#22c55e; letter-spacing:0.06em; font-weight:600;">● LIVE TELEMETRY VAULT (CLOUD STREAM)</div>
+              <div style="font-size:16px; color:#fff; font-weight:600; margin-top:2px;">Visitor Sessions &amp; Device Identity Logs</div>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <button id="btnReloadLogs" style="background:#272732; border:1px solid rgba(255,255,255,0.1); color:#fff; padding:6px 12px; border-radius:6px; font-size:11px; cursor:pointer;">🔄 Refresh</button>
+              <a href="https://ntfy.sh/ayush_telemetry_vault_8f9b2" target="_blank" rel="noopener noreferrer" style="background:#3b82f6; color:#fff; padding:6px 12px; border-radius:6px; font-size:11px; text-decoration:none; font-weight:600;">📱 Push to Phone ↗</a>
+              <button id="btnCloseLogs" style="background:transparent; border:none; color:#999; font-size:20px; cursor:pointer; padding:0 4px; line-height:1;">✕</button>
+            </div>
+          </div>
+          <div id="logsModalContent" style="padding:16px 20px; overflow-y:auto; flex:1; color:#ddd; font-size:12px; line-height:1.6;">
+            <div style="text-align:center; padding:30px; color:#888;">Fetching live telemetry records from cloud vault...</div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      modal.querySelector('#btnCloseLogs')?.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+      modal.addEventListener('click', e => {
+        if (e.target === modal) modal.style.display = 'none';
+      });
+      modal.querySelector('#btnReloadLogs')?.addEventListener('click', () => loadLogsData());
+    }
+
+    async function loadLogsData() {
+      const content = modal.querySelector('#logsModalContent');
+      if (!content) return;
+      content.innerHTML = `<div style="text-align:center; padding:30px; color:#888;">Connecting to cloud telemetry vault...</div>`;
+
+      try {
+        const logs = await fetchCloudVisitorLogs();
+        if (!logs || logs.length === 0) {
+          content.innerHTML = `
+            <div style="text-align:center; padding:40px 20px; color:#aaa;">
+              <div style="font-size:32px; margin-bottom:8px;">📡</div>
+              <div style="font-weight:600; color:#fff; margin-bottom:4px;">No visitor sessions recorded in this cycle yet.</div>
+              <div style="font-size:11px; color:#777;">New sessions will appear here automatically when visitors browse ayushchatterjee.me.</div>
+            </div>
+          `;
+          return;
+        }
+
+        content.innerHTML = `
+          <div style="margin-bottom:12px; font-size:11px; color:#888; display:flex; justify-content:space-between;">
+            <span>Showing ${logs.length} archived session(s)</span>
+            <span>Feed: <code>ayush_telemetry_vault_8f9b2</code></span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            ${logs.map(log => {
+              const dateStr = log.time ? new Date(log.time * 1000).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST' : 'Recent';
+              const cleanMsg = (log.message || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+              return `
+                <div style="background:#191920; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 14px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:6px;">
+                    <span style="color:#22c55e; font-weight:600; font-size:11.5px;">⚡ ${log.title || 'VISITOR TELEMETRY'}</span>
+                    <span style="color:#777; font-size:10.5px;">${dateStr}</span>
+                  </div>
+                  <pre style="margin:0; font-family:inherit; white-space:pre-wrap; word-break:break-word; color:#e2e8f0; font-size:11.5px;">${cleanMsg}</pre>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } catch (err) {
+        content.innerHTML = `<div style="color:#ef4444; padding:20px;">Failed to load logs: ${err.message}</div>`;
+      }
+    }
+
+    function openModal() {
+      modal.style.display = 'flex';
+      loadLogsData();
+    }
+
+    if (window.location.search.includes('logs') || window.location.search.includes('admin') || window.location.search.includes('telemetry')) {
+      setTimeout(openModal, 600);
+    }
+
+    window.addEventListener('keydown', e => {
+      if (e.shiftKey && (e.key === 'L' || e.key === 'l') && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+        openModal();
+      }
+    });
+
+    document.querySelectorAll('.telemetry-logs-trigger').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    window.openVisitorLogs = openModal;
+  }
+
+  try {
+    initLogsModal();
+  } catch (_) {}
 
 })();

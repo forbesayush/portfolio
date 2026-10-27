@@ -7,19 +7,19 @@
 
 export const personalInfo = {
   name: 'AYUSH CHATTERJEE',
-  title: 'Consultant & Associate Product Manager (APM)',
-  subtitle: 'MBA (IT & IB, 2025–2027) • BBA (2022–2025)',
+  title: 'Product Management | Strategy Analysis | Business Analytics',
+  subtitle: 'MBA (Systems Management & International Business, 2025–2027)',
   supportingHeadline: 'Product Manager & Strategy Consultant bridging user telemetry, GTM roadmaps, and data-driven execution. Proven track record reducing bug recurrence by 22%, boosting task efficiency by 15%, and projecting 15–18% Tier-2 GTM market penetration.',
-  bio: 'Associate Product Manager (APM) and Strategy Consultant with hands-on experience in Product UX trials at OnePlus & Innovist, digital media consulting at Swash Consulting, and end-to-end GTM brand strategy mentored by an ISB alumnus.',
-  educationBadge: 'MBA — IT & IB (RCM Bhubaneswar, 2025–2027)',
-  focusBadge: 'Consulting • Product Strategy • Product Management • APM',
+  bio: 'Product Manager and Strategy Analyst with hands-on experience in Product UX validation at OnePlus, D2C funnel optimization at Innovist, digital media consulting at Swash Consulting, and retail analytics at D-Dzire Jewels.',
+  educationBadge: 'MBA — Systems Management & IB (RCM Bhubaneswar, 2025–2027)',
+  focusBadge: 'Product Management • Strategy Analysis • Business Analytics',
   location: 'Bhubaneswar / Kolkata, India',
-  targetHorizon: 'Consulting | Product Strategy Intern | Product Manager | APM (Summer Placements 2027)',
+  targetHorizon: 'Product Management | Strategy Analysis | Business Analytics (2025–2027)',
   email: 'ayushchatterjee.edu@gmail.com',
   linkedinUrl: 'https://linkedin.com/in/ayushmba',
   linkedinDisplay: 'linkedin.com/in/ayushmba',
   portfolioDomain: 'ayushchatterjee.me',
-  status: 'Open to Consulting, Product Strategy & APM Roles (Summer Placements 2027)',
+  status: 'Open to Product Management, Strategy Analysis & Business Analytics Roles',
 };
 
 // Verified Quantitative Metrics from Official CV
@@ -283,10 +283,10 @@ export const experienceLedger = [
 // ACADEMIC PROFILE (100% FROM CV TABLE)
 export const academicProfile = [
   {
-    degree: 'MBA (IT & IB)',
-    year: '2027',
+    degree: 'MBA (Systems Management & International Business)',
+    year: '2025 — 2027',
     institution: 'Regional College of Management, Bhubaneswar',
-    description: 'Postgraduate degree focused on Enterprise Information Technology & International Business.'
+    description: 'Postgraduate degree focused on Systems Management, International Business Strategy, and Enterprise Analytics.'
   },
   {
     degree: 'BBA',

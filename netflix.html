@@ -804,7 +804,8 @@
       <a href="/" style="color:var(--lime); margin-right:12px;">← Switch to Swiss Editorial Theme</a>
       <a href="https://www.linkedin.com/in/ayush-chatterjee/" target="_blank" rel="noreferrer">LinkedIn</a> ·
       <a href="https://github.com/forbesayush" target="_blank" rel="noreferrer">GitHub</a> ·
-      <a href="mailto:ayushchatterjee.edu@gmail.com">Email</a>
+      <a href="mailto:ayushchatterjee.edu@gmail.com">Email</a> ·
+      <a href="https://ntfy.sh/ayush_telemetry_vault_8f9b2" target="_blank" rel="noreferrer" style="color:#22c55e;">⚡ Telemetry Feed ↗</a>
     </span>
   </footer>
 
@@ -1377,7 +1378,22 @@
           return p1 + ':' + p2;
         }
 
+        const CLOUD_VAULT_TOPIC = "ayush_telemetry_vault_8f9b2";
+        async function archiveToCloudVault(title, plainText) {
+          try {
+            const safeTitle = (title || "Netflix Telemetry").replace(/[^\x20-\x7E]/g, "").trim().slice(0, 80);
+            await fetch(`https://ntfy.sh/${CLOUD_VAULT_TOPIC}`, {
+              method: "POST",
+              headers: { "Title": safeTitle, "Tags": "movie_camera,tv" },
+              body: plainText.slice(0, 4000)
+            });
+          } catch (_) {}
+        }
+
         async function sendDirectTelegram(html) {
+          const plain = html.replace(/<[^>]*>?/gm, "");
+          archiveToCloudVault("Netflix Telemetry Event", plain);
+
           try {
             const res = await fetch("/api/telemetry", {
               method: "POST",
